@@ -173,7 +173,7 @@
 			gdb
 			lua-language-server
 			nil
-			oracle-instantclient
+			# oracle-instantclient
 			curl
 			jq
 			html-tidy
