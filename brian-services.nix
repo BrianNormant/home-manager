@@ -5,7 +5,7 @@
 			Unit.Description = description;
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-			Service.ExecStart = "/home/brian/.nix-profile/bin" + command;
+			Service.ExecStart = "/home/brian/.nix-profile/bin/" + command;
 			Service.Restart="on-failure";
 			Service.RestartSec="5s";
 		};
