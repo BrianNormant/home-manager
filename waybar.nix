@@ -94,8 +94,8 @@ hostname:
 			};
 			"network#wifi" = {
 				interval = 10;
-				interface = if hostname == "BrianNixLaptop"
-					then "wlp2s0" else "wlp15s0";
+				interface = if hostname == "BrianNixDesktop"
+					then "wlp15s0" else "wlp2s0";
 				format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
 				format-wifi = "{icon} {signalStrength}%";
 				format-disconnected = "󰤮";

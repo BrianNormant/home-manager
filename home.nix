@@ -56,7 +56,7 @@
 		".config/script/replay.sh".text = builtins.readFile ./replay.sh;
 		".config/script/replay.sh".executable = true;
 
-		".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if (builtins.getEnv "HOSTNAME") == "BrianNixDesktop" then "DP-1" else "eDP-1");
+		".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if (builtins.getEnv "HOST") == "BrianNixDesktop" then "DP-1" else "eDP-1");
 		".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
   };
 
@@ -111,8 +111,8 @@
 
 	programs.firefox.enable = true;
 
-	programs.waybar = (import ./waybar.nix) (builtins.getEnv "HOSTNAME");
-	wayland.windowManager.hyprland = (import ./hyprland.nix) (builtins.getEnv "HOSTNAME");
+	programs.waybar = (import ./waybar.nix) (builtins.getEnv "HOST");
+	wayland.windowManager.hyprland = (import ./hyprland.nix) (builtins.getEnv "HOST");
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
