@@ -160,5 +160,5 @@
 	# 		};
 	# 	});
 	# in programs.neovim = {
-	programs.neovim = ./nvim.nix;
+	programs.neovim = (import ./nvim.nix) {pkgs=pkgs;};
 }

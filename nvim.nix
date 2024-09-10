@@ -1,4 +1,4 @@
-{}: {
+{pkgs, ...}: {
 		enable = true;
 		withPython3 = true;
 		extraPackages = with pkgs; [
@@ -561,5 +561,4 @@ endfunction
 com -nargs=* DiffRegs call DiffRegsFunc(<f-args>)
 ]]
 			'';
-		};
 }
