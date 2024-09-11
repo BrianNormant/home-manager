@@ -15,7 +15,7 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."brian" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."brian@BrianNixDesktop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
@@ -24,6 +24,18 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+		extraSpecialArgs = {hostname = "BrianNixDesktop";};
+      };
+      homeConfigurations."brian@BrianNixLaptop" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [ ./home.nix ];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+		extraSpecialArgs = {hostname = "BrianNixLaptop";};
       };
     };
 }
