@@ -17,7 +17,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-  	nix-output-monitor
+	nix-output-monitor
+	manix
 	usbutils
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
