@@ -110,7 +110,8 @@ end)
 require("ibl").setup { 
 	indent = { 
 		highlight = highlight,
-		char = "║",
+		char = "|",
+		tab_char = { "|" }
 	}, 
 	scope = { enabled=true, highlight = highlight } 
 }
@@ -545,9 +546,8 @@ vim.o.foldmethod = "syntax"
 vim.cmd "COQnow"
 vim.cmd "set laststatus=3"
 
-vim.cmd "set listchars=tab:<=>,trail:█,nbsp:·"
+vim.cmd "set listchars=tab:-->trail:█,nbsp:·"
 vim.cmd "set invlist"
-
 
 vim.cmd [[
 function! DiffRegsFunc(...)
