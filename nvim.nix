@@ -108,7 +108,10 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 
 require("ibl").setup { 
-	indent = { highlight = highlight }, 
+	indent = { 
+		highlight = highlight,
+		char = "║",
+	}, 
 	scope = { enabled=true, highlight = highlight } 
 }
 EOF
@@ -541,6 +544,10 @@ vim.o.foldmethod = "syntax"
 
 vim.cmd "COQnow"
 vim.cmd "set laststatus=3"
+
+vim.cmd "set listchars=tab:<=>,trail:█,nbsp:·"
+vim.cmd "set invlist"
+
 
 vim.cmd [[
 function! DiffRegsFunc(...)
