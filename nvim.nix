@@ -546,7 +546,7 @@ vim.o.foldmethod = "syntax"
 vim.cmd "COQnow"
 vim.cmd "set laststatus=3"
 
-vim.cmd "set listchars=tab:-->trail:█,nbsp:·"
+vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
 vim.cmd "set invlist"
 
 vim.cmd [[
