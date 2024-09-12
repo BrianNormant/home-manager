@@ -137,8 +137,8 @@
     EDITOR = "vim";
 	FLAKE = "/home/brian/nixos-config";
   };
-
-	services.unison.enable = true;
+  	
+	services.unison.enable = (hostname == "BrianNixLaptop");
 	services.unison.pairs."Music" = {
 		roots = [ "/home/brian/Music"
 			"ssh://BrianNixDesktopI//home/brian/Music" ]; };

@@ -62,6 +62,7 @@ hostname:{
 
 		dwindle.preserve_split = true;
 		gestures.workspace_swipe = true;
+
 	
 
 		windowrulev2 = [
@@ -81,11 +82,6 @@ hostname:{
 			"size 20% 20%, class:(com.github.hluk.copyq)"
 			"move 71% 5%, class:(com.github.hluk.copyq)"
 
-			"float, class:(vesktop)"
-			"workspace 3, class:(vesktop)"
-			"size 80% 80%, class:(vesktop)"
-			"center, class:(vesktop)"
-
 			"fullscreen, title:(Picture-in-Picture)"
 #"keepaspectratio, title:(Picture-in-Picture)"
 #"move 73% 4%, title:(Picture-in-Picture)"
@@ -95,8 +91,6 @@ hostname:{
 			"size 90% 90%, title:(reStream)"
 			"center, title:(reStream)"
 
-			"idleinhibit fullscreen, class:^(*)$"
-			"idleinhibit fullscreen, title:^(*)$"
 			"idleinhibit fullscreen, fullscreen:1"
 		];
 	};
