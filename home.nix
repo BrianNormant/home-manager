@@ -71,7 +71,7 @@
 	};
 
 
-	systemd.user = import ./brian-services.nix;
+	systemd.user = (import ./brian-services.nix) pkgs;
 
 	xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
 

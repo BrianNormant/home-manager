@@ -1,8 +1,7 @@
 hostname:{
 	enable = true;
 	systemd.enable = true;
-	systemd.extraCommands = [
-	];
+	systemd.extraCommands = [ ];
 
 	xwayland.enable = true;
 	plugins = [ ];
@@ -18,7 +17,7 @@ hostname:{
 			"systemctl --user start cycle-paper.service" # Set the background
 			"systemctl --user start wob.service"
 			"systemctl --user start wob.socket"
-			"gpu-screen-recorder -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh"
+			"gpu-screen-recorder -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null"
 			"hypridle"
 			"steam"
 			"vesktop"
