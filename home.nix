@@ -20,7 +20,6 @@
 	nix-output-monitor
 	manix
 	usbutils
-	nushell
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -81,6 +80,14 @@
 			name = "gruvbox-dark";
 			package = pkgs.gruvbox-dark-gtk;
 		};
+	};
+
+	programs.nushell = {
+		enable = true;
+		configFile.source = ./default-config.nu;
+		extraConfig = with pkgs.nushellPlugins; ''
+			plugin add ${polars}/bin/nu_plugin_polars
+		'';
 	};
 
 	programs.git = {
