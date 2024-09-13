@@ -512,7 +512,7 @@ EOF
 					src = pkgs.fetchFromGitHub {
 						owner = "BrianNormant";
 						repo = "compiler.nvim";
-						rev = "833a403";
+						rev = "353a094";
 						sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
 					};};
 					config = "lua require('compiler').setup {}";}
