@@ -137,17 +137,29 @@
     EDITOR = "vim";
 	FLAKE = "/home/brian/nixos-config";
   };
-  	
+
 	services.unison.enable = (hostname == "BrianNixLaptop");
 	services.unison.pairs."Music" = {
-		roots = [ "/home/brian/Music"
-			"ssh://BrianNixDesktopI//home/brian/Music" ]; };
+		roots = [
+			"/home/brian/Music"
+			"ssh://BrianNixDesktopI//home/brian/Music"
+		];
+		stateDirectory = "${config.xdg.dataHome}/unison/Music";
+	};
 	services.unison.pairs."Prog" = {
-		roots = [ "/home/brian/Prog"
-			"ssh://BrianNixDesktopI//home/brian/Prog" ]; };
+		roots = [
+			"/home/brian/Prog"
+			"ssh://BrianNixDesktopI//home/brian/Prog"
+		];
+		stateDirectory = "${config.xdg.dataHome}/unison/Prog";
+	};
 	services.unison.pairs."Wallpapers" = {
-		roots = [ "/home/brian/Wallpapers"
-			"ssh://BrianNixDesktopI//home/brian/Wallpapers" ]; };
+		roots = [
+			"/home/brian/Wallpapers"
+			"ssh://BrianNixDesktopI//home/brian/Wallpapers"
+		];
+		stateDirectory = "${config.xdg.dataHome}/unison/Wallpapers";
+	};
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
