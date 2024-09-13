@@ -101,6 +101,10 @@ require 'legendary'.setup {
 		end, description="change vim light/dark mode"}
 
 	},
-	commands = {},
+	commands = {
+		{":SudaWrite", description="write a file as root"},
+		{":SudaRead",  description="Open a file as root"},
+		
+	},
 }
 EOF

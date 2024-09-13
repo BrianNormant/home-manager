@@ -510,10 +510,10 @@ EOF
 					pname = "compiler.nvim";
 					version = "26-03-2024";
 					src = pkgs.fetchFromGitHub {
-						owner = "Zeioth";
+						owner = "BrianNormant";
 						repo = "compiler.nvim";
-						rev = "a0fc34e";
-						sha256 = "sha256-KIIQ1rtL9A1tZpjNNKUb5yACXGS97uaLAzCd9AogAqk=";
+						rev = "833a403";
+						sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
 					};};
 					config = "lua require('compiler').setup {}";}
 				# Treesitter

@@ -73,7 +73,7 @@
 
 	systemd.user = (import ./brian-services.nix) pkgs;
 
-	xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
+	# xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
 
 	gtk = {
 		enable = true;
@@ -115,6 +115,16 @@
 	programs.firefox.enable = true;
 
 	programs.waybar = (import ./waybar.nix) hostname;
+	
+	xdg.portal = {
+		config.common.default = "*";
+		enable = true;
+		extraPortals = with pkgs; [
+			xdg-desktop-portal-wlr
+			xdg-desktop-portal-gtk
+			xdg-desktop-portal-hyprland
+		];
+	};
 	wayland.windowManager.hyprland = (import ./hyprland.nix) hostname;
 
   # Home Manager can also manage your environment variables through
