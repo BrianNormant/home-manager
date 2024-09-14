@@ -82,6 +82,13 @@
 		};
 	};
 
+	programs.lsd = { enable = true; };
+	home.file.".config/lsd/icons.yaml".text = ''
+extension:
+	gnuplot: 
+	data: 
+	'';
+
 	programs.nushell = {
 		enable = true;
 		configFile.source = ./default-config.nu;
@@ -89,6 +96,14 @@
 			plugin add ${polars}/bin/nu_plugin_polars
 		'';
 	};
+
+	programs.oh-my-posh = {
+		enable = true;
+		enableZshIntegration = true;
+		enableNushellIntegration = true;
+		useTheme = "gruvbox";
+	};
+
 
 	programs.git = {
 		enable = true;

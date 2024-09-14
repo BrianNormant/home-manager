@@ -500,9 +500,6 @@ EOF
 					config = ( builtins.readFile ./legend.vim ); }
 		
 
-				# Nushell
-				{ plugin = nvim-nu;
-					config = "lua require'nu'.setup{}";}
 				# Compiler and run
 				{ plugin = overseer-nvim;
 					config = "lua require('overseer').setup {}"; }
@@ -526,6 +523,19 @@ EOF
 				nvim-treesitter-parsers.graphql
 				nvim-treesitter-parsers.elixir
 				nvim-treesitter-parsers.nix
+				nvim-treesitter-parsers.gnuplot
+				(nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [
+											  (pkgs.tree-sitter.buildGrammar {
+											   language = "nu";
+											   version = "8af0aab";
+											   src = pkgs.fetchFromGitHub {
+											   owner = "nushell";
+											   repo = "tree-sitter-nu";
+											   rev = "0bb9a60";
+											   sha256 = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
+											   };
+											   })]))
+				
 				# nvim-treesitter-parsers-http
 			];
 			extraLuaConfig = ''
