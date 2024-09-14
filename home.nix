@@ -194,18 +194,9 @@ extension:
 	};
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+	programs.home-manager.enable = true;
 
-	# let 
-	# 	nvim-treesitter-parsers-http = pkgs.vimPlugins.nvim-treesitter-parsers.http.overrideAttrs  (final: self: {
-	# 		version = "test";
-	# 		src = pkgs.fetchFromGitHub {
-	# 			owner = "rest-nvim";
-	# 			repo = "tree-sitter-http";
-	# 			rev = "261d78f";
-	# 			sha256 = "sha256-Kh5CeVc6wtqRHb/RzFALk3pnnzzC/OR3qkDwIQH+XlA=";
-	# 		};
-	# 	});
-	# in programs.neovim = {
+	home.file.".config/nvim/syntax/nu.vim".text   = builtins.readFile ./nushell-syntax-vim/nu-syntax.vim;
+	home.file.".config/nvim/ftdetect/nu.vim".text = builtins.readFile ./nushell-syntax-vim/nu-ftdetect.vim;
 	programs.neovim = (import ./nvim.nix) {pkgs=pkgs;};
 }
