@@ -184,6 +184,19 @@ extension:
 			"ssh://BrianNixDesktopI//home/brian/Prog"
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Prog";
+# UNISON='/home/brian/.local/share/unison/Prog' unison /home/brian/Prog ssh://BrianNixDesktopI//home/brian/Prog -ignore='Name .git' -ignore='Name .ccls-cache' -ignore='Name *log*' -ignore='Name *bin*' -ignore='Name *.jar' -ignore='Name result' -ignore='Name target' -ignore='Name .m2'
+		commandOptions = {
+			ignore = [
+				"Name .git"
+				"Name .ccls-cache"
+				"Name *log*"
+				"Name *bin*"
+				"Name *.jar"
+				"Name result" # nix build output
+				"Name target" # maven build output
+				"Name .m2"    # maven repo
+			];
+		};
 	};
 	services.unison.pairs."Wallpapers" = {
 		roots = [
