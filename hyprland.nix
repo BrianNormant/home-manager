@@ -18,7 +18,7 @@ hostname:{
 			"systemctl --user start cycle-paper.service" # Set the background
 			"systemctl --user start wob.service"
 			"systemctl --user start wob.socket"
-			"gpu-screen-recorder -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null"
+			''gpu-screen-recorder -a $(wpctl inspect @DEFAULT_AUDIO_SINK@ | grep "node.name" | sed -E 's/\s*\*?\s*node.name = "([A-Za-z0-9_.-]+)"/\1/').monitor -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null''
 			"hypridle"
 			"steam"
 			"vesktop"
