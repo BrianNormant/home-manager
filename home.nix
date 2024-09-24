@@ -176,6 +176,13 @@ extension:
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Music";
 	};
+	services.unison.pairs."Documents" = {
+		roots = [
+			"/home/brian/Documents"
+			"ssh://BrianNixDesktopI//home/brian/Documents"
+		];
+		stateDirectory = "${config.xdg.dataHome}/unison/Documents";
+	};
 	services.unison.pairs."Prog" = {
 		roots = [
 			"/home/brian/Prog"
