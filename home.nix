@@ -184,6 +184,19 @@ extension:
 			"ssh://BrianNixDesktopI//home/brian/Prog"
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Prog";
+# UNISON='/home/brian/.local/share/unison/Prog' unison /home/brian/Prog ssh://BrianNixDesktopI//home/brian/Prog -ignore='Name .git' -ignore='Name .ccls-cache' -ignore='Name *log*' -ignore='Name *bin*' -ignore='Name *.jar' -ignore='Name result' -ignore='Name target' -ignore='Name .m2'
+		commandOptions = {
+			ignore = [
+				"Name .git"
+				"Name .ccls-cache"
+				"Name *log*"
+				"Name *bin*"
+				"Name *.jar"
+				"Name result" # nix build output
+				"Name target" # maven build output
+				"Name .m2"    # maven repo
+			];
+		};
 	};
 	services.unison.pairs."Wallpapers" = {
 		roots = [
@@ -195,8 +208,9 @@ extension:
 
   # Let Home Manager install and manage itself.
 	programs.home-manager.enable = true;
-
-	home.file.".config/nvim/syntax/nu.vim".text   = builtins.readFile ./nushell-syntax-vim/nu-syntax.vim;
-	home.file.".config/nvim/ftdetect/nu.vim".text = builtins.readFile ./nushell-syntax-vim/nu-ftdetect.vim;
+	home.file.".config/nvim/syntax/nu.vim".text   = builtins.readFile ./custom-syntax-vim/nu-syntax.vim;
+	home.file.".config/nvim/ftdetect/nu.vim".text = builtins.readFile ./custom-syntax-vim/nu-ftdetect.vim;
+	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
+	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
 	programs.neovim = (import ./nvim.nix) {pkgs=pkgs;};
 }

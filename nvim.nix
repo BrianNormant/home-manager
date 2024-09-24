@@ -62,7 +62,7 @@ lua require('dropbar').setup {}''; }
 			{ plugin = leap-nvim;
 				config=''
 hi LeapBackdrop guifg=#888888
-hi LeapLabelPrimary guifg=#FF0000
+hi LeapLabel guifg=#FF0000
 lua require 'leap'.create_default_mappings()
 			'';}
 			{ plugin = nvim-autopairs;
