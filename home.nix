@@ -139,13 +139,11 @@ extension:
 	programs.waybar = (import ./waybar.nix) hostname;
 	
 	xdg.portal = {
-		config.common.default = "*";
-		enable = true;
 		extraPortals = with pkgs; [
-			xdg-desktop-portal-wlr
 			xdg-desktop-portal-gtk
 			xdg-desktop-portal-hyprland
 		];
+		xdgOpenUsePortal = true;
 	};
 	wayland.windowManager.hyprland = (import ./hyprland.nix) hostname;
 
@@ -177,6 +175,13 @@ extension:
 			"ssh://BrianNixDesktopI//home/brian/Music"
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Music";
+	};
+	services.unison.pairs."Documents" = {
+		roots = [
+			"/home/brian/Documents"
+			"ssh://BrianNixDesktopI//home/brian/Documents"
+		];
+		stateDirectory = "${config.xdg.dataHome}/unison/Documents";
 	};
 	services.unison.pairs."Prog" = {
 		roots = [

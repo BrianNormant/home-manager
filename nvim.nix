@@ -18,6 +18,7 @@
 			html-tidy
 			tree-sitter
 			vscode-extensions.vscjava.vscode-java-debug
+			idris2Packages.idris2Lsp
 		];
 
 		plugins = with pkgs.vimPlugins; [
@@ -471,6 +472,14 @@ EOF
 	require 'rest-nvim'.setup {}
 	EOF
 				''; } */
+				# idris2
+				{ plugin = pkgs.vimPlugins.idris2-nvim;
+				  config = ''
+lua << EOF
+require('idris2').setup {}
+EOF
+				  '';
+				}
 				# Elixir
 				# DataBase
 				vim-dadbod-ui

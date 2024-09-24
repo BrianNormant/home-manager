@@ -8,6 +8,7 @@ hostname:{
 	settings = {
 
 		exec-once = [
+			"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 			"/run/current-system/sw/bin/lxqt-policykit-agent"
 			"systemctl --user start waybar.service"
 			"/etc/profiles/per-user/brian/bin/copyq --start-server"
@@ -17,7 +18,7 @@ hostname:{
 			"systemctl --user start cycle-paper.service" # Set the background
 			"systemctl --user start wob.service"
 			"systemctl --user start wob.socket"
-			"gpu-screen-recorder -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null"
+			''gpu-screen-recorder -a $(wpctl inspect @DEFAULT_AUDIO_SINK@ | grep "node.name" | sed -E 's/\s*\*?\s*node.name = "([A-Za-z0-9_.-]+)"/\1/').monitor -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null''
 			"hypridle"
 			"steam"
 			"vesktop"
@@ -272,8 +273,8 @@ bind = ,XF86Messenger, exec, vesktop
 
 	'' + (  if hostname == "BrianNixDesktop" 
 		then ''
-		monitor = DP-1,3840x2160@144,auto,1,bitdepth,10
-		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,10
-		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,10 ''
+		monitor = DP-1,3840x2160@144,auto,1,bitdepth,8
+		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,8
+		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,8 ''
 		else "monitor = ,preferred,auto,2" ) ;
 }
