@@ -8,6 +8,7 @@ hostname:{
 	settings = {
 
 		exec-once = [
+			"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 			"/run/current-system/sw/bin/lxqt-policykit-agent"
 			"systemctl --user start waybar.service"
 			"/etc/profiles/per-user/brian/bin/copyq --start-server"
@@ -272,8 +273,8 @@ bind = ,XF86Messenger, exec, vesktop
 
 	'' + (  if hostname == "BrianNixDesktop" 
 		then ''
-		monitor = DP-1,3840x2160@144,auto,1,bitdepth,10
-		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,10
-		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,10 ''
+		monitor = DP-1,3840x2160@144,auto,1,bitdepth,8
+		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,8
+		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,8 ''
 		else "monitor = ,preferred,auto,2" ) ;
 }

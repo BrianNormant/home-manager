@@ -139,13 +139,11 @@ extension:
 	programs.waybar = (import ./waybar.nix) hostname;
 	
 	xdg.portal = {
-		config.common.default = "*";
-		enable = true;
 		extraPortals = with pkgs; [
-			xdg-desktop-portal-wlr
 			xdg-desktop-portal-gtk
 			xdg-desktop-portal-hyprland
 		];
+		xdgOpenUsePortal = true;
 	};
 	wayland.windowManager.hyprland = (import ./hyprland.nix) hostname;
 
