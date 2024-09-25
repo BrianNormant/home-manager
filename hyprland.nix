@@ -271,10 +271,10 @@ bind = ,XF86MonBrightnessDown, exec, nu ~/.config/hypr/brightness.nu -5
 bind = ,XF86MonBrightnessUp, exec, nu ~/.config/hypr/brightness.nu 5
 bind = ,XF86Messenger, exec, vesktop
 
-	'' + (  if hostname == "BrianNixDesktop" 
+	'' + (  if hostname == "BrianNixDesktop"
 		then ''
 		monitor = DP-1,3840x2160@144,auto,1,bitdepth,8
 		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,8
-		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,8 ''
+		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,8''
 		else "monitor = ,preferred,auto,2" ) ;
 }
