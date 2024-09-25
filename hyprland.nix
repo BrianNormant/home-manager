@@ -257,12 +257,12 @@ bind = ,XF86Calculator, exec, kitty --class PopUp bc # calculator
 bind = CONTROL SHIFT, Escape, exec, kitty --class ProcessManager btop
 bind = ALT, X, exec, pkill -SIGUSR1 gpu-screen-reco
 
-#Special keys
-bind = ,XF86AudioPlay, exec, playerctl play-pause         # Media Control Keys
-bind = ,XF86AudioPause, exec, playerctl play-pause
-bind = ,XF86AudioStop, exec, playerctl pause
-bind = ,XF86AudioNext, exec, playerctl next
-bind = ,XF86AudioPrev, exec, playerctl previous
+#Special keys # Media Control Keys
+bind = ,XF86AudioPlay, exec, playerctl --player $(systemctl --user show-environment | grep CURRENT_PLAYER | sed 's/.*\=//') play-pause
+bind = ,XF86AudioPause, exec,playerctl --player $(systemctl --user show-environment | grep CURRENT_PLAYER | sed 's/.*\=//') play-pause
+bind = ,XF86AudioStop, exec, playerctl --player $(systemctl --user show-environment | grep CURRENT_PLAYER | sed 's/.*\=//') pause
+bind = ,XF86AudioNext, exec, playerctl --player $(systemctl --user show-environment | grep CURRENT_PLAYER | sed 's/.*\=//') next
+bind = ,XF86AudioPrev, exec, playerctl --player $(systemctl --user show-environment | grep CURRENT_PLAYER | sed 's/.*\=//') previous
 bind = ,XF86AudioRaiseVolume, exec, nu ~/.config/hypr/volume.nu +5
 bind = ,XF86AudioLowerVolume, exec, nu ~/.config/hypr/volume.nu -5
 bind = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle
