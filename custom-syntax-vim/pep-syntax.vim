@@ -3,17 +3,18 @@
 " Maintainer: Brian Normant
 " Latest Revision: 19 September 2024
 
-syntax case ignore
 " literals
-syntax region String start=/"/ skip=/\\"/ end=/"/
-syntax region Character start=/'/ skip=/\\'/ end=/'/
-syntax match Special /\\[nrt\\"]/ contained
-syntax match Special /\\0x[0-9A-Fa-f]+/ contained
+syntax region String start=/"/ skip=/\\"/ end=/"/ contains=pepEscaped
+syntax region Character start=/'/ skip=/\\'/ end=/'/ contains=pepEscaped
+syntax match pepEscaped /\\[nrtx\\"]/ display
+syntax match pepEscaped /\\0\?x[0-9A-Fa-f]\+/ display
 " numbers
-syntax match Number /\v\d+/
-syntax match Number /\v0x[0-9a-fA-F]+/
-syntax match Number /\v0b[01]+/
+syntax match Number "\([a-zA-Z_\.]\+\d*\)\@<!\d\+"
+syntax match Number "\([a-zA-Z_\.]\+\d*\)\@<!0x[0-9a-fA-F]\+"
+syntax match Number "\([a-zA-Z_\.]\+\d*\)\@<!0b[01]\+"
 " keyword
+
+syntax case ignore
 syntax keyword Type lda ldx ldbytea ldbytex
 syntax keyword Type sta stx stbytea stbytex
 syntax keyword Type adda addx addsp
@@ -27,12 +28,13 @@ syntax keyword Type cpa cpx
 syntax keyword Type br breq brnq brlt brgt
 syntax keyword Type call ret stop
 syntax keyword Type movspa movflga
+syntax case match
 syntax match PreProc /\v\.\w+/
-syntax match Identifier /[a-f_]+:/
+syntax match Identifier /[a-z0-9A-Z_]\+:/
 syntax match Constant /\v,\zs[idxsf]{1,3}/
 " comments
-syntax match Comment /;;.*/
+syntax match Comment /;[^;:].*/
+syntax match Error /;;.*/
 syntax match Todo /;:.*/
-syntax match Error /;[^;:].*/
 
-syntax case match
+hi def link pepEscaped	Special

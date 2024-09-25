@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.pep set filetype=nu
+au BufRead,BufNewFile *.pep set filetype=pep
