@@ -412,7 +412,7 @@ EOF
 						sha256 = "aZ/ZMmatoIXnY3qtRjUqJStlpg0VGbJ1XdRjyDMhHqU=";
 					};
 				} );
-					config = "lua require 'gen'.setup { model = 'mistral' }"; }
+					config = "lua require 'gen'.setup { model = 'llama3:latest' }"; }
 				{ plugin = nvim-jdtls;
 					config = ''
 lua << EOF
