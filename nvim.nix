@@ -282,7 +282,15 @@ lspconfig.ccls.setup(common_config)
 lspconfig.lua_ls.setup(common_config)
 lspconfig.nil_ls.setup(common_config)
 lspconfig.phpactor.setup(common_config)
-lspconfig.elixirls.setup(common_config)
+lspconfig.nushell.setup(common_config)
+
+local elixir_config = {}
+for k, v in pairs(common_config) do
+    elixir_config[k] = v
+end
+elixir_config["cmd"] = { "${pkgs.elixir-ls}/bin/elixir-ls" }
+
+lspconfig.elixirls.setup(elixir_config)
 vim.api.nvim_create_autocmd('LspAttach', {
 		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 		callback = function(ev)

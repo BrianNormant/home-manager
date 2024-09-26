@@ -80,8 +80,8 @@ require 'legendary'.setup {
 		--- Term
 		{"<leader>tt", require('FTerm').toggle, description="Open floating terminal"},
 
-		{"<F1>", "<cmd>Gen<cr>",  description="Open Generative AI"},
-		{"<F1>", ":'<,'>Gen<cr>", description="Open Generative AI with range"},
+		{"<F1>", "<cmd>Gen<cr>", mode="n", description="Open Generative AI"},
+		{"<F1>", ":'<,'>Gen<cr>", mode="v", description="Open Generative AI with range"},
 		{"<F2>", function() require('dropbar.api').pick() end, description="Open dropbar"},
 
 		---              UI settings
