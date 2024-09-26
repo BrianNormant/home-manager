@@ -12,6 +12,7 @@
 			gdb
 			lua-language-server
 			nil
+			elixir-ls
 			# oracle-instantclient
 			curl
 			jq
@@ -281,6 +282,7 @@ lspconfig.ccls.setup(common_config)
 lspconfig.lua_ls.setup(common_config)
 lspconfig.nil_ls.setup(common_config)
 lspconfig.phpactor.setup(common_config)
+lspconfig.elixirls.setup(common_config)
 vim.api.nvim_create_autocmd('LspAttach', {
 		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 		callback = function(ev)
