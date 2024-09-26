@@ -82,6 +82,9 @@ require 'legendary'.setup {
 
 		{"<F1>", "<cmd>Gen<cr>", mode="n", description="Open Generative AI"},
 		{"<F1>", ":'<,'>Gen<cr>", mode="v", description="Open Generative AI with range"},
+		{"<F49>", vim.g.genui, mode="n", description="Open alternative ui to Generative AI"},
+		{"<F49>", vim.g.genui, mode="v", description="Open alternative ui to Generative AI with range"},
+
 		{"<F2>", function() require('dropbar.api').pick() end, description="Open dropbar"},
 
 		---              UI settings

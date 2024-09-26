@@ -142,14 +142,15 @@ telescope.load_extension('lsp_handlers')
 EOF
 			'';}
 			fzf-vim
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
+			{ plugin = pkgs.vimUtils.buildVimPlugin rec {
 				pname = "fzfx.nvim";
-				version = "lastest";
+				version = "v6.4.0";
 				src = pkgs.fetchFromGitHub {
 					owner = "linrongbin16";
 					repo = "fzfx.nvim";
-					rev = "efb8813";
-					sha256 = "sha256-gY9P+XQhoraEM8OwHMakTpfBLFthkh99QCdf/JeN+Xo=";
+					rev = version;
+					hash = "sha256-dGTYfX4NYzzLme0S91i9xzBHEgEMTbLuu6DSUikKzfc=";
+					# sha256 = "sha256-gY9P+XQhoraEM8OwHMakTpfBLFthkh99QCdf/JeN+Xo=";
 				};
 				};
 				config = "lua require(\"fzfx\").setup {}";
@@ -213,8 +214,8 @@ lua require("nvim-web-devicons").setup {}
 				src = pkgs.fetchFromGitHub {
 					owner = "ms-jpq";
 					repo = "coq_nvim";
-					rev = "78bd6e9";
-					sha256 = "sha256-VJmHJWafCVTQx+jcN+9C313lIY7ZqDcLZ2x2wp6EGLY=";
+					rev = "f3ac90a";
+					sha256 = "sha256-c10k8K5jYHxfGGuKTD8B7MBxtQxT8SqziZpJ+2/qiC4=";
 				};
 			};
 				config = ''
@@ -416,11 +417,36 @@ EOF
 					src = pkgs.fetchFromGitHub {
 						owner = "David-Kunz";
 						repo = "gen.nvim";
-						rev = "2cb643b";
-						sha256 = "aZ/ZMmatoIXnY3qtRjUqJStlpg0VGbJ1XdRjyDMhHqU=";
+						rev = "2ee646f";
+						hash = "sha256-j+FB5wjiWwq5YEHx+CDGN4scMr7+TkUoAX63WHiziaU=";
+						# sha256 = "aZ/ZMmatoIXnY3qtRjUqJStlpg0VGbJ1XdRjyDMhHqU=";
 					};
 				} );
-					config = "lua require 'gen'.setup { model = 'llama3:latest' }"; }
+					config = ''
+lua << EOF
+require 'gen'.setup({
+	model = 'llama3:latest',
+	display_mode = 'split',
+	show_prompt = true,
+	show_model = true,
+})
+EOF
+'';
+				}
+
+				nui-nvim
+				
+				( pkgs.vimUtils.buildVimPlugin rec {
+					pname = "nui-components";
+					version = "v1.5.2";
+					src = pkgs.fetchFromGitHub {
+						owner = "grapp-dev";
+						repo = "nui-components.nvim";
+						rev = version;
+						hash = "sha256-ZawV/0D9E+XCq/atuXGrVM2/LCWhDXmgt1n5jtXpCO8=";
+					};
+				})
+
 				{ plugin = nvim-jdtls;
 					config = ''
 lua << EOF
@@ -557,12 +583,14 @@ EOF
 				
 				# nvim-treesitter-parsers-http
 			];
-			extraLuaConfig = ''
+			extraLuaConfig = (builtins.readFile ./ollama-Gen-nvim.lua ) +
+			''
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.scrolloff = 5
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.laststatus = 3
 vim.opt.expandtab = false -- set to true to use space instead of tab
 
 vim.o.cursorline = true
@@ -573,7 +601,6 @@ vim.o.foldenable = true
 vim.o.foldmethod = "syntax"
 
 vim.cmd "COQnow"
-vim.cmd "set laststatus=3"
 
 vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
 vim.cmd "set invlist"
