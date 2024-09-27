@@ -29,7 +29,7 @@ require 'legendary'.setup {
 		
 		--- Fzfx
 		{"<leader>ft",  function() require('telescope.builtin').builtin() end, description="Telescope list builtins"},
-		{"<leader>ff",  '<cmd>FzfxFiles<cr>',       description="Fzfx list files"},
+		{"<leader>ff",  '<cmd>Telescope find_files<cr>',       description="telescope list files"},
 		{"<leader>fF",  '<cmd>FzfxLiveGrep<cr>',    description="Fzfx live grep"},
 		{"<leader>fb",  '<cmd>FzfxBuffers<cr>',     description="Fzfx list buffers"},
 		{"<leader>f/",  '<cmd>FzfxBufLiveGrep<cr>', description="Fzfx live grep in file"},
