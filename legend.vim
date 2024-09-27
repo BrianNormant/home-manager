@@ -38,6 +38,7 @@ require 'legendary'.setup {
 		{"<leader>fd",  '<cmd>FzfxLspDefinitions<cr>',  descroption="fzfx list LSP definitions"},
 		{"<leader>fr",  '<cmd>FzfxReferences<cr>',      description="fzfx list LSP references"},
 		{"<leader>fi",  '<cmd>FzfxImplementations<cr>', description="fzfx list LSP implementations"},
+		{"<leader>fi",  '<cmd>FzfxLspDiagnostics<cr>', description="fzfx list LSP diagnositics"},
 		{"<leader>L",  function() require("nvim-navbuddy").open() end, description="Open Navbuddy"},
 		{"<leader>la", function()
 			if vim.bo.filetype == "java" then
