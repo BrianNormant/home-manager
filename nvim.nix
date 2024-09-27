@@ -42,7 +42,11 @@ lua require('dropbar').setup {}''; }
 				config = "lua require('gitsigns').setup {}"; }
 
 			{ plugin = lualine-nvim;
-				config = (builtins.readFile ./bar.vim);}
+				config = builtins.readFile ./lualine.vim; }
+			
+			{ plugin = tabby-nvim;
+			  config =  builtins.readFile ./tabby.vim; }
+			
 			# QOL
 			{ plugin = comment-nvim;
 				config = "lua require('Comment').setup {}";}
