@@ -3,8 +3,9 @@
 		withPython3 = true;
 		extraPackages = with pkgs; [
 			jdt-language-server
-			ccls
-			# phpactor
+			# ccls
+			clang
+			phpactor
 			ripgrep
 			fswatch
 			fd
@@ -283,19 +284,20 @@ local common_config = {
 	coq.lsp_ensure_capabilities(),
 }
 
-lspconfig.ccls.setup(common_config)
+local elixir_config = {}
+for k, v in pairs(common_config) do
+    elixir_config[k] = v
+end
+
+elixir_config["cmd"] = { "${pkgs.elixir-ls}/bin/elixir-ls" }
+lspconfig.elixirls.setup(elixir_config)
+lspconfig.clangd.setup(common_config)
 lspconfig.lua_ls.setup(common_config)
 lspconfig.nil_ls.setup(common_config)
 lspconfig.phpactor.setup(common_config)
 lspconfig.nushell.setup(common_config)
 
-local elixir_config = {}
-for k, v in pairs(common_config) do
-    elixir_config[k] = v
-end
-elixir_config["cmd"] = { "${pkgs.elixir-ls}/bin/elixir-ls" }
 
-lspconfig.elixirls.setup(elixir_config)
 vim.api.nvim_create_autocmd('LspAttach', {
 		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 		callback = function(ev)
@@ -608,6 +610,12 @@ vim.cmd "COQnow"
 
 vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
 vim.cmd "set invlist"
+
+-- Open help in a new tab
+vim.cmd "cabbrew h tab help"
+
+-- Open Man in a new tab
+vim.cmd "cabbrew Man tab Man"
 
 vim.cmd [[
 function! DiffRegsFunc(...)

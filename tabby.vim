@@ -1,5 +1,11 @@
 lua << EOF
 
-require('tabby').setup { }
+require('tabby').setup {
+	preset = "active_wins_at_tail",
+	option = {
+		lualine_theme = 'gruvbox-material',
+		nerdfont = true,
+	},
+}
 
 EOF

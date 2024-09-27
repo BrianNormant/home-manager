@@ -70,11 +70,12 @@ require 'legendary'.setup {
 		{"<F11>",  function()  require'dap'.step_over()          end,  description="DAP  Step"},
 		{"<F12>",  function()  require'dap'.step_into()          end,  description="DAP  Step into"},
 		{"<F60>",  function()  require'dap'.step_out()           end,  description="DAP  Step out"},
+
 		---                   Icon Picker
 		{"<C-e>", "<cmd>IconPickerInsert<cr>", mode="i", description="Icon Picker insert"},
 		{"<C-e>", "<cmd>IconPickerNormal<cr>", mode="n", description="Icon Picker normal"},
 
-		--- lazygit
+		--- git
 		{"<leader>gg", "<cmd>LazyGit<cr>",     description="open lazygit"},
 		{"<leader>gG", "<cmd>FzfxGStatus<cr>", description="Fzfx git"},
 
@@ -91,10 +92,12 @@ require 'legendary'.setup {
 		---              UI settings
 		--- Treesitter
 		{"<leader>uh", "<cmd>TSToggle highlight<cr>", description="Toggle treesiter highlight"},
+		
 		--- true-zen
 		{"<leader>uz", "<cmd>TZAtaraxis<cr>", description="Toggle Ataraxis mode"},
 		{"<C-w>z",     "<cmd>TZFocus<cr>",    description="Toggle focus mode"},
-		--- blame
+		
+		--- Blame
 		{"<leader>ub", "<cmd>ToggleBlame virtual<cr>", description="Show git blame"},
 		{"<leader>uu", function()
 			if vim.o.background == "dark" then
@@ -103,6 +106,16 @@ require 'legendary'.setup {
 				vim.o.background = "dark"
 			end
 		end, description="change vim light/dark mode"}
+
+		--- Tabby
+		{"<leader>ta", ":$tabnew<CR>", description = "Open new tab"},
+		{"<C-Tab>", "<cmd>Tabby jump_to_tab<CR>", description = "Use tabby leap feature to jump to a tab via 1 character"},
+		{"<leader>tq", "<cmd>tabclose<CR>", description = "Close current tab"},
+		{"<leader>tQ", "<cmd>tabonly<CR>", description = "Close all other tab"},
+		-- move current tab to previous position
+		{"<leader>tmp", ":-tabmove<CR>", description = "Move current tab left <-- "},
+		-- move current tab to next position
+		{"<leader>tmn", ":+tabmove<CR>", description = "move current tab right -->"},
 
 	},
 	commands = {
