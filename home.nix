@@ -60,6 +60,10 @@
 
 		".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if hostname == "BrianNixDesktop" then "DP-1" else "eDP-1");
 		".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
+
+		".java/home/jdk-8".source =  pkgs.jdk8  + "/lib/openjdk";
+		".java/home/jdk-17".source = pkgs.jdk17 + "/lib/openjdk";
+		".java/home/jdk-21".source = pkgs.jdk   + "/lib/openjdk";
   };
 
 	home.pointerCursor = {

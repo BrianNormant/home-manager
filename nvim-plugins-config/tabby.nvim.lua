@@ -1,5 +1,3 @@
-lua << EOF
-
 require('tabby').setup {
 	preset = "active_wins_at_tail",
 	option = {
@@ -7,5 +5,3 @@ require('tabby').setup {
 		nerdfont = true,
 	},
 }
-
-EOF

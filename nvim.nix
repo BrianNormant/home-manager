@@ -21,549 +21,173 @@
 			tree-sitter
 			vscode-extensions.vscjava.vscode-java-debug
 			idris2Packages.idris2Lsp
+			jdk8 jdk17 jdk # 21
 		];
 
-		plugins = with pkgs.vimPlugins; [
+		plugins = with pkgs.vimPlugins; let
+		configPlugin = {
+			plugin,
+			src ? null,
+			preLua ? "",
+		}: {
+			plugin = if src == null
+				then plugin
+				else pkgs.vimUtils.buildVimPlugin {
+					pname = plugin.pname;
+					version = "${src.rev}";
+					src = pkgs.fetchFromGitHub src;
+				};
+			config = let
+			config-file = pkgs.writeText
+				(plugin.pname + "config")
+				( preLua + builtins.readFile (./nvim-plugins-config + ("/" + plugin.pname + ".lua")));
+			in "luafile ${config-file}";
+		};
+		in [
 			vim-suda
-			{ plugin = dressing-nvim;
-				config = "lua require(\"dressing\").setup {}"; }
-			{ plugin = gruvbox-material;
-				config = ''
-let g:gruvbox_material_background = 'soft'
-colorscheme gruvbox-material'';}
-			telescope-fzf-native-nvim
-			{ plugin = dropbar-nvim;
-				config = ''
-hi WinBar   guisp=#665c54 gui=underline guibg=#313131
-hi WinBarNC guisp=#665c54 gui=underline guibg=#313131
-lua require('dropbar').setup {}''; }
-
-			ccc-nvim
-			{ plugin = gitsigns-nvim;
-				config = "lua require('gitsigns').setup {}"; }
-
-			{ plugin = lualine-nvim;
-				config = builtins.readFile ./lualine.vim; }
-			
-			{ plugin = tabby-nvim;
-			  config =  builtins.readFile ./tabby.vim; }
-			
-			# QOL
-			{ plugin = comment-nvim;
-				config = "lua require('Comment').setup {}";}
+			(configPlugin {plugin = dressing-nvim;})
+			(configPlugin {plugin = gruvbox-material;})
+			(configPlugin {plugin = dropbar-nvim;})
+			(configPlugin {plugin = ccc-nvim;})
+			(configPlugin {plugin = gitsigns-nvim;})
+			(configPlugin {plugin = lualine-nvim;})
+			(configPlugin {plugin = tabby-nvim;})
+			(configPlugin {plugin = comment-nvim;})
 			vim-surround
 			vim-repeat
 			vim-lastplace
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "telepath-nvim";
-				version = "16-03-24";
-				src = pkgs.fetchFromGitHub {
-					 owner = "rasulomaroff";
-					 repo = "telepath.nvim";
-					 rev = "993dd93";
-					 hash = "sha256-495jGHbYU0uYV4i8MrMosgOG1nDEtkB1h5k3Ww5LP3o=";
-				 };
-			};
-				config = "lua require('telepath').use_default_mappings()"; }
-			{ plugin = leap-nvim;
-				config=''
-hi LeapBackdrop guifg=#888888
-hi LeapLabel guifg=#FF0000
-lua require 'leap'.create_default_mappings()
-			'';}
-			{ plugin = nvim-autopairs;
-				config = "lua require 'nvim-autopairs'.setup {}";}
-			{ plugin = boole-nvim;
-				config = ''
-lua << EOF
-require 'boole'.setup {
-	mappings = {
-		increment = '<C-a>',
-		decrement = '<C-x>',
-	}
-}
-EOF
-			'';}
-			{ plugin = registers-nvim;
-				config = "lua require 'registers'.setup {}"; }
-			{ plugin = marks-nvim;
-				config = "lua require 'marks'.setup {}"; }
-			{ plugin = indent-blankline-nvim;
-				config = ''
-lua << EOF
-local highlight = {
-		"RainbowRed",
-		"RainbowYellow",
-		"RainbowBlue",
-		"RainbowOrange",
-		"RainbowGreen",
-		"RainbowViolet",
-		"RainbowCyan",
-}
-
-local hooks = require "ibl.hooks"
--- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme changes
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-		vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-		vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-		vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-		vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-		vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-		vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-		vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-end)
-
-require("ibl").setup { 
-	indent = { 
-		highlight = highlight,
-		char = "|",
-		tab_char = { "|" }
-	}, 
-	scope = { enabled=true, highlight = highlight } 
-}
-EOF
-
-			'';}
-			{ plugin = guess-indent-nvim;
-				config = "lua require'guess-indent'.setup {}";}
-			{ plugin = vim_current_word;
-				config = ''
-hi CurrentWord gui=underline guibg=#00000000
-hi CurrentWordTwings gui=underline,bold
-					''; }
-			# Features
+			(configPlugin {plugin = leap-nvim;})
+			(configPlugin {
+				plugin.pname = "telepath.nvim";
+				src = {
+					owner = "rasulomaroff";
+					repo = "telepath.nvim";
+					rev = "2879da0"; # Fri Sep 27 05:01:10 PM EDT 2024
+					hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
+				};
+			})
+			lexima-vim
+			# (configPlugin {plugin = nvim-autopairs;})
+			(configPlugin {plugin = boole-nvim;})
+			(configPlugin {plugin = registers-nvim;})
+			(configPlugin {plugin = marks-nvim;})
+			(configPlugin {plugin = indent-blankline-nvim;})
+			(configPlugin {plugin = guess-indent-nvim;})
+			(configPlugin {plugin = nvim-cursorline;})
 			telescope-lsp-handlers-nvim
-			{ plugin = telescope-nvim;
-				config = ''
-lua << EOF
-local telescope = require "telescope"
-telescope.setup {
-	defaults = {
-		layout_strategy = "flex",
-	},
-}
-telescope.load_extension('lsp_handlers')
-EOF
-			'';}
-			fzf-vim
-			{ plugin = pkgs.vimUtils.buildVimPlugin rec {
-				pname = "fzfx.nvim";
-				version = "v6.4.0";
+			telescope-ui-select-nvim
+			(configPlugin {plugin = telescope-nvim;})
+			(configPlugin {plugin = (true-zen-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
-					owner = "linrongbin16";
-					repo = "fzfx.nvim";
-					rev = version;
-					hash = "sha256-dGTYfX4NYzzLme0S91i9xzBHEgEMTbLuu6DSUikKzfc=";
-					# sha256 = "sha256-gY9P+XQhoraEM8OwHMakTpfBLFthkh99QCdf/JeN+Xo=";
+					owner = "mrcapivaro";
+					repo = "true-zen.nvim";
+					rev = "6aee7f2";
+					hash = "sha256-BRmMdjhzCogsNrEU9nz+OYx+m8VNJXo5V2i15z+liag=";
 				};
-				};
-				config = "lua require(\"fzfx\").setup {}";
-			}
-
-			{ plugin = true-zen-nvim;
-				config = "lua require('true-zen').setup {}";}
-
-			{ plugin = nvim-spectre;
-				config = "lua require('spectre').setup {}";}
+			});})
 			vim-wakatime
-			{ plugin = nvim-web-devicons;
-				config = ''
-lua require("nvim-web-devicons").setup {}
-			''; }
-			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
-				pname = "icon-picker-nvim";
-				version = "3-01-24";
-				src = pkgs.fetchFromGitHub {
+			(configPlugin {plugin = nvim-web-devicons;})
+			(configPlugin {
+				plugin.pname = "icon-picker.nvim";
+				src = {
 					owner = "ziontee113";
 					repo = "icon-picker.nvim";
 					rev = "3ee9a0e";
 					sha256 = "VZKsVeSmPR3AA8267Mtd5sSTZl2CAqnbgqceCptgp4w=";
 				};
-			} );
-				config = "lua require('icon-picker').setup {}";}
-			
-			# Git
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "blame.nvim";
-				version = "21-03-24";
-				src = pkgs.fetchFromGitHub {
-						owner = "FabijanZulj";
-						repo = "blame.nvim";
-						rev = "7cb17b9";
-						hash = "sha256-ATSUqLzjwdOtx25Ic+WzLFggw+H+Y/vcFaYo8axdYzY=";
-				};};
-				config = "lua require ('blame').setup {}";}
+			})
 			lazygit-nvim
-			{ plugin = FTerm-nvim;
-				config = "lua require('FTerm').setup {}";}
-
-			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
-				pname = "muren-nvim";
-				version = "26-8-23";
-				src = pkgs.fetchFromGitHub {
+			# TODO Search and replace for all the files.
+			(configPlugin {
+				plugin.pname = "muren.nvim";
+				src = {
 					owner = "AckslD";
 					repo = "muren.nvim";
 					rev = "b6484a1";
 					sha256 = "hv8IfNJ+3O1L1PPIZlPwXc37Oa4u8uZPJmISLnNkBGw=";
 				};
-				} );
-				config = "lua require('muren').setup {}"; }
-			{ plugin = oil-nvim;
-				config = "lua require('oil').setup {}";}
-				# Fold
-
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "coq_nvim";
-				version = "03-01-24";
-				src = pkgs.fetchFromGitHub {
-					owner = "ms-jpq";
-					repo = "coq_nvim";
-					rev = "f3ac90a";
-					sha256 = "sha256-c10k8K5jYHxfGGuKTD8B7MBxtQxT8SqziZpJ+2/qiC4=";
+			})
+			(configPlugin {plugin = mini-align;})
+			(configPlugin {plugin = oil-nvim;})
+			(configPlugin {plugin = nvim-navbuddy;})
+			(configPlugin {
+				plugin.name = "boo.nvim";
+				src = {
+					owner = "LukasPietzschmann";
+					repo = "boo.nvim";
+					rev = "926b2e9";
 				};
-			};
-				config = ''
-lua << EOF
-local coq = require 'coq'
-vim.g.coq_settings = {
-	["xdg"] = true,
-	["clients.tabnine.enabled"] = true,
-}
-EOF
-			'';}
+			})
+			(configPlugin {
+				plugin.name = "diagflow.nvim";
+				src = {
+					owner = "dgagn";
+					repo = "diagflow.nvim";
+					rev = "fc09d55";
+				};
+			})
+			(configPlugin {plugin = lsp_signature-nvim;})
+			(configPlugin {plugin = actions-preview-nvim;})
+
 			coq-artifacts
 			coq-thirdparty
+			(configPlugin {plugin = coq_nvim;})
 
 			# LSP
-			{ plugin = goto-preview;
-				config = "lua require('goto-preview').setup {}";}
-			{ plugin = nvim-navbuddy;
-				config = ''
-lua << EOF
-require 'nvim-navbuddy'.setup {
-	window = {
-		border = "rounded",
-		size = "50%",
-	},
-	lsp = { auto_attach = true },
-}
-EOF
-			''; }
-			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
-				pname = "boo-nvim";
-				version = "8384bc";
-				src = pkgs.fetchFromGitHub {
-					 owner = "LukasPietzschmann";
-					 repo = "boo.nvim";
-					 rev = "8384bc";
-					 sha256 = "sha256-FSPJHWpvkw8wY1h+h4pdpS9ChyZOO+/XQqmPvm0iKSI=";
-				 };
-			} );
-				config = "lua require ('boo').setup {}";}
-
-			{ plugin = lsp_lines-nvim;
-				config = ''
-lua << EOF
-require 'lsp_lines'.setup {}
-vim.diagnostic.config {
-	virtual_text = false
-}
-EOF
-			''; }
-			{ plugin = actions-preview-nvim;
-				config = "lua require 'actions-preview'.setup {}";}
-			
-			# LSP
-			{ plugin = nvim-lspconfig;
-				config = ''
-lua << EOF
-local coq = require 'coq'
-local lspconfig = require('lspconfig')
-local common_config = {
-	coq.lsp_ensure_capabilities(),
-}
-
-local elixir_config = {}
-for k, v in pairs(common_config) do
-    elixir_config[k] = v
-end
-
-elixir_config["cmd"] = { "${pkgs.elixir-ls}/bin/elixir-ls" }
-lspconfig.elixirls.setup(elixir_config)
-lspconfig.clangd.setup(common_config)
-lspconfig.lua_ls.setup(common_config)
-lspconfig.nil_ls.setup(common_config)
-lspconfig.phpactor.setup(common_config)
-lspconfig.nushell.setup(common_config)
-
-
-vim.api.nvim_create_autocmd('LspAttach', {
-		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-		callback = function(ev)
-			-- Buffer local mappings.
-			-- See `:help vim.lsp.*` for documentation on any of the below functions
-			local opts = { buffer = ev.buf }
-			vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-			vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-			vim.keymap.set('n', 'gR', vim.lsp.buf.rename, opts) -- May confict with virtual replace mode
-			vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-		end,
-})
-EOF
-			 '';}
-	
-			/* { plugin = none-ls-nvim;
-				config = ''
-lua << EOF
-local null_ls = require("null-ls")
-
-null_ls.setup({
-	sources = {
-	null_ls.builtins.formatting.stylua,
-	null_ls.builtins.diagnostics.eslint,
-	null_ls.builtins.completion.spell,
-	null_ls.builtins.formatting.tidy,
-	null_ls.builtins.formatting.textlint,
-	null_ls.builtins.formatting.surface,
-	null_ls.builtins.formatting.stylelint,
-	null_ls.builtins.formatting.sql_formatter,
-	null_ls.builtins.formatting.pretty_php,
-	null_ls.builtins.formatting.nixfmt,
-	null_ls.builtins.formatting.nimpretty,
-	null_ls.builtins.formatting.mix,
-	null_ls.builtins.formatting.google_java_format,
-	null_ls.builtins.formatting.dfmt,
-	null_ls.builtins.formatting.codespell,
-	null_ls.builtins.formatting.clang_format,
-	null_ls.builtins.diagnostics.zsh,
-	null_ls.builtins.diagnostics.vale,
-	null_ls.builtins.diagnostics.todo_comments,
-	null_ls.builtins.diagnostics.stylelint,
-	null_ls.builtins.diagnostics.statix,
-	null_ls.builtins.diagnostics.phpstan,
-	null_ls.builtins.diagnostics.gccdiag,
-	null_ls.builtins.diagnostics.credo,
-		},
-})
-
-EOF
-			'';} */
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "symbol-usage.nvim";
-				version = "4-03-24";
-				src = pkgs.fetchFromGitHub {
-					 owner = "Wansmer";
-					 repo = "symbol-usage.nvim";
-					 rev = "4c79eff";
-					 hash = "sha256-CPUhvJZcmCKnLUX3NtpV8RE5mIMrN1wURJmTE4tO05k=";
-				 };
-			};
-					config = ''
-lua << EOF
-local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end
-
--- hl-groups can have any name
-vim.api.nvim_set_hl(0, 'SymbolUsageRounding', { fg = h('CursorLine').bg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageContent', { bg = h('CursorLine').bg, fg = h('Comment').fg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageRef', { fg = h('Function').fg, bg = h('CursorLine').bg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageDef', { fg = h('Type').fg, bg = h('CursorLine').bg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageImpl', { fg = h('@keyword').fg, bg = h('CursorLine').bg, italic = true })
-
-local function text_format(symbol)
-	local res = {}
-
-	local round_start = { '', 'SymbolUsageRounding' }
-	local round_end = { '', 'SymbolUsageRounding' }
-
-	if symbol.references then
-		local usage = symbol.references <= 1 and 'usage' or 'usages'
-		local num = symbol.references == 0 and 'no' or symbol.references
-		table.insert(res, round_start)
-		table.insert(res, { '󰌹 ', 'SymbolUsageRef' })
-		table.insert(res, { ('%s %s'):format(num, usage), 'SymbolUsageContent' })
-		table.insert(res, round_end)
-	end
-
-	if symbol.definition then
-		if #res > 0 then
-			table.insert(res, { ' ', 'NonText' })
-		end
-		table.insert(res, round_start)
-		table.insert(res, { '󰳽 ', 'SymbolUsageDef' })
-		table.insert(res, { symbol.definition .. ' defs', 'SymbolUsageContent' })
-		table.insert(res, round_end)
-	end
-
-	if symbol.implementation then
-		if #res > 0 then
-			table.insert(res, { ' ', 'NonText' })
-		end
-		table.insert(res, round_start)
-		table.insert(res, { '󰡱 ', 'SymbolUsageImpl' })
-		table.insert(res, { symbol.implementation .. ' impls', 'SymbolUsageContent' })
-		table.insert(res, round_end)
-	end
-
-	return res
-end
-
-require('symbol-usage').setup({
-	text_format = text_format,
-})
-EOF
-					'';}
+			(configPlugin {plugin = lsp-zero-nvim;})
+			(configPlugin {
+				plugin.name = "symbol-usage.nvim";
+				src = {
+					owner = "Wansmer";
+					repo = "symbol-usage.nvim";
+					rev = "0f9b3da";
+	# hash = "sha256-CPUhvJZcmCKnLUX3NtpV8RE5mIMrN1wURJmTE4tO05k=";
+				};
+			})
 				# Debugger
-				nvim-dap
-				{ plugin = nvim-dap-ui;
-				 config = (builtins.readFile ./dap.vim); }
-				{ plugin = ( pkgs.vimUtils.buildVimPlugin {
-					pname = "gen-nvim";
-					version = "14-03-24";
-					src = pkgs.fetchFromGitHub {
+				(configPlugin {plugin = nvim-dap;})
+				(configPlugin {
+					plugin.name = "gen.nvim";
+					src = {
 						owner = "David-Kunz";
 						repo = "gen.nvim";
 						rev = "2ee646f";
 						hash = "sha256-j+FB5wjiWwq5YEHx+CDGN4scMr7+TkUoAX63WHiziaU=";
-						# sha256 = "aZ/ZMmatoIXnY3qtRjUqJStlpg0VGbJ1XdRjyDMhHqU=";
-					};
-				} );
-					config = ''
-lua << EOF
-require 'gen'.setup({
-	model = 'llama3:latest',
-	display_mode = 'split',
-	show_prompt = true,
-	show_model = true,
-})
-EOF
-'';
-				}
-
-				nui-nvim
-				
-				( pkgs.vimUtils.buildVimPlugin rec {
-					pname = "nui-components";
-					version = "v1.5.2";
-					src = pkgs.fetchFromGitHub {
-						owner = "grapp-dev";
-						repo = "nui-components.nvim";
-						rev = version;
-						hash = "sha256-ZawV/0D9E+XCq/atuXGrVM2/LCWhDXmgt1n5jtXpCO8=";
 					};
 				})
+				(configPlugin {
+					plugin = nvim-jdtls;
+					preLua = "local vscodepath = \"${pkgs.vscode-extensions.vscjava.vscode-java-debug}\"";
+				})
 
-				{ plugin = nvim-jdtls;
-					config = ''
-lua << EOF
-local jdtls = require 'jdtls'
-local config = {
-	cmd = {
-		'${pkgs.jdt-language-server}/bin/jdtls'
-	},
-	settings = {
-		java = {
-			configuration = {
-				runtimes = {
-					{name = "JavaSE-17", path = "~/.gradle/jdks/eclipse_adoptium-17-amd64-linux/jdk-17.0.10+7/"},
-					{name = "JavaSE-21", path = "~/.gradle/jdks/eclipse_adoptium-21-amd64-linux/jdk-21.0.2+13/"},
-				}
-			}
-		},
-	},
-
-	root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew'}),
-
-	init_options = {
-		bundles = {
-			vim.fn.glob("${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar", 1),
-		}
-	},
-}
-
-vim.api.nvim_create_autocmd(
-	'BufEnter',
-	{ 	pattern = {'*.java'},
-		callback = function() 
-		jdtls.start_or_attach(config)
-		vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
-		end,
-	})
-EOF
-					''; }
-				# HTTP
-				/*
-				{ plugin = ( pkgs.vimUtils.buildVimPlugin {
-					pname = "rest.nvim";
-					version = "1234";
-					src = pkgs.fetchFromGitHub {
-						 owner = "rest-nvim";
-						 repo = "rest.nvim";
-						 rev = "5300ae0";
-						 hash = "sha256-EuQ4RCwFRA99QJ4onQKulFDK3s6MOrWA5f55nlDf45w=";
-					 };
-				} );
-					config = with pkgs.luajitPackages; ''
-
-	lua << EOF
-	package.path = package.path .. ";${mimetypes}/share/lua/5.1/?.lua" .. ";${mimetypes}/share/lua/5.1/?/init.lua"
-	package.path = package.path .. ";${nvim-nio}/share/lua/5.1/?.lua" .. ";${nvim-nio}/share/lua/5.1/?/init.lua"
-	package.path = package.path .. ";${lua-curl}/share/lua/5.1/?.lua" .. ";${lua-curl}/share/lua/5.1/?/init.lua"
-	package.path = package.path .. ";${xml2lua}/share/lua/5.1/?.lua" .. ";${xml2lua}/share/lua/5.1/?/init.lua"
-
-	require 'rest-nvim'.setup {}
-	EOF
-				''; } */
-				# idris2
-				{ plugin = pkgs.vimPlugins.idris2-nvim;
-				  config = ''
-lua << EOF
-require('idris2').setup {}
-EOF
-				  '';
-				}
-				# Elixir
+				(configPlugin {plugin = nvim-rest;})
+				(configPlugin {plugin = idris2-nvim;})
 				# DataBase
 				vim-dadbod-ui
-				{ plugin = vim-dadbod;
-					config = ''
-lua << EOF
-vim.g.db_ui_use_nerd_fonts = 1
-vim.g.dbs = {
-	['DB Oracle locale'] = "oracle://SYSTEM:welcome123@localhost:1521/FREE"
-}
-EOF
-					''; }
-				(pkgs.vimUtils.buildVimPlugin {
-					pname = "dbext.vim";
-					version = "Jan 3, 2016";
-					src = pkgs.fetchFromGitHub {
+				(configPlugin {plugin = vim-dadbod;})
+				(configPlugin {
+					plugin.pname = "dbext.vim";
+					src = {
 						owner = "vim-scripts";
 						repo = "dbext.vim";
-						rev = "14f3d53";
+						rev = "23.00";
 						hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
 					};
 				})
 
 				# Markdown, CSV,
 				markdown-preview-nvim
-				{ plugin = legendary-nvim;
-					config = ( builtins.readFile ./legend.vim ); }
-		
 
-				# Compiler and run
-				{ plugin = overseer-nvim;
-					config = "lua require('overseer').setup {}"; }
-				{ plugin = pkgs.vimUtils.buildVimPlugin {
-					pname = "compiler.nvim";
-					version = "26-03-2024";
+				# Compile and run from vim
+				(configPlugin {plugin = (true-zen-nvim.overrideAttrs {
 					src = pkgs.fetchFromGitHub {
 						owner = "BrianNormant";
 						repo = "compiler.nvim";
 						rev = "353a094";
 						sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
-					};};
-					config = "lua require('compiler').setup {}";}
+					};
+				});})
+
 				# Treesitter
 				nvim-treesitter
 				nvim-treesitter-parsers.java
@@ -575,6 +199,16 @@ EOF
 				nvim-treesitter-parsers.elixir
 				nvim-treesitter-parsers.nix
 				nvim-treesitter-parsers.gnuplot
+				/*
+				   (configPlugin {
+				   plugin.pname = "fzfx.nvim";
+				   src = {
+				   owner = "linrongbin16";
+				   repo = "fzfx.nvim";
+				   rev = "v6.4.0";
+				   hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
+				   };
+				   })*/
 				(nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [
 											  (pkgs.tree-sitter.buildGrammar {
 											   language = "nu";
@@ -586,10 +220,9 @@ EOF
 											   sha256 = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
 											   };
 											   })]))
-				
-				# nvim-treesitter-parsers-http
+				(configPlugin {plugin = legendary-nvim;})
 			];
-			extraLuaConfig = (builtins.readFile ./ollama-Gen-nvim.lua ) +
+			extraLuaConfig = # (builtins.readFile ./ollama-Gen-nvim.lua ) +
 			''
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.scrolloff = 5
@@ -597,6 +230,7 @@ vim.opt.scrolloff = 5
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.laststatus = 3
+vim.opt.showtabline = 2
 vim.opt.expandtab = false -- set to true to use space instead of tab
 
 vim.o.cursorline = true
@@ -612,10 +246,10 @@ vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
 vim.cmd "set invlist"
 
 -- Open help in a new tab
-vim.cmd "cabbrew h tab help"
+vim.cmd "cabbrev h tab help"
 
 -- Open Man in a new tab
-vim.cmd "cabbrew Man tab Man"
+vim.cmd "cabbrev Man tab Man"
 
 vim.cmd [[
 function! DiffRegsFunc(...)

@@ -1,4 +1,3 @@
-lua << EOF
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
@@ -218,6 +217,6 @@ ins_right {
   padding = { left = 1 },
 }
 
+vim.go.laststatus = 3; -- https://www.reddit.com/r/neovim/comments/1clx1cu/optionsvimoptlaststatus_config_being_overridden/
 -- Now don't forget to initialize lualine
 lualine.setup(config)
-EOF
