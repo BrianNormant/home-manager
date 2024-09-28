@@ -8,6 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+	# rest-nvim.url = "github:rest-nvim/rest.nvim";
   };
 
   outputs = { nixpkgs, home-manager, ... }:

@@ -27,18 +27,19 @@ require 'legendary'.setup {
 		{"<leader>oo",  '<cmd>Oil<cr>', description = "Open Oil in current window"},
 		{"<leader>oO",  '<cmd>Oil -- float<cr>', description = "Open Oil in floating window"},
 
-		--- Fzfx
+		--- Telescope
 		{"<leader>ft",  function() require('telescope.builtin').builtin() end, description="Telescope list builtins"},
-		{"<leader>ff",  '<cmd>Telescope find_files<cr>',       description="telescope list files"},
-		{"<leader>fF",  '<cmd>FzfxLiveGrep<cr>',    description="Fzfx live grep"},
-		{"<leader>fb",  '<cmd>FzfxBuffers<cr>',     description="Fzfx list buffers"},
-		{"<leader>f/",  '<cmd>FzfxBufLiveGrep<cr>', description="Fzfx live grep in file"},
+		{"<leader>ff",  '<cmd>Telescope find_files<cr>',       description="Telescope list files"},
+		{"<leader>fF",  '<cmd>Telescope live_grep<cr>',    description="Telescope live grep"},
+		{"<leader>fb",  '<cmd>Telescope buffers<cr>',     description="Telescope list buffers"},
+		{"<leader>f/",  '<cmd>Telescope current_buffer_fuzzy_find<cr>', description="Telescope live grep in file"},
 
-		--- Fzfx & LSP
-		{"<leader>fd",  '<cmd>FzfxLspDefinitions<cr>',  descroption="fzfx list LSP definitions"},
-		{"<leader>fr",  '<cmd>FzfxReferences<cr>',      description="fzfx list LSP references"},
-		{"<leader>fi",  '<cmd>FzfxImplementations<cr>', description="fzfx list LSP implementations"},
-		{"<leader>fi",  '<cmd>FzfxLspDiagnostics<cr>', description="fzfx list LSP diagnositics"},
+		--- Telescope & LSP
+		{"<leader>fd",  '<cmd>Telescope lsp_definitions<cr>',  descroption="Telescope list LSP definitions"},
+		{"<leader>fr",  '<cmd>Telescope lsp_references<cr>',      description="Telescope list LSP references"},
+		{"<leader>fi",  '<cmd>Telescope lsp_implementations<cr>', description="Telescope list LSP implementations"},
+		{"<leader>fD",  '<cmd>Telescope lsp_diagnostics<cr>', description="Telescope list LSP diagnositics"},
+		-- TODO find a good way to show the list of diagnositics
 		{"<leader>L",  function() require("nvim-navbuddy").open() end, description="Open Navbuddy"},
 		{"<leader>la", function()
 			if vim.bo.filetype == "java" then
@@ -76,7 +77,7 @@ require 'legendary'.setup {
 
 		--- git
 		{"<leader>gg", "<cmd>LazyGit<cr>",     description="open lazygit"},
-		{"<leader>gG", "<cmd>FzfxGStatus<cr>", description="Fzfx git"},
+		{"<leader>gG", "<cmd>Telescope git_status<cr>", description="Telescope git status"},
 
 		--- Term
 		{"<leader>tt", function() vim.cmd "tab term" end, description="Open terminal in a new tab"},

@@ -20,6 +20,7 @@ lsp_zero.extend_lspconfig {
 	lsp_attach = lsp_attach,
 	capabilities = coq.lsp_ensure_capabilities(),
 }
+
 lsp_zero.ui {
 	sign_text = {
 		error = '✘',
@@ -27,6 +28,7 @@ lsp_zero.ui {
 		hint = '⚑',
 		info = '»',
 	},
+	float_border = "single"
 }
 
 -- These are just examples. Replace them with the language

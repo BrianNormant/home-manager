@@ -29,6 +29,7 @@
 			plugin,
 			src ? null,
 			preLua ? "",
+			config ? true,
 		}: {
 			plugin = if src == null
 				then plugin
@@ -41,7 +42,7 @@
 			config-file = pkgs.writeText
 				(plugin.pname + "config")
 				( preLua + builtins.readFile (./nvim-plugins-config + ("/" + plugin.pname + ".lua")));
-			in "luafile ${config-file}";
+			in if config then "luafile ${config-file}" else "";
 		};
 		in [
 			vim-suda
@@ -50,6 +51,7 @@
 			(configPlugin {plugin = dropbar-nvim;})
 			(configPlugin {plugin = ccc-nvim;})
 			(configPlugin {plugin = gitsigns-nvim;})
+			(configPlugin {plugin = diffview-nvim;})
 			(configPlugin {plugin = lualine-nvim;})
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
@@ -111,19 +113,21 @@
 			(configPlugin {plugin = oil-nvim;})
 			(configPlugin {plugin = nvim-navbuddy;})
 			(configPlugin {
-				plugin.name = "boo.nvim";
+				plugin.pname = "boo.nvim";
 				src = {
 					owner = "LukasPietzschmann";
 					repo = "boo.nvim";
 					rev = "926b2e9";
+					hash = "sha256-zEbPDCXLcQCDRTf8sfbm07tyqAkJtvtHy43wF5Feee0=";
 				};
 			})
 			(configPlugin {
-				plugin.name = "diagflow.nvim";
+				plugin.pname = "diagflow.nvim";
 				src = {
 					owner = "dgagn";
 					repo = "diagflow.nvim";
 					rev = "fc09d55";
+					hash = "sha256-2WNuaIEXcAgUl2Kb/cCHEOrtehw9alaoM96qb4MLArw=";
 				};
 			})
 			(configPlugin {plugin = lsp_signature-nvim;})
@@ -134,20 +138,28 @@
 			(configPlugin {plugin = coq_nvim;})
 
 			# LSP
-			(configPlugin {plugin = lsp-zero-nvim;})
+			(configPlugin {plugin = (lsp-zero-nvim.overrideAttrs {
+				src = pkgs.fetchFromGitHub {
+					owner = "VonHeikemen";
+					repo = "lsp-zero.nvim";
+					rev = "b841170";
+					hash = "sha256-QEd5UXBLz3Z6NL9TMPlJmfYugs4Ec3zpEUWwei6jPKs=";
+				};
+			});})
+			(configPlugin {plugin = goto-preview;})
 			(configPlugin {
-				plugin.name = "symbol-usage.nvim";
+				plugin.pname = "symbol-usage.nvim";
 				src = {
 					owner = "Wansmer";
 					repo = "symbol-usage.nvim";
 					rev = "0f9b3da";
-	# hash = "sha256-CPUhvJZcmCKnLUX3NtpV8RE5mIMrN1wURJmTE4tO05k=";
+					hash = "sha256-vNVrh8MV7KZoh2MtP+hAr6Uz20qMMMUcbua/W71lRn0=";
 				};
 			})
 				# Debugger
-				(configPlugin {plugin = nvim-dap;})
+				(configPlugin {plugin = nvim-dap-ui;})
 				(configPlugin {
-					plugin.name = "gen.nvim";
+					plugin.pname = "gen.nvim";
 					src = {
 						owner = "David-Kunz";
 						repo = "gen.nvim";
@@ -160,7 +172,7 @@
 					preLua = "local vscodepath = \"${pkgs.vscode-extensions.vscjava.vscode-java-debug}\"";
 				})
 
-				(configPlugin {plugin = nvim-rest;})
+				(configPlugin {plugin = rest-nvim;})
 				(configPlugin {plugin = idris2-nvim;})
 				# DataBase
 				vim-dadbod-ui
@@ -173,13 +185,14 @@
 						rev = "23.00";
 						hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
 					};
+					config = false;
 				})
 
 				# Markdown, CSV,
 				markdown-preview-nvim
 
 				# Compile and run from vim
-				(configPlugin {plugin = (true-zen-nvim.overrideAttrs {
+				(configPlugin {plugin = (compiler-nvim.overrideAttrs {
 					src = pkgs.fetchFromGitHub {
 						owner = "BrianNormant";
 						repo = "compiler.nvim";
@@ -224,6 +237,7 @@
 			];
 			extraLuaConfig = # (builtins.readFile ./ollama-Gen-nvim.lua ) +
 			''
+
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.scrolloff = 5
 
