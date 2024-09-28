@@ -3,10 +3,10 @@ require 'nvim-navbuddy'.setup {
 		border = "single",
 		position = {
 			col = "0%",
-			row = "75%",
+			row = "100%",
 		},
 		size = {
-			height = "25%",
+			height = "33%",
 			width = "100%",
 		},
 	},

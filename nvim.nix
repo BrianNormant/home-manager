@@ -4,7 +4,7 @@
 		extraPackages = with pkgs; [
 			jdt-language-server
 			# ccls
-			clang
+			clang-tools
 			phpactor
 			ripgrep
 			fswatch
@@ -19,6 +19,7 @@
 			jq
 			html-tidy
 			tree-sitter
+			statix checkstyle cppcheck
 			vscode-extensions.vscjava.vscode-java-debug
 			idris2Packages.idris2Lsp
 			jdk8 jdk17 jdk # 21
@@ -45,6 +46,16 @@
 			in if config then "luafile ${config-file}" else "";
 		};
 		in [
+			(configPlugin {
+				plugin.pname = "ts-node-action";
+				src = {
+					owner = "CKolkey";
+					repo = "ts-node-action";
+					rev = "6d3b607";
+					hash = "sha256-kOXH3r+V+DAxoATSnZepEAekrkO1TezKSkONuQ3Kzu4=";
+				};
+				config = false;
+			})
 			vim-suda
 			(configPlugin {plugin = dressing-nvim;})
 			(configPlugin {plugin = gruvbox-material;})
@@ -77,6 +88,17 @@
 			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = guess-indent-nvim;})
 			(configPlugin {plugin = nvim-cursorline;})
+			(configPlugin {plugin = nvim-bqf;})
+			(configPlugin {
+				plugin.pname = "iswap.nvim";
+				src = {
+					owner = "mizlan";
+					repo = "iswap.nvim";
+					rev = "e02cc91";
+					hash = "sha256-lAYHvz23f9nJ6rb0NIm+1aq0Vr0SwjPVitPuROtUS2A=";
+				};
+			})
+			# https://github.com/Wansmer/binary-swap.nvim
 			telescope-lsp-handlers-nvim
 			telescope-ui-select-nvim
 			(configPlugin {plugin = telescope-nvim;})
@@ -132,7 +154,9 @@
 				};
 			})
 			(configPlugin {plugin = lsp_signature-nvim;})
+			(configPlugin {plugin = nvim-lightbulb;})
 			(configPlugin {plugin = actions-preview-nvim;})
+			(configPlugin {plugin = diaglist-nvim;})
 
 			coq-artifacts
 			coq-thirdparty
@@ -157,53 +181,64 @@
 					hash = "sha256-vNVrh8MV7KZoh2MtP+hAr6Uz20qMMMUcbua/W71lRn0=";
 				};
 			})
-				# Debugger
-				(configPlugin {plugin = nvim-dap-ui;})
-				(configPlugin {
-					plugin.pname = "gen.nvim";
-					src = {
-						owner = "David-Kunz";
-						repo = "gen.nvim";
-						rev = "2ee646f";
-						hash = "sha256-j+FB5wjiWwq5YEHx+CDGN4scMr7+TkUoAX63WHiziaU=";
-					};
-				})
-				(configPlugin {
-					plugin = nvim-jdtls;
-					preLua = "local vscodepath = \"${pkgs.vscode-extensions.vscjava.vscode-java-debug}\"";
-				})
+			(configPlugin {
+				plugin.pname = "neodim";
+				src = {
+					owner = "zbirenbaum";
+					repo = "neodim";
+					rev = "d874708";
+					hash = "sha256-3DHohSXaSt51iBIdIJcUN/YWOEprpq4H5XPQ6TCI4w4=";
+				};
+			})
+# Lint and Format
+			(configPlugin {plugin = none-ls-nvim;})
+# Debugger
+			(configPlugin {plugin = nvim-dap-ui;})
+			(configPlugin {
+				 plugin.pname = "gen.nvim";
+				 src = {
+					 owner = "David-Kunz";
+					 repo = "gen.nvim";
+					 rev = "2ee646f";
+					 hash = "sha256-j+FB5wjiWwq5YEHx+CDGN4scMr7+TkUoAX63WHiziaU=";
+				 };
+			 })
+			(configPlugin {
+			 plugin = nvim-jdtls;
+			 preLua = "local vscodepath = \"${pkgs.vscode-extensions.vscjava.vscode-java-debug}\"";
+			 })
 
-				(configPlugin {plugin = rest-nvim;})
-				(configPlugin {plugin = idris2-nvim;})
-				# DataBase
-				vim-dadbod-ui
+			(configPlugin {plugin = rest-nvim;})
 				(configPlugin {plugin = vim-dadbod;})
+# DataBase
+				vim-dadbod-ui
+				(configPlugin {plugin = idris2-nvim;})
 				(configPlugin {
-					plugin.pname = "dbext.vim";
-					src = {
-						owner = "vim-scripts";
-						repo = "dbext.vim";
-						rev = "23.00";
-						hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
-					};
-					config = false;
-				})
+				 plugin.pname = "dbext.vim";
+				 src = {
+				 owner = "vim-scripts";
+				 repo = "dbext.vim";
+				 rev = "23.00";
+				 hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
+				 };
+				 config = false;
+				 })
 
-				# Markdown, CSV,
-				markdown-preview-nvim
+# Markdown, CSV,
+			markdown-preview-nvim
 
-				# Compile and run from vim
+# Compile and run from vim
 				(configPlugin {plugin = (compiler-nvim.overrideAttrs {
-					src = pkgs.fetchFromGitHub {
-						owner = "BrianNormant";
-						repo = "compiler.nvim";
-						rev = "353a094";
-						sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
-					};
-				});})
+										 src = pkgs.fetchFromGitHub {
+										 owner = "BrianNormant";
+										 repo = "compiler.nvim";
+										 rev = "353a094";
+										 sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
+										 };
+										 });})
 
-				# Treesitter
-				nvim-treesitter
+# Treesitter
+			nvim-treesitter
 				nvim-treesitter-parsers.java
 				nvim-treesitter-parsers.lua
 				nvim-treesitter-parsers.c
@@ -234,57 +269,55 @@
 											   sha256 = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
 											   };
 											   })]))
-				(configPlugin {plugin = legendary-nvim;})
-			];
+			(configPlugin {plugin = legendary-nvim;})
+				];
 			extraLuaConfig = # (builtins.readFile ./ollama-Gen-nvim.lua ) +
-			''
+				''
 
-vim.opt.clipboard:append "unnamedplus"
-vim.opt.scrolloff = 5
+				vim.opt.clipboard:append "unnamedplus"
+				vim.opt.scrolloff = 5
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.laststatus = 3
-vim.opt.showtabline = 2
-vim.opt.expandtab = false -- set to true to use space instead of tab
+				vim.opt.tabstop = 4
+				vim.opt.shiftwidth = 4
+				vim.opt.laststatus = 3
+				vim.opt.showtabline = 2
+				vim.opt.expandtab = false -- set to true to use space instead of tab
 
-vim.o.cursorline = true
-vim.o.number = true
-vim.o.relativenumber = true
+				vim.o.cursorline = true
+				vim.o.number = true
+				vim.o.relativenumber = true
 
-vim.o.foldenable = true
-vim.o.foldmethod = "syntax"
+				vim.o.foldenable = true
+				vim.o.foldmethod = "syntax"
 
-vim.cmd "COQnow"
+				vim.cmd "COQnow"
 
-vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
-vim.cmd "set invlist"
+				vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
+				vim.cmd "set invlist"
 
-vim.cmd "TSEnable highlight"
+				-- Open help in a new tab
+				vim.cmd "cabbrev h tab help"
 
--- Open help in a new tab
-vim.cmd "cabbrev h tab help"
+				-- Open Man in a new tab
+				vim.cmd "cabbrev Man tab Man"
 
--- Open Man in a new tab
-vim.cmd "cabbrev Man tab Man"
+				vim.cmd [[
+				function! DiffRegsFunc(...)
+					let l:left = a:0 == 2 ? a:1 : "@0"
+					let l:right = a:0 == 2 ? a:2 : "@1"
 
-vim.cmd [[
-function! DiffRegsFunc(...)
-		let l:left = a:0 == 2 ? a:1 : "@0"
-		let l:right = a:0 == 2 ? a:2 : "@1"
+					tabnew
+					exe 'put! ='. l:left
+					vnew
+					exe 'put! ='. l:right
 
-		tabnew
-		exe 'put! ='. l:left
-		vnew
-		exe 'put! ='. l:right
-
-		windo setlocal buftype=nofile
-		windo setlocal bufhidden=delete
-		windo setlocal noswapfile
-		windo diffthis
-		winc t
-endfunction
-com -nargs=* DiffRegs call DiffRegsFunc(<f-args>)
-]]
-			'';
-}
+					windo setlocal buftype=nofile
+					windo setlocal bufhidden=delete
+					windo setlocal noswapfile
+					windo diffthis
+					winc t
+					endfunction
+					com -nargs=* DiffRegs call DiffRegsFunc(<f-args>)
+				]]
+				'';
+			 }

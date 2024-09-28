@@ -1,30 +1,30 @@
+require("ts-node-action").setup {}
 local null_ls = require("null-ls")
 
 null_ls.setup({
 	sources = {
-		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.diagnostics.eslint,
-		null_ls.builtins.completion.spell,
-		null_ls.builtins.formatting.tidy,
-		null_ls.builtins.formatting.textlint,
-		null_ls.builtins.formatting.surface,
-		null_ls.builtins.formatting.stylelint,
-		null_ls.builtins.formatting.sql_formatter,
-		null_ls.builtins.formatting.pretty_php,
-		null_ls.builtins.formatting.nixfmt,
-		null_ls.builtins.formatting.nimpretty,
-		null_ls.builtins.formatting.mix,
-		null_ls.builtins.formatting.google_java_format,
-		null_ls.builtins.formatting.dfmt,
-		null_ls.builtins.formatting.codespell,
-		null_ls.builtins.formatting.clang_format,
-		null_ls.builtins.diagnostics.zsh,
-		null_ls.builtins.diagnostics.vale,
-		null_ls.builtins.diagnostics.todo_comments,
-		null_ls.builtins.diagnostics.stylelint,
+		-- git
+		null_ls.builtins.code_actions.gitsigns,
+
+		-- nix
+		null_ls.builtins.code_actions.statix,
 		null_ls.builtins.diagnostics.statix,
-		null_ls.builtins.diagnostics.phpstan,
-		null_ls.builtins.diagnostics.gccdiag,
+
+		-- treesiter
+		null_ls.builtins.code_actions.ts_node_action,
+
+		-- Generic
+		null_ls.builtins.completion.spell,
+
+		-- Java
+		null_ls.builtins.diagnostics.checkstyle.with({
+        extra_args = { "-c", "/google_checks.xml" }, -- or "/sun_checks.xml" or path to self written rules
+		}),
+
+		-- C/C++
+		null_ls.builtins.diagnostics.cppcheck,
+
+		-- Elixix
 		null_ls.builtins.diagnostics.credo,
 	},
 })

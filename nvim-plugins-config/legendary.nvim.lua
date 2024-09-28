@@ -35,10 +35,12 @@ require 'legendary'.setup {
 		{"<leader>f/", '<cmd>Telescope current_buffer_fuzzy_find<cr>',        description="Telescope live grep in file"},
 
 		--- Telescope & LSP
-		{"<leader>fd", '<cmd>Telescope lsp_definitions<cr>',     descroption="Telescope list LSP definitions"},
-		{"<leader>fr", '<cmd>Telescope lsp_references<cr>',      description="Telescope list LSP references"},
-		{"<leader>fi", '<cmd>Telescope lsp_implementations<cr>', description="Telescope list LSP implementations"},
-		{"<leader>fD", '<cmd>Telescope lsp_diagnostics<cr>',     description="Telescope list LSP diagnositics"},
+		{"<leader>fd", '<cmd>Telescope lsp_definitions<cr>',        descroption="Telescope list LSP definitions"},
+		{"<leader>fr", '<cmd>Telescope lsp_references<cr>',         description="Telescope list LSP references"},
+		{"<leader>fi", '<cmd>Telescope lsp_implementations<cr>',    description="Telescope list LSP implementations"},
+		{"<leader>fp", require('diaglist').open_buffer_diagnostics, description="Open buffer diagnositics in loclist"},
+		{"<leader>fD", require('diaglist').open_all_diagnostics,    description="Open workspace diagnositics in quickfix"},
+
 		-- TODO find a good way to show the list of diagnositics
 		{"<leader>L",  function() require("nvim-navbuddy").open() end, description="Open Navbuddy"},
 		{"<leader>la", function()
@@ -112,7 +114,7 @@ require 'legendary'.setup {
 
 		--- Tabby
 		{"<leader>ta",  ":$tabnew<CR>",               description = "Open new tab"},
-		{"<C-Tab>",     "<cmd>Tabby jump_to_tab<CR>", description = "Use tabby leap feature to jump to a tab via 1 character"},
+		{"<C-tab>",     "<cmd>Tabby jump_to_tab<CR>", description = "Use tabby leap feature to jump to a tab via 1 character"},
 		{"<leader>tq",  "<cmd>tabclose<CR>",          description = "Close current tab"},
 		{"<leader>tQ",  "<cmd>tabonly<CR>",           description = "Close all other tab"},
 		-- move current tab to previous position
