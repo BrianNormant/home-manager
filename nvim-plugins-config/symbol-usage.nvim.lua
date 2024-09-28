@@ -48,5 +48,5 @@ end
 
 require('symbol-usage').setup {
 	text_format = text_format,
-	vt_position = "textwidth",
+	vt_position = "end_of_line",
 }

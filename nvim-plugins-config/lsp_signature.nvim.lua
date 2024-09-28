@@ -1,7 +1,7 @@
 require "lsp_signature".setup {
 	bind = true,
 	handler_opts = {
-		border = "none",
+		border = "rounded",
 	},
 	hint_prefix = {
 		above = "↙ ",  -- when the hint is on the line above the current line

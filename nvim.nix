@@ -55,6 +55,7 @@
 			(configPlugin {plugin = lualine-nvim;})
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
+			(configPlugin {plugin = nvim-ufo;})
 			vim-surround
 			vim-repeat
 			vim-lastplace
