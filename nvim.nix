@@ -260,6 +260,8 @@ vim.cmd "COQnow"
 vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
 vim.cmd "set invlist"
 
+vim.cmd "TSEnable highlight"
+
 -- Open help in a new tab
 vim.cmd "cabbrev h tab help"
 
