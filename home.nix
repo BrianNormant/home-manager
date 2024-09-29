@@ -221,5 +221,5 @@ extension:
 	home.file.".config/nvim/ftdetect/nu.vim".text = builtins.readFile ./custom-syntax-vim/nu-ftdetect.vim;
 	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
 	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
-	programs.neovim = (import ./nvim.nix) {pkgs=pkgs;};
+	programs.neovim = (import ./nvim.nix) {inherit pkgs;};
 }

@@ -35,6 +35,7 @@ local luasnip = require("luasnip")
 local lspkind = require('lspkind')
 local cmp_action = require('lsp-zero').cmp_action()
 
+
 cmp.setup {
 	preselect = 'item',
 	window = {
@@ -72,6 +73,20 @@ cmp.setup {
 						select = true,
 					})
 				end
+			else
+				fallback()
+			end
+		end),
+		['<Space>'] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				if luasnip.expandable() then
+					luasnip.expand()
+				else
+					cmp.confirm({
+						select = true,
+					})
+				end
+				fallback()
 			else
 				fallback()
 			end

@@ -46,6 +46,7 @@
 			in if config then "luafile ${config-file}" else "";
 		};
 		in [
+			(configPlugin {plugin = gruvbox-material;})
 			(configPlugin {
 				plugin.pname = "ts-node-action";
 				src = {
@@ -58,7 +59,6 @@
 			})
 			vim-suda
 			(configPlugin {plugin = dressing-nvim;})
-			(configPlugin {plugin = gruvbox-material;})
 			(configPlugin {plugin = dropbar-nvim;})
 			(configPlugin {plugin = ccc-nvim;})
 			(configPlugin {plugin = gitsigns-nvim;})
