@@ -162,6 +162,7 @@
 			coq-artifacts
 			coq-thirdparty
 			(configPlugin {plugin = coq_nvim;})
+			(configPlugin {plugin = lspkind-nvim;})
 
 			# LSP
 			(configPlugin {plugin = (lsp-zero-nvim.overrideAttrs {
