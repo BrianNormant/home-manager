@@ -7,7 +7,7 @@ local config = {
 				runtimes = {
 					{name = "JavaSE-17", path = "~/.java/home/jdk-17",},
 					{name = "JavaSE-21", path = "~/.java/home/jdk-21",},
-					{name = "JavaSE-8",  path = "~/.java/home/jdk-8" ,},
+					-- {name = "JavaSE-8",  path = "~/.java/home/jdk-8" ,},
 				}
 			}
 		},

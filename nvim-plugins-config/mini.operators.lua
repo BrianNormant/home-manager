@@ -1,4 +1,4 @@
 require('mini.operators').setup {
-	exchange = { prefix = 'cx' },
-	sort = { prefix = 'cs' },
+	exchange = { prefix = '<A-x>' },
+	sort = { prefix = '<A-s>' },
 }

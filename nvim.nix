@@ -138,7 +138,8 @@
 			(configPlugin {plugin = mini-bracketed;})
 			(configPlugin {plugin = mini-clue;})
 			(configPlugin {plugin = mini-move;})
-			(configPlugin {plugin = mini-indentscope;}) # has some functionality that replace (configPlugin {plugin = indent-blankline-nvim;})
+			(configPlugin {plugin = mini-indentscope;})
+			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = mini-operators;})
 			(configPlugin {plugin = mini-surround;}) # replace vim-surround
 

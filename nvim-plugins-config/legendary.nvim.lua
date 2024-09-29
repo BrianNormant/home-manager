@@ -124,10 +124,10 @@ require 'legendary'.setup {
 
 		--- mini-operators
 		{ "g=", description = "mini-operators evaluate" },
-		{ "cx", description = "mini-operators exchange" },
+		{ "<A-x>", description = "mini-operators exchange" },
 		{ "gm", description = "mini-operators multiply" },
 		{ "gr", description = "mini-operators replace with register" },
-		{ "cs", description = "mini-operators sort text" },
+		{ "<A-s>", description = "mini-operators sort text" },
 
 		--- mini-surround
 		{ "sa", description = "mini-surround add around {textobject} {surround}" },
@@ -223,6 +223,16 @@ require 'legendary'.setup {
 		{"<leader>tmp", ":-tabmove<CR>",              description = "Move current tab left <-- "},
 		-- move current tab to next position
 		{"<leader>tmn", ":+tabmove<CR>",              description = "move current tab right -->"},
+
+		--- LuaSnip
+		{"<C-L>", mode = { "i", "s" }, function() require('luasnip').jump(1) end,  description="Complete tag with luasnip"},
+		{"<C-J>", mode = { "i", "s" }, function() require('luasnip').jump(-1) end, description="Complete tag with luasnip reverse"},
+		{"<C-K>", mode = { "i", "s" }, function()
+			local ls = require('luasnip')
+			if ls.choice_active() then
+				ls.change_choice(1)
+			end
+		end, description="Choose tag with with luasnip reverse"},
 
 		-- Marks
 		{"mx",        description="Set mark x"},
