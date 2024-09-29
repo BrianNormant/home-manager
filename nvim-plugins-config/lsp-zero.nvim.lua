@@ -8,7 +8,7 @@ local lsp_attach = function(client, bufnr)
 	vim.keymap.set('n',  'K',   vim.lsp.buf.hover,            opts)
 	vim.keymap.set('n',  'gi',  vim.lsp.buf.implementation,   opts)
 	vim.keymap.set('n',  'go',  vim.lsp.buf.type_definition,  opts)
-	vim.keymap.set('n',  'gs',  vim.lsp.buf.signature_help,   opts)
+	-- vim.keymap.set('n',  'gs',  vim.lsp.buf.signature_help,   opts) -- conflict with leap.nvim
 	vim.keymap.set('n',  'gD',  vim.lsp.buf.declaration,      opts)
 	vim.keymap.set('n',  'gd',  vim.lsp.buf.definition,       opts)
 	vim.keymap.set('n',  'gR',  vim.lsp.buf.rename,           opts)
@@ -18,7 +18,7 @@ end
 lsp_zero.extend_lspconfig {
 	sign_text = true,
 	lsp_attach = lsp_attach,
-	capabilities = coq.lsp_ensure_capabilities(),
+	-- capabilities = coq.lsp_ensure_capabilities(),
 }
 
 lsp_zero.ui {

@@ -67,7 +67,6 @@
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
 			(configPlugin {plugin = nvim-ufo;})
-			vim-surround
 			vim-repeat
 			vim-lastplace
 			(configPlugin {plugin = leap-nvim;})
@@ -85,7 +84,6 @@
 			(configPlugin {plugin = boole-nvim;})
 			(configPlugin {plugin = registers-nvim;})
 			(configPlugin {plugin = marks-nvim;})
-			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = guess-indent-nvim;})
 			(configPlugin {plugin = nvim-cursorline;})
 			(configPlugin {plugin = nvim-bqf;})
@@ -132,8 +130,17 @@
 					sha256 = "hv8IfNJ+3O1L1PPIZlPwXc37Oa4u8uZPJmISLnNkBGw=";
 				};
 			})
+			# Mini.nvim plugins
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-ai;})
+			(configPlugin {plugin = mini-animate;})
+			(configPlugin {plugin = mini-bracketed;})
+			(configPlugin {plugin = mini-clue;})
+			(configPlugin {plugin = mini-move;})
+			(configPlugin {plugin = mini-indentscope;}) # has some functionality that replace (configPlugin {plugin = indent-blankline-nvim;})
+			(configPlugin {plugin = mini-operators;})
+			(configPlugin {plugin = mini-surround;}) # replace vim-surround
+
 			(configPlugin {plugin = oil-nvim;})
 			(configPlugin {plugin = nvim-navbuddy;})
 			(configPlugin {
