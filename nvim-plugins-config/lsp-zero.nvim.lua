@@ -18,7 +18,7 @@ end
 lsp_zero.extend_lspconfig {
 	sign_text = true,
 	lsp_attach = lsp_attach,
-	-- capabilities = coq.lsp_ensure_capabilities(),
+	capabilities = require('cmp_nvim_lsp').default_capabilities()
 }
 
 lsp_zero.ui {

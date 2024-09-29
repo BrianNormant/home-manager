@@ -133,8 +133,9 @@ require 'legendary'.setup {
 		{ "sa", description = "mini-surround add around {textobject} {surround}" },
 		{ "sd", description = "mini-surround delete {surround}" },
 		{ "sr", description = "mini-surround add around {surround} {surround}" },
-		{ "sa", description = "mini-surround add around {textobject}" },
-		{ "sa", description = "mini-surround add around {textobject}" },
+		{ "sf", description = "mini-surround find surroundings" },
+		{ "sF", description = "mini-surround find surroundings reverse" },
+		{ "sh", description = "mini-surround highlight surrounding" },
 
 		--- mini-bracketed
 		{ "[B", description = "Target: Buffer " },

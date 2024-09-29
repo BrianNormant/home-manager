@@ -20,12 +20,6 @@ miniclue.setup {
     { mode = 'x', keys = "'" },
     { mode = 'x', keys = '`' },
 
-    -- Registers
-    { mode = 'n', keys = '"' },
-    { mode = 'x', keys = '"' },
-    { mode = 'i', keys = '<C-r>' },
-    { mode = 'c', keys = '<C-r>' },
-
     -- Window commands
     { mode = 'n', keys = '<C-w>' },
 
@@ -43,10 +37,10 @@ miniclue.setup {
   },
 
   clues = {
-    -- miniclue.gen_clues.g(),
-    -- miniclue.gen_clues.marks(),
-    -- miniclue.gen_clues.registers(),
-    -- miniclue.gen_clues.windows(),
-    -- miniclue.gen_clues.z(),
+    miniclue.gen_clues.g(),
+    miniclue.gen_clues.marks(),
+    -- miniclue.gen_clues.registers(), // registers.nvim does that already
+    miniclue.gen_clues.windows(),
+    miniclue.gen_clues.z(),
   },
 }

@@ -1,3 +1,4 @@
 require('lspkind').setup {
-	mode = 'symbol'
+	mode = 'symbol',
+	symbol_map = { Supermaven = "", },
 }

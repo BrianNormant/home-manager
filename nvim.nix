@@ -134,7 +134,6 @@
 			# Mini.nvim plugins
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-ai;})
-			# (configPlugin {plugin = mini-animate;})
 			(configPlugin {plugin = neoscroll-nvim;})
 			(configPlugin {plugin = mini-bracketed;})
 			(configPlugin {plugin = mini-clue;})
@@ -172,7 +171,14 @@
 			# coq-thirdparty
 			# (configPlugin {plugin = coq_nvim;})
 
+			# Snippets
+			friendly-snippets
+			(configPlugin {plugin = luasnip;})
+
 			# AutoCompletion
+			cmp-buffer cmp-spell cmp-nvim-lsp cmp-nvim-lsp-document-symbol cmp-async-path cmp-latex-symbols
+			supermaven-nvim cmp-treesitter
+			(configPlugin {plugin = nvim-cmp;})
 
 			(configPlugin {plugin = lspkind-nvim;})
 
@@ -183,7 +189,7 @@
 					repo = "lsp-zero.nvim";
 					rev = "b841170";
 					hash = "sha256-QEd5UXBLz3Z6NL9TMPlJmfYugs4Ec3zpEUWwei6jPKs=";
-				};
+		};
 			};})
 			(configPlugin {plugin = goto-preview;})
 			(configPlugin {
