@@ -162,17 +162,20 @@
 			# coq-artifacts
 			# coq-thirdparty
 			# (configPlugin {plugin = coq_nvim;})
+
+			# AutoCompletion
+
 			(configPlugin {plugin = lspkind-nvim;})
 
 			# LSP
-			(configPlugin {plugin = (lsp-zero-nvim.overrideAttrs {
+			(configPlugin {plugin = lsp-zero-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
 					owner = "VonHeikemen";
 					repo = "lsp-zero.nvim";
 					rev = "b841170";
 					hash = "sha256-QEd5UXBLz3Z6NL9TMPlJmfYugs4Ec3zpEUWwei6jPKs=";
 				};
-			});})
+			};})
 			(configPlugin {plugin = goto-preview;})
 			(configPlugin {
 				plugin.pname = "symbol-usage.nvim";
@@ -211,71 +214,73 @@
 			 })
 
 			(configPlugin {plugin = rest-nvim;})
-				(configPlugin {plugin = vim-dadbod;})
+			(configPlugin {plugin = vim-dadbod;})
 # DataBase
-				vim-dadbod-ui
-				(configPlugin {plugin = idris2-nvim;})
-				(configPlugin {
-				 plugin.pname = "dbext.vim";
-				 src = {
-				 owner = "vim-scripts";
-				 repo = "dbext.vim";
-				 rev = "23.00";
-				 hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
-				 };
-				 config = false;
+			vim-dadbod-ui
+			(configPlugin {plugin = idris2-nvim;})
+			(configPlugin {
+				plugin.pname = "dbext.vim";
+					 src = {
+						 owner = "vim-scripts";
+						 repo = "dbext.vim";
+						 rev = "23.00";
+						 hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
+					 };
+				config = false;
 				 })
 
 # Markdown, CSV,
 			markdown-preview-nvim
 
 # Compile and run from vim
-				(configPlugin {plugin = (compiler-nvim.overrideAttrs {
-										 src = pkgs.fetchFromGitHub {
-										 owner = "BrianNormant";
-										 repo = "compiler.nvim";
-										 rev = "353a094";
-										 sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
-										 };
-										 });})
+			(configPlugin {plugin = compiler-nvim.overrideAttrs {
+				 src = pkgs.fetchFromGitHub {
+					 owner = "BrianNormant";
+					 repo = "compiler.nvim";
+					 rev = "353a094";
+					 sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
+				 };
+			 };})
 
 # Treesitter
 			nvim-treesitter
-				nvim-treesitter-parsers.java
-				nvim-treesitter-parsers.lua
-				nvim-treesitter-parsers.c
-				nvim-treesitter-parsers.xml
-				nvim-treesitter-parsers.json
-				nvim-treesitter-parsers.graphql
-				nvim-treesitter-parsers.elixir
-				nvim-treesitter-parsers.nix
-				nvim-treesitter-parsers.gnuplot
-				/*
-				   (configPlugin {
-				   plugin.pname = "fzfx.nvim";
-				   src = {
-				   owner = "linrongbin16";
-				   repo = "fzfx.nvim";
-				   rev = "v6.4.0";
-				   hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
-				   };
-				   })*/
-				(nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [
-											  (pkgs.tree-sitter.buildGrammar {
-											   language = "nu";
-											   version = "8af0aab";
-											   src = pkgs.fetchFromGitHub {
-											   owner = "nushell";
-											   repo = "tree-sitter-nu";
-											   rev = "0bb9a60";
-											   sha256 = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
-											   };
-											   })]))
-			(configPlugin {plugin = legendary-nvim;})
-				];
-			extraLuaConfig = # (builtins.readFile ./ollama-Gen-nvim.lua ) +
+			nvim-treesitter-parsers.java
+			nvim-treesitter-parsers.lua
+			nvim-treesitter-parsers.c
+			nvim-treesitter-parsers.xml
+			nvim-treesitter-parsers.json
+			nvim-treesitter-parsers.graphql
+			nvim-treesitter-parsers.elixir
+			nvim-treesitter-parsers.nix
+			nvim-treesitter-parsers.gnuplot
+			/*
+			   (configPlugin {
+			   plugin.pname = "fzfx.nvim";
+			   src = {
+			   owner = "linrongbin16";
+			   repo = "fzfx.nvim";
+			   rev = "v6.4.0";
+			   hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
+			   };
+			   })*/
+			(nvim-treesitter.withPlugins (
+				nvim-treesitter.allGrammars ++ [
+				(pkgs.tree-sitter.buildGrammar {
+					 language = "nu";
+					 version = "8af0aab";
+					 src = pkgs.fetchFromGitHub {
+						 owner = "nushell";
+						 repo = "tree-sitter-nu";
+						 rev = "0bb9a60";
+						 hash = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
+					};
+				})
+				]
+			))
+		(configPlugin {plugin = legendary-nvim;})
+		];
+		extraLuaConfig = # (builtins.readFile ./ollama-Gen-nvim.lua ) +
 				''
-
 				vim.opt.clipboard:append "unnamedplus"
 				vim.opt.scrolloff = 5
 
