@@ -159,9 +159,9 @@
 			(configPlugin {plugin = actions-preview-nvim;})
 			(configPlugin {plugin = diaglist-nvim;})
 
-			coq-artifacts
-			coq-thirdparty
-			(configPlugin {plugin = coq_nvim;})
+			# coq-artifacts
+			# coq-thirdparty
+			# (configPlugin {plugin = coq_nvim;})
 			(configPlugin {plugin = lspkind-nvim;})
 
 			# LSP
@@ -291,8 +291,6 @@
 
 				vim.o.foldenable = true
 				vim.o.foldmethod = "syntax"
-
-				vim.cmd "COQnow"
 
 				vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
 				vim.cmd "set invlist"
