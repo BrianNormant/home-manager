@@ -3,7 +3,6 @@ require 'legendary'.setup {
 	keymaps = {
 		--- Basic keymaps
 		{"<A-p>", "<cmd>Legendary<cr>",    description="Open Legendary keybind manager" },
-		{"<C-s>", "<cmd>wa<cr>",           description="Write and save" },
 		{"<C-q>", "<cmd>wqa<cr>",          description="Write, save, then exit" },
 		{"\\",    '<cmd>split<cr><C-w>j',  description="Split horizontal" },
 		{"|",     '<cmd>vsplit<cr><C-w>l', description="Split vertical" },
@@ -11,6 +10,7 @@ require 'legendary'.setup {
 		--- Boo.nvim
 
 		{"gi", function() require('boo').boo() end, description="open LSP info"},
+		{"<C-s>", "<cmd>ISwap<cr>",           description="Write and save" },
 
 		-- goto-preview
 		{"gpd",  function()  require('goto-preview').goto_preview_definition()       end, description="LSP view definition"},
@@ -111,6 +111,11 @@ require 'legendary'.setup {
 				vim.o.background = "dark"
 			end
 		end, description="change vim light/dark mode"},
+		
+		--- mini-ai
+		{"a?, i?", description = "Around/Inside user selected 2 character" },
+		{"af, if", description = "Around/Inside function call" },
+		{"aa, ia", description = "Around/Inside function argument call" },
 
 		--- Tabby
 		{"<leader>ta",  ":$tabnew<CR>",               description = "Open new tab"},

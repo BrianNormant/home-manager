@@ -35,7 +35,7 @@
 			plugin = if src == null
 				then plugin
 				else pkgs.vimUtils.buildVimPlugin {
-					pname = plugin.pname;
+					inherit (plugin) pname;
 					version = "${src.rev}";
 					src = pkgs.fetchFromGitHub src;
 				};
@@ -102,14 +102,14 @@
 			telescope-lsp-handlers-nvim
 			telescope-ui-select-nvim
 			(configPlugin {plugin = telescope-nvim;})
-			(configPlugin {plugin = (true-zen-nvim.overrideAttrs {
+			(configPlugin {plugin = true-zen-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
 					owner = "mrcapivaro";
 					repo = "true-zen.nvim";
 					rev = "6aee7f2";
 					hash = "sha256-BRmMdjhzCogsNrEU9nz+OYx+m8VNJXo5V2i15z+liag=";
 				};
-			});})
+			};})
 			vim-wakatime
 			(configPlugin {plugin = nvim-web-devicons;})
 			(configPlugin {
@@ -133,6 +133,7 @@
 				};
 			})
 			(configPlugin {plugin = mini-align;})
+			(configPlugin {plugin = mini-ai;})
 			(configPlugin {plugin = oil-nvim;})
 			(configPlugin {plugin = nvim-navbuddy;})
 			(configPlugin {
