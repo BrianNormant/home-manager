@@ -5,6 +5,11 @@ miniclue.setup {
     { mode = 'n', keys = '<Leader>' },
     { mode = 'x', keys = '<Leader>' },
 
+    -- default operators
+    { mode = 'n', keys = 'd' },
+    { mode = 'n', keys = 'y' },
+    { mode = 'n', keys = 'c' },
+
     -- `g` key
     { mode = 'n', keys = 'g' },
     { mode = 'x', keys = 'g' },

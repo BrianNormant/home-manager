@@ -112,12 +112,12 @@ require 'legendary'.setup {
 				vim.o.background = "dark"
 			end
 		end, description="change vim light/dark mode"},
-		
+
 		--- mini-ai
 		{"a?, i?", description = "Around/Inside user selected 2 character" },
 		{"af, if", description = "Around/Inside function call" },
 		{"aa, ia", description = "Around/Inside function argument call" },
-		
+
 		--- mini-indentscope
 		{ "[i", description = "goto indentscope top" },
 		{ "]i", description = "goto indentscope bottom" },

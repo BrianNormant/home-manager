@@ -121,7 +121,7 @@
 			})
 			lazygit-nvim
 			# TODO Search and replace for all the files.
-			(configPlugin {
+			 (configPlugin {
 				plugin.pname = "muren.nvim";
 				src = {
 					owner = "AckslD";
@@ -130,10 +130,12 @@
 					sha256 = "hv8IfNJ+3O1L1PPIZlPwXc37Oa4u8uZPJmISLnNkBGw=";
 				};
 			})
+
 			# Mini.nvim plugins
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-ai;})
-			(configPlugin {plugin = mini-animate;})
+			# (configPlugin {plugin = mini-animate;})
+			(configPlugin {plugin = neoscroll-nvim;})
 			(configPlugin {plugin = mini-bracketed;})
 			(configPlugin {plugin = mini-clue;})
 			(configPlugin {plugin = mini-move;})
@@ -251,27 +253,16 @@
 
 # Treesitter
 			nvim-treesitter
-			nvim-treesitter-parsers.java
-			nvim-treesitter-parsers.lua
-			nvim-treesitter-parsers.c
-			nvim-treesitter-parsers.xml
-			nvim-treesitter-parsers.json
-			nvim-treesitter-parsers.graphql
-			nvim-treesitter-parsers.elixir
-			nvim-treesitter-parsers.nix
-			nvim-treesitter-parsers.gnuplot
-			/*
-			   (configPlugin {
-			   plugin.pname = "fzfx.nvim";
-			   src = {
-			   owner = "linrongbin16";
-			   repo = "fzfx.nvim";
-			   rev = "v6.4.0";
-			   hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
-			   };
-			   })*/
-			(nvim-treesitter.withPlugins (
-				nvim-treesitter.allGrammars ++ [
+			(nvim-treesitter.withPlugins (_: (
+				[nvim-treesitter-parsers.java
+				nvim-treesitter-parsers.lua
+				nvim-treesitter-parsers.c
+				nvim-treesitter-parsers.xml
+				nvim-treesitter-parsers.json
+				nvim-treesitter-parsers.graphql
+				nvim-treesitter-parsers.elixir
+				nvim-treesitter-parsers.nix
+				nvim-treesitter-parsers.gnuplot
 				(pkgs.tree-sitter.buildGrammar {
 					 language = "nu";
 					 version = "8af0aab";
@@ -281,10 +272,9 @@
 						 rev = "0bb9a60";
 						 hash = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
 					};
-				})
-				]
-			))
-		(configPlugin {plugin = legendary-nvim;})
+				}) ] ++ nvim-treesitter.allGrammars
+			)))
+			(configPlugin {plugin = legendary-nvim;})
 		];
 		extraLuaConfig = # (builtins.readFile ./ollama-Gen-nvim.lua ) +
 				''
