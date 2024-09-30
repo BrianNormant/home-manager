@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+-- TODO add commands definition of each in their respective files
 local legend = {
 	keymaps = {
 		--- Basic keymaps
@@ -28,7 +29,7 @@ local legend = {
 			end
 		end, description="change vim light/dark mode"},
 
-		--- Switch between light/dark mode
+			--- Switch between light/dark mode
 		-- Telescope internal mappings.
 	},
 	commands = {
