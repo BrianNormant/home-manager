@@ -9,13 +9,7 @@ require('actions-preview').setup {
 
 --- Keybinds
 local legend = { keymaps = {
-	{"<leader>la", function()
-		if vim.bo.filetype == "java" then
-			vim.lsp.buf.code_action()
-		else
-			require'actions-preview'.code_actions()
-		end
-	end, description="LSP view avalaible code actions"},
+	{"<leader>la", require('actions-preview').code_actions, description="LSP view avalaible code actions"},
 } }
 
 _G.LEGEND_append(legend)
