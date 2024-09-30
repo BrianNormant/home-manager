@@ -19,20 +19,19 @@ local legend = {
 	},
 }
 
--- lsp_attach is where you enable features that only work
+--[[ -- lsp_attach is where you enable features that only work
 -- if there is a language server active in the file
 local lsp_attach = function(client, bufnr)
 	local opts = {buffer = bufnr}
-	for _,v in pairs(legend.keymaps) do
+	for _,v in pairs(legend_b.keymaps) do
 		vim.keymap.set(v.mode, v[1], v[2], opts)
 	end
-end
-
-legend.keymaps = vim.tbl_map(function(v) return {v[1], mode = v.mode, description = v.description} end, legend.keymaps)
+end ]]
+-- local legend = { keymaps = vim.tbl_map(function(v) return {v[1], mode = v.mode, description = v.description} end, legend_b.keymaps) }
 
 lsp_zero.extend_lspconfig {
 	sign_text = true,
-	lsp_attach = lsp_attach,
+	lsp_attach = function(_, _) end,
 	capabilities = require('cmp_nvim_lsp').default_capabilities()
 }
 
