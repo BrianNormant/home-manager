@@ -142,6 +142,7 @@
 			(configPlugin {plugin = mini-indentscope;})
 			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = mini-operators;})
+			(configPlugin {plugin = mini-starter;})
 			(configPlugin {plugin = mini-surround;}) # replace vim-surround
 			(configPlugin {plugin = nvim-treesitter-textsubjects;})  # Must be loaded after ai to override ; mapping
 			(configPlugin {plugin = oil-nvim;})
