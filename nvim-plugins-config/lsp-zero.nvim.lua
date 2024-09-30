@@ -13,8 +13,8 @@ local legend = {
 		{'gd',         vim.lsp.buf.definition,      mode={'n'}, description = "Lsp goto definition"},
 		{'gR',         vim.lsp.buf.rename,          mode={'n'}, description = "Lsp rename symbol under cursor"},
 		{'gr',         vim.lsp.buf.references,      mode={'n'}, description = "Lsp goto references"},
-		{'<leader>qq', vim.diagnostic.set_qflist,   mode={'n'}, description = "Lsp send diagnostics to quickfix"},
-		{'<leader>ql', vim.diagnostic.setloclist,   mode={'n'}, description = "Lsp send diagnostics to loclist"},
+		{'<leader>gq', vim.diagnostic.set_qflist,   mode={'n'}, description = "Lsp send diagnostics to quickfix"},
+		{'<leader>gl', vim.diagnostic.setloclist,   mode={'n'}, description = "Lsp send diagnostics to loclist"},
 		{"<leader>e",  vim.diagnostic.open_float,   mode={'n'}, description = "Lsp open/enter diagnostic window"},
 	},
 }
