@@ -1,4 +1,8 @@
 local jdtls = require 'jdtls'
+-- TODO use this fork of jdtls to have pretty prompt with multiple actions
+-- https://github.com/mfussenegger/nvim-jdtls/pull/572
+
+
 local config = {
 	cmd = { vim.fn.exepath 'jdtls' },
 	settings = {
