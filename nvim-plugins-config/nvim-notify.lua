@@ -1,6 +1,8 @@
 local notify = require 'notify'
 
 notify.setup {
-	render = "static",
+	stages = "static",
 	fps = 5,
 }
+
+vim.notify = notify
