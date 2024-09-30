@@ -64,6 +64,7 @@
 		# ".java/home/jdk-8".source =  pkgs.jdk8  + "/lib/openjdk";
 		".java/home/jdk-17".source = pkgs.jdk17 + "/lib/openjdk";
 		".java/home/jdk-21".source = pkgs.jdk   + "/lib/openjdk";
+		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./checkstyle.xml;
   };
 
 	home.pointerCursor = {

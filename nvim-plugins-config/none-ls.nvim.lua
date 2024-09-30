@@ -19,7 +19,7 @@ null_ls.setup({
 		-- Java
 		--
 		null_ls.builtins.diagnostics.checkstyle.with {
-			extra_args = { "-c", "/google_checks.xml" }, -- TODO create a custom set for checkstyle and link it with home-manager
+			extra_args = { "-c", "~/.java/checkstyle/checkstyle.xml" },
 		},
 
 		-- C/C++
