@@ -19,7 +19,7 @@ null_ls.setup({
 		-- Java
 		--
 		null_ls.builtins.diagnostics.checkstyle.with {
-			extra_args = { "-c", "~/.java/checkstyle/checkstyle.xml" },
+			extra_args = { "-c", vim.env.HOME .. "/.java/checkstyle/checkstyle.xml" },
 		},
 
 		-- C/C++
