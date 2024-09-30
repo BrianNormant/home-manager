@@ -37,7 +37,11 @@ local cmp_action = require('lsp-zero').cmp_action()
 
 
 cmp.setup {
-	preselect = 'item',
+	preselect = cmp.PreselectMode.None,
+	completion = {
+		completeopt = "menu,menuone,noselect",
+		autocomplete = false, -- manually trigger autocomplete with autocomplete() method
+	},
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
@@ -77,7 +81,7 @@ cmp.setup {
 				fallback()
 			end
 		end),
-		['<Space>'] = cmp.mapping(function(fallback)
+		--[[ ['<Space>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				if luasnip.expandable() then
 					luasnip.expand()
@@ -90,7 +94,7 @@ cmp.setup {
 			else
 				fallback()
 			end
-		end),
+		end), ]]
 		['<Tab>'] = cmp_action.luasnip_supertab(),
 		['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
 	}),
@@ -120,3 +124,20 @@ vim.cmd [[
 	hi! link Pmenu Float
 	hi! link PmenuSel Float
 ]]
+
+--- Add delay to cmp-nvim completion
+local timer = nil
+vim.api.nvim_create_autocmd({ "TextChangedI", "CmdlineChanged" }, {
+  pattern = "*",
+  callback = function()
+    if timer then
+      vim.loop.timer_stop(timer)
+      timer = nil
+    end
+
+    timer = vim.loop.new_timer()
+    timer:start(200, 0, vim.schedule_wrap(function()
+      require('cmp').complete({ reason = require('cmp').ContextReason.Auto })
+    end))
+  end
+})

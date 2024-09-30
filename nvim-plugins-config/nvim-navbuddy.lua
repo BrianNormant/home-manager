@@ -12,3 +12,12 @@ require 'nvim-navbuddy'.setup {
 	},
 	lsp = { auto_attach = true },
 }
+
+--- Keymaps
+local legend = {
+	keymaps = {
+		{"<leader>L",  function() require("nvim-navbuddy").open() end, description="Open Navbuddy"},
+	}
+}
+_G.LEGEND_append(legend)
+

@@ -22,20 +22,22 @@ local legend = {
 vim.g.legend_append(legend)
 ```
 ]]--
-vim.g.legend_merge = function (a, b)
-	local keybinds = {}
-	if a.keybinds ~= nil then vim.list_extend(keybinds, a.keybinds) end
-	if b.keybinds ~= nil then vim.list_extend(keybinds, b.keybinds) end
+_G.LEGEND_merge = function (a, b)
+	local keymaps = {}
+	if a.keymaps ~= nil then vim.list_extend(keymaps, a.keymaps) end
+	if b.keymaps ~= nil then vim.list_extend(keymaps, b.keymaps) end
 
 	local commands = {}
 	if a.commands ~= nil then vim.list_extend(commands, a.commands) end
 	if b.commands ~= nil then vim.list_extend(commands, b.commands) end
 
 	return {
-		keybinds = keybinds,
+		keymaps = keymaps,
 		commands = commands
 	}
 end
-vim.g.legend_append = function(a)
-	vim.g.legend = vim.g.legend_merge(vim.g.legend, a)
+_G.LEGEND_append = function(a)
+	_G.LEGEND_S = _G.LEGEND_merge(_G.LEGEND_S, a)
 end
+
+_G.LEGEND_S = {}

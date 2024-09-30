@@ -1,6 +1,7 @@
 require'registers'.setup {
 	window = {
-		border = "single",
+		border = "double",
 		transparency = 0,
 	},
 }
+

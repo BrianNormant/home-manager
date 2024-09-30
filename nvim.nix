@@ -134,6 +134,7 @@
 			# Mini.nvim plugins
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-ai;})
+			(configPlugin {plugin = nvim-treesitter-textsubjects;})
 			(configPlugin {plugin = neoscroll-nvim;})
 			(configPlugin {plugin = mini-bracketed;})
 			(configPlugin {plugin = mini-clue;})
@@ -166,7 +167,7 @@
 			(configPlugin {plugin = lsp_signature-nvim;})
 			(configPlugin {plugin = nvim-lightbulb;})
 			(configPlugin {plugin = actions-preview-nvim;})
-			(configPlugin {plugin = diaglist-nvim;})
+			# (configPlugin {plugin = diaglist-nvim;})
 
 			# coq-artifacts
 			# coq-thirdparty

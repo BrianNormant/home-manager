@@ -11,15 +11,16 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.statix,
 
 		-- treesiter
-		null_ls.builtins.code_actions.ts_node_action,
+		-- null_ls.builtins.code_actions.ts_node_action, -- plugin like ISwap, extange and nvim-treesitter-textsubject replace it already
 
 		-- Generic
 		null_ls.builtins.completion.spell,
 
 		-- Java
-		null_ls.builtins.diagnostics.checkstyle.with({
-        extra_args = { "-c", "/google_checks.xml" }, -- or "/sun_checks.xml" or path to self written rules
-		}),
+		--
+		null_ls.builtins.diagnostics.checkstyle.with {
+			extra_args = { "-c", "/google_checks.xml" }, -- TODO create a custom set for checkstyle and link it with home-manager
+		},
 
 		-- C/C++
 		null_ls.builtins.diagnostics.cppcheck,
