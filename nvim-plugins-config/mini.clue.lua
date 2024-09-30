@@ -2,8 +2,8 @@ local miniclue = require('mini.clue')
 miniclue.setup {
 	triggers = {
 		-- Leader triggers
-		{ mode = 'n', keys = '<Leader>' },
-		{ mode = 'x', keys = '<Leader>' },
+		{ mode = 'n', keys = '<Space>' },
+		{ mode = 'x', keys = '<Space>' },
 
 		-- default operators
 		{ mode = 'n', keys = 'd' },
