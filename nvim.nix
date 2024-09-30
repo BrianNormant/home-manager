@@ -60,6 +60,7 @@
 			vim-suda
 			(configPlugin {plugin = dressing-nvim;})
 			(configPlugin {plugin = dropbar-nvim;})
+			(configPlugin {plugin = nvim-treesitter-context;})
 			(configPlugin {plugin = ccc-nvim;})
 			(configPlugin {plugin = gitsigns-nvim;})
 			(configPlugin {plugin = diffview-nvim;})
@@ -134,7 +135,6 @@
 			# Mini.nvim plugins
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-ai;})
-			(configPlugin {plugin = nvim-treesitter-textsubjects;})
 			(configPlugin {plugin = neoscroll-nvim;})
 			(configPlugin {plugin = mini-bracketed;})
 			(configPlugin {plugin = mini-clue;})
@@ -143,7 +143,7 @@
 			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = mini-operators;})
 			(configPlugin {plugin = mini-surround;}) # replace vim-surround
-
+			(configPlugin {plugin = nvim-treesitter-textsubjects;})  # Must be loaded after ai to override ; mapping
 			(configPlugin {plugin = oil-nvim;})
 			(configPlugin {plugin = nvim-navbuddy;})
 			(configPlugin {
