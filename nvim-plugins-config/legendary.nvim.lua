@@ -7,6 +7,9 @@ local legend = {
 		{"\\",    '<cmd>split<cr><C-w>j',  description="Split horizontal" },
 		{"|",     '<cmd>vsplit<cr><C-w>l', description="Split vertical" },
 
+		--- Spellcheck
+		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},
+
 		--- Neotest
 		--- TODO install neotest
 		{"<F7>", function() require("neotest").run.run() end, description="Run with neotest"},

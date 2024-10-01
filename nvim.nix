@@ -209,6 +209,15 @@
 			})
 # Lint and Format
 			(configPlugin {plugin = none-ls-nvim;})
+			(configPlugin {
+				plugin.pname = "spellwarn.nvim";
+				src = {
+					owner = "ravibrock";
+					repo  = "spellwarn.nvim";
+					rev   = "2f4dbc5";
+					hash  = "sha256-BE02RNS2j4TwUvZEWaQQYXfHR5eGj/EuCSue+eeUySI=";
+				};
+			})
 # Debugger
 			(configPlugin {plugin = nvim-dap-ui;})
 			(configPlugin {
@@ -298,6 +307,11 @@
 				vim.opt.laststatus = 3
 				vim.opt.showtabline = 2
 				vim.opt.expandtab = false -- set to true to use space instead of tab
+
+
+				-- enable spell check
+				vim.opt.spelllang = 'en_us'
+				vim.opt.spell = true
 
 				vim.o.cursorline = true
 				vim.o.number = true
