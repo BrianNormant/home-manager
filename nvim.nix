@@ -167,7 +167,17 @@
 			# (configPlugin {plugin = coq_nvim;})
 
 			# Snippets
+			(configPlugin {
+				plugin.pname = "luasnip-snippers-nvim";
+				src = {
+					owner = "molleweide";
+					repo = "LuaSnip-snippets.nvim";
+					rev = "d7e40e4";
+				};
+				config = false;
+			})
 			friendly-snippets
+			vim-snippets
 			(configPlugin {plugin = luasnip;})
 
 
