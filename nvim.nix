@@ -310,6 +310,13 @@
 				-- enable spell check
 				vim.opt.spelllang = 'en_us'
 				vim.opt.spell = true
+				--- clear spell check highlights
+				vim.cmd [[
+				hi clear SpellBad
+				hi clear SpellCap
+				hi clear SpellRare
+				hi clear SpellLocal
+				]]
 
 				vim.o.cursorline = true
 				vim.o.number = true
