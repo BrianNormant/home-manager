@@ -5,7 +5,11 @@ local lsp_config = require('lspconfig')
 --- Keybinds
 local legend = {
 	keymaps = {
-		{'K',          vim.lsp.buf.hover,           mode={'n'}, description = "Lsp show/enter hover"},
+		{'K',          function()
+			local winid = require('ufo').peekFoldedLinesUnderCursor()
+			if not winid then vim.lsp.buf.hover() end
+		end,           mode={'n'}, description = "Lsp show/enter hover"},
+		{'H',          vim.lsp.buf.document_highlight, mode={'n'}, description = "Lsp highligh current symbol"},
 		{'gi',         vim.lsp.buf.implementation,  mode={'n'}, description = "Lsp goto implementation"},
 		{'go',         vim.lsp.buf.type_definition, mode={'n'}, description = "Lsp goto type definition"},
 		-- {'gs',      vim.lsp.buf.signature_help,  mode={'n'}, description = "Lsp show type signature"},
