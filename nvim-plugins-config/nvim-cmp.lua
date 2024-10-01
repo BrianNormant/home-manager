@@ -70,20 +70,17 @@ cmp.setup {
 	mapping = cmp.mapping.preset.insert({
 		['<C-e>'] = cmp.mapping.abort(),
 		['<CR>'] = cmp.mapping.confirm { select = false; },
-		--[[ ['<Space>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				if luasnip.expandable() then
-					luasnip.expand()
-				else
-					cmp.confirm({
-						select = true,
-					})
-				end
-				fallback()
-			else
-				fallback()
-			end
-		end), ]]
+		['<C-g>'] = cmp.mapping.scroll_docs(-4),
+		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		--- https://www.reddit.com/r/neovim/comments/10r7l63/comment/jfx72u9/
+		['<Down>'] = cmp.mapping(function(fallback)
+			cmp.close()
+			fallback()
+		end, { 'i', 's' }),
+		['<Up>'] = cmp.mapping(function(fallback)
+			cmp.close()
+			fallback()
+		end, { 'i', 's' }),
 		['<Tab>'] = cmp_action.luasnip_supertab(),
 		['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
 	}),
