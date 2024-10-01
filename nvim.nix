@@ -100,7 +100,6 @@
 			})
 			# https://github.com/Wansmer/binary-swap.nvim
 			telescope-lsp-handlers-nvim
-			telescope-ui-select-nvim
 			(configPlugin {plugin = telescope-nvim;})
 			(configPlugin {plugin = true-zen-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
