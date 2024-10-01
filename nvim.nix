@@ -71,6 +71,7 @@
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
 			(configPlugin {plugin = nvim-ufo;})
+			(configPlugin {plugin = modicator-nvim;})
 			vim-repeat
 			vim-lastplace
 			(configPlugin {plugin = leap-nvim;})
