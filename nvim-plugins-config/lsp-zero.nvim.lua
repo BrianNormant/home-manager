@@ -6,7 +6,6 @@ local lsp_config = require('lspconfig')
 local legend = {
 	keymaps = {
 		{'K',          vim.lsp.buf.hover,           mode={'n'}, description = "Lsp show/enter hover"},
-		{'H',          vim.lsp.buf.document_highlight, mode={'n'}, description = "Lsp show/enter hover"},
 		{'gi',         vim.lsp.buf.implementation,  mode={'n'}, description = "Lsp goto implementation"},
 		{'go',         vim.lsp.buf.type_definition, mode={'n'}, description = "Lsp goto type definition"},
 		-- {'gs',      vim.lsp.buf.signature_help,  mode={'n'}, description = "Lsp show type signature"},
@@ -28,6 +27,10 @@ local legend = {
 	},
 }
 
+vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+	pattern = {"*"},
+	callback = function(_) vim.lsp.buf.document_highlight() end
+})
 vim.api.nvim_create_autocmd({"CursorMoved"}, {
 	pattern = {"*"},
 	callback = function(_) vim.lsp.buf.clear_references() end

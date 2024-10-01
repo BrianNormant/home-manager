@@ -88,7 +88,6 @@
 			(configPlugin {plugin = registers-nvim;})
 			(configPlugin {plugin = marks-nvim;})
 			(configPlugin {plugin = guess-indent-nvim;})
-			(configPlugin {plugin = nvim-cursorline;})
 			(configPlugin {plugin = nvim-bqf;})
 			(configPlugin {
 				plugin.pname = "iswap.nvim";
