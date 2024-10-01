@@ -37,13 +37,8 @@ local luasnip = require("luasnip")
 local lspkind = require('lspkind')
 local cmp_action = require('lsp-zero').cmp_action()
 
-
 cmp.setup {
 	preselect = cmp.PreselectMode.None,
-	completion = {
-		completeopt = "menu,menuone,noselect",
-		autocomplete = false, -- manually trigger autocomplete with autocomplete() method
-	},
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
@@ -52,6 +47,9 @@ cmp.setup {
 		mode = "symbol_text",
 		menu = ({
 			buffer = "[Buffer]",
+			maxWidth = 50,
+			ellipsis_char = '...',
+			show_labelDetails = true,
 			nvim_lsp = "[LSP]",
 			nvim_lsp_document_symbol = "[LSP Symbol]",
 			luasnip = "[LuaSnip]",
@@ -60,7 +58,8 @@ cmp.setup {
 			supermaven = "[SuperMaven]",
 			async_path = "[File]",
 			spell = "[Spell]",
-		})
+		}),
+		details = true
 	}, },
 	snippet = {
 		expand = function(args)
@@ -70,19 +69,7 @@ cmp.setup {
 	-- window = { border = "single" },
 	mapping = cmp.mapping.preset.insert({
 		['<C-e>'] = cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				if luasnip.expandable() then
-					luasnip.expand()
-				else
-					cmp.confirm({
-						select = true,
-					})
-				end
-			else
-				fallback()
-			end
-		end),
+		['<CR>'] = cmp.mapping.confirm { select = false; },
 		--[[ ['<Space>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				if luasnip.expandable() then
@@ -103,11 +90,11 @@ cmp.setup {
 
 	sources = cmp.config.sources {
 		{ name = 'nvim_lsp' },
-		{ name = 'nvim_lsp_document_symbol' },
+		-- { name = 'nvim_lsp_document_symbol' },
 		{ name = 'treesitter' },
 		{ name = 'luasnip' },
 		{ name = 'async_path' },
-		{ name = "buffer" },
+		-- { name = "buffer" },
 
 		--- Random guess
 		{ name = "supermaven" },
@@ -128,7 +115,7 @@ vim.cmd [[
 ]]
 
 --- Add delay to cmp-nvim completion
-local timer = nil
+--[[ local timer = nil
 vim.api.nvim_create_autocmd({ "TextChangedI", "CmdlineChanged" }, {
   pattern = "*",
   callback = function()
@@ -142,4 +129,4 @@ vim.api.nvim_create_autocmd({ "TextChangedI", "CmdlineChanged" }, {
       require('cmp').complete({ reason = require('cmp').ContextReason.Auto })
     end))
   end
-})
+}) ]]

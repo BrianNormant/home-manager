@@ -16,17 +16,18 @@ telescope.load_extension('ui-select')
 -- Keymaps
 local legend = {
 	keymaps = {
-		{"<leader>ft", require('telescope.builtin').builtin, description="Telescope list builtins"},
-		{"<leader>ff", '<cmd>Telescope find_files<cr>',                description="Telescope list files"},
+		{"<leader>f", description = "Telescope Fuzzy finding"},
+		{"<leader>ft", require('telescope.builtin').builtin, description="Telescope find builtins"},
+		{"<leader>ff", '<cmd>Telescope find_files<cr>',                description="Telescope find files"},
 		{"<leader>fF", '<cmd>Telescope live_grep<cr>',                 description="Telescope live grep"},
-		{"<leader>fb", '<cmd>Telescope buffers<cr>',                   description="Telescope list buffers"},
+		{"<leader>fb", '<cmd>Telescope buffers<cr>',                   description="Telescope find buffers"},
 		{"<leader>f/", '<cmd>Telescope current_buffer_fuzzy_find<cr>', description="Telescope live grep in file"},
 		{"<M-h>",      '<cmd>Telescope help_tags<cr>',                 description="Telescope neovim help"},
 
-		{"<leader>fd", '<cmd>Telescope lsp_definitions<cr>',           description="Telescope list LSP definitions"},
-		{"<leader>fr", '<cmd>Telescope lsp_references<cr>',            description="Telescope list LSP references"},
-		{"<leader>fi", '<cmd>Telescope lsp_implementations<cr>',       description="Telescope list LSP implementations"},
-		{"<leader>fp", '<cmd>Telescope diagnostics<cr>',               description="Telescope list LSP diagnostics"},
+		{"<leader>fd", '<cmd>Telescope lsp_definitions<cr>',           description="Telescope find LSP definitions"},
+		{"<leader>fr", '<cmd>Telescope lsp_references<cr>',            description="Telescope find LSP references"},
+		{"<leader>fi", '<cmd>Telescope lsp_implementations<cr>',       description="Telescope find LSP implementations"},
+		{"<leader>fp", '<cmd>Telescope diagnostics<cr>',               description="Telescope find LSP diagnostics"},
 		{"<CR>",       description = "Telescope mapping: Confirm selection"},
 		{"<C-x>",      description = "Telescope mapping: Go to file selection as a split"},
 		{"<C-v>",      description = "Telescope mapping: Go to file selection as a vsplit"},

@@ -17,6 +17,7 @@ require 'nvim-navbuddy'.setup {
 local legend = {
 	keymaps = {
 		{"<leader>L",  function() require("nvim-navbuddy").open() end, description="Open Navbuddy"},
+		{"L",  require('nvim-navbuddy').open, description="Open Navbuddy"},
 	}
 }
 _G.LEGEND_append(legend)

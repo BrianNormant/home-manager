@@ -6,6 +6,7 @@ local lsp_config = require('lspconfig')
 local legend = {
 	keymaps = {
 		{'K',          vim.lsp.buf.hover,           mode={'n'}, description = "Lsp show/enter hover"},
+		{'H',          vim.lsp.buf.document_highlight, mode={'n'}, description = "Lsp show/enter hover"},
 		{'gi',         vim.lsp.buf.implementation,  mode={'n'}, description = "Lsp goto implementation"},
 		{'go',         vim.lsp.buf.type_definition, mode={'n'}, description = "Lsp goto type definition"},
 		-- {'gs',      vim.lsp.buf.signature_help,  mode={'n'}, description = "Lsp show type signature"},
@@ -13,11 +14,24 @@ local legend = {
 		{'gd',         vim.lsp.buf.definition,      mode={'n'}, description = "Lsp goto definition"},
 		{'gR',         vim.lsp.buf.rename,          mode={'n'}, description = "Lsp rename symbol under cursor"},
 		{'gr',         vim.lsp.buf.references,      mode={'n'}, description = "Lsp goto references"},
-		{'<leader>gq', vim.diagnostic.setqflist,    mode={'n'}, description = "Lsp send diagnostics to quickfix"},
-		{'<leader>gl', vim.diagnostic.setloclist,   mode={'n'}, description = "Lsp send diagnostics to loclist"},
 		{"<leader>e",  vim.diagnostic.open_float,   mode={'n'}, description = "Lsp open/enter diagnostic window"},
+
+		{"<leader>l", description = "lsp actions"},
+		{'<leader>lL', "<cmd>LspLog<cr>",         mode={'n'}, description = "Format the current buffer with the lsp"},
+		{'<leader>lS', "<cmd>LspStop<cr>",        mode={'n'}, description = "Stop the current lsp server"},
+		{'<leader>ld', vim.diagnostic.setqflist,  mode={'n'}, description = "Lsp send diagnostics to quickfix"},
+		{'<leader>lf', "<cmd>LspZeroFormat<cr>",  mode={'n'}, description = "Format the current buffer with the lsp"},
+		{'<leader>li', "<cmd>LspInfo<cr>",        mode={'n'}, description = "Info about the current lsp"},
+		{'<leader>ll', vim.diagnostic.setloclist, mode={'n'}, description = "Lsp send diagnostics to loclist"},
+		{'<leader>lr', "<cmd>LspRestart<cr>",     mode={'n'}, description = "Restart the current lsp server"},
+		{'<leader>ls', "<cmd>LspStart<cr>",       mode={'n'}, description = "Start lsp server for this filetype"},
 	},
 }
+
+vim.api.nvim_create_autocmd({"CursorMoved"}, {
+	pattern = {"*"},
+	callback = function(_) vim.lsp.buf.clear_references() end
+})
 
 --[[ -- lsp_attach is where you enable features that only work
 -- if there is a language server active in the file
@@ -51,6 +65,7 @@ lsp_zero.setup_servers {
 	'clangd',
 	'lua_ls',
 	'nil_ls',
+	'lemminx',
 	'phpactor',
 	'nushell',
 }

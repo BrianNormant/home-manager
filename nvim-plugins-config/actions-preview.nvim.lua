@@ -8,8 +8,10 @@ require('actions-preview').setup {
 
 
 --- Keybinds
-local legend = { keymaps = {
-	{"<leader>la", require('actions-preview').code_actions, description="LSP view avalaible code actions"},
-} }
+local legend = {
+	keymaps = {
+		{"<leader>la", require('actions-preview').code_actions, description="LSP view avalaible code actions"},
+	}
+}
 
 _G.LEGEND_append(legend)

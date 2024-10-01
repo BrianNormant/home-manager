@@ -2,26 +2,29 @@
 		enable = true;
 		withPython3 = true;
 		extraPackages = with pkgs; [
-			jdt-language-server
-			# ccls
-			clang-tools
-			phpactor
+			# Install lsp here
+			jdt-language-server # java
+			clang-tools # c/cpp
+			phpactor # php
+			idris2Packages.idris2Lsp # idris2
+			lua-language-server # lua
+			nil # nix
+			lemminx # xmp
+			# Install dap here
+			gdb # c/cpp
+			elixir-ls # elixir
+			# Install none-ls depencencies (linters/formatter/static analyzer) here
+			statix checkstyle cppcheck
+			# oracle-instantclient
+			# other depencencies for plugins
+			vscode-extensions.vscjava.vscode-java-debug
+			curl
+			jq html-tidy
+			tree-sitter
 			ripgrep
 			fswatch
 			fd
 			yarn nodePackages_latest.nodejs
-			gdb
-			lua-language-server
-			nil
-			elixir-ls
-			# oracle-instantclient
-			curl
-			jq
-			html-tidy
-			tree-sitter
-			statix checkstyle cppcheck
-			vscode-extensions.vscjava.vscode-java-debug
-			idris2Packages.idris2Lsp
 			jdk8 jdk17 jdk # 21
 		];
 
@@ -81,7 +84,6 @@
 				};
 			})
 			lexima-vim
-			# (configPlugin {plugin = nvim-autopairs;})
 			(configPlugin {plugin = boole-nvim;})
 			(configPlugin {plugin = registers-nvim;})
 			(configPlugin {plugin = marks-nvim;})
@@ -149,15 +151,6 @@
 			(configPlugin {plugin = oil-nvim;})
 			(configPlugin {plugin = nvim-navbuddy;})
 			(configPlugin {
-				plugin.pname = "boo.nvim";
-				src = {
-					owner = "LukasPietzschmann";
-					repo = "boo.nvim";
-					rev = "926b2e9";
-					hash = "sha256-zEbPDCXLcQCDRTf8sfbm07tyqAkJtvtHy43wF5Feee0=";
-				};
-			})
-			(configPlugin {
 				plugin.pname = "diagflow.nvim";
 				src = {
 					owner = "dgagn";
@@ -167,7 +160,6 @@
 				};
 			})
 			(configPlugin {plugin = lsp_signature-nvim;})
-			(configPlugin {plugin = nvim-lightbulb;})
 			(configPlugin {plugin = actions-preview-nvim;})
 			# (configPlugin {plugin = diaglist-nvim;})
 
@@ -179,12 +171,6 @@
 			friendly-snippets
 			(configPlugin {plugin = luasnip;})
 
-			# AutoCompletion
-			cmp-buffer cmp-spell cmp-nvim-lsp cmp-nvim-lsp-document-symbol cmp-async-path cmp-latex-symbols
-			supermaven-nvim cmp-treesitter
-			(configPlugin {plugin = nvim-cmp;})
-
-			(configPlugin {plugin = lspkind-nvim;})
 
 			# LSP
 			(configPlugin {plugin = lsp-zero-nvim.overrideAttrs {
@@ -193,8 +179,15 @@
 					repo = "lsp-zero.nvim";
 					rev = "b841170";
 					hash = "sha256-QEd5UXBLz3Z6NL9TMPlJmfYugs4Ec3zpEUWwei6jPKs=";
-		};
+				};
 			};})
+
+			# AutoCompletion
+			cmp-buffer cmp-spell cmp-nvim-lsp cmp-nvim-lsp-document-symbol cmp-async-path cmp-latex-symbols
+				supermaven-nvim cmp-treesitter
+				(configPlugin {plugin = nvim-cmp;})
+				(configPlugin {plugin = lspkind-nvim;})
+
 			(configPlugin {plugin = goto-preview;})
 			(configPlugin {
 				plugin.pname = "symbol-usage.nvim";
@@ -221,15 +214,24 @@
 			(configPlugin {
 				 plugin.pname = "gen.nvim";
 				 src = {
-					 owner = "David-Kunz";
-					 repo = "gen.nvim";
-					 rev = "2ee646f";
-					 hash = "sha256-j+FB5wjiWwq5YEHx+CDGN4scMr7+TkUoAX63WHiziaU=";
+					owner = "David-Kunz";
+					repo  = "gen.nvim";
+					rev   = "2ee646f";
+					hash  = "sha256-j+FB5wjiWwq5YEHx+CDGN4scMr7+TkUoAX63WHiziaU=";
 				 };
 			 })
 			(configPlugin {
-			 plugin = nvim-jdtls;
-			 preLua = "local vscodepath = \"${pkgs.vscode-extensions.vscjava.vscode-java-debug}\"";
+				plugin = nvim-jdtls.overrideAttrs {
+					src = pkgs.fetchFromGitHub {
+						owner = "BrianNormant";
+						repo  = "nvim-jdtls";
+						rev   = "2a2ccec";
+						hash  = "sha256-B7WPGkVr/jvBCdtuo3RHCc+ZRmGK8WVzqBMlBUkRpLY=";
+					};
+				};
+				preLua = ''
+				local vscodepath = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}"
+				'';
 			 })
 
 			(configPlugin {plugin = rest-nvim;})
@@ -304,7 +306,7 @@
 				vim.o.foldenable = true
 				vim.o.foldmethod = "syntax"
 
-				vim.cmd "set listchars=tab:-->,trail:█,nbsp:·"
+				vim.cmd "set listchars=tab:··>,trail:█,nbsp:󱁐"
 				vim.cmd "set invlist"
 
 				-- Open help in a new tab

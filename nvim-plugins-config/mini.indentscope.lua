@@ -1,5 +1,10 @@
 require('mini.indentscope').setup {
-    draw = { animation = require('mini.indentscope').gen_animation.none(), },
+    draw = {
+		delay = 2000,
+		animation = require('mini.indentscope').gen_animation.none(),
+	},
+	indent_at_cursor = false,
+	symbol = "",
 }
 
 --- Keymaps

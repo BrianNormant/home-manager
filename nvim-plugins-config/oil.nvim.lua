@@ -4,8 +4,8 @@ require('oil').setup {
 
 local legend = {
 	keymaps = {
-		{"<leader>oo", '<cmd>Oil<cr>',          description = "Open Oil in current window" },
-		{"<leader>oO", '<cmd>Oil -- float<cr>', description = "Open Oil in floating window" },
+		{"<leader>oO", '<cmd>Oil<cr>',          description = "Open Oil in current window" },
+		{"<leader>oo", '<cmd>Oil --float<cr>',  description = "Open Oil in floating window" },
 	},
 }
 _G.LEGEND_append(legend)
