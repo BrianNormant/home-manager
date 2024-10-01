@@ -1,7 +1,6 @@
 require("mini.bracketed").setup {}
 --- Keymaps
 local legend = {
-	keymaps = {
-	},
+	keymaps = { },
 }
 _G.LEGEND_append(legend)

@@ -1,10 +1,13 @@
 local gitsigns = require('gitsigns')
 gitsigns.setup {}
 
+-- TODO: Create a function with telescope/vim.select to choose a commit then display it with gitsigns.diffthis('$commit')
+-- *telescope.previewers.git_commit_diff_to_head()*
+
 --- Keymaps
 local legend = {
 	keymaps = {
-		-- TODO: Create a function with telescope/vim.select to choose a commit then display it with gitsigns.diffthis('$commit')
+		
 		{"<leader>g", description = "Git keymaps"},
 		{"<leader>gD",           function() gitsigns.diffthis('~') end,            mode = 'n',            description = "diff file against last commit"},
 		{"<leader>gS",           function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, mode = 'v', description = "Reset hunk"},
