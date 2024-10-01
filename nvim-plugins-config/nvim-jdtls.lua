@@ -40,19 +40,19 @@ vim.api.nvim_create_autocmd(
 		pattern = {'*.java'},
 		callback = function()
 			jdtls.start_or_attach(config)
-			-- vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
+			vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
 		end,
 	}
 )
 
 local legend = {
 	keymaps = {
-		{'<A-o>', require'jdtls'.organize_imports(),       mode = 'n', description="jdtls organize imports"},
-		{'crc',   require('jdtls').extract_constant(),     mode = 'n', description="jdtls extract constant"},
-		{'crc',   require('jdtls').extract_constant(true), mode = 'v', description="jdtls extract constant"},
-		{'crm',   require('jdtls').extract_method(true),   mode = 'v', description="jdtls extract method"},
-		{'crv',   require('jdtls').extract_variable(),     mode = 'n', description="jdtls extract variable"},
-		{'crv',   require('jdtls').extract_variable(true), mode = 'v', description="jdtls extract variable"},
+		{'<A-o>',function() require('jdtls').organize_imports() end,     mode = 'n', description="jdtls organize imports"},
+		{'crc',  function() require('jdtls').extract_constant() end,     mode = 'n', description="jdtls extract constant"},
+		{'crc',  function() require('jdtls').extract_constant(true) end, mode = 'v', description="jdtls extract constant"},
+		{'crm',  function() require('jdtls').extract_method(true) end,   mode = 'v', description="jdtls extract method"},
+		{'crv',  function() require('jdtls').extract_variable() end,     mode = 'n', description="jdtls extract variable"},
+		{'crv',  function() require('jdtls').extract_variable(true) end, mode = 'v', description="jdtls extract variable"},
 	},
 }
 _G.LEGEND_append(legend)
