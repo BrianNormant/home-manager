@@ -16,7 +16,7 @@ local legend = {
 		{'gD',         vim.lsp.buf.declaration,     mode={'n'}, description = "Lsp goto declaration"},
 		{'gd',         vim.lsp.buf.definition,      mode={'n'}, description = "Lsp goto definition"},
 		{'gR',         vim.lsp.buf.rename,          mode={'n'}, description = "Lsp rename symbol under cursor"},
-		{'gr',         vim.lsp.buf.references,      mode={'n'}, description = "Lsp goto references"},
+		-- {'gr',         vim.lsp.buf.references,      mode={'n'}, description = "Lsp goto references"},
 		{"<leader>e",  vim.diagnostic.open_float,   mode={'n'}, description = "Lsp open/enter diagnostic window"},
 
 		{"<leader>l", description = "lsp actions"},

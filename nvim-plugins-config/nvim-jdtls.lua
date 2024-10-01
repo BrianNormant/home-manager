@@ -49,10 +49,9 @@ local legend = {
 	keymaps = {
 		{'<A-o>',function() require('jdtls').organize_imports() end,     mode = 'n', description="jdtls organize imports"},
 		{'crc',  function() require('jdtls').extract_constant() end,     mode = 'n', description="jdtls extract constant"},
-		{'crc',  function() require('jdtls').extract_constant(true) end, mode = 'v', description="jdtls extract constant"},
-		{'crm',  function() require('jdtls').extract_method(true) end,   mode = 'v', description="jdtls extract method"},
+		{'crm',  function() require('jdtls').extract_method() end,   mode = 'n', description="jdtls extract method"},
 		{'crv',  function() require('jdtls').extract_variable() end,     mode = 'n', description="jdtls extract variable"},
-		{'crv',  function() require('jdtls').extract_variable(true) end, mode = 'v', description="jdtls extract variable"},
+		{'crv',  function() require('jdtls').extract_variable() end, mode = 'n', description="jdtls extract variable"},
 	},
 }
 _G.LEGEND_append(legend)
