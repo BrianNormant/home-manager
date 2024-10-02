@@ -2,9 +2,9 @@
 local legend = {
 	keymaps = {
 		{ "g=", description = "mini-operators evaluate" },
-		{ "ss", description = "mini-operators exchange" },
 		{ "gm", description = "mini-operators multiply" },
-		{ "gr", mode = {"v"}, description = "mini-operators replace with register" },
+		{ "ss", description = "mini-operators exchange" },
+		{ "sp", description = "mini-operators replace with register" },
 		{ "sx", description = "mini-operators sort text" },
 	},
 }

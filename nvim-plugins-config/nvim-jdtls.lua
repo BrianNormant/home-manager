@@ -47,11 +47,11 @@ vim.api.nvim_create_autocmd(
 
 local legend = {
 	keymaps = {
-		{'<A-o>',function() require('jdtls').organize_imports() end,     mode = 'n', description="jdtls organize imports"},
-		{'crc',  function() require('jdtls').extract_constant() end,     mode = 'n', description="jdtls extract constant"},
-		{'crm',  function() require('jdtls').extract_method() end,   mode = 'n', description="jdtls extract method"},
-		{'crv',  function() require('jdtls').extract_variable() end,     mode = 'n', description="jdtls extract variable"},
-		{'crv',  function() require('jdtls').extract_variable() end, mode = 'n', description="jdtls extract variable"},
+		{'<A-o>', function() require('jdtls').organize_imports() end, mode = 'n', description="jdtls organize imports"},
+		{'cjc',   function() require('jdtls').extract_constant() end, mode = 'n', description="jdtls extract constant"},
+		{'cjm',   function() require('jdtls').extract_method()   end, mode = 'n', description="jdtls extract method"},
+		{'cjv',   function() require('jdtls').extract_variable() end, mode = 'n', description="jdtls extract variable"},
+		{'cjv',   function() require('jdtls').extract_variable() end, mode = 'n', description="jdtls extract variable"},
 	},
 }
 _G.LEGEND_append(legend)

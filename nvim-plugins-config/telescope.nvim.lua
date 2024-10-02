@@ -13,12 +13,12 @@ telescope.load_extension('lsp_handlers')
 local legend = {
 	keymaps = {
 		{"<leader>f", description = "Telescope Fuzzy finding"},
-		{"<leader>ft", require('telescope.builtin').builtin, description="Telescope find builtins"},
+		{"<leader>ft", require('telescope.builtin').builtin,           description="Telescope find builtins"},
 		{"<leader>ff", '<cmd>Telescope find_files<cr>',                description="Telescope find files"},
 		{"<leader>fF", '<cmd>Telescope live_grep<cr>',                 description="Telescope live grep"},
 		{"<leader>fb", '<cmd>Telescope buffers<cr>',                   description="Telescope find buffers"},
 		{"<leader>f/", '<cmd>Telescope current_buffer_fuzzy_find<cr>', description="Telescope live grep in file"},
-		{"<M-h>",      '<cmd>Telescope help_tags<cr>',                 description="Telescope neovim help"},
+		{"<M-h>",      '<cmd>Telescope help_tags theme=ivy<cr>',       description="Telescope neovim help"},
 
 		{"<leader>fd", '<cmd>Telescope lsp_definitions<cr>',           description="Telescope find LSP definitions"},
 		{"<leader>fr", '<cmd>Telescope lsp_references<cr>',            description="Telescope find LSP references"},
