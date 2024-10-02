@@ -5,9 +5,11 @@ vim.g.mapleader = " "
 local legend = {
 	keymaps = {
 		--- Basic keymaps
-		{"<A-p>", "<cmd>Legendary<cr>",    description="Open Legendary keybind manager" },
-		{"\\",    '<cmd>split<cr>',  description="Split horizontal" },
-		{"|",     '<cmd>vsplit<cr>', description="Split vertical" },
+		{"<A-p>",   "<cmd>Legendary<cr>", description="Open Legendary keybind manager" },
+		{"\\",      '<cmd>split<cr>',     description="Split horizontal" },
+		{"|",       '<cmd>vsplit<cr>',    description="Split vertical" },
+		{"<S-Up",   function() end,       },
+		{"<S-Down", function() end,       },
 
 		--- Spellcheck
 		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},
