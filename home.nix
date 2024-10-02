@@ -226,15 +226,36 @@ extension:
 	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
 	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
 	programs.neovim = (import ./nvim.nix) {inherit pkgs;};
-	programs.tmux = {
+	programs.tmux = let
+		rtpPath = "share/tmux-plugins";
+		mkTmuxPlugin = {
+			pname, src,
+		}: pkgs.stdenv.mkDerivation {
+			inherit src;
+			pname = "tmuxplugin-" + pname;
+			installPhase = ''
+			target=$out/share/tmux-plugins/${pname}
+			mkdir -p $out
+			cp -r . $target
+			'';
+		}; in {
 		enable = true;
 		clock24 = true;
 		escapeTime = 10;
 		keyMode = "vi";
 		plugins = with pkgs.tmuxPlugins; [
 			gruvbox
+			tmux-fzf
+			mode-indicator
+			mkTmuxPlugin {
+				# pluginName = "tmux-cmus";
+				# src = pkgs.fetchFromGitHub {
+				# 	owner = "Mpdreamz";
+				# 	repo  = "tmux-cmus";
+				# 	rev = "df9e6f1";
+				# };
+			}
 		];
-		prefix = "C-a";
 		terminal = "tmux-256color";
 		mouse = true;
 		extraConfig = builtins.readFile ./tmux.conf;
