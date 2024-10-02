@@ -135,7 +135,9 @@
 			})
 
 			# Mini.nvim plugins
+			(configPlugin {plugin = Shade-nvim;})
 			(configPlugin {plugin = mini-align;})
+			(configPlugin {plugin = mini-extra;})
 			(configPlugin {plugin = mini-ai;})
 			(configPlugin {plugin = nvim-notify;})
 			(configPlugin {plugin = neoscroll-nvim;})
