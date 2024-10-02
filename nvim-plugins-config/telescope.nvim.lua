@@ -8,6 +8,8 @@ telescope.setup {
 	},
 }
 telescope.load_extension('lsp_handlers')
+telescope.load_extension('persisted')
+telescope.load_extension("notify")
 
 -- Keymaps
 local legend = {

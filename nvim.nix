@@ -123,6 +123,7 @@
 					sha256 = "hv8IfNJ+3O1L1PPIZlPwXc37Oa4u8uZPJmISLnNkBGw=";
 				};
 			})
+			(configPlugin {plugin = persisted-nvim;})
 
 			# Mini.nvim plugins
 			(configPlugin {plugin = mini-align;})
