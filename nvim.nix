@@ -43,7 +43,7 @@
 				};
 			config = let
 			config-file = pkgs.writeText
-				(plugin.pname + "config")
+				("vimconfig-" + plugin.pname)
 				( preLua + builtins.readFile (./nvim-plugins-config + ("/" + plugin.pname + ".lua")));
 			in if config then "luafile ${config-file}" else "";
 		};
