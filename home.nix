@@ -226,4 +226,25 @@ extension:
 	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
 	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
 	programs.neovim = (import ./nvim.nix) {inherit pkgs;};
+	programs.tmux = {
+		enable = true;
+		clock24 = true;
+		escapeTime = 10;
+		keyMode = "vi";
+		plugins = with pkgs.tmuxPlugins; [
+			gruvbox
+		];
+		prefix = "C-a";
+		terminal = "tmux-256color";
+		mouse = true;
+		extraConfig = builtins.readFile ./tmux.conf;
+	};
+
+	programs.fzf = {
+		enable = true;
+		tmux = {
+			enableShellIntegration = true;
+			shellIntegrationOptions = [ "-p 80%,35%" ];
+		};
+	};
 }
