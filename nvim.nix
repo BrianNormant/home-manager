@@ -15,7 +15,6 @@
 			elixir-ls # elixir
 			# Install none-ls depencencies (linter/formatter/static analyzer) here
 			statix checkstyle cppcheck
-			oracle-instantclient
 			# other dependencies for plugins
 			vscode-extensions.vscjava.vscode-java-debug
 			curl
@@ -101,14 +100,7 @@
 			})
 			telescope-lsp-handlers-nvim
 			(configPlugin {plugin = telescope-nvim;})
-			(configPlugin {plugin = true-zen-nvim.overrideAttrs {
-				src = pkgs.fetchFromGitHub {
-					owner = "mrcapivaro";
-					repo = "true-zen.nvim";
-					rev = "6aee7f2";
-					hash = "sha256-BRmMdjhzCogsNrEU9nz+OYx+m8VNJXo5V2i15z+liag=";
-				};
-			};})
+			no-neck-pain-nvim
 			vim-wakatime
 			(configPlugin {plugin = nvim-web-devicons;})
 			(configPlugin {
@@ -133,7 +125,6 @@
 			})
 
 			# Mini.nvim plugins
-			(configPlugin {plugin = Shade-nvim;})
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-extra;})
 			(configPlugin {plugin = mini-ai;})
@@ -232,14 +223,15 @@
 				 };
 			 })
 			(configPlugin {
-				plugin = nvim-jdtls.overrideAttrs {
-					src = pkgs.fetchFromGitHub {
-						owner = "BrianNormant";
-						repo  = "nvim-jdtls";
-						rev   = "2a2ccec";
-						hash  = "sha256-B7WPGkVr/jvBCdtuo3RHCc+ZRmGK8WVzqBMlBUkRpLY=";
-					};
-				};
+				# plugin = nvim-jdtls.overrideAttrs {
+				# 	src = pkgs.fetchFromGitHub {
+				# 		owner = "BrianNormant";
+				# 		repo  = "nvim-jdtls";
+				# 		rev   = "HEAD";
+				# 		hash = "sha256-LrTFSGls19y2Ikai8UvYPIuyJeVUDwlejh7z4GpgKC8=";
+				# 	};
+				# };
+				plugin = nvim-jdtls;
 				preLua = ''
 				local vscodepath = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}"
 				'';
