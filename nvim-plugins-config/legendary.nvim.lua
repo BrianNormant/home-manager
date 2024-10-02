@@ -23,6 +23,7 @@ local legend = {
 
 		---              UI settings
 		--- Treesitter
+		{"<leader>z", "<cmd>NoNeckPain<cr>", description="center current buffer"},
 		{"<leader>uh", "<cmd>TSToggle highlight<cr>", description="Toggle treesiter highlight"},
 		{"<leader>uu", function()
 			if vim.o.background == "dark" then
