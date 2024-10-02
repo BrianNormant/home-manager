@@ -48,6 +48,44 @@ local legend = {
 	commands = {
 		{":SudaWrite",       description="write a file as root"},
 		{":SudaRead",        description="Open a file as root"},
+		{":DiffRegFunc", function(args)
+			local fargs = args.fargs
+			-- by default compare the last 2 yank
+			local l = "0"
+			local r = "1"
+			if fargs[0] then l = fargs[0] end
+			if fargs[1] then r = fargs[1] end
+
+			vim.cmd("tabnew")
+			vim.cmd("vnew")
+			local buffers = vim.fn.tabpagebuflist()
+
+			vim.api.nvim_buf_set_lines(buffers[1], 0, -1, true,  vim.split(vim.fn.getreg(l), "\n" ))
+			vim.api.nvim_buf_set_lines(buffers[2], 0, -1, true,  vim.split(vim.fn.getreg(r), "\n" ))
+
+			vim.split(vim.fn.getreg("a"), "\n")
+
+			for _,b in ipairs(buffers) do
+
+				vim.api.nvim_set_option_value("buftype", "nofile", {
+					 buf = b
+				})
+				vim.api.nvim_set_option_value("bufhidden", "delete", {
+					 buf = b
+				})
+				vim.api.nvim_set_option_value("swapfile", false, {
+					 buf = b
+				})
+			end
+
+			local windows = vim.fn.gettabinfo()[vim.fn.tabpagenr()].windows
+			for _,w in ipairs(windows) do
+				vim.api.nvim_set_option_value("diff", true, {
+					win = w
+				})
+			end
+		end, description = "Diff buffer 0 and 1 in a new tab",
+		unfinished = true, opts = { nargs = '*' } }
 	},
 }
 

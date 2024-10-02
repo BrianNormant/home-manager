@@ -43,32 +43,23 @@ vim.o.relativenumber = true
 vim.o.foldenable = true
 vim.o.foldmethod = "syntax"
 
-vim.cmd "set listchars=tab:··>,trail:█,nbsp:󱁐"
-vim.cmd "set invlist"
+vim.api.nvim_create_autocmd( {"TextYankPost"}, {
+	pattern = { "*" },
+	callback = function()
+		vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+	end,
+})
+
+vim.opt_global.listchars:append {
+	tab = "··>",
+	trail = "█",
+	nbsp = "󱁐",
+}
+vim.o.list = true;
+vim.opt_global.fillchars:append { eob = "~" }
 
 -- Open help in a new tab
 vim.cmd "cabbrev h tab help"
 
 -- Open Man in a new tab
 vim.cmd "cabbrev Man tab Man"
-
-
--- TODO rewrite this in vimscript
-vim.cmd [[
-	function! DiffRegsFunc(...)
-	let l:left = a:0 == 2 ? a:1 : "@0"
-	let l:right = a:0 == 2 ? a:2 : "@1"
-
-	tabnew
-	exe 'put! ='. l:left
-	vnew
-	exe 'put! ='. l:right
-
-	windo setlocal buftype=nofile
-	windo setlocal bufhidden=delete
-	windo setlocal noswapfile
-	windo diffthis
-	winc t
-	endfunction
-	com -nargs=* DiffRegs call DiffRegsFunc(<f-args>)
-]]
