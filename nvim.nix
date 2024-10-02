@@ -84,7 +84,8 @@
 					hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
 				};
 			})
-			lexima-vim
+			nvim-ts-autotag
+			(configPlugin {plugin = nvim-autopairs;})
 			(configPlugin {plugin = boole-nvim;})
 			(configPlugin {plugin = registers-nvim;})
 			(configPlugin {plugin = marks-nvim;})
