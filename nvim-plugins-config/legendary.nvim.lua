@@ -1,3 +1,5 @@
+require('no-neck-pain')
+
 vim.g.mapleader = " "
 -- TODO add commands definition of each in their respective files
 local legend = {
@@ -23,7 +25,14 @@ local legend = {
 
 		---              UI settings
 		--- Treesitter
-		{"<leader>z", "<cmd>NoNeckPain<cr>", description="center current buffer"},
+		{"<leader>z", function()
+			if vim.opt_global.fillchars:get().eob == "~" then
+				vim.opt_global.fillchars:append { eob = " " }
+			else
+				vim.opt_global.fillchars:append { eob = "~" }
+			end
+			NoNeckPain.toggle()
+		end, description="center current buffer"},
 		{"<leader>uh", "<cmd>TSToggle highlight<cr>", description="Toggle treesiter highlight"},
 		{"<leader>uu", function()
 			if vim.o.background == "dark" then
@@ -44,3 +53,6 @@ local legend = {
 
 _G.LEGEND_append(legend)
 require('legendary').setup(_G.LEGEND_S)
+
+
+
