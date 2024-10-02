@@ -9,14 +9,14 @@
 			idris2Packages.idris2Lsp # idris2
 			lua-language-server # lua
 			nil # nix
-			lemminx # xmp
+			lemminx # xml
 			# Install dap here
 			gdb # c/cpp
 			elixir-ls # elixir
-			# Install none-ls depencencies (linters/formatter/static analyzer) here
+			# Install none-ls depencencies (linter/formatter/static analyzer) here
 			statix checkstyle cppcheck
-			# oracle-instantclient
-			# other depencencies for plugins
+			oracle-instantclient
+			# other dependencies for plugins
 			vscode-extensions.vscjava.vscode-java-debug
 			curl
 			jq html-tidy
@@ -71,7 +71,6 @@
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
 			(configPlugin {plugin = nvim-ufo;})
-			(configPlugin {plugin = modicator-nvim;})
 			vim-repeat
 			vim-lastplace
 			(configPlugin {plugin = leap-nvim;})
@@ -100,7 +99,6 @@
 					hash = "sha256-lAYHvz23f9nJ6rb0NIm+1aq0Vr0SwjPVitPuROtUS2A=";
 				};
 			})
-			# https://github.com/Wansmer/binary-swap.nvim
 			telescope-lsp-handlers-nvim
 			(configPlugin {plugin = telescope-nvim;})
 			(configPlugin {plugin = true-zen-nvim.overrideAttrs {
@@ -211,15 +209,6 @@
 					hash = "sha256-vNVrh8MV7KZoh2MtP+hAr6Uz20qMMMUcbua/W71lRn0=";
 				};
 			})
-			(configPlugin {
-				plugin.pname = "neodim";
-				src = {
-					owner = "zbirenbaum";
-					repo = "neodim";
-					rev = "d874708";
-					hash = "sha256-3DHohSXaSt51iBIdIJcUN/YWOEprpq4H5XPQ6TCI4w4=";
-				};
-			})
 # Lint and Format
 			(configPlugin {plugin = none-ls-nvim;})
 			(configPlugin {
@@ -258,7 +247,7 @@
 
 			(configPlugin {plugin = rest-nvim;})
 			(configPlugin {plugin = vim-dadbod;})
-# DataBase
+# Database
 			vim-dadbod-ui
 			(configPlugin {plugin = idris2-nvim;})
 			(configPlugin {
