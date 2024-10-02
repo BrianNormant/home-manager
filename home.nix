@@ -20,6 +20,7 @@
 	nix-output-monitor
 	manix
 	usbutils
+	neovide
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -65,6 +66,7 @@
 		".java/home/jdk-17".source = pkgs.jdk17 + "/lib/openjdk";
 		".java/home/jdk-21".source = pkgs.jdk   + "/lib/openjdk";
 		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./checkstyle.xml;
+		".config/neovide".source = config.lib.file.mkOutOfStoreSymlink "~/.config/nvim";
   };
 
 	home.pointerCursor = {
