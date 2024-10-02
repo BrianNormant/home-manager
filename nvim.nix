@@ -134,6 +134,7 @@
 			(configPlugin {plugin = mini-clue;})
 			(configPlugin {plugin = mini-move;})
 			(configPlugin {plugin = mini-indentscope;})
+			rainbow-delimiters-nvim # Auto load itself
 			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = mini-operators;})
 			(configPlugin {plugin = mini-starter;})
