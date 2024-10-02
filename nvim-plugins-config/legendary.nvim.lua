@@ -8,8 +8,7 @@ local legend = {
 		{"<A-p>",   "<cmd>Legendary<cr>", description="Open Legendary keybind manager" },
 		{"\\",      '<cmd>split<cr>',     description="Split horizontal" },
 		{"|",       '<cmd>vsplit<cr>',    description="Split vertical" },
-		{"<S-Up",   function() end,       },
-		{"<S-Down", function() end,       },
+		{"<leader>q",'<cmd>wqa<cr>', description = "Quit neovim"},
 
 		--- Spellcheck
 		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},
@@ -93,5 +92,8 @@ local legend = {
 _G.LEGEND_append(legend)
 require('legendary').setup(_G.LEGEND_S)
 
-
-
+--- Remove shift + arrow key moving arround
+for _, mode in pairs({"n", "i", "v"}) do
+	vim.api.nvim_set_keymap(mode, "<S-Up>",   "", {nowait = true})
+	vim.api.nvim_set_keymap(mode, "<S-Down>", "", {nowait = true})
+end
