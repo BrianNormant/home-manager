@@ -7,7 +7,12 @@ vim.o.foldenable = true
 require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)
         return {'treesitter', 'indent'}
-    end
+    end,
+    fold_virt_text_handler = function() return "" end,
+    win_config = {
+        border = 'none',
+        winblend = 0,
+    }
 })
 
 local legend = {
