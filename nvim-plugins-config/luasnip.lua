@@ -1,6 +1,6 @@
 local luasnip = require("luasnip")
 
-luasnip.snippets = require("luasnip-snippets").load_snippets()
+luasnip.snippets = require("luasnip_snippets").load_snippets()
 require("luasnip.loaders.from_vscode").lazy_load()
 
 luasnip.filetype_extend("all", { "_" })
