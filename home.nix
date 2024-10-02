@@ -1,5 +1,15 @@
-{ config, pkgs, hostname, ... }:
-{
+{ config, pkgs, hostname, ... }: let
+cmus-tmux = pkgs.tmuxPlugins.mkTmuxPlugin {
+	pluginName = "tmux-cmus";
+	version = "8";
+	src = pkgs.fetchFromGitHub {
+		owner = "Mpdreamz";
+		repo  = "tmux-cmus";
+		rev = "df9e6f1";
+		hash = "sha256-5VwzlvuhHiVlfSG+wql+enS4MPMU0bYNaZJhEgIeUmo=";
+	};
+};
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "brian";
@@ -12,8 +22,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
-
+  home.stateVersion = "24.05"; # Please read the comment before changingDown
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -22,22 +31,6 @@
 	usbutils
 	neovide
 	networkmanagerapplet
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -226,19 +219,7 @@ extension:
 	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
 	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
 	programs.neovim = (import ./nvim.nix) {inherit pkgs;};
-	programs.tmux = let
-		rtpPath = "share/tmux-plugins";
-		mkTmuxPlugin = {
-			pname, src,
-		}: pkgs.stdenv.mkDerivation {
-			inherit src;
-			pname = "tmuxplugin-" + pname;
-			installPhase = ''
-			target=$out/share/tmux-plugins/${pname}
-			mkdir -p $out
-			cp -r . $target
-			'';
-		}; in {
+	programs.tmux = {
 		enable = true;
 		clock24 = true;
 		escapeTime = 10;
@@ -247,14 +228,7 @@ extension:
 			gruvbox
 			tmux-fzf
 			mode-indicator
-			mkTmuxPlugin {
-				# pluginName = "tmux-cmus";
-				# src = pkgs.fetchFromGitHub {
-				# 	owner = "Mpdreamz";
-				# 	repo  = "tmux-cmus";
-				# 	rev = "df9e6f1";
-				# };
-			}
+			cmus-tmux
 		];
 		terminal = "tmux-256color";
 		mouse = true;
