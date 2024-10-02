@@ -270,15 +270,7 @@
 # Treesitter
 			nvim-treesitter
 			(nvim-treesitter.withPlugins (_: (
-				[nvim-treesitter-parsers.java
-				nvim-treesitter-parsers.lua
-				nvim-treesitter-parsers.c
-				nvim-treesitter-parsers.xml
-				nvim-treesitter-parsers.json
-				nvim-treesitter-parsers.graphql
-				nvim-treesitter-parsers.elixir
-				nvim-treesitter-parsers.nix
-				nvim-treesitter-parsers.gnuplot
+				[
 				(pkgs.tree-sitter.buildGrammar {
 					 language = "nu";
 					 version = "8af0aab";
