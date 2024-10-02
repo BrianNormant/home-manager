@@ -6,8 +6,8 @@ local legend = {
 	keymaps = {
 		--- Basic keymaps
 		{"<A-p>", "<cmd>Legendary<cr>",    description="Open Legendary keybind manager" },
-		{"\\",    '<cmd>split<cr><C-w>j',  description="Split horizontal" },
-		{"|",     '<cmd>vsplit<cr><C-w>l', description="Split vertical" },
+		{"\\",    '<cmd>split<cr>',  description="Split horizontal" },
+		{"|",     '<cmd>vsplit<cr>', description="Split vertical" },
 
 		--- Spellcheck
 		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},
@@ -42,8 +42,7 @@ local legend = {
 			end
 		end, description="change vim light/dark mode"},
 
-			--- Switch between light/dark mode
-		-- Telescope internal mappings.
+		{"<C-q", "<cmd>wqa<cr>", description="exit neovim"}
 	},
 	commands = {
 		{":SudaWrite",       description="write a file as root"},
