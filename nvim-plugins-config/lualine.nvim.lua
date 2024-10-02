@@ -3,20 +3,23 @@
 -- Credit: glepnir
 local lualine = require('lualine')
 
+
+local config = vim.fn['gruvbox_material#get_configuration']()
+local palette = vim.fn['gruvbox_material#get_palette'](config.background, config.foreground, config.colors_override)
+palette = vim.tbl_map(function(b) return b[1] end, palette)
+
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-  bg       = '#3c3836',
-  fg       = '#d5c4a1',
-  yellow   = '#fabd2f',
-  cyan     = '#458588',
-  darkblue = '#458588',
-  green    = '#b8bb26',
-  orange   = '#d79921',
-  violet   = '#a9a1e1',
-  magenta  = '#c678dd',
-  blue     = '#83a598',
-  red      = '#fb4934',
+  bg       = palette.bg3,
+  fg       = palette.fg,
+  yellow   = palette.yellow,
+  cyan     = palette.blue,
+  darkblue = palette.bg_diff_blue,
+  green    = palette.green,
+  orange   = palette.orange,
+  violet   = palette.purple,
+  red      = palette.red,
 }
 
 local conditions = {
@@ -34,7 +37,7 @@ local conditions = {
 }
 
 -- Config
-local config = {
+config = {
   options = {
     -- Disable sections and component separators
     component_separators = '',
@@ -72,51 +75,72 @@ local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 1 }, -- We don't need space before this
-}
+local function mode_color()
+  local equtbl = {
+    --- see :help mode()
+    ["n"]      = { fg = palette.fg1, },
+    ["v"]      = { fg = palette.orange, },
+    ["V"]      = { fg = palette.orange, },
+    ["^V"]     = { fg = palette.fg0, bg = palette.orange, },
+    ["i"]      = { fg = palette.red, },
+    ["R"]      = { fg = palette.fg0, bg = palette.bg_diff_blue, },
+    ["c"]      = { fg = palette.bg5,  },
+    ["t"]      = { fg = palette.yellow, },
+    ["s"]      = { fg = palette.green, },
+    ["S"]      = { fg = palette.green, },
+    ["^S"]     = { fg = palette.bg_diff_green, },
+  }
+  local mode = vim.fn.mode('1')
+  if equtbl[mode] then
+    return equtbl[mode]
+  else
+    return { fg = "#cc00e6" }
+  end
+end
+
+local function mode_text()
+  local equtbl = {
+    --- see :help mode()
+    ["n"]      = "Normal",
+    ["no"]     = "Operator",
+    ["v"]      = "Visual",
+    ["V"]      = "VisualLine",
+    ["^V"]     = "VisualBlock",
+    ["s"]      = "Select",
+    ["S"]      = "SelectLine",
+    ["^S"]     = "SelectBlock",
+    ["i"]      = "Insert",
+    ["R"]      = "Replace",
+    ["c"]      = "Command",
+    ["t"]      = "Terminal",
+  }
+  local mode = vim.fn.mode(1)
+  if equtbl[mode] then
+    return equtbl[mode]
+  else
+    return vim.fn.mode(1)
+  end
+end
+
+local function format_recording()
+  if vim.fn.reg_recording() ~= "" then
+    return "Recording @" .. vim.fn.reg_recording()
+  else
+    return ""
+  end
+end
 
 ins_left {
   -- mode component
-  function()
-    return ''
-  end,
-  color = function()
-    -- auto change color according to neovims mode
-    local mode_color = {
-      n = colors.red,
-      i = colors.green,
-      v = colors.blue,
-      [''] = colors.blue,
-      V = colors.blue,
-      c = colors.magenta,
-      no = colors.red,
-      s = colors.orange,
-      S = colors.orange,
-      [''] = colors.orange,
-      ic = colors.yellow,
-      R = colors.violet,
-      Rv = colors.violet,
-      cv = colors.red,
-      ce = colors.red,
-      r = colors.cyan,
-      rm = colors.cyan,
-      ['r?'] = colors.cyan,
-      ['!'] = colors.red,
-      t = colors.red,
-    }
-    return { fg = mode_color[vim.fn.mode()] }
-  end,
+  mode_text,
+  color = mode_color,
+  icon = '',
   padding = { right = 1 },
 }
 
 ins_left {
   -- filesize component
-  'filesize',
+  'filetype',
   cond = conditions.buffer_not_empty,
 }
 
@@ -150,7 +174,7 @@ ins_left {
 }
 
 ins_left {
-  color = { fg = '#ffffff', gui = 'bold' },
+  color = { fg = palette.grey, gui = 'bold' },
   function()
     local bufnr = vim.api.nvim_get_current_buf()
     local clients = vim.lsp.buf_get_clients(bufnr)
@@ -168,6 +192,28 @@ ins_left {
 
 -- Add components to right sections
 ins_right {
+  function()
+    if vim.v.hlsearch == 0 then
+      return ''
+    end
+    local last_search = vim.fn.getreg('/')
+    if not last_search or last_search == '' then
+      return ''
+    end
+    local searchcount = vim.fn.searchcount { maxcount = 9999 }
+    return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
+  end,
+}
+
+ins_right {
+  format_recording,
+  cond = function()
+    return vim.fn.reg_recording() == ""
+  end,
+  color = { fg = palette.fg0 }
+}
+
+ins_right {
   'rest',
   color = { fg = colors.violet, gui = 'bold' },
 }
@@ -182,7 +228,7 @@ ins_right {
 ins_right {
   'fileformat',
   fmt = string.upper,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+  icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
   color = { fg = colors.green, gui = 'bold' },
 }
 
@@ -204,14 +250,6 @@ ins_right {
   cond = conditions.hide_in_width,
 }
 
-ins_right {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue },
-  padding = { left = 1 },
-}
-
-vim.go.laststatus = 3; -- https://www.reddit.com/r/neovim/comments/1clx1cu/optionsvimoptlaststatus_config_being_overridden/
+vim.o.laststatus = 3; -- https://www.reddit.com/r/neovim/comments/1clx1cu/optionsvimoptlaststatus_config_being_overridden/
 -- Now don't forget to initialize lualine
 lualine.setup(config)
