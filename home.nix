@@ -1,7 +1,8 @@
 { config, pkgs, hostname, ... }: let
-cmus-tmux = pkgs.tmuxPlugins.mkTmuxPlugin {
+cmus-tmux = pkgs.tmuxPlugins.mkTmuxPlugin rec {
 	pluginName = "tmux-cmus";
-	version = "8";
+	version = "2";
+	rtpFilePath = ( builtins.replaceStrings ["_"] ["-"] pluginName ) + ".tmux";
 	src = pkgs.fetchFromGitHub {
 		owner = "Mpdreamz";
 		repo  = "tmux-cmus";
@@ -232,7 +233,10 @@ extension:
 		];
 		terminal = "tmux-256color";
 		mouse = true;
-		extraConfig = builtins.readFile ./tmux.conf;
+		extraConfig = (builtins.readFile ./tmux.conf) + ''
+run-shell /nix/store/vf642b579fil3zgbbnqzc1vcqgf3yank-tmuxplugin-tmux-cmus-2/share/tmux-plugins/tmux-cmus/tmux-cmus.tmux
+run-shell /nix/store/jqlzwm1929y8i808jzrqfpka9lmk13jm-tmuxplugin-mode-indicator-unstable-2021-10-01/share/tmux-plugins/mode-indicator/mode_indicator.tmux
+		'';
 	};
 
 	programs.fzf = {
