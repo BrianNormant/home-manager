@@ -238,6 +238,14 @@
 				'';
 			 })
 
+			(configPlugin {
+				plugin.pname = "mdeval.nvim";
+				src = {
+					owner = "jubnzv";
+					repo = "mdeval.nvim";
+					ref = "79df3e7";
+				};
+			})
 			(configPlugin {plugin = rest-nvim;})
 			(configPlugin {plugin = vim-dadbod;})
 # Database
