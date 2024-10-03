@@ -35,6 +35,9 @@ hi clear SpellBad
 hi clear SpellCap
 hi clear SpellRare
 hi clear SpellLocal
+hi! link Search Visual
+hi! link IncSearch ClapSpinner
+hi! link CurSearch ClapSpinner
 ]]
 
 vim.o.cursorline = true
