@@ -154,7 +154,6 @@
 			})
 			(configPlugin {plugin = lsp_signature-nvim;})
 			(configPlugin {plugin = actions-preview-nvim;})
-			# (configPlugin {plugin = diaglist-nvim;})
 
 			# coq-artifacts
 			# coq-thirdparty
@@ -257,6 +256,7 @@
 
 # Markdown, CSV,
 			markdown-preview-nvim
+			(configPlugin {plugin = markview-nvim;})
 
 # Compile and run from vim
 			(configPlugin {plugin = compiler-nvim.overrideAttrs {
