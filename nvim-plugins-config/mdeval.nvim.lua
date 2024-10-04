@@ -1,24 +1,25 @@
 require 'mdeval'.setup {
 	require_confirmation = false,
+	exec_timeout = 5, -- is blocking so limit it to short interval. It is not supposed to run for long anyway
 	eval_options = {
 		elixir = {
-			command       = "iex",
-			language_code = { "ex" },
+			command       = { "elixir", "-r" },
+			language_code = "elixir",
 			exec_type     = "interpreted",
 			extension     = "ex",
 		},
 
 		java = {
-			command       = "jshell",
-			language_code = { "java" },
+			command       = { "jshell" },
+			language_code = "java",
 			exec_type     = "interpreted",
 			extension     = "java",
 		},
 
 		c = {
-			command = "cling",
+			command = { "clang" },
 			language_code= "c",
-			exec_type = "interpreted",
+			exec_type = "compiled",
 			extension = "c",
 			default_header = [[
 			#include <stdio.h>
@@ -34,8 +35,7 @@ require 'mdeval'.setup {
 
 local legend = {
 	keymaps = {
-		{ "sc", mode = "n", "<cmd>MdEval<cr>", description = "Eval code block under cursor"}
+		{ "sc", mode = "n", "<cmd>MdEval<cr>", description = "Eval code block under cursor" }
 	},
 }
 _G.LEGEND_append(legend)
-
