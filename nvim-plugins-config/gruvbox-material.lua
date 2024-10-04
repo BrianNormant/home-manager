@@ -36,6 +36,8 @@ _G.LEGEND_merge = function (a, b)
 		commands = commands
 	}
 end
+-- add the Key maps to the global Key maps table that legendary will read
+-- @args a table of keymaps and/or commands and/or function
 _G.LEGEND_append = function(a)
 	_G.LEGEND_S = _G.LEGEND_merge(_G.LEGEND_S, a)
 end

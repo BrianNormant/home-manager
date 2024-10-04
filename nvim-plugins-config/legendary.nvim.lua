@@ -4,7 +4,7 @@ vim.g.mapleader = " "
 -- TODO add commands definition of each in their respective files
 local legend = {
 	keymaps = {
-		--- Basic keymaps
+		--- Basic key maps
 		{"<A-p>",   "<cmd>Legendary<cr>", description="Open Legendary keybind manager" },
 		{"\\",      '<cmd>split<cr>',     description="Split horizontal" },
 		{"|",       '<cmd>vsplit<cr>',    description="Split vertical" },
@@ -14,7 +14,7 @@ local legend = {
 		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},
 
 		--- Neotest
-		--- TODO install neotest
+		--- TODO install Neotest
 		{"<F7>", function() require("neotest").run.run() end, description="Run with neotest"},
 		{"<F8>", function() require("neotest").run.run(vim.fn.extend("%")) end, description="Run with neotest"},
 
@@ -32,6 +32,7 @@ local legend = {
 			else
 				vim.opt_global.fillchars:append { eob = "~" }
 			end
+---@diagnostic disable-next-line: undefined-global
 			NoNeckPain.toggle()
 		end, description="center current buffer"},
 		{"<leader>uh", "<cmd>TSToggle highlight<cr>", description="Toggle treesiter highlight"},
@@ -87,13 +88,32 @@ local legend = {
 		end, description = "Diff buffer 0 and 1 in a new tab",
 		unfinished = true, opts = { nargs = '*' } }
 	},
+	autocmds = { {
+		{
+			'BufEnter',
+			function() vim.bo.filetype = "markdown" end,
+			opts = { pattern = "Legendary Scratchpad" },
+		}
+	} }
 }
 
 _G.LEGEND_append(legend)
 require('legendary').setup(_G.LEGEND_S)
 
---- Remove shift + arrow key moving arround
+-------------------- Suppress some default key maps
 for _, mode in pairs({"n", "i", "v"}) do
-	vim.api.nvim_set_keymap(mode, "<S-Up>",   "", {nowait = true})
-	vim.api.nvim_set_keymap(mode, "<S-Down>", "", {nowait = true})
+	--- shift + arrow key moving around
+	vim.api.nvim_set_keymap(mode, "<S-Up>",   "<Up>",   {nowait = true})
+	vim.api.nvim_set_keymap(mode, "<S-Down>", "<Down>", {nowait = true})
 end
+vim.api.nvim_set_keymap("n", "q:", "", {nowait = true}) -- to open command buffer editing
+vim.api.nvim_set_keymap("n", "?", "<cmd>noh<cr>", {nowait = true}) -- To suppress research highlight
+vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<C-\\><C-n>", {})
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+	pattern = "Legendary Scratchpad",
+	callback = function()
+		vim.lsp.stop_client(vim.lsp.getclients()) -- stop the lua lsp
+		vim.bo.filetype = "markdown"
+	end,
+})
