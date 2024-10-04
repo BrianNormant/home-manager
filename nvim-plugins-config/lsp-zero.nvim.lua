@@ -68,10 +68,10 @@ lsp_zero.extend_lspconfig {
 
 lsp_zero.ui {
 	sign_text = {
-		error = '✘',
-		warn = '▲',
-		hint = '⚑',
-		info = '»',
+		error = '' ,
+		warn  = '',
+		hint  = '',
+		info  = ''
 	},
 	float_border = "single"
 }

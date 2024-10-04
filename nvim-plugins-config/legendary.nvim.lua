@@ -8,7 +8,7 @@ local legend = {
 		{"<A-p>",   "<cmd>Legendary<cr>", description="Open Legendary keybind manager" },
 		{"\\",      '<cmd>split<cr>',     description="Split horizontal" },
 		{"|",       '<cmd>vsplit<cr>',    description="Split vertical" },
-		{"<leader>q",'<cmd>wqa<cr>', description = "Quit neovim"},
+		{"<leader>q",'<cmd>wqa!<cr>', description = "Quit neovim"},
 
 		--- Spellcheck
 		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},
@@ -43,7 +43,7 @@ local legend = {
 			end
 		end, description="change vim light/dark mode"},
 
-		{"<C-q", "<cmd>wqa<cr>", description="exit neovim"}
+		{"<A-s>", "<cmd>LegendaryScratchToggle<cr>", description = "Toggle markdown scratchpad"}
 	},
 	commands = {
 		{":SudaWrite",       description="write a file as root"},
