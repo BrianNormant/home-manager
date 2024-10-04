@@ -1,8 +1,7 @@
 require('spellwarn').setup {
 	event = { -- event(s) to refresh diagnostics on
-		"CursorHold",
-		"InsertLeave",
 		"TextChanged",
+		"InsertLeave",
 		"TextChangedI",
 		"TextChangedP",
 	},
@@ -13,14 +12,15 @@ require('spellwarn').setup {
 		lazy    = false,
 		lspinfo = false,
 		mason   = false,
-		oil = false,
+		oil     = false,
+		qf      = false,
 	},
 	ft_default = true, -- default option for unspecified filetypes
 	max_file_size = nil, -- maximum file size to check in lines (nil for no limit)
 	severity = { -- severity for each spelling error type (false to disable diagnostics for that type)
-		spellbad   = "WARN",
-		spellcap   = "HINT",
-		spelllocal = "HINT",
+		spellbad   = "HINT",
+		spellcap   = "INFO",
+		spelllocal = "INFO",
 		spellrare  = "INFO",
 	},
 	prefix = "possible misspelling(s): ", -- prefix for each diagnostic message
