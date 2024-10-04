@@ -8,11 +8,11 @@ require('muren').setup {
 }
 
 
---- Keymaps
+--- Key maps
 local legend = {
 	keymaps = {
-		{"<F3>", "<cmd>MurenFresh<cr>",  mode = "n", description="Open Muren"},
-		{"<F3>", ":'<,'>MurenFresh<cr>", mode = "v", description="Open Muren with range"},
+		{"<F3>", "<cmd>MurenToggle<cr>",  mode = "n", description="Open Muren"},
+		{"<F3>", ":'<,'>MurenToggle<cr>", mode = "v", description="Open Muren with range"}
 	},
 }
 _G.LEGEND_append(legend)
