@@ -78,19 +78,38 @@ end
 local function mode_color()
   local equtbl = {
     --- see :help mode()
-    ["n"]      = { fg = palette.fg1, },
-    ["v"]      = { fg = palette.orange, },
-    ["V"]      = { fg = palette.orange, },
-    ["^V"]     = { fg = palette.fg0, bg = palette.orange, },
-    ["i"]      = { fg = palette.red, },
-    ["R"]      = { fg = palette.fg0, bg = palette.bg_diff_blue, },
-    ["c"]      = { fg = palette.bg5,  },
-    ["t"]      = { fg = palette.yellow, },
-    ["s"]      = { fg = palette.green, },
-    ["S"]      = { fg = palette.green, },
-    ["^S"]     = { fg = palette.bg_diff_green, },
+    ["R"]    = { fg = palette.blue, },
+    ["Rx"]   = { fg = palette.blue, bg = palette.bg_diff_red },
+    ["Rc"]   = { fg = palette.blue, bg = palette.bg_diff_green },
+    ["Rv"]   = { fg = palette.blue, gui = "bold"},
+    ["Rvx"]  = { fg = palette.blue, bg = palette.bg_diff_red ,gui = "bold"},
+    ["Rvc"]  = { fg = palette.blue, bg = palette.bg_diff_green, gui = "bold"},
+    ["s"]    = { fg = palette.green },
+    ["S"]    = { fg = palette.green },
+    [""]   = { fg = palette.green, gui  = "bold" },
+    ["vs"]   = { fg = palette.green, bg = palette.orange},
+    ["Vs"]   = { fg = palette.green, bg = palette.orange},
+    ["s"]  = { fg = palette.green, bg = palette.orange, gui = "bold"},
+    ["v"]    = { fg = palette.orange, },
+    ["V"]    = { fg = palette.orange, },
+    [""]   = { fg = palette.orange, gui = "bold" },
+    ["i"]    = { fg = palette.red, },
+    ["ic"]   = { fg = palette.red, bg = palette.bg_diff_green },
+    ["ix"]   = { fg = palette.red, bg = palette.bg_diff_red },
+    ["niI"]  = { fg = palette.red, gui = "underline" },
+    ["niR"]  = { fg = palette.blue, gui = "underline" },
+    ["niV"]  = { fg = palette.blue, gui = "underline" },
+    ["t"]    = { fg = palette.yellow, },
+    ["nt"]   = { fg = palette.yellow, gui = "underline" },
+    ["ntT"]  = { fg = palette.yellow, gui = "underline" },
+    ["no"]   = { fg = palette.purple, },
+    ["nov"]  = { fg = palette.purple, },
+    ["noV"]  = { fg = palette.purple, },
+    ["no"] = { fg = palette.purple, gui = "bold" },
+    ["n"]    = { fg = palette.fg1, },
+    ["!"]    = { fg = palette.red, bg = palette.bg_visual_red, gui = "bold"},
   }
-  local mode = vim.fn.mode('1')
+  local mode, _ = vim.api.nvim_get_mode().mode
   if equtbl[mode] then
     return equtbl[mode]
   else
@@ -101,25 +120,44 @@ end
 local function mode_text()
   local equtbl = {
     --- see :help mode()
-    ["n"]      = "Normal",
-    ["no"]     = "Operator",
-    ["v"]      = "Visual",
-    ["V"]      = "VisualLine",
-    ["^V"]     = "VisualBlock",
-    ["s"]      = "Select",
-    ["S"]      = "SelectLine",
-    ["^S"]     = "SelectBlock",
-    ["i"]      = "Insert",
-    ["R"]      = "Replace",
-    ["c"]      = "Command",
-    ["t"]      = "Terminal",
+    [""]   = "SelectBlock",
+    [""]   = "VisualBlock",
+    ["s"]  = "VisualSelectBlock",
+    ["!"]    = "Wait",
+    ["R"]    = "Replace",
+    ["Rc"]   = "ReplaceOmni",
+    ["Rv"]   = "VirtReplace",
+    ["Rvc"]  = "VirtReplaceOmni",
+    ["Rvx"]  = "VirtReplaceCompl",
+    ["Rx"]   = "ReplaceCompl",
+    ["S"]    = "SelectLine",
+    ["V"]    = "VisualLine",
+    ["Vs"]   = "VisualSelectLine",
+    ["i"]    = "Insert",
+    ["ic"]   = "OmniComp",
+    ["ix"]   = "InsertCompl",
+    ["n"]    = "Normal",
+    ["niI"]  = "NInsert",
+    ["niR"]  = "NReplace",
+    ["niV"]  = "NVirtReplace",
+    ["no"] = "OperatorBlock",
+    ["no"]   = "Operator",
+    ["noV"]  = "OperatorLine",
+    ["nov"]  = "OperatorChar",
+    ["nt"]   = "NTerminal",
+    ["ntT"]  = "NNTerminal",
+    ["s"]    = "Select",
+    ["t"]    = "Terminal",
+    ["v"]    = "Visual",
+    ["vs"]   = "VisualSelect",
   }
-  local mode = vim.fn.mode(1)
-  if equtbl[mode] then
-    return equtbl[mode]
-  else
-    return vim.fn.mode(1)
+  local mode = vim.api.nvim_get_mode().mode
+  for m, txt in pairs(equtbl) do
+    if mode == m then
+      return txt
+    end
   end
+  return mode
 end
 
 local function format_recording()
@@ -137,6 +175,15 @@ ins_left {
   icon = '',
   padding = { right = 1 },
 }
+
+ins_left {
+  format_recording,
+  cond = function()
+    return vim.fn.reg_recording() ~= ""
+  end,
+  color = { fg = palette.fg0 }
+}
+
 
 ins_left {
   -- filesize component
@@ -205,13 +252,6 @@ ins_right {
   end,
 }
 
-ins_right {
-  format_recording,
-  cond = function()
-    return vim.fn.reg_recording() == ""
-  end,
-  color = { fg = palette.fg0 }
-}
 
 ins_right {
   'rest',
