@@ -10,7 +10,7 @@ require('tabby').setup {
 local legend = {
 	keymaps = {
 		--- Tabby
-		{"<leader>ta",  ":$tabnew<CR>",               description = "Open new tab"},
+		{"<leader>ta",  "<cmd>$tabnew<CR>",           description = "Open new tab"},
 		{"<M-t>",       "<cmd>Tabby jump_to_tab<CR>", description = "Use tabby leap feature to jump to a tab via 1 character"},
 		{"<leader>tq",  "<cmd>tabclose<CR>",          description = "Close current tab"},
 		{"<leader>tQ",  "<cmd>tabonly<CR>",           description = "Close all other tab"},
@@ -20,4 +20,12 @@ local legend = {
 		{"<leader>tmn", ":+tabmove<CR>",              description = "move current tab right -->"},
 	},
 }
+
+for i = 1, 9 do
+	legend.keymaps[#legend.keymaps+1] = {
+		"<A-" .. i .. ">", "<cmd>" .. i .. "tabnext<CR>",
+		description = "Open tab at index " .. i
+	}
+end
+
 _G.LEGEND_append(legend)
