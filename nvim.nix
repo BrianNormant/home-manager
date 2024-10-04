@@ -187,10 +187,10 @@
 			};})
 
 			# AutoCompletion
-			cmp-buffer cmp-spell cmp-nvim-lsp cmp-nvim-lsp-document-symbol cmp-async-path cmp-latex-symbols
-				supermaven-nvim cmp-treesitter
-				(configPlugin {plugin = nvim-cmp;})
-				(configPlugin {plugin = lspkind-nvim;})
+			cmp-nvim-lsp cmp-async-path
+			supermaven-nvim cmp-treesitter
+			(configPlugin {plugin = nvim-cmp;})
+			(configPlugin {plugin = lspkind-nvim;})
 
 			(configPlugin {plugin = goto-preview;})
 			(configPlugin {
@@ -238,19 +238,20 @@
 				local vscodepath = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}"
 				'';
 			 })
-
 			(configPlugin {
 				plugin.pname = "mdeval.nvim";
 				src = {
 					owner = "jubnzv";
 					repo = "mdeval.nvim";
-					ref = "79df3e7";
+					rev = "79df3e7";
+					hash = "sha256-XFnAGMA1kHfqDqdGY2UvXFwxJUT2E+TvwUy8+RShBlM=";
 				};
 			})
 			(configPlugin {plugin = rest-nvim;})
 			(configPlugin {plugin = vim-dadbod;})
 # Database
 			vim-dadbod-ui
+			vim-dadbod-completion
 			(configPlugin {plugin = idris2-nvim;})
 			(configPlugin {
 				plugin.pname = "dbext.vim";
@@ -261,7 +262,7 @@
 						 hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
 					 };
 				config = false;
-				 })
+			})
 
 # Markdown, CSV,
 			markdown-preview-nvim
