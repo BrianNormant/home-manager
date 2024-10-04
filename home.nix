@@ -1,4 +1,7 @@
-{ config, pkgs, hostname, ... }: let
+{inputs, config, pkgs, hostname, ... }: let
+
+mkMutableSymlink = config.lib.file.mkOutOfStoreSymlink;
+
 cmus-tmux = pkgs.tmuxPlugins.mkTmuxPlugin rec {
 	pluginName = "tmux-cmus";
 	version = "2";
@@ -61,7 +64,8 @@ in {
 		".java/home/jdk-17".source = pkgs.jdk17 + "/lib/openjdk";
 		".java/home/jdk-21".source = pkgs.jdk   + "/lib/openjdk";
 		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./checkstyle.xml;
-		".config/neovide".source = config.lib.file.mkOutOfStoreSymlink "~/.config/nvim";
+		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
+		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
   };
 
 	home.pointerCursor = {
@@ -104,6 +108,26 @@ extension:
 		enableZshIntegration = true;
 		enableNushellIntegration = true;
 		useTheme = "gruvbox";
+	};
+
+	programs.kitty = {
+		enable = true;
+		font = {
+			name = "FiraCode Nerd Font";
+			package = pkgs.rictydiminished-with-firacode;
+			size = 12;
+		};
+		settings = {
+			enable_audio_bell = false;
+			confirm_os_window_close = "0";
+			background_opacity = "0.8";
+			dynamic_background_opacity = true;
+			background_tint = "0.0";
+		};
+		extraConfig = ''
+			map alt+F1 set_background_opacity +0.1
+			map alt+F2 set_background_opacity -0.1
+		'';
 	};
 
 

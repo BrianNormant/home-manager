@@ -11,7 +11,7 @@
 	# rest-nvim.url = "github:rest-nvim/rest.nvim";
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -25,7 +25,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-		extraSpecialArgs = {hostname = "BrianNixDesktop";};
+		extraSpecialArgs = {hostname = "BrianNixDesktop"; inherit inputs;};
       };
       homeConfigurations."brian@BrianNixLaptop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -36,7 +36,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-		extraSpecialArgs = {hostname = "BrianNixLaptop";};
+		extraSpecialArgs = {hostname = "BrianNixLaptop"; inherit inputs;};
       };
     };
 }
