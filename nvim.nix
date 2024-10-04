@@ -25,6 +25,7 @@
 			fd
 			yarn nodePackages_latest.nodejs
 			jdk8 jdk17 jdk # 21
+			clang elixir
 		];
 
 		plugins = with pkgs.vimPlugins; let
@@ -278,6 +279,7 @@
 
 # Treesitter
 			nvim-treesitter
+			nvim-treesitter-endwise
 			(nvim-treesitter.withPlugins (_: (
 				[
 				(pkgs.tree-sitter.buildGrammar {
