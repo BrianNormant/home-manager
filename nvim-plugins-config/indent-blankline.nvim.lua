@@ -1,5 +1,5 @@
 local highlight = {
-	"Comment",
+	"Comment", -- we want the first line to not be highlighted strongly
 	"MarkdownH1",
 	"MarkdownH2",
 	"MarkdownH3",
@@ -12,7 +12,7 @@ require("ibl").setup {
 	indent = {
 		highlight = highlight,
 		char = "▏",
-		tab_char = { "▏" }
+		tab_char = { "·" }
 	},
 	scope = {
 		enabled = true,
