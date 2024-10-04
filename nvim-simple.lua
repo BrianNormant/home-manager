@@ -3,9 +3,10 @@ vim.o.laststatus = 3
 vim.o.scrolloff = 5
 
 -- indentation
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = false -- set to true to use space instead of tab
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true -- set to true to use space instead of tab
+vim.o.list = true
 
 vim.o.cursorline = true
 vim.o.number = true
