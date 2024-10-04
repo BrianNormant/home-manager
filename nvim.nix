@@ -24,7 +24,7 @@
 			fswatch
 			fd
 			yarn nodePackages_latest.nodejs
-			jdk8 jdk17 jdk # 21
+			jdk17 jdk # 21
 			clang elixir
 		];
 

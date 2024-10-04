@@ -1,10 +1,13 @@
-local jdtls = require 'jdtls'
--- TODO use this fork of jdtls to have pretty prompt with multiple actions
--- https://github.com/mfussenegger/nvim-jdtls/pull/572
+-- vim.opt.rtp:append(vim.fn.stdpath('config') .. '/lua/nvim-jdtls')
 
+local jdtls = require 'jdtls'
+local root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', "pom.xml"})
 
 local config = {
-	cmd = { vim.fn.exepath 'jdtls' },
+	cmd = {
+		'jdtls',
+		"-data", root_dir,
+	},
 	settings = {
 		java = {
 			configuration = {
@@ -21,9 +24,7 @@ local config = {
 			}
 		},
 	},
-
-	root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', "pom.xml"}),
-
+	root_dir = root_dir,
 	init_options = {
 		bundles = {
 			vim.fn.glob(vscodepath .. "/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar", 1),
@@ -35,12 +36,15 @@ local config = {
 -- https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#vscode-java-test-installation
 
 vim.api.nvim_create_autocmd(
-	'BufEnter',
+	{ 'BufEnter', 'FileType' },
 	{
-		pattern = {'*.java'},
+		pattern = {'*'},
 		callback = function()
-			jdtls.start_or_attach(config)
-			vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
+			if vim.bo.filetype == "java" then
+				jdtls.start_or_attach(config)
+				-- TODO install lsp
+			-- vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
+			end
 		end,
 	}
 )
