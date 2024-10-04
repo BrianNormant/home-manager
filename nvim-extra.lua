@@ -7,11 +7,11 @@ if vim.g.neovide then
 	vim.g.neovide_hide_mouse_when_typing = true;
 	vim.g.neovide_refresh_rate = 120;
 	vim.g.neovide_cursor_animation_length = 0;
-	if vim.g.neovide then
-		vim.keymap.set({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
-		vim.keymap.set({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
-		vim.keymap.set({ "n" , "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
-	end
+	vim.keymap.set({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
+	vim.keymap.set({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
+	vim.keymap.set({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
+	vim.keymap.set({ "n", "x" }, "<C-S-C>", '"+y', { desc = "Copy system clipboard" })
+	vim.keymap.set({ "n", "x" }, "<C-S-V>", '"+p', { desc = "Paste system clipboard" })
 end
 
 vim.opt.clipboard:append "unnamedplus"
@@ -67,3 +67,7 @@ vim.cmd "cabbrev h tab help"
 
 -- Open Man in a new tab
 vim.cmd "cabbrev Man tab Man"
+
+require('nvim-treesitter.configs').setup {
+	highlight = { enable = true },
+}
