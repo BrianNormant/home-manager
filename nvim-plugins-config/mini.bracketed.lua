@@ -1,4 +1,7 @@
-require("mini.bracketed").setup {}
+require("mini.bracketed").setup {
+	comment = { suffix = '', options = {} },
+	indent  = { suffix = ''},
+}
 --- Keymaps
 local legend = {
 	keymaps = { },
