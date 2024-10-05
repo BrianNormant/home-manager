@@ -114,7 +114,6 @@
 				};
 			})
 			lazygit-nvim
-			# TODO Search and replace for all the files.
 			 (configPlugin {
 				plugin.pname = "muren.nvim";
 				src = {

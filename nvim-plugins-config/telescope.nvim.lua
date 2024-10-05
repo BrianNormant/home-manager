@@ -1,5 +1,3 @@
--- TODO https://github.com/nvim-telescope/telescope-fzf-native.nvim?tab=readme-ov-file
-
 local telescope = require "telescope"
 telescope.setup {
 	defaults = {

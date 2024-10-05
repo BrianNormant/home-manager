@@ -214,29 +214,27 @@ ins_left {
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left {
-  function()
-    return '%='
-  end,
-}
 
 ins_left {
   color = { fg = palette.grey, gui = 'bold' },
+  -- Lsp server name .,
   function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local clients = vim.lsp.buf_get_clients(bufnr)
+    local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf()})
     if next(clients) == nil then
-      return 'No Active Lsp'
+      return '%=No Active Lsp'
     end
 
     local c = vim.tbl_map(function(v) return v.name end, clients)
 
-    return table.concat(c, ' & ')
+    return '%=' .. ' LSP:' .. table.concat(c, ' & ')
   end,
-  -- Lsp server name .,
-  icon = ' LSP:',
 }
 
+ins_right {
+  function()
+    return '%='
+  end,
+}
 -- Add components to right sections
 ins_right {
   function()

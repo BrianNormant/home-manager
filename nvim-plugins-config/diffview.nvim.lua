@@ -67,7 +67,6 @@ end
 --- Keymaps
 local legend = {
 	keymaps = {
-		--- TODO change this to a function to close the diff view if already open
 		{"<leader>G", "<cmd>DiffviewOpen<cr>", description="Open DiffView"},
 		{"<leader>gG", telescope_select_commit, description="Use telescope to select witch commit diffview must diff with"},
 	},

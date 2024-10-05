@@ -1,11 +1,12 @@
 require 'mdeval'.setup {
+	-- TODO: Clone this repo and make it work with jshell.
 	require_confirmation = false,
 	exec_timeout = 5, -- is blocking so limit it to short interval. It is not supposed to run for long anyway
 	eval_options = {
 		elixir = {
 			command       = { "elixir", "-r" },
 			language_code = "elixir",
-			exec_type     = "interpreted",
+			exec_type     = "compiled",
 			extension     = "ex",
 		},
 

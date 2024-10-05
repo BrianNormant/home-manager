@@ -158,7 +158,7 @@ extension:
 		in builtins.map build-against-rofi-wayland rofi-wayland-plugins;
 	};
 
-	services.wob.enable = true; # TODO connect wob to script
+	services.wob.enable = true;
 
 	programs.firefox.enable = true;
 
