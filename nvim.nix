@@ -278,6 +278,16 @@
 					 sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
 				 };
 			};})
+			(configPlugin {
+				plugin.pname = "nvim-better-n";
+				src = {
+					owner = "jonatan-branting";
+					repo = "nvim-better-n";
+					rev = "73a16d9";
+					hash = "sha256-4SjjPNPrPF0kPBiJBd2VMNU5UuEJbYe9YGWB15PPNVQ=";
+				};
+			})
+
 			
 			(configPlugin {
 				plugin.pname = "nvchad-menu";
@@ -288,6 +298,7 @@
 					hash = "sha256-e9QoyP+4Vu85b0iJu0scIn/32jbjLMDc99leVz7EdJs=";
 				};
 			})
+
 			(configPlugin {
 				plugin.pname = "nvchad-volt";
 				src = {
