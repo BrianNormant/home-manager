@@ -101,7 +101,7 @@
 			})
 			telescope-lsp-handlers-nvim
 			(configPlugin {plugin = telescope-nvim;})
-			no-neck-pain-nvim
+			(configPlugin {plugin = no-neck-pain-nvim;})
 			vim-wakatime
 			(configPlugin {plugin = nvim-web-devicons;})
 			(configPlugin {
