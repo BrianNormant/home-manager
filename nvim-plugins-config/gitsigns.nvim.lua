@@ -77,3 +77,5 @@ local legend = {
 	},
 }
 _G.LEGEND_append(legend)
+
+_G.diffthis_select = telescope_select_commit

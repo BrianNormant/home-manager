@@ -1,5 +1,16 @@
 local diffview = require("diffview")
 diffview.setup {
+	hooks = {
+		view_opened = function(view)
+			if not _G.diffview_info then
+				_G.diffview_info = {}
+			end
+			_G.diffview_info[view.tabpage] = true
+		end,
+		view_closed = function(view)
+			_G.diffview_info[view.tabpage] = nil
+		end
+	},
 	enhanced_diff_hl = true,
 	[ "view.x.layout" ] = "diff3_mixed",
 }
@@ -62,3 +73,5 @@ local legend = {
 	},
 }
 _G.LEGEND_append(legend)
+
+_G.diffview_select = telescope_select_commit
