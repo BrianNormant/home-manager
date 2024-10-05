@@ -52,7 +52,7 @@ Finally, it is worth reading the documentation.
     <!-- Checks that property files contain the same keys.         -->
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
-
+    <module name="LineLength"/>
     <module name="FileLength"/>
 
     <!-- Following interprets the header file as regular expressions. -->
@@ -61,12 +61,6 @@ Finally, it is worth reading the documentation.
     <!-- <module name="FileTabCharacter"> -->
     <!--   <property name="eachLine" value="false"/> -->
     <!-- </module> -->
-    <module name="RegexpSingleline">
-      <property name="format" value="^\t* "/>
-      <property name="message" value="Indent must use tab characters"/>
-      <!-- <property name="ignoreComments" value="true"/> -->
-    </module>
-
 
     <module name="RegexpSingleline">
       <!-- \s matches whitespace character, $ matches end of line. -->
@@ -85,6 +79,11 @@ Finally, it is worth reading the documentation.
       <module name="JavadocVariable"/>
       <module name="JavadocStyle"/>
 
+      <module name="RegexpSinglelineJava">
+        <property name="format" value="^\t* "/>
+        <property name="message" value="Indent must use tab characters"/>
+        <property name="ignoreComments" value="true"/>
+      </module>
 
       <!-- Checks for Naming Conventions.                  -->
       <!-- See http://checkstyle.sf.net/config_naming.html -->
@@ -124,7 +123,7 @@ Finally, it is worth reading the documentation.
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
+        
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
 
@@ -167,7 +166,6 @@ Finally, it is worth reading the documentation.
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
-        <module name="RedundantThrows"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
 
