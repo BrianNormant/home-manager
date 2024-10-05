@@ -223,7 +223,8 @@
 					rev   = "2ee646f";
 					hash  = "sha256-j+FB5wjiWwq5YEHx+CDGN4scMr7+TkUoAX63WHiziaU=";
 				 };
-			 })
+			})
+
 			(configPlugin {
 				# plugin = nvim-jdtls.overrideAttrs {
 				# 	src = pkgs.fetchFromGitHub {
@@ -276,7 +277,27 @@
 					 rev = "353a094";
 					 sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
 				 };
-			 };})
+			};})
+			
+			(configPlugin {
+				plugin.pname = "nvchad-menu";
+				src = {
+					owner = "NvChad";
+					repo = "menu";
+					rev = "205b3de";
+					hash = "sha256-e9QoyP+4Vu85b0iJu0scIn/32jbjLMDc99leVz7EdJs=";
+				};
+			})
+			(configPlugin {
+				plugin.pname = "nvchad-volt";
+				src = {
+					owner = "NvChad";
+					repo = "volt";
+					rev = "ce1e55d";
+					hash = "sha256-jqQQ6r/EhwYpY19uAtebVOSeTIYTpAUwvzzSTkZVzC4=";
+				};
+				config = false;
+			})
 
 # Treesitter
 			nvim-treesitter
