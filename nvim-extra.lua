@@ -1,12 +1,15 @@
 if vim.g.neovide then
 	vim.o.guifont = "FiraCode Nerd Font:h12";
 	vim.g.neovide_floating_shadow = false;
-	vim.g.neovide_position_animation_length = 0.05;
+	vim.g.neovide_position_animation_length = 0.10;
 	vim.g.neovide_scroll_animation_length = 0;
 	vim.g.neovide_scroll_animation_far_lines = 0;
 	vim.g.neovide_hide_mouse_when_typing = true;
 	vim.g.neovide_refresh_rate = 120;
-	vim.g.neovide_cursor_animation_length = 0;
+	vim.g.neovide_cursor_animation_length = 0.13;
+	vim.g.neovide_cursor_trail_size = 0;
+	vim.g.neovide_cursor_animate_command_line = false
+	vim.g.neovide_cursor_smooth_blink = true;
 	vim.keymap.set({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
 	vim.keymap.set({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
 	vim.keymap.set({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
