@@ -1,7 +1,5 @@
 local gitsigns = require('gitsigns')
 gitsigns.setup {}
--- TODO: Create a function with telescope/vim.select to choose a commit then display it with gitsigns.diffthis('$commit')
--- *telescope.previewers.git_commit_diff_to_head()*
 
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"

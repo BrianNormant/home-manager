@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd(
 		callback = function()
 			if vim.bo.filetype == "java" then
 				jdtls.start_or_attach(config)
-				-- TODO install lsp
+				-- TODO install dap
 			-- vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
 			end
 		end,

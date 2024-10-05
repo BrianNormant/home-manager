@@ -1,7 +1,6 @@
 require('no-neck-pain')
 
 vim.g.mapleader = " "
--- TODO add commands definition of each in their respective files
 local legend = {
 	keymaps = {
 		--- Basic key maps
@@ -88,13 +87,6 @@ local legend = {
 		end, description = "Diff buffer 0 and 1 in a new tab",
 		unfinished = true, opts = { nargs = '*' } }
 	},
-	autocmds = { {
-		{
-			'BufEnter',
-			function() vim.bo.filetype = "markdown" end,
-			opts = { pattern = "Legendary Scratchpad" },
-		}
-	} }
 }
 
 _G.LEGEND_append(legend)
@@ -113,7 +105,8 @@ vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<C-\\><C-n>", {})
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 	pattern = "Legendary Scratchpad",
 	callback = function()
-		vim.lsp.stop_client(vim.lsp.getclients()) -- stop the lua lsp
+		local buf = vim.api.nvim_get_current_buf()
+		vim.lsp.stop_client(vim.lsp.get_clients({bufnr = buf, name = "lua_ls"})) -- stop the lua lsp
 		vim.bo.filetype = "markdown"
 	end,
 })
