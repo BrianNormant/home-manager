@@ -203,6 +203,7 @@
 			})
 # Lint and Format
 			(configPlugin {plugin = none-ls-nvim;})
+			(configPlugin {plugin = nvim-lint;})
 			(configPlugin {
 				plugin.pname = "spellwarn.nvim";
 				src = {
