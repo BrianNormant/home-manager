@@ -21,7 +21,7 @@ local legend = {
 		{"<leader>gg", "<cmd>LazyGit<cr>",      description="open lazygit"},
 
 		--- Term
-		{"<leader>tt", function() vim.cmd "tab term" end, description="Open terminal in a new tab"},
+		{"<leader>tt", function() vim.cmd "!tmux popup" end, description="Open terminal in a tmux popup"},
 
 		---              UI settings
 		--- Treesitter
