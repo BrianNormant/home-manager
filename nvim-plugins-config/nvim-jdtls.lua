@@ -35,19 +35,32 @@ local config = {
 -- To attach a dap to junit
 -- https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#vscode-java-test-installation
 
-vim.api.nvim_create_autocmd(
-	{ 'BufEnter', 'FileType' },
-	{
-		pattern = {'*'},
-		callback = function()
-			if vim.bo.filetype == "java" then
-				jdtls.start_or_attach(config)
-				-- TODO install dap
+vim.api.nvim_create_autocmd( { 'BufEnter', 'FileType' }, {
+	pattern = {'*'},
+	callback = function(ev)
+		if vim.bo.filetype == "java" then
+			jdtls.start_or_attach(config)
+			vim.api.nvim_create_autocmd({'InsertLeave', 'CursorHold', 'CursorMoved'}, {
+				group = "LSP_inlayHints",
+				desc = 'Update inlay hints on line change',
+				buffer = ev.buf,
+				callback = function()
+					vim.lsp.inlay_hint.enable(true, {bufnr = ev.buf})
+				end,
+			})
+			vim.api.nvim_create_autocmd({"InsertEnter"}, {
+				group = "LSP_inlayHints",
+				desc = 'Remove inlay hints before insert',
+				buffer = ev.buf,
+				callback = function()
+					vim.lsp.inlay_hint.enable(false, {bufnr = ev.buf})
+				end
+			})
+			-- TODO install dap
 			-- vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
-			end
-		end,
-	}
-)
+		end
+	end,
+})
 
 local legend = {
 	keymaps = {

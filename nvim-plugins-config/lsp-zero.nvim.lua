@@ -59,10 +59,22 @@ local lsp_attach = function(client, bufnr)
 	end
 end ]]
 -- local legend = { keymaps = vim.tbl_map(function(v) return {v[1], mode = v.mode, description = v.description} end, legend_b.keymaps) }
-
+local inlay_hints_group = vim.api.nvim_create_augroup('LSP_inlayHints', { clear = false })
 lsp_zero.extend_lspconfig {
 	sign_text = true,
-	lsp_attach = function(_, _) end,
+	lsp_attach = function(client, bufnr)
+		-- if (vim.bo.filetype == 'lua') then return end
+		if (client.supports_method('textDocument/inlayHint')) then
+			vim.api.nvim_create_autocmd({'InsertLeave', 'CursorHold', 'CursorMoved'}, {
+				group = inlay_hints_group,
+				desc = 'Update inlay hints on line change',
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.inlay_hint.enable(true, {bufnr = bufnr})
+				end,
+			})
+		end
+	end,
 	capabilities = require('cmp_nvim_lsp').default_capabilities()
 }
 
@@ -88,5 +100,22 @@ lsp_zero.setup_servers {
 }
 
 lsp_config.elixirls.setup { cmd = { vim.fn.exepath('elixir-ls') }, }
+
+-- https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921
+-- Show inlay hints for the current line
+local methods = vim.lsp.protocol.Methods
+local inlay_hint_handler = vim.lsp.handlers[methods["textDocument_inlayHint"]]
+vim.lsp.handlers[methods["textDocument_inlayHint"]] = function(err, result, ctx, config)
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  if client and result then
+    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    result = vim.iter(result)
+      :filter(function(hint)
+        return hint.position.line + 1 == row
+      end)
+      :totable()
+  end
+  inlay_hint_handler(err, result, ctx, config)
+end
 
 _G.LEGEND_append(legend)
