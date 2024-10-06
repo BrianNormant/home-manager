@@ -63,7 +63,7 @@ local normal_list = {
 	},
 	{ "c",
 		function() vim.cmd "norm! ]c" end,
-		function() vim.cmd "norm! [c" end,, "diff"
+		function() vim.cmd "norm! [c" end, "diff"
 	},
 }
 

@@ -45,13 +45,6 @@ cmp.setup {
 		['<CR>'] = cmp.mapping.confirm { select = false; },
 		['<C-space>'] = cmp.mapping.complete(),
 		['<M-space>'] = cmp.mapping.complete{ ["config.sources.name"] = "luasnip" },
-		['<Space>'] = cmp.mapping(function(fallback)
-			if cmp.visible() and cmp.get_selected_entry() then
-				cmp.mapping.confirm { select = true; }
-			else
-				fallback()
-			end
-		end),
 		--- https://www.reddit.com/r/neovim/comments/10r7l63/comment/jfx72u9/
 		['<Down>'] = cmp.mapping(function(fallback)
 			cmp.close()

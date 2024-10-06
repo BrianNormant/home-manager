@@ -221,7 +221,7 @@ ins_left {
   function()
     local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf()})
     if next(clients) == nil then
-      return '%=No Active Lsp'
+      return '%=No Lsp'
     end
 
     local c = vim.tbl_map(function(v) return v.name end, clients)
