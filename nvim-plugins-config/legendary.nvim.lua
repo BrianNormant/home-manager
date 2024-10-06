@@ -149,4 +149,9 @@ require("which-key").add {
 	{'<leader>s',    icon = "", group = "DataBase"},
 	{'<leader>t',    icon = "󰓩", group = "Tabs"},
 	{'<leader>u',    icon = "", group = "UI"},
+	{ "g=", desc = "mini-operators evaluate" },
+	{ "gm", desc = "mini-operators multiply" },
+	{ "ss", desc = "mini-operators exchange" },
+	{ "sp", desc = "mini-operators replace with register" },
+	{ "sx", desc = "mini-operators sort text" },
 }

@@ -16,8 +16,8 @@ require('mini.operators').setup {
 	replace  = { prefix = legend.keymaps[4][1] },
 }
 
-vim.api.nvim_set_keymap("n", "sP", legend.keymaps[4][1] .. "$", {nowait = true}) -- replace to end of line with register
-vim.api.nvim_set_keymap("n", "g+", legend.keymaps[1][1] .. "$", {nowait = true}) -- evaluate to end of line with register
-vim.api.nvim_set_keymap("n", "sS", legend.keymaps[3][1] .. "$", {nowait = true}) -- exchange to end of line with register
-vim.api.nvim_set_keymap("n", "gM", legend.keymaps[2][1] .. "$", {nowait = true}) -- duplicate to end of line with register
-vim.api.nvim_set_keymap("n", "sX", legend.keymaps[5][1] .. "$", {nowait = true}) -- sort to end of line with register
+vim.api.nvim_set_keymap("n", "sP", legend.keymaps[4][1] .. "$", {nowait = true, desc = "Replace with reg to EOF"}) -- replace to end of line with register
+vim.api.nvim_set_keymap("n", "g+", legend.keymaps[1][1] .. "$", {nowait = true, desc = "Evaluate as lua to EOF"}) -- evaluate to end of line with register
+vim.api.nvim_set_keymap("n", "sS", legend.keymaps[3][1] .. "$", {nowait = true, desc = "Exchange to EOF"}) -- exchange to end of line with register
+vim.api.nvim_set_keymap("n", "gM", legend.keymaps[2][1] .. "$", {nowait = true, desc = "Duplicate to EOF"}) -- duplicate to end of line with register
+vim.api.nvim_set_keymap("n", "sX", legend.keymaps[5][1] .. "$", {nowait = true, desc = "Sort to EOF"}) -- sort to end of line with register
