@@ -1,5 +1,3 @@
--- vim.opt.rtp:append(vim.fn.stdpath('config') .. '/lua/nvim-jdtls')
-
 local jdtls = require 'jdtls'
 local root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', "pom.xml"})
 
@@ -31,6 +29,60 @@ local config = {
 		}
 	},
 }
+
+--- Replace the default picker with telescope
+local function pick_many(items, prompt, label_f, opts)
+  if not items or #items == 0 then
+    return {}
+  end
+
+  label_f = label_f or function(item)
+    return item
+  end
+  opts = opts or {}
+
+  local actions = require "telescope.actions"
+  local action_state = require "telescope.actions.state"
+  local finders = require "telescope.finders"
+  local pickers = require "telescope.pickers"
+  local conf = require("telescope.config").values
+
+  local co = coroutine.running()
+  pickers.new({}, {
+    prompt_title = prompt,
+    finder = finders.new_table {
+      results = vim.tbl_map(function(item)
+        return {
+          value = item,
+          display = label_f(item),
+        }
+      end, items),
+      entry_maker = function(entry)
+        return {
+          value = entry.value,
+          display = entry.display,
+          ordinal = entry.display,
+        }
+      end
+    },
+    sorter = conf.generic_sorter(opts),
+    attach_mappings = function(_, _)
+      actions.select_default:replace(function(prompt_bufnr)
+        local picker = action_state.get_current_picker(prompt_bufnr)
+        local choices = picker:get_multi_selection()
+
+        actions.close(prompt_bufnr)
+        choices = vim.tbl_map(function(choice) return choice.value end, choices)
+        coroutine.resume(co, choices)
+      end)
+      return true
+    end,
+  }):find()
+
+  local result = coroutine.yield()
+  return result
+end
+require('jdtls.ui').pick_many = pick_many
 
 -- To attach a dap to junit
 -- https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#vscode-java-test-installation
