@@ -108,8 +108,9 @@ local function mode_color()
     ["no"] = { fg = palette.purple, gui = "bold" },
     ["n"]    = { fg = palette.fg1, },
     ["!"]    = { fg = palette.red, bg = palette.bg_visual_red, gui = "bold"},
+    ["c"]    = { fg = "#331a99" }
   }
-  local mode, _ = vim.api.nvim_get_mode().mode
+  local mode = vim.api.nvim_get_mode().mode
   if equtbl[mode] then
     return equtbl[mode]
   else
@@ -150,6 +151,7 @@ local function mode_text()
     ["t"]    = "Terminal         ",
     ["v"]    = "Visual           ",
     ["vs"]   = "VisualSelect     ",
+    ["c"]    = "Command          ",
   }
   local mode = vim.api.nvim_get_mode().mode
   for m, txt in pairs(equtbl) do
