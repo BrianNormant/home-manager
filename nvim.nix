@@ -83,6 +83,17 @@
 					hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
 				};
 			})
+			(configPlugin {
+				plugin.pname = "flit.nvim";
+				src = {
+					owner = "ggandor";
+					repo = "filt.nvim";
+					rev = "1ef72de"; # Fri Sep 27 05:01:10 PM EDT 2024
+					# hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
+				};
+				config = false;
+			})
+
 			nvim-ts-autotag
 			(configPlugin {plugin = nvim-autopairs;})
 			(configPlugin {plugin = boole-nvim;})
