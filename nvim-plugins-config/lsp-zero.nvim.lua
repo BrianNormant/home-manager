@@ -9,23 +9,23 @@ local legend = {
 			local winid = require('ufo').peekFoldedLinesUnderCursor()
 			if not winid then vim.lsp.buf.hover() end
 		end,           mode={'n'}, description = "Lsp show/enter hover"},
-		{'H',          vim.lsp.buf.document_highlight, mode={'n'}, description = "Lsp highligh current symbol"},
-		{'gi',         vim.lsp.buf.implementation,  mode={'n'}, description = "Lsp goto implementation"},
-		{'go',         vim.lsp.buf.type_definition, mode={'n'}, description = "Lsp goto type definition"},
-		{'gI',         vim.lsp.buf.signature_help,  mode={'n'}, description = "Lsp show type signature"},
-		{'gD',         vim.lsp.buf.declaration,     mode={'n'}, description = "Lsp goto declaration"},
-		{'gd',         vim.lsp.buf.definition,      mode={'n'}, description = "Lsp goto definition"},
-		{'gR',         vim.lsp.buf.rename,          mode={'n'}, description = "Lsp rename symbol under cursor"},
-		{'gr',         vim.lsp.buf.references,      mode={'n'}, description = "Lsp goto references"},
-		{"<leader>e",  vim.diagnostic.open_float,   mode={'n'}, description = "Lsp open/enter diagnostic window"},
+		{'H',          vim.lsp.buf.document_highlight, mode={'n'}, description = " Lsp highligh current symbol"},
+		{'gi',         vim.lsp.buf.implementation,  mode={'n'}, description = " Lsp goto implementation"},
+		{'go',         vim.lsp.buf.type_definition, mode={'n'}, description = " Lsp goto type definition"},
+		{'gI',         vim.lsp.buf.signature_help,  mode={'n'}, description = " Lsp show type signature"},
+		{'gD',         vim.lsp.buf.declaration,     mode={'n'}, description = " Lsp goto declaration"},
+		{'gd',         vim.lsp.buf.definition,      mode={'n'}, description = " Lsp goto definition"},
+		{'gR',         vim.lsp.buf.rename,          mode={'n'}, description = " Lsp rename symbol under cursor"},
+		{'gr',         vim.lsp.buf.references,      mode={'n'}, description = " Lsp goto references"},
+		{"<leader>e",  vim.diagnostic.open_float,   mode={'n'}, description = " Lsp open/enter diagnostic window"},
 
 		{"<leader>l", description = "lsp actions"},
 		{'<leader>lL', "<cmd>LspLog<cr>",         mode={'n'}, description = "Format the current buffer with the lsp"},
 		{'<leader>lS', "<cmd>LspStop<cr>",        mode={'n'}, description = "Stop the current lsp server"},
-		{'<leader>ld', vim.diagnostic.setqflist,  mode={'n'}, description = "Lsp send diagnostics to quickfix"},
+		{'<leader>ld', vim.diagnostic.setqflist,  mode={'n'}, description = " Lsp send diagnostics to quickfix"},
 		{'<leader>lf', "<cmd>LspZeroFormat<cr>",  mode={'n'}, description = "Format the current buffer with the lsp"},
 		{'<leader>li', "<cmd>LspInfo<cr>",        mode={'n'}, description = "Info about the current lsp"},
-		{'<leader>ll', vim.diagnostic.setloclist, mode={'n'}, description = "Lsp send diagnostics to loclist"},
+		{'<leader>ll', vim.diagnostic.setloclist, mode={'n'}, description = " Lsp send diagnostics to loclist"},
 		{'<leader>lr', "<cmd>LspRestart<cr>",     mode={'n'}, description = "Restart the current lsp server"},
 		{'<leader>ls', "<cmd>LspStart<cr>",       mode={'n'}, description = "Start lsp server for this filetype"},
 	},
@@ -72,6 +72,14 @@ lsp_zero.extend_lspconfig {
 				callback = function()
 					vim.lsp.inlay_hint.enable(true, {bufnr = bufnr})
 				end,
+			})
+			vim.api.nvim_create_autocmd({"InsertEnter"}, {
+				group = inlay_hints_group,
+				desc = 'Remove inlay hints before insert',
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.inlay_hint.enable(false, {bufnr = bufnr})
+				end
 			})
 		end
 	end,

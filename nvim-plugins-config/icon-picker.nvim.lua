@@ -5,8 +5,8 @@ require('icon-picker').setup {
 --- Keymaps
 local legend = {
 	keymaps = {
-		{"<C-e>", "<cmd>IconPickerInsert<cr>", mode="i", description="Icon Picker insert"},
-		{"<C-e>", "<cmd>IconPickerNormal<cr>", mode="n", description="Icon Picker normal"},
+		{"<C-e>", "<cmd>IconPickerInsert<cr>", mode="i", description="󰱨 Icon Picker insert"},
+		{"<C-e>", "<cmd>IconPickerNormal<cr>", mode="n", description="󰱨 Icon Picker normal"},
 	},
 }
 _G.LEGEND_append(legend)

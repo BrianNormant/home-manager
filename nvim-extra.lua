@@ -30,6 +30,9 @@ vim.opt.expandtab = false -- set to true to use space instead of tab
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
 -- enable spell check
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true

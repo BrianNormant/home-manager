@@ -70,12 +70,13 @@ dapui.setup {
 --- Keymaps
 local legend = {
 	keymaps = {
-		{"<F9>",   function()  require'dap'.toggle_breakpoint()  end,  description="DAP  Toggle breakpoint"},
-		{"<F10>",  function()  require'dap'.continue()           end,  description="DAP  Start/Resume"},
-		{"<F58>",  function()  require'dap'.terminate()          end,  description="DAP  Stop"},
-		{"<F11>",  function()  require'dap'.step_over()          end,  description="DAP  Step"},
-		{"<F12>",  function()  require'dap'.step_into()          end,  description="DAP  Step into"},
-		{"<F60>",  function()  require'dap'.step_out()           end,  description="DAP  Step out"},
+		-- TODO change some of those mappings, they conflict with cmus
+		{"<F10>",  function()  require'dap'.continue()           end,  description=" DAP Start/Resume"},
+		{"<F9>",   function()  require'dap'.toggle_breakpoint()  end,  description=" DAP Toggle breakpoint"},
+		{"<F58>",  function()  require'dap'.terminate()          end,  description=" DAP Stop"},
+		{"<F11>",  function()  require'dap'.step_over()          end,  description=" DAP Step"},
+		{"<F12>",  function()  require'dap'.step_into()          end,  description=" DAP Step into"},
+		{"<F60>",  function()  require'dap'.step_out()           end,  description="󰆸 DAP Step out"},
 	},
 }
 _G.LEGEND_append(legend)

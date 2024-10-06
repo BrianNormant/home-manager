@@ -71,6 +71,7 @@
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
 			(configPlugin {plugin = nvim-ufo;})
+			(configPlugin {plugin = which-key-nvim;})
 			vim-repeat
 			vim-lastplace
 			(configPlugin {plugin = leap-nvim;})
@@ -87,9 +88,9 @@
 				plugin.pname = "flit.nvim";
 				src = {
 					owner = "ggandor";
-					repo = "filt.nvim";
+					repo = "flit.nvim";
 					rev = "1ef72de"; # Fri Sep 27 05:01:10 PM EDT 2024
-					# hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
+					hash = "sha256-lLlad/kbrjwPE8ZdzebJMhA06AqpmEI+PJCWz12LYRM=";
 				};
 				config = false;
 			})
@@ -143,7 +144,7 @@
 			(configPlugin {plugin = nvim-notify;})
 			(configPlugin {plugin = neoscroll-nvim;})
 			(configPlugin {plugin = mini-bracketed;})
-			(configPlugin {plugin = mini-clue;})
+			# (configPlugin {plugin = mini-clue;})
 			(configPlugin {plugin = mini-move;})
 			(configPlugin {plugin = mini-indentscope;})
 			rainbow-delimiters-nvim # Auto load itself
@@ -299,7 +300,6 @@
 				};
 			})
 
-			
 			(configPlugin {
 				plugin.pname = "nvchad-menu";
 				src = {

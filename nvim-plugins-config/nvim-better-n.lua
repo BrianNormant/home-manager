@@ -2,7 +2,7 @@
 local better_n = require("better-n")
 
 better_n.setup {
-	disable_defaults_mappings = true,
+	disable_defaults_mappings = false,
 }
 
 
@@ -71,5 +71,19 @@ for _, v in ipairs(normal_list) do
 	normal_override(unpack(v))
 end
 
-vim.keymap.set({ "n", "x" }, ",",     better_n.next,     { expr = true, silent = true, nowait = true })
-vim.keymap.set({ "n", "x" }, "<A-,>", better_n.previous, { expr = true, silent = true, nowait = true })
+local flit_f = better_n.create {
+	next = function() vim.api.nvim_input "<Plug>flit-f" end,
+	previous = function() vim.api.nvim_input "<Plug>flit-F" end
+}
+vim.keymap.set({ "n" }, "f", flit_f.next, { desc = "󱕘 to next char"})
+vim.keymap.set({ "n" }, "F", flit_f.previous, { desc = "󱕘 to previous char"})
+
+local flit_t = better_n.create {
+	next = function() vim.api.nvim_input "<Plug>flit-t" end,
+	previous = function() vim.api.nvim_input "<Plug>flit-T" end
+}
+vim.keymap.set({ "n" }, "t", flit_t.next, { desc = "󱕘 before next char"})
+vim.keymap.set({ "n" }, "T", flit_t.previous, { desc = "󱕘 before previous char"})
+
+vim.keymap.set({ "n" }, ",",     better_n.next,     { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n" }, ";", better_n.previous, { expr = true, silent = true, nowait = true })
