@@ -68,8 +68,6 @@ local legend = {
 		{"<leader>gu", gitsigns.undo_stage_hunk,                         mode = 'n',                        description = "Undo last git stage"},
 		{"<leader>ub", gitsigns.toggle_current_line_blame,               mode = 'n',                        description = "Show git blame"},
 		{"<leader>gl", gitsigns.setloclist,                              mode = 'n',                        description = "Populate loclist with hunk of the current file"},
-		{"]h",         function() gitsigns.nav_hunk('next', {navigation_message = false}) end,              description = "jump to next hunk"},
-		{"[h",         function() gitsigns.nav_hunk('prev', {navigation_message = false}) end,              description = "jump to previous hunk"},
 		{"[H",         function() gitsigns.nav_hunk('first',{navigation_message = true }) end,              description = "jump to first hunk"},
 		{"]H",         function() gitsigns.nav_hunk('last', {navigation_message = true }) end,              description = "jump to last hunk"},
 	},

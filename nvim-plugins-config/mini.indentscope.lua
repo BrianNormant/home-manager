@@ -3,15 +3,10 @@ require('mini.indentscope').setup {
 		delay = 2000,
 		animation = require('mini.indentscope').gen_animation.none(),
 	},
-	indent_at_cursor = false,
+	indent_at_cursor = true,
 	symbol = "",
+	mappings = {
+		goto_top = '',
+		goto_bottom = '',
+	}
 }
-
---- Keymaps
-local legend = {
-	keymaps = {
-		{ "[i", description = "goto indentscope top" },
-		{ "]i", description = "goto indentscope bottom" },
-	},
-}
-_G.LEGEND_append(legend)

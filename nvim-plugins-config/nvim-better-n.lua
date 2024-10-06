@@ -38,5 +38,38 @@ for _, v in ipairs(bracketed_list) do
 	bracketed_override(unpack(v))
 end
 
+local normal_override = function(key, fn_next, fn_prev, desc)
+	local nav = better_n.create {
+		next = fn_next,
+		previous = fn_prev,
+	}
 
-vim.keymap.set({ "n", "x" }, ",", better_n.next, { expr = true, silent = true, nowait = true })
+	vim.keymap.set({ "n", "x" }, "]" .. key, nav.next,     { desc = "next " .. desc})
+	vim.keymap.set({ "n", "x" }, "[" .. key, nav.previous, { desc = "previous " .. desc})
+end
+
+local normal_list = {
+	{ "i",
+		function() require('mini.indentscope').operator("top", true) end,
+		function() require('mini.indentscope').operator("bottom", true) end, "Indent"
+	},
+	{ "h",
+		function() require('gitsigns').nav_hunk("next") end,
+		function() require('gitsigns').nav_hunk("prev") end, "Hunk"
+	},
+	{ "s",
+		function() vim.cmd "norm! ]s" end,
+		function() vim.cmd "norm! [s" end, "misspelled word"
+	},
+	{ "c",
+		function() vim.cmd "norm! ]c" end,
+		function() vim.cmd "norm! [c" end,, "diff"
+	},
+}
+
+for _, v in ipairs(normal_list) do
+	normal_override(unpack(v))
+end
+
+vim.keymap.set({ "n", "x" }, ",",     better_n.next,     { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", "x" }, "<A-,>", better_n.previous, { expr = true, silent = true, nowait = true })
