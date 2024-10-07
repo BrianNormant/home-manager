@@ -202,6 +202,10 @@ M.nvim = {
 local gitsigns = require("gitsigns")
 M.git = {
 	{
+		name = "Open Neogit",
+		cmd = function() require('neogit').open{ "commit" } end,
+	},
+	{
 		name = "Blame Line",
 		cmd = gitsigns.toggle_currnet_line_blame,
 		rtxt = "<leader>ub",

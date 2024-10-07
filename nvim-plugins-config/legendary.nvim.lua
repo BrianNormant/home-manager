@@ -19,7 +19,7 @@ local legend = {
 		{"<F8>", function() require("neotest").run.run(vim.fn.extend("%")) end, description="Run with neotest"},
 
 		--- git
-		{"<leader>gg", "<cmd>LazyGit<cr>",      description="open lazygit"},
+		{"<leader>gg", "<cmd>Neogit commit<cr>",      description="open neogit"},
 
 		--- Term
 		{"<leader>tt", function() vim.cmd "!tmux popup" end, description="Open terminal in a tmux popup"},
