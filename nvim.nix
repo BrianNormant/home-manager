@@ -25,7 +25,8 @@
 			fd
 			yarn nodePackages_latest.nodejs
 			jdk17 jdk # 21
-			clang elixir
+			clang elixir cling
+			python312Packages.ipython
 		];
 
 		plugins = with pkgs.vimPlugins; let
@@ -254,10 +255,10 @@
 			(configPlugin {
 				plugin.pname = "mdeval.nvim";
 				src = {
-					owner = "jubnzv";
+					owner = "BrianNormant";
 					repo = "mdeval.nvim";
-					rev = "79df3e7";
-					hash = "sha256-XFnAGMA1kHfqDqdGY2UvXFwxJUT2E+TvwUy8+RShBlM=";
+					rev = "87fccb2";
+					hash = "sha256-BjYl6RScUsTNOZziHDRhBHVeTXjsEwCHiz93rLy0Ycc=";
 				};
 			})
 			(configPlugin {plugin = rest-nvim;})
