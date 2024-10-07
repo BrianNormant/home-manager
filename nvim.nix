@@ -280,7 +280,14 @@
 
 # Markdown, CSV,
 			markdown-preview-nvim
-			(configPlugin {plugin = markview-nvim;})
+			(configPlugin {plugin = markview-nvim.overrideAttrs {
+				src = pkgs.fetchFromGitHub {
+					owner = "OXY2DEV";
+					repo = "markview.nvim";
+					rev = "493c054";
+					hash = "sha256-x23NtAaOP/p7U460o9lRqYvJdGqzW4/kPgBbUBgV0j4=";
+				};
+			};})
 
 # Compile and run from vim
 			(configPlugin {plugin = compiler-nvim.overrideAttrs {
