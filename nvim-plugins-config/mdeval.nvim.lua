@@ -25,12 +25,16 @@ require 'mdeval'.setup {
 		},
 
 		python = {
-			command = { "python" },
+			command = { "ipython" },
 			language_code = "python",
 			exec_type = "interpreted",
-			extension = "ex",
+			extension = "py",
 			eof = "exit()",
-			ignore_first_line = false,
+			filter = function(line)
+				local r = vim.regex([[\vIn \[\d+\]:]])
+				return not r:match_str(line)
+			end,
+			ignore_first_line = 3,
 		},
 
 		c = {
@@ -48,7 +52,40 @@ require 'mdeval'.setup {
 			]],
 			ignore_first_line = 5,
 			eof = ".q",
-		}
+		},
+
+		lua = {
+			command = { "lua" }, -- TODO replace this with a function to run the neovim lua
+			language_code = "lua",
+			exec_type = "interpreted",
+			extension = "lua",
+			ignore_first_line = 2,
+			eof = "os.exit()",
+		},
+		zsh = {
+			command = { "zsh" },
+			language_code = "zsh",
+			exec_type = "interpreted",
+			eof = "exit",
+		},
+		bash = {
+			command = { "bash" },
+			language_code = "bash",
+			exec_type = "interpreted",
+			eof = "exit",
+		},
+		sh = {
+			command = { "sh" },
+			language_code = "sh",
+			exec_type = "interpreted",
+			eof = "exit",
+		},
+		nu = {
+			command = { "nu" },
+			language_code = "nu",
+			exec_type = "interpreted",
+			eof = "exit",
+		},
 	},
 }
 
