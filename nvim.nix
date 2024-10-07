@@ -125,7 +125,7 @@
 					sha256 = "VZKsVeSmPR3AA8267Mtd5sSTZl2CAqnbgqceCptgp4w=";
 				};
 			})
-			lazygit-nvim
+			(configPlugin { plugin = neogit;})
 			 (configPlugin {
 				plugin.pname = "muren.nvim";
 				src = {
