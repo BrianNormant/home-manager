@@ -143,7 +143,6 @@
 			(configPlugin {plugin = mini-extra;})
 			(configPlugin {plugin = mini-ai;})
 			(configPlugin {plugin = nvim-notify;})
-			(configPlugin {plugin = neoscroll-nvim;})
 			(configPlugin {plugin = mini-bracketed;})
 			# (configPlugin {plugin = mini-clue;})
 			(configPlugin {plugin = mini-move;})
