@@ -1,4 +1,9 @@
 local blink = require("blink-cmp")
+require("supermaven-nvim").setup {
+	disable_inline_completion = true, -- disables inline completion for use with cmp
+	disable_keymaps = true, -- disables built in keymaps for more manual control
+	log_level = "off", -- Shut off the warnings
+}
 
 local function custom_draw(ctx)
 	return {{
@@ -7,7 +12,7 @@ local function custom_draw(ctx)
 		hl_group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel'
 	},
 	{
-		string.format("%s %13s", ctx.kind_icon, ctx.kind),
+		string.format("%s %s", ctx.kind_icon, ctx.item.blink.source),
 		hl_group = 'BlinkCmpKind' .. ctx.kind,
 	}}
 	
@@ -36,13 +41,18 @@ blink.setup {
 	sources = {
 		providers = {
 			{
+				{
+					'blink.cmp.sources.supermaven',
+					score_offset = 20,
+				},
 				{ 'blink.cmp.sources.lsp' },
 				{ 'blink.cmp.sources.path' },
 				{
 					'blink.cmp.sources.snippets',
 					opts = {
 						search_paths = { vim_snippets_path .. "/snippets", }
-					}
+					},
+					score_offset = -10,
 				},
 			},
 			{ { 'blink.cmp.sources.buffer' } },

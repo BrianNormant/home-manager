@@ -8,7 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    blink-cmp.url = "github:Saghen/blink.cmp";
+    blink-cmp.url = "github:BrianNormant/blink.cmp";
   };
 
   outputs = inputs@{ nixpkgs, home-manager, blink-cmp, ... }:

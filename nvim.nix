@@ -178,9 +178,11 @@
 			};})
 
 			# AutoCompletion
+
 			friendly-snippets
 			vim-snippets
 			supermaven-nvim
+
 			(configPlugin {
 				plugin = blink;
 				preLua = ''
