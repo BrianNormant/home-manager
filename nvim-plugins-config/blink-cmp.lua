@@ -26,11 +26,11 @@ blink.setup {
 		snippet_forward = { "<Tab>", "<C-l>" },
 		snippet_backward = { "<S-Tab>", "<C-j>" },
 	},
-
-	accept = {
+		accept = {
 		auto_brackets = {
 			enabled = true,
-		}
+		},
+		preselect = false,
 	},
 
 	trigger = {

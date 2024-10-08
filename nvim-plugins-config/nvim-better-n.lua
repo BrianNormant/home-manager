@@ -85,5 +85,5 @@ local flit_t = better_n.create {
 vim.keymap.set({ "n", "v", "o" }, "t", flit_t.next, { desc = "󱕘 before next char"})
 vim.keymap.set({ "n", "v", "o" }, "T", flit_t.previous, { desc = "󱕘 before previous char"})
 
-vim.keymap.set({ "n", "v", "o" }, ",",     better_n.next,     { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", "v", "o" }, ",", better_n.next,     { expr = true, silent = true, nowait = true })
 vim.keymap.set({ "n", "v", "o" }, ";", better_n.previous, { expr = true, silent = true, nowait = true })

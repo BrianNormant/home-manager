@@ -177,18 +177,17 @@
 				};
 			};})
 
-			# AutoCompletion
-
+			# Auto Completion
 			friendly-snippets
 			vim-snippets
 			supermaven-nvim
-
 			(configPlugin {
 				plugin = blink;
 				preLua = ''
 				local vim_snippets_path = "${vim-snippets}"
 				'';
 			})
+
 
 			(configPlugin {plugin = goto-preview;})
 			(configPlugin {

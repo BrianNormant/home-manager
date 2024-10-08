@@ -8,11 +8,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1728372615,
-        "narHash": "sha256-5OebtcdTP4xDJ60vqxHTVA/UuMr6IH0J7oqMQDZ+mXw=",
+        "lastModified": 1728375701,
+        "narHash": "sha256-g4LCkpyOwEC0iJsJRK12P1Lpms4sTj/F39kZtvaHkzI=",
         "owner": "BrianNormant",
         "repo": "blink.cmp",
-        "rev": "ee37714c9c2b457e41ae23fa4f1c4f76998a2ea9",
+        "rev": "e38e17081afba67c85ed6108fc1d073e425564f1",
         "type": "github"
       },
       "original": {
