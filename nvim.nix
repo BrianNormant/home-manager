@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, blink, ...}: {
 		enable = true;
 		withPython3 = true;
 		extraPackages = with pkgs; [
@@ -168,26 +168,6 @@
 			(configPlugin {plugin = lsp_signature-nvim;})
 			(configPlugin {plugin = actions-preview-nvim;})
 
-			# coq-artifacts
-			# coq-thirdparty
-			# (configPlugin {plugin = coq_nvim;})
-
-			# Snippets
-			friendly-snippets
-			(configPlugin {
-				plugin.pname = "luasnip-snippers.nvim";
-				src = {
-					owner = "molleweide";
-					repo = "LuaSnip-snippets.nvim";
-					rev = "d7e40e4";
-					hash = "sha256-iFpk2dmcdF3krwem0Agl044ML2syw61wWPX7ldz4bhg=";
-				};
-				config = false;
-			})
-			vim-snippets
-			(configPlugin {plugin = luasnip;})
-
-
 			# LSP
 			(configPlugin {plugin = lsp-zero-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
@@ -199,10 +179,15 @@
 			};})
 
 			# AutoCompletion
-			cmp-nvim-lsp cmp-async-path
-			supermaven-nvim cmp-treesitter
-			(configPlugin {plugin = nvim-cmp;})
-			(configPlugin {plugin = lspkind-nvim;})
+			friendly-snippets
+			vim-snippets
+			supermaven-nvim
+			(configPlugin {
+				plugin = blink;
+				preLua = ''
+				local vim_snippets_path = "${vim-snippets}"
+				'';
+			})
 
 			(configPlugin {plugin = goto-preview;})
 			(configPlugin {

@@ -8,13 +8,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-	# rest-nvim.url = "github:rest-nvim/rest.nvim";
+    blink-cmp.url = "github:Saghen/blink.cmp";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, blink-cmp, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      blink = blink-cmp.packages."${system}".blink-cmp;
     in {
       homeConfigurations."brian@BrianNixDesktop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -25,7 +26,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-		extraSpecialArgs = {hostname = "BrianNixDesktop"; inherit inputs;};
+		extraSpecialArgs = {hostname = "BrianNixDesktop"; inherit blink;};
       };
       homeConfigurations."brian@BrianNixLaptop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -36,7 +37,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-		extraSpecialArgs = {hostname = "BrianNixLaptop"; inherit inputs;};
+		extraSpecialArgs = {hostname = "BrianNixLaptop"; inherit inputs; inherit blink;};
       };
     };
 }

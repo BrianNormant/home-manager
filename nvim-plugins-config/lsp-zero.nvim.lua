@@ -83,7 +83,6 @@ lsp_zero.extend_lspconfig {
 			})
 		end
 	end,
-	capabilities = require('cmp_nvim_lsp').default_capabilities()
 }
 
 lsp_zero.ui {
