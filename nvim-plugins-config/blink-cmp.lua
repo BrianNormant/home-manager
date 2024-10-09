@@ -30,7 +30,6 @@ blink.setup {
 		auto_brackets = {
 			enabled = true,
 		},
-		preselect = false,
 	},
 
 	trigger = {
@@ -67,6 +66,7 @@ blink.setup {
 				from_bottom = true,
 				from_top = true,
 			},
+			preselect = false,
 		},
 		documentation = {
 			border = "double",
