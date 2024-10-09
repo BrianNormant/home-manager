@@ -11,7 +11,7 @@ diffview.setup {
 			_G.diffview_info[view.tabpage] = nil
 		end
 	},
-	enhanced_diff_hl = true,
+	enhanced_diff_hl = false,
 	[ "view.x.layout" ] = "diff3_mixed",
 }
 

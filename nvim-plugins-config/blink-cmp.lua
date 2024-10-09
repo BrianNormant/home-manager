@@ -20,7 +20,7 @@ end
 
 blink.setup {
 	keymap = {
-		accept = "<CR>",
+		accept = { "<CR>", },
 		select_next = "<Tab>",
 		select_prev = "<S-Tab>",
 		snippet_forward = { "<Tab>", "<C-l>" },
@@ -63,11 +63,15 @@ blink.setup {
 		autocomplete = {
 			border = "rounded",
 			draw = custom_draw,
+			cycle = {
+				from_bottom = true,
+				from_top = true,
+			},
 		},
 		documentation = {
 			border = "double",
 			auto_show_delay_ms = 2000,
-		}
+		},
 	}
 }
 
