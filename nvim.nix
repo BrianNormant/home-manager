@@ -102,6 +102,15 @@
 			(configPlugin {plugin = registers-nvim;})
 			(configPlugin {plugin = marks-nvim;})
 			(configPlugin {plugin = guess-indent-nvim;})
+			(configPlugin rec {
+				plugin.pname = "quicker.nvim";
+				src = {
+					owner = "stevearc";
+					repo = plugin.pname;
+					rev = "183041a";
+					hash = "sha256-vhDXkE33NkiCs8PUB2PIzljaL15V3Ac62FRgnEZs06M=";
+				};
+			})
 			(configPlugin {plugin = nvim-bqf;})
 			(configPlugin {
 				plugin.pname = "iswap.nvim";
