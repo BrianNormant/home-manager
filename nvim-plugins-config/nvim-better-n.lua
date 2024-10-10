@@ -2,9 +2,16 @@
 local better_n = require("better-n")
 
 better_n.setup {
-	disable_defaults_mappings = false,
+	disable_default_mappings = true,
 }
 
+
+better_n.create({ key = "/", next = "n", previous = "<s-n>" })
+local asterisk = better_n.create({ key = "*", next = "n", previous = "<s-n>" })
+vim.keymap.set({ "n", "x" }, "*", asterisk.passthrough, { expr = true, silent = true })
+
+local hash = better_n.create({ key = "#", next = "n", previous = "<s-n>" })
+vim.keymap.set({ "n", "x" }, "#", hash.passthrough, { expr = true, silent = true })
 
 local bracketed_override = function(key, name, desc_name)
 	local bracket = require('mini.bracketed')
@@ -71,19 +78,8 @@ for _, v in ipairs(normal_list) do
 	normal_override(unpack(v))
 end
 
-local flit_f = better_n.create {
-	next = function() vim.api.nvim_input "<Plug>flit-f" end,
-	previous = function() vim.api.nvim_input "<Plug>flit-F" end
-}
-vim.keymap.set({ "n", "v", "o" }, "f", flit_f.next, { desc = "󱕘 to next char"})
-vim.keymap.set({ "n", "v", "o" }, "F", flit_f.previous, { desc = "󱕘 to previous char"})
-
-local flit_t = better_n.create {
-	next = function() vim.api.nvim_input "<Plug>flit-t" end,
-	previous = function() vim.api.nvim_input "<Plug>flit-T" end
-}
-vim.keymap.set({ "n", "v", "o" }, "t", flit_t.next, { desc = "󱕘 before next char"})
-vim.keymap.set({ "n", "v", "o" }, "T", flit_t.previous, { desc = "󱕘 before previous char"})
-
-vim.keymap.set({ "n", "v", "o" }, ",", better_n.next,     { expr = true, silent = true, nowait = true })
-vim.keymap.set({ "n", "v", "o" }, ";", better_n.previous, { expr = true, silent = true, nowait = true })
+-- I prefer to use , and ;
+vim.keymap.set({ "n", "x" }, "n", better_n.next, { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", "x" }, "<s-n>", better_n.previous, { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", "x"}, ",", better_n.next,     { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", }, ";", better_n.previous, { expr = true, silent = true, nowait = true })

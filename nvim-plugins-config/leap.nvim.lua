@@ -5,12 +5,6 @@ hi LeapLabel guifg=#FF0000
 
 require('flit').setup {
 	labeled_modes = "nvo",
-	keys = {
-		f = '<Plug>flit-f',
-		F = '<Plug>flit-F',
-		t = '<Plug>flit-t',
-		T = '<Plug>flit-T',
-	}
 }
 
 --- Keymaps
