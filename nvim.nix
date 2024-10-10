@@ -274,7 +274,7 @@
 			})
 
 # Markdown, CSV,
-			markdown-preview-nvim
+			(configPlugin {plugin = markdown-preview-nvim;})
 			(configPlugin {plugin = markview-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
 					owner = "OXY2DEV";
