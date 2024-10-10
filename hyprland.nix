@@ -217,9 +217,6 @@ bind = $mainMod ALT, 8, pin, 8
 bind = $mainMod ALT, 9, pin, 9
 bind = $mainMod ALT, 0, pin, 10
 
-# Capture last 30s
-bind = ALT, X, exec, replay-sorcery save
-
 # Move/resize windows with mainMod + LMB/RMB and dragging
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
