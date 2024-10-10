@@ -139,6 +139,7 @@
 			(configPlugin {plugin = persisted-nvim;})
 
 			# Mini.nvim plugins
+			(configPlugin {plugin = mini-cursorword;})
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-extra;})
 			(configPlugin {plugin = mini-ai;})
