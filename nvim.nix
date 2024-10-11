@@ -90,6 +90,7 @@
 
 			nvim-ts-autotag
 			(configPlugin {plugin = nvim-autopairs;})
+			(configPlugin {plugin = codewindow-nvim;})
 			(configPlugin {plugin = boole-nvim;})
 			(configPlugin {plugin = registers-nvim;})
 			(configPlugin {plugin = marks-nvim;})
