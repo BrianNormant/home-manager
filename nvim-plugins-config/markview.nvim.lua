@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd({ "BufNew" }, {
+vim.api.nvim_create_autocmd({ "FileType" }, {
 	group = "Lazy",
 	pattern = "*.md",
 	callback = function ()

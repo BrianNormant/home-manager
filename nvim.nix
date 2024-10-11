@@ -35,7 +35,9 @@
 			src ? null,
 			preLua ? "",
 			config ? true,
+			optional ? false,
 		}: {
+			inherit optional;
 			plugin = if src == null
 				then plugin
 				else pkgs.vimUtils.buildVimPlugin {
