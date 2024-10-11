@@ -74,7 +74,7 @@ vim.cmd [[
 	hi! link PmenuSel Float
 ]]
 
-vim.api.nvim_create_autocmd({ "FileType"}, {
+vim.api.nvim_create_autocmd({"FileType"}, {
   pattern = { "*.sql", "*.plsql" },
   callback = function()
 	  cmp.setup.buffer({

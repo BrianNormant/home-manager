@@ -297,6 +297,7 @@ vim.api.nvim_create_autocmd({"UIEnter"},{
   group = "Lazy",
   pattern = "*",
   callback = function()
+    vim.cmd "packadd lualine"
     lualine.setup(config)
   end,
 })

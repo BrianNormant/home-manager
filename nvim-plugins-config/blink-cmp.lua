@@ -1,4 +1,5 @@
 local blink = require("blink-cmp")
+local loaded = false
 local function custom_draw(ctx)
 	return {{
 		ctx.item.label,
@@ -9,13 +10,14 @@ local function custom_draw(ctx)
 		string.format("%s %s", ctx.kind_icon, ctx.item.blink.source),
 		hl_group = 'BlinkCmpKind' .. ctx.kind,
 	}}
-	
 end
 
 vim.api.nvim_create_autocmd({"UIEnter"}, {
 	group = "Lazy",
 	pattern = "*",
 	callback = function()
+		if loaded then return end
+		loaded = true
 		require("supermaven-nvim").setup {
 			disable_inline_completion = true, -- disables inline completion for use with cmp
 			disable_keymaps = true, -- disables built in keymaps for more manual control
