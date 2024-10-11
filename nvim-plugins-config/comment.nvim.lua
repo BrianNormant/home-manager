@@ -1,4 +1,13 @@
-require ('Comment').setup {}
+local loaded = false
+vim.api.nvim_create_autocmd({"BufNew"}, {
+	group = "Lazy",
+	pattern = "*",
+	callback = function()
+		if loaded then return end
+		loaded = true
+		require ('Comment').setup()
+	end
+})
 
 --- Keymaps
 local legend = {

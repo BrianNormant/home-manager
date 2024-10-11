@@ -1,11 +1,22 @@
-require('bqf').setup {
-	preview = {
-		border = "double",
-		show_scroll_bar = false,
-		winblend = 0  -- Disable transparency
-	},
-}
+local loaded = false
+local lazyload = function ()
+	if not loaded then
+		require('bqf').setup {
+			preview = {
+				border = "double",
+				show_scroll_bar = false,
+				winblend = 0  -- Disable transparency
+			},
+		}
+		loaded = true
+	end
+end
 
+vim.api.nvim_create_autocmd("QuickFixCmdPre", {
+	group = "Lazy",
+	pattern = "*",
+	callback = lazyload,
+})
 
 local legend = {
 	keymaps = {

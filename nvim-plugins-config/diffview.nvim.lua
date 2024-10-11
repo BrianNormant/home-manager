@@ -1,19 +1,27 @@
 local diffview = require("diffview")
-diffview.setup {
-	hooks = {
-		view_opened = function(view)
-			if not _G.diffview_info then
-				_G.diffview_info = {}
-			end
-			_G.diffview_info[view.tabpage] = true
-		end,
-		view_closed = function(view)
-			_G.diffview_info[view.tabpage] = nil
-		end
-	},
-	enhanced_diff_hl = false,
-	[ "view.x.layout" ] = "diff3_mixed",
-}
+
+local loaded = false
+local lazyload = function ()
+	if not loaded then
+		diffview.setup {
+			hooks = {
+				view_opened = function(view)
+					if not _G.diffview_info then
+						_G.diffview_info = {}
+					end
+					_G.diffview_info[view.tabpage] = true
+				end,
+				view_closed = function(view)
+					_G.diffview_info[view.tabpage] = nil
+				end
+			},
+			enhanced_diff_hl = false,
+			[ "view.x.layout" ] = "diff3_mixed",
+		}
+		loaded = true
+	end
+end
+
 
 
 local actions = require "telescope.actions"
@@ -27,6 +35,7 @@ local git_command = utils.__git_command
 local conf = require("telescope.config").values
 
 local function telescope_select_commit()
+	lazyload()
 	-- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/builtin/__git.lua#L67
 	local opts = {
 		require('telescope.themes').get_dropdown(),
@@ -67,7 +76,10 @@ end
 --- Keymaps
 local legend = {
 	keymaps = {
-		{"<leader>G", "<cmd>DiffviewOpen<cr>", description="Open DiffView"},
+		{"<leader>G", function()
+			lazyload()
+			vim.cmd "DiffviewOpen"
+		end, description="Open DiffView"},
 		{"<leader>gG", telescope_select_commit, description="Use telescope to select witch commit diffview must diff with"},
 	},
 }

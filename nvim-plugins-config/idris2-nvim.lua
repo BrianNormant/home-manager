@@ -1,12 +1,27 @@
-require('idris2').setup {}
+vim.api.nvim_create_autocmd({"BufNew"},{
+	group = "Lazy",
+	pattern = "*.idr",
+	callback = function()
+		require('idris2').setup {}
+	end
+})
+
 
 --- Keymaps
 local legend = {
 	commands = {
-		{":IdrisEvaluate",   require('idris2.repl').evalutate,           description="Use Idris2 lsp to evalutate a expression sourcing the file"},
-		{":IdrisCasesplit",  require('idris2.code_action').case_split,   description="Idris2 lsp Case split"},
-		{":IdrisExprSearch", require('idris2.code_action').expr_search,  description="Idris2 lsp expression search"},
-		{":IdrisGenDef",     require('idris2.code_action').generate_def, description="Idris2 lsp Try to generate a definition"},
+		{":IdrisEvaluate", function()
+			require('idris2.repl').evalutate()
+		end, description="Use Idris2 lsp to evalutate a expression sourcing the file"},
+		{":IdrisCasesplit", function()
+			require('idris2.code_action').case_split()
+		end, description="Idris2 lsp Case split"},
+		{":IdrisExprSearch", function()
+			require('idris2.code_action').expr_search()
+		end, description="Idris2 lsp expression search"},
+		{":IdrisGenDef", function()
+			require('idris2.code_action').generate_def()
+		end, description="Idris2 lsp Try to generate a definition"},
 	},
 }
 _G.LEGEND_append(legend)

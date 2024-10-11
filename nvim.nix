@@ -51,16 +51,6 @@
 		};
 		in [
 			(configPlugin {plugin = gruvbox-material;})
-			(configPlugin {
-				plugin.pname = "ts-node-action";
-				src = {
-					owner = "CKolkey";
-					repo = "ts-node-action";
-					rev = "6d3b607";
-					hash = "sha256-kOXH3r+V+DAxoATSnZepEAekrkO1TezKSkONuQ3Kzu4=";
-				};
-				config = false;
-			})
 			vim-suda
 			(configPlugin {plugin = dressing-nvim;})
 			(configPlugin {plugin = dropbar-nvim;})
@@ -135,8 +125,7 @@
 					sha256 = "VZKsVeSmPR3AA8267Mtd5sSTZl2CAqnbgqceCptgp4w=";
 				};
 			})
-			(configPlugin { plugin = neogit;})
-			 (configPlugin {
+			(configPlugin {
 				plugin.pname = "muren.nvim";
 				src = {
 					owner = "AckslD";
@@ -156,11 +145,9 @@
 			(configPlugin {plugin = mini-bracketed;})
 			# (configPlugin {plugin = mini-clue;})
 			(configPlugin {plugin = mini-move;})
-			(configPlugin {plugin = mini-indentscope;})
 			rainbow-delimiters-nvim # Auto load itself
 			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = mini-operators;})
-			(configPlugin {plugin = mini-starter;})
 			(configPlugin {plugin = mini-surround;}) # replace vim-surround
 			(configPlugin {plugin = nvim-treesitter-textsubjects;})  # Must be loaded after ai to override ; mapping
 			(configPlugin {plugin = oil-nvim;})

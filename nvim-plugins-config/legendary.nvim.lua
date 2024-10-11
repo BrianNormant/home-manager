@@ -9,6 +9,7 @@ local legend = {
 		{"\\",      '<cmd>split<cr>',     description="Split horizontal" },
 		{"|",       '<cmd>vsplit<cr>',    description="Split vertical" },
 		{"<leader>q",'<cmd>wqa!<cr>', description = "Quit neovim"},
+		{"<leader>ss", '<cmd>SessionLoadLast', description = "Load last session"},
 
 		--- Spellcheck
 		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},

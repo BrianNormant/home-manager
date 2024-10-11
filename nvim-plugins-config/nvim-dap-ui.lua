@@ -1,3 +1,5 @@
+--- TODO lazyload this
+
 local dap, dapui = require("dap"), require("dapui")
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -27,8 +29,8 @@ dap.configurations.c = {
 			cwd = "${workspaceFolder}",
 	}
 	}
-dap.configurations.cpp = dap.configurations.c
-dap.configurations.rust = dap.configurations.c
+-- dap.configurations.cpp = dap.configurations.c
+-- dap.configurations.rust = dap.configurations.c
 
 dapui.setup {
 	layouts = {

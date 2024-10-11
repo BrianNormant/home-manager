@@ -1,22 +1,20 @@
-require("ts-node-action").setup {}
 local null_ls = require("null-ls")
+vim.api.nvim_create_autocmd({"UIEnter"}, {
+	group = "Lazy",
+	pattern = "*",
+	callback = function ()
+		null_ls.setup({
+			sources = {
+				-- nix
+				null_ls.builtins.code_actions.statix,
+				null_ls.builtins.diagnostics.statix,
 
-null_ls.setup({
-	sources = {
-		-- nix
-		null_ls.builtins.code_actions.statix,
-		null_ls.builtins.diagnostics.statix,
+				-- C/C++
+				null_ls.builtins.diagnostics.cppcheck,
 
-		-- Java
-		--
-		-- null_ls.builtins.diagnostics.checkstyle.with {
-		-- 	extra_args = { "-c", vim.env.HOME .. "/.java/checkstyle/checkstyle.xml" },
-		-- },
-
-		-- C/C++
-		null_ls.builtins.diagnostics.cppcheck,
-
-		-- Elixix
-		null_ls.builtins.diagnostics.credo,
-	},
+				-- Elixix
+				null_ls.builtins.diagnostics.credo,
+			},
+		})
+	end
 })

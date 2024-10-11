@@ -292,4 +292,11 @@ ins_right {
 
 vim.o.laststatus = 3; -- https://www.reddit.com/r/neovim/comments/1clx1cu/optionsvimoptlaststatus_config_being_overridden/
 -- Now don't forget to initialize lualine
-lualine.setup(config)
+
+vim.api.nvim_create_autocmd({"UIEnter"},{
+  group = "Lazy",
+  pattern = "*",
+  callback = function()
+    lualine.setup(config)
+  end,
+})

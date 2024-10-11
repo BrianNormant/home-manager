@@ -1,3 +1,3 @@
 require("persisted").setup({
-	autoload = true,
+	autoload = false,
 })

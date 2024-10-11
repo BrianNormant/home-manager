@@ -1,7 +1,5 @@
 local gen_ai_spec = require('mini.extra').gen_ai_spec
 
-
-
 require('mini.ai').setup {
 	custom_textobjects = {
 		B = gen_ai_spec.buffer(),

@@ -1,10 +1,16 @@
-require('tabby').setup {
-	preset = "active_wins_at_tail",
-	option = {
-		lualine_theme = 'gruvbox-material',
-		nerdfont = true,
-	},
-}
+vim.api.nvim_create_autocmd({"UIEnter"}, {
+	group = "Lazy",
+	pattern = "*",
+	callback = function()
+		require('tabby').setup {
+			preset = "active_wins_at_tail",
+			option = {
+				lualine_theme = 'gruvbox-material',
+				nerdfont = true,
+			},
+		}
+	end
+})
 
 -- Keymaps
 local legend = {

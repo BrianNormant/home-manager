@@ -22,6 +22,9 @@ local legend = {
 vim.g.legend_append(legend)
 ```
 ]]--
+
+vim.api.nvim_create_augroup("Lazy", { clear = true; })
+
 _G.LEGEND_merge = function (a, b)
 	local keymaps = {}
 	if a.keymaps ~= nil then vim.list_extend(keymaps, a.keymaps) end

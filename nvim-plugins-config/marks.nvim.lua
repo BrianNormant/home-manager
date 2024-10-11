@@ -1,4 +1,10 @@
-require('marks').setup {}
+vim.api.nvim_create_autocmd({ "UIEnter" }, {
+	group = "Lazy",
+	pattern = "*",
+	callback = function ()
+		require('marks').setup {}
+	end
+})
 
 --- Keymaps
 local legend = {

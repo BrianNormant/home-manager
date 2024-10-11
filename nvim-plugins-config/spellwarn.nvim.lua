@@ -1,9 +1,6 @@
 require('spellwarn').setup {
 	event = { -- event(s) to refresh diagnostics on
-		"TextChanged",
-		"InsertLeave",
-		"TextChangedI",
-		"TextChangedP",
+		"BufWrite", "FileWritePost"
 	},
 	enable = true, -- enable diagnostics on startup
 	ft_config = { -- spellcheck method: "cursor", "iter", or boolean
