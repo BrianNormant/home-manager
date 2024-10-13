@@ -42,12 +42,12 @@ local preview = {
 --- Keymaps
 local legend = {
 	keymaps = {
-		{"gpd",  function()  preview.goto_preview_definition()       end, description="LSP preview definition"},
-		{"gpt",  function()  preview.goto_preview_type_definition()  end, description="LSP preview type definition"  },
-		{"gpi",  function()  preview.goto_preview_implementation()   end, description="LSP preview implementation"  },
-		{"gpD",  function()  preview.goto_preview_declaration()      end, description="LSP preview declaration"  },
-		{"gpr",  function()  preview.goto_preview_references()       end, description="LSP preview references"  },
-		{"gP",   function()  preview.close_all_win()                 end, description="LSP preview window"  },
+		{"gpd",  function()  preview.definition()       end, description="LSP preview definition"},
+		{"gpt",  function()  preview.type_definition()  end, description="LSP preview type definition"  },
+		{"gpi",  function()  preview.implementation()   end, description="LSP preview implementation"  },
+		{"gpD",  function()  preview.declaration()      end, description="LSP preview declaration"  },
+		{"gpr",  function()  preview.references()       end, description="LSP preview references"  },
+		{"gP",   function()  preview.close()                 end, description="LSP preview window"  },
 	},
 }
 _G.LEGEND_append(legend)
