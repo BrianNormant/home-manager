@@ -11,6 +11,8 @@ local legend = {
 		{"<leader>q",'<cmd>wqa!<cr>', description = "Quit neovim"},
 		{"<leader>ss", '<cmd>SessionLoadLast<cr>', description = "Load last session"},
 
+		--- CodeWindow
+		{"<leader>cc", '<cmd>CodeWindowToggle<cr>', description = "Toggle code window"},
 		--- Spellcheck
 		{ "z=", function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor()) end, description = "Telescope, suggest correct spelling"},
 
@@ -48,6 +50,9 @@ local legend = {
 		{"<A-s>", "<cmd>LegendaryScratchToggle<cr>", description = "Toggle markdown scratchpad"}
 	},
 	commands = {
+		{":CodeWindowToggle", function()
+			require("codewindow").toggle_minimap()
+		end},
 		{":SudaWrite",       description="write a file as root"},
 		{":SudaRead",        description="Open a file as root"},
 		{":DiffRegFunc", function(args)

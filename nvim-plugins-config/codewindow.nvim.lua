@@ -4,6 +4,8 @@ vim.api.nvim_create_autocmd({"UIEnter"}, {
 	callback = function ()
 		require("codewindow").setup {
 			auto_enable = true,
+			show_cursor = false,
+			relative = "editor",
 			exclude_filetypes = {
 				'help', 'oil', 'telescope', 'Navbuddy'
 			},

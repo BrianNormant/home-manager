@@ -31,6 +31,7 @@ Finally, it is worth reading the documentation.
 -->
 
 <module name="Checker">
+    <property name="tabWidth" value="4"/>
   <!--
     If you set the basedir property below, then all reported file
     names will be relative to the specified directory. See
@@ -69,7 +70,6 @@ Finally, it is worth reading the documentation.
     </module>
 
     <module name="TreeWalker">
-      <property name="tabWidth" value="4"/>
       <!-- <property name="cacheFile" value="${checkstyle.cache.file}"/> -->
 
       <!-- Checks for Javadoc comments.                     -->
