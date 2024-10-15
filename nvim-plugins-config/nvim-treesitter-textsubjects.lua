@@ -1,7 +1,7 @@
 -- Must be loaded after mini a i to override ; mapping
 -- Could cause issue, maybe load after mini a i
 require('lze').load {
-	'nvim-treesitter.textsubjects',
+	'nvim-treesitter-textsubjects',
 	keys = {
 		{ "." ,  mode =  {"x", "o"} },
 		-- { ";" ,  mode =  {"x", "o"} },
