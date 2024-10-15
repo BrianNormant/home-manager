@@ -1,10 +1,10 @@
-require('mini.align').setup {}
-
---- Keymaps
-local legend = {
-	keymaps = {
-		{ "ga", mode = {'n', 'v'}, description = "Start mini-align" },
-		{ "gA", mode = {'n', 'v'}, description = "Start mini-align with preview" },
+require('lze').load {
+	'mini.align',
+	keys = {
+		{'ga', mode = {'n', 'x'}, desc = "Align text"},
+		{'gA', mode = {'n', 'x'}, desc = "Align text interactive" },
 	},
+	after = function()
+		require('mini.align').setup {}
+	end,
 }
-_G.LEGEND_append(legend)

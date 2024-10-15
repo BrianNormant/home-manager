@@ -1,12 +1,12 @@
-vim.api.nvim_create_autocmd({"UIEnter"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function()
+require('lze').load {
+	'mini.cursorword',
+	event = "BufNew",
+	after = function()
 		require('mini.cursorword').setup()
+		vim.cmd [[
+		hi MiniCursorword gui='underline'
+		hi MiniCursorwordCurrent gui='underline'
+		]]
 	end
-})
+}
 
-vim.cmd [[
-hi MiniCursorword gui='underline'
-hi MiniCursorwordCurrent gui='underline'
-]]

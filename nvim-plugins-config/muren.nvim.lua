@@ -1,6 +1,9 @@
-local loaded = false
-local lazyload = function ()
-	if not loaded then
+require('lze').load {
+	'muren.nvim',
+	keys = {
+		{"<F3>", "<cmd>MurenToggle<cr>", mode = { "n", "x" }, desc = "Open Muren"},
+	},
+	after = function ()
 		require('muren').setup {
 			all_on_line = false,
 			patterns_width = 75,
@@ -9,18 +12,5 @@ local lazyload = function ()
 			preview_height = 12,
 			anchor = "top",
 		}
-		loaded = true
-	end
-end
-
---- Key maps
-local legend = {
-	keymaps = {
-		{"<F3>", function()
-			lazyload()
-			vim.cmd "MurenToggle"
-		end, mode = { "n", "v" }, description="Open Muren"},
-	},
+	end,
 }
-_G.LEGEND_append(legend)
-

@@ -1,21 +1,13 @@
-function load()
-	vim.cmd [[
-	hi WinBar   guisp=#665c54 gui=underline guibg=#313131
-	hi WinBarNC guisp=#665c54 gui=underline guibg=#313131
-	]]
-	require('dropbar').setup {}
-end
+require('lze').load {
+	'dropbar.nvim',
+	event = "BufNew",
+	after = function ()
+		vim.cmd [[
+		hi WinBar   guisp=#665c54 gui=underline guibg=#313131
+		hi WinBarNC guisp=#665c54 gui=underline guibg=#313131
+		]]
+		require('dropbar').setup {}
 
-vim.api.nvim_create_autocmd("UIEnter", {
-	group = "Lazy",
-	pattern = { "*" },
-	callback = load,
-})
-
---- Keymaps
-local legend = {
-	keymaps = {
-		{"<F2>", function() require('dropbar.api').pick() end, description="Open dropbar"},
-	},
+		vim.keymap.set('n', '<F2>', function() require('dropbar.api').pick() end)
+	end
 }
-_G.LEGEND_append(legend)

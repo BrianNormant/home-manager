@@ -1,7 +1,13 @@
-vim.api.nvim_create_autocmd({ "BufNew" }, {
-	group = "Lazy",
-	pattern = "*.md",
-	callback = function ()
+require('lze').load {
+	'mdeval.nvim',
+	keys = {
+		{ "sc", function()
+			vim.cmd "MdEvalClean"
+			vim.cmd "MdEval"
+		end},
+		{ "sC", "<cmd>MdEvalClean<cr>" },
+	},
+	after = function ()
 		require 'mdeval'.setup {
 			require_confirmation = false,
 			exec_timeout = 500, -- is blocking so limit it to short interval. It is not supposed to run for long anyway
@@ -92,15 +98,4 @@ vim.api.nvim_create_autocmd({ "BufNew" }, {
 			},
 		}
 	end
-})
-
-local legend = {
-	keymaps = {
-		{ "sc", mode = "n", function()
-			vim.cmd "MdEvalClean"
-			vim.cmd "MdEval"
-		end, description = "Eval code block under cursor" },
-		{ "sC", mode = "n", "<cmd>MdEvalClean<cr>", description = "Eval clean result" },
-	},
 }
-_G.LEGEND_append(legend)

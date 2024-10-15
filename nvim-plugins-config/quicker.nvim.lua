@@ -1,7 +1,7 @@
-vim.api.nvim_create_autocmd({"QuickFixCmdPre"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function()
+require('lze').load {
+	'quicker.nvim',
+	ft = "qf",
+	after = function ()
 		require('quicker').setup {}
-	end,
-})
+	end
+}

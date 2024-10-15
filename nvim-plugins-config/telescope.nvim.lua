@@ -1,19 +1,45 @@
-local telescope = require "telescope"
-telescope.setup {
-	defaults = {
-		layout_strategy = "flex",
-		theme = "ivy",
+require('lze').load {
+	'telescope.nvim',
+	cmd = "Telescope",
+	keys = {
+		{"<leader>G"},
+		{"<leader>gD"},
+		{"<leader>la"},
+		{"z="},
+	},
+	-- event = "DeferredUIEnter",
+	after = function()
+		local telescope = require "telescope"
+		telescope.setup {}
+	end,
+	dep_of = {
+		"telescope-lsp-handlers.nvim",
+		"telescope-ui-select.nvim",
+		"nvchad-menu",
+		"persisted.nvim",
 	},
 }
-telescope.load_extension('lsp_handlers')
-telescope.load_extension('persisted')
-telescope.load_extension("notify")
+
+require('lze').load {
+	"telescope-lsp-handlers.nvim",
+	event = "LspAttach",
+	after = function()
+		require('telescope').load_extension('lsp_handlers')
+	end
+}
+
+require('lze').load {
+	'telescope-ui-select.nvim',
+	event = "BufNew",
+	after = function()
+		require('telescope').load_extension('ui-select')
+	end
+}
 
 -- Keymaps
 local legend = {
 	keymaps = {
-		{"<leader>f", description = "Telescope Fuzzy finding"},
-		{"<leader>ft", require('telescope.builtin').builtin,           description="Telescope find builtins"},
+		{"<leader>ft", '<cmd>Telescope builtin<cr>',                   description="Telescope find builtins"},
 		{"<leader>ff", '<cmd>Telescope find_files<cr>',                description="Telescope find files"},
 		{"<leader>fF", '<cmd>Telescope live_grep<cr>',                 description="Telescope live grep"},
 		{"<leader>fb", '<cmd>Telescope buffers<cr>',                   description="Telescope find buffers"},
@@ -48,4 +74,5 @@ local legend = {
 		{"<C-r><C-l>", description = "Telescope mapping: Insert cline in original window into prompt (insert mode)"},
 	},
 }
-_G.LEGEND_append(legend)
+
+_G.legendary.append(legend)

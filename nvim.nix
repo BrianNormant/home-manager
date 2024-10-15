@@ -31,11 +31,12 @@
 
 		plugins = with pkgs.vimPlugins; let
 		configPlugin = {
+		# TODO: Lazyload plugins https://github.com/BirdeeHub/lze
 			plugin,
 			src ? null,
 			preLua ? "",
 			config ? true,
-			optional ? false,
+			optional ? true,
 		}: {
 			inherit optional;
 			plugin = if src == null
@@ -52,9 +53,14 @@
 			in if config then "luafile ${config-file}" else "";
 		};
 		in [
+			(configPlugin { plugin = lze; optional = false;})
+			vim-repeat
 			(configPlugin {plugin = gruvbox-material;})
-			vim-suda
-			(configPlugin {plugin = dressing-nvim;})
+			(configPlugin {plugin = vim-suda;})
+			(configPlugin {plugin = vim-lastplace;})
+			(configPlugin {plugin = vim-wakatime;})
+			(configPlugin {plugin = vim-fugitive;})
+			# (configPlugin {plugin = dressing-nvim; config = false;})
 			(configPlugin {plugin = dropbar-nvim;})
 			(configPlugin {plugin = nvim-treesitter-context;})
 			(configPlugin {plugin = ccc-nvim;})
@@ -64,10 +70,8 @@
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
 			(configPlugin {plugin = nvim-ufo;})
-			(configPlugin {plugin = which-key-nvim;})
-			vim-repeat
-			vim-lastplace
-			(configPlugin {plugin = leap-nvim;})
+			# leap, telepath and flit are configured at the same place
+			(configPlugin {plugin = leap-nvim; optional = false;})
 			(configPlugin {
 				plugin.pname = "telepath.nvim";
 				src = {
@@ -76,6 +80,7 @@
 					rev = "2879da0"; # Fri Sep 27 05:01:10 PM EDT 2024
 					hash = "sha256-h1NILk/EAbhb9jONHAApFs9Z2f8oZsWy15Ici6+TLxw=";
 				};
+				config = false; optional = false;
 			})
 			(configPlugin {
 				plugin.pname = "flit.nvim";
@@ -88,7 +93,8 @@
 				config = false;
 			})
 
-			nvim-ts-autotag
+			(configPlugin {plugin = nvim-ts-autotag; config = false;})
+			(configPlugin {plugin = nvim-treesitter-endwise; config = false;})
 			(configPlugin {plugin = nvim-autopairs;})
 			(configPlugin {plugin = codewindow-nvim;})
 			(configPlugin {plugin = boole-nvim;})
@@ -114,10 +120,11 @@
 					hash = "sha256-lAYHvz23f9nJ6rb0NIm+1aq0Vr0SwjPVitPuROtUS2A=";
 				};
 			})
-			telescope-lsp-handlers-nvim
+
+			(configPlugin {plugin = telescope-ui-select-nvim; config = false;})
+			(configPlugin {plugin = telescope-lsp-handlers-nvim; config = false;})
 			(configPlugin {plugin = telescope-nvim;})
 			(configPlugin {plugin = no-neck-pain-nvim;})
-			vim-wakatime
 			(configPlugin {plugin = nvim-web-devicons;})
 			(configPlugin {
 				plugin.pname = "icon-picker.nvim";
@@ -144,15 +151,14 @@
 			(configPlugin {plugin = mini-align;})
 			(configPlugin {plugin = mini-extra;})
 			(configPlugin {plugin = mini-ai;})
-			(configPlugin {plugin = nvim-notify;})
-			(configPlugin {plugin = mini-bracketed;})
-			# (configPlugin {plugin = mini-clue;})
+			# (configPlugin {plugin = nvim-notify;})
+			(configPlugin {plugin = mini-bracketed; config = false;})
 			(configPlugin {plugin = mini-move;})
 			rainbow-delimiters-nvim # Auto load itself
 			(configPlugin {plugin = indent-blankline-nvim;})
 			(configPlugin {plugin = mini-operators;})
 			(configPlugin {plugin = mini-surround;}) # replace vim-surround
-			(configPlugin {plugin = nvim-treesitter-textsubjects;})  # Must be loaded after ai to override ; mapping
+			(configPlugin {plugin = nvim-treesitter-textsubjects;})
 			(configPlugin {plugin = oil-nvim;})
 			(configPlugin {plugin = nvim-navbuddy;})
 			(configPlugin {
@@ -168,6 +174,7 @@
 			(configPlugin {plugin = actions-preview-nvim;})
 
 			# LSP
+			(configPlugin {plugin = nvim-lspconfig; config = false;})
 			(configPlugin {plugin = lsp-zero-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
 					owner = "VonHeikemen";
@@ -178,9 +185,9 @@
 			};})
 
 			# Auto Completion
-			friendly-snippets
-			vim-snippets
-			supermaven-nvim
+			(configPlugin {plugin = friendly-snippets; config=false;})
+			(configPlugin {plugin = vim-snippets; config=false;})
+			(configPlugin {plugin = supermaven-nvim; config=false;})
 			(configPlugin {
 				plugin = blink;
 				preLua = ''
@@ -234,7 +241,7 @@
 				# };
 				plugin = nvim-jdtls;
 				preLua = ''
-				local vscodepath = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}"
+				local java_debug = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}"
 				'';
 			 })
 			(configPlugin {
@@ -247,21 +254,23 @@
 				};
 			})
 			(configPlugin {plugin = rest-nvim;})
+
+			(configPlugin {plugin = vim-dadbod-ui; config = false;})
+			# (configPlugin {plugin = vim-dadbod-completion; config = false;}) # TODO add completion for blink.cmp
 			(configPlugin {plugin = vim-dadbod;})
 # Database
-			vim-dadbod-ui
-			vim-dadbod-completion
 			(configPlugin {plugin = idris2-nvim;})
-			(configPlugin {
-				plugin.pname = "dbext.vim";
-					 src = {
-						 owner = "vim-scripts";
-						 repo = "dbext.vim";
-						 rev = "23.00";
-						 hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
-					 };
-				config = false;
-			})
+			# (configPlugin {
+			# 	plugin.pname = "dbext.vim";
+			# 		 src = {
+			# 			 owner = "vim-scripts";
+			# 			 repo = "dbext.vim";
+			# 			 rev = "23.00";
+			# 			 hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
+			# 		 };
+			# 	config = false;
+			# 	optional = false;
+			# })
 
 # Markdown, CSV,
 			(configPlugin {plugin = markdown-preview-nvim;})
@@ -315,8 +324,7 @@
 			})
 
 # Treesitter
-			nvim-treesitter
-			nvim-treesitter-endwise
+			(configPlugin { plugin = nvim-treesitter;})
 			(nvim-treesitter.withPlugins (_: (
 				[
 				(pkgs.tree-sitter.buildGrammar {
@@ -331,6 +339,7 @@
 				}) ] ++ nvim-treesitter.allGrammars
 			)))
 			(configPlugin {plugin = legendary-nvim;})
+			(configPlugin {plugin = which-key-nvim;})
 		];
 	extraLuaConfig = builtins.readFile ./nvim-extra.lua;
 }

@@ -1,11 +1,10 @@
-vim.api.nvim_create_autocmd({"BufNew"},{
-	group = "Lazy",
-	pattern = "*.idr",
-	callback = function()
+require('lze').load {
+	'idris2-nvim',
+	ft = "idris2",
+	after = function ()
 		require('idris2').setup {}
 	end
-})
-
+}
 
 --- Keymaps
 local legend = {
@@ -24,4 +23,4 @@ local legend = {
 		end, description="Idris2 lsp Try to generate a definition"},
 	},
 }
-_G.LEGEND_append(legend)
+_G.legendary.append(legend)

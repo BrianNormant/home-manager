@@ -1,7 +1,7 @@
-vim.api.nvim_create_autocmd({"LspAttach"}, {
-	group = "Lazy",
-	pattern = { "*" },
-	callback = function()
+require('lze').load {
+	'diagflow.nvim',
+	event = "LspAttach",
+	after = function()
 		require('diagflow').setup {
 			show_borders = true,
 			scope = "cursor",
@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd({"LspAttach"}, {
 			render_event = { "CursorMoved", "DiagnosticChanged" },
 			update_event = { "DiagnosticChanged", "BufReadPost" },
 			enable = function()
+				-- TODO: disable if the buffer is to small
 				local dis_ft = { "qf", "oil" }
 				for _, ft in ipairs(dis_ft) do
 					if ft == vim.bo.filetype then
@@ -27,4 +28,4 @@ vim.api.nvim_create_autocmd({"LspAttach"}, {
 			end
 		}
 	end
-})
+}

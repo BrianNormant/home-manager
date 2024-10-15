@@ -1,12 +1,10 @@
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	group = "Lazy",
-	pattern = "*.md",
-	callback = function ()
+require('lze').load {
+	'markview.nvim',
+	ft = "markdown",
+	after = function ()
 		require("markview").setup({
 			modes = { "n", "no", "c" }, -- Change these modes to what you need
-
 			hybrid_modes = {"o", "i" },     -- Uses this feature on normal mode
-
 			-- This is nice to have
 			callbacks = {
 				on_enable = function (_, win)
@@ -15,5 +13,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 				end
 			}
 		})
-	end
-})
+	end,
+	dep_of = "nvchad-menu"
+}

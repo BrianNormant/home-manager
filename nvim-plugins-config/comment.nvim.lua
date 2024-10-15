@@ -1,22 +1,14 @@
-local loaded = false
-vim.api.nvim_create_autocmd({"BufNew"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function()
-		if loaded then return end
-		loaded = true
-		require ('Comment').setup()
-	end
-})
-
---- Keymaps
-local legend = {
-	keymaps = {
-		{ "gc", description = "Toggle line Comment" },
-		{ "gb", description = "Toggle block Comment" },
-		{ "gco", description = "Inserts comment below and enters INSERT mode" },
-		{ "gcO", description = "Inserts comment above and enters INSERT mode" },
-		{ "gcA", description = "Inserts comment at the end of line and enters INSERT mode" },
+require('lze').load {
+	"comment.nvim",
+	keys = {
+		{"gc",  desc = "Toggle line Comment",  mode = { "n", "o", "x"}},
+		{"gcc", desc = "Toggle line Comment",  },
+		{"gb",  desc = "Toggle block Comment", mode = { "n", "x"}},
+		{"gco", desc = "Inserts comment below and enters INSERT mode"},
+		{"gcO", desc = "Inserts comment above and enters INSERT mode"},
+		{"gcA", desc = "Inserts comment at the end of line and enters INSERT mode"},
 	},
+	after = function ()
+		require ('Comment').setup()
+	end,
 }
-_G.LEGEND_append(legend)

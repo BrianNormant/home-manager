@@ -1,18 +1,13 @@
-vim.o.foldcolumn = '0' -- 0 to disable, 1 to enable
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the valu
+vim.o.foldcolumn = '0'
+vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-
-local loaded = false
-
-vim.api.nvim_create_autocmd({"BufNew"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function ()
-		if loaded then return end
-		loaded = true
+require('lze').load {
+	'nvim-ufo',
+	event = 'BufNew',
+	after = function ()
 		require('ufo').setup({
-			provider_selector = function(bufnr, filetype, buftype)
+			provider_selector = function()
 				return {'treesitter', 'indent'}
 			end,
 			enable_get_fold_virt_text = true,
@@ -55,12 +50,12 @@ vim.api.nvim_create_autocmd({"BufNew"}, {
 			}
 		})
 	end
-})
+}
 
 local legend = {
 	keymaps = {
-		{'zR', require('ufo').openAllFolds, description = "UFO open all folds"},
-		{'zM', require('ufo').closeAllFolds, description = "UFO close all folds"},
+		{'zR', function() require('ufo').openAllFolds() end, description = "UFO open all folds"},
+		{'zM', function() require('ufo').closeAllFolds() end, description = "UFO close all folds"},
 	}
 }
-_G.LEGEND_append(legend)
+_G.legendary.append(legend)

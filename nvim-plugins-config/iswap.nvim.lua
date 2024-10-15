@@ -1,10 +1,5 @@
-require('iswap').setup { }
-
---- Keymaps
-local legend = {
-	keymaps = {
-		{"<C-s>", "<cmd>ISwap<cr>", description="Swap 2 treesiter node" },
-	},
+require('lze').load {
+	'iswap.nvim',
+	keys = {{'<C-s>', "<cmd>ISwap<cr>", desc = "Swap 2 nodes"}},
+	after = function () require('iswap').setup {} end
 }
-_G.LEGEND_append(legend)
-

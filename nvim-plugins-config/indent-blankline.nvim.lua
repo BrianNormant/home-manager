@@ -24,8 +24,8 @@ local setup = function ()
 	}
 end
 
-vim.api.nvim_create_autocmd({"UIEnter"},{
-	group = "Lazy",
-	pattern = "*",
-	callback = setup,
-})
+require('lze').load {
+	'indent-blankline.nvim',
+	event = 'BufNew',
+	after = setup,
+}

@@ -1,7 +1,7 @@
-vim.api.nvim_create_autocmd({"UIEnter"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function()
+require('lze').load {
+	"tabby.nvim",
+	event = "DeferredUIEnter",
+	after = function()
 		require('tabby').setup {
 			preset = "active_wins_at_tail",
 			option = {
@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd({"UIEnter"}, {
 			},
 		}
 	end
-})
+}
 
 -- Keymaps
 local legend = {
@@ -34,4 +34,4 @@ for i = 1, 9 do
 	}
 end
 
-_G.LEGEND_append(legend)
+_G.legendary.append(legend)

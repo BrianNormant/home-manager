@@ -1,7 +1,7 @@
-vim.api.nvim_create_autocmd({"BufNew"}, {
-	group = "Lazy",
-	pattern = "*.http",
-	callback = function ()
+require('lze').load {
+	'rest.nvim',
+	ft = "http",
+	after = function ()
 		require 'rest-nvim'.setup {}
 	end,
-})
+}

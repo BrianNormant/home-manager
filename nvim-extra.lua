@@ -36,16 +36,6 @@ vim.o.smartcase = true
 -- enable spell check
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
---- clear spell check highlights
-vim.cmd [[
-hi clear SpellBad
-hi clear SpellCap
-hi clear SpellRare
-hi clear SpellLocal
-hi! link Search Visual
-hi! link IncSearch ClapSpinner
-hi! link CurSearch ClapSpinner
-]]
 
 vim.o.cursorline = true
 vim.o.number = true
@@ -75,6 +65,4 @@ vim.cmd "cabbrev h tab help"
 -- Open Man in a new tab
 vim.cmd "cabbrev Man tab Man"
 
-require('nvim-treesitter.configs').setup {
-	highlight = { enable = true },
-}
+-- vim.cmd "colorscheme gruvbox-material"

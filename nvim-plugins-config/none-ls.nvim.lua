@@ -1,8 +1,12 @@
-local null_ls = require("null-ls")
-vim.api.nvim_create_autocmd({"UIEnter"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function ()
+require('lze').load {
+	'none-ls.nvim',
+	ft = {
+		"nix",
+		"c",
+		"elixir",
+	},
+	after = function ()
+		local null_ls = require('null-ls')
 		null_ls.setup({
 			sources = {
 				-- nix
@@ -12,9 +16,9 @@ vim.api.nvim_create_autocmd({"UIEnter"}, {
 				-- C/C++
 				null_ls.builtins.diagnostics.cppcheck,
 
-				-- Elixix
+				-- Elixir
 				null_ls.builtins.diagnostics.credo,
 			},
 		})
 	end
-})
+}

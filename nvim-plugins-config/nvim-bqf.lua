@@ -1,6 +1,7 @@
-local loaded = false
-local lazyload = function ()
-	if not loaded then
+require('lze').load {
+	'nvim-bqf',
+	ft = 'qf',
+	after = function()
 		require('bqf').setup {
 			preview = {
 				border = "double",
@@ -8,15 +9,8 @@ local lazyload = function ()
 				winblend = 0  -- Disable transparency
 			},
 		}
-		loaded = true
-	end
-end
-
-vim.api.nvim_create_autocmd("QuickFixCmdPre", {
-	group = "Lazy",
-	pattern = "*",
-	callback = lazyload,
-})
+	end,
+}
 
 local legend = {
 	keymaps = {
@@ -38,4 +32,4 @@ local legend = {
 	},
 }
 
-_G.LEGEND_append(legend)
+_G.legendary.append(legend)

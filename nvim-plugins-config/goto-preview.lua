@@ -1,53 +1,18 @@
-local goto_preview = require('goto-preview')
-
-local loaded = false
-local lazyload = function ()
-	if not loaded then
-		goto_preview.setup {
-			border = "rounded",
-		}
-		loaded = true
-	end
-end
-
-local preview = {
-	definition = function ()
-		lazyload()
-		goto_preview.goto_preview_definition()
+require('lze').load {
+	'goto-preview',
+	keys = {
+		{"gpd", function() require('goto-preview').goto_preview_definition() end,      desc = "LSP preview definition"},
+		{"gpt", function() require('goto-preview').goto_preview_type_definition() end, desc = "LSP preview type definition"},
+		{"gpi", function() require('goto-preview').goto_preview_implementation() end,  desc = "LSP preview implementation"},
+		{"gpD", function() require('goto-preview').goto_preview_declaration() end,     desc = "LSP preview declaration"},
+		{"gpr", function() require('goto-preview').goto_preview_references() end,      desc = "LSP preview references"},
+		{"gP",  function() require('goto-preview').goto_preview_close() end,           desc = "LSP preview window"},
+	},
+	after = function()
+		local gp = require('goto-preview')
+		gp.setup { border = "rounded" }
 	end,
-	type_definition = function ()
-		lazyload()
-		goto_preview.goto_preview_type_definition()
-	end,
-	implementation = function ()
-		lazyload()
-		goto_preview.goto_preview_implementation()
-	end,
-	declaration = function ()
-		lazyload()
-		goto_preview.goto_preview_declaration()
-	end,
-	references = function ()
-		lazyload()
-		goto_preview.goto_preview_references()
-	end,
-	close = function()
-		if loaded then
-			goto_preview.close_all_win()
-		end
-	end
-}
-
-
---- Keymaps
-local legend = {
-	keymaps = {
-		{"gpd",  function()  preview.definition()       end, description="LSP preview definition"},
-		{"gpt",  function()  preview.type_definition()  end, description="LSP preview type definition"  },
-		{"gpi",  function()  preview.implementation()   end, description="LSP preview implementation"  },
-		{"gpD",  function()  preview.declaration()      end, description="LSP preview declaration"  },
-		{"gpr",  function()  preview.references()       end, description="LSP preview references"  },
-		{"gP",   function()  preview.close()                 end, description="LSP preview window"  },
+	dep_of = {
+		'nvchad-menu'
 	},
 }
-_G.LEGEND_append(legend)

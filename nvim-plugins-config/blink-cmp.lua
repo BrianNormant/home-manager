@@ -1,35 +1,49 @@
-local blink = require("blink-cmp")
-local loaded = false
-local function custom_draw(ctx)
-	return {{
-		ctx.item.label,
-		fill = true,
-		hl_group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel'
-	},
-	{
-		string.format("%s %s", ctx.kind_icon, ctx.item.blink.source),
-		hl_group = 'BlinkCmpKind' .. ctx.kind,
-	}}
-end
+require('lze').load {
+	'friendly-snippets',
+	event = "ExitPre",
+	dep_of = "blink-cmp",
+}
 
-vim.api.nvim_create_autocmd({"UIEnter"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function()
-		if loaded then return end
-		loaded = true
+require('lze').load {
+	'vim-snippets',
+	event = "ExitPre",
+	dep_of = "blink-cmp",
+}
+require('lze').load {
+	'supermaven-nvim',
+	event = "ExitPre",
+	dep_of = "blink-cmp",
+}
+
+require('lze').load {
+	'blink-cmp',
+	event = "DeferredUIEnter",
+	after = function()
 		require("supermaven-nvim").setup {
 			disable_inline_completion = true, -- disables inline completion for use with cmp
 			disable_keymaps = true, -- disables built in keymaps for more manual control
 			log_level = "off", -- Shut off the warnings
 		}
+		local blink = require("blink-cmp")
+		local function custom_draw(ctx)
+			return {{
+				ctx.item.label,
+				fill = true,
+				hl_group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel'
+			},
+			{
+				string.format("%s %s", ctx.kind_icon, ctx.item.blink.source),
+				hl_group = 'BlinkCmpKind' .. ctx.kind,
+			}}
+		end
 		blink.setup {
 			keymap = {
 				accept = { "<CR>", },
+				hide = { "<C-e>", },
 				select_next = "<Tab>",
 				select_prev = "<S-Tab>",
-				snippet_forward = { "<Tab>", "<C-l>" },
-				snippet_backward = { "<S-Tab>", "<C-j>" },
+				snippet_forward = { "<C-l>" },
+				snippet_backward = { "<C-j>" },
 			},
 			accept = {
 				auto_brackets = {
@@ -84,5 +98,6 @@ vim.api.nvim_create_autocmd({"UIEnter"}, {
 		hi! link Pmenu Float
 		hi! link PmenuSel CursorLine
 		]]
-	end
-})
+	end,
+	dep_of = "telescope.nvim",
+}

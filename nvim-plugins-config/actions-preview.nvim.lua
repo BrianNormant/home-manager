@@ -1,23 +1,17 @@
-vim.api.nvim_create_autocmd({"LspAttach"}, {
-	group = "Lazy",
-	pattern = { "*" },
-	callback = function()
+require('lze').load {
+	'actions-preview.nvim',
+	keys = {
+		{"<space>la", function () require('actions-preview').code_actions() end}
+	},
+	after = function ()
 		require('actions-preview').setup {
 			highlight_command = {
 				require("actions-preview.highlight").delta(),
 			},
 			backend = { "telescope" },
 		}
-	end
-})
-
---- Keybinds
-local legend = {
-	keymaps = {
-		{"<leader>la", function()
-			require('actions-preview').code_actions()
-		end, description="LSP view avalaible code actions"},
+	end,
+	dep_of = {
+		"nvchad-menu",
 	}
 }
-
-_G.LEGEND_append(legend)

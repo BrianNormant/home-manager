@@ -1,7 +1,11 @@
-vim.api.nvim_create_autocmd({"UIEnter"}, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function()
+require('lze').load {
+	'registers.nvim',
+	keys = {
+		{ '"', mode = { "n", "x" }},
+		{ "<C-r>", mode = "i" },
+	},
+	cmd = "Registers",
+	after = function()
 		require'registers'.setup {
 			window = {
 				border = "double",
@@ -9,4 +13,4 @@ vim.api.nvim_create_autocmd({"UIEnter"}, {
 			},
 		}
 	end,
-})
+}

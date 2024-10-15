@@ -1,17 +1,12 @@
-require('mini.move').setup {}
---- Keymaps
-local legend = {
-	keymaps = {
-		{ "<M-h>", mode = 'v', description = "left" },
-		{ "<M-l>", mode = 'v', description = "right" },
-		{ "<M-j>", mode = 'v', description = "down" },
-		{ "<M-k>", mode = 'v', description = "up" },
-		{ "<M-h>", mode = 'n', description = "line_left" },
-		{ "<M-l>", mode = 'n', description = "line_right" },
-		{ "<M-j>", mode = 'n', description = "line_down" },
-		{ "<M-k>", mode = 'n', description = "line_up" },
-
+require('lze').load {
+	'mini.move',
+	keys = {
+		{"<M-h>", mode = {"n", "x"} },
+		{"<M-j>", mode = {"n", "x"} },
+		{"<M-k>", mode = {"n", "x"} },
+		{"<M-l>", mode = {"n", "x"} },
 	},
+	after = function()
+		require('mini.move').setup {}
+	end
 }
-_G.LEGEND_append(legend)
-

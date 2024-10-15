@@ -1,10 +1,10 @@
-vim.api.nvim_create_autocmd({ "UIEnter" }, {
-	group = "Lazy",
-	pattern = "*",
-	callback = function ()
+require('lze').load {
+	'marks.nvim',
+	event = "BufNew",
+	after = function ()
 		require('marks').setup {}
 	end
-})
+}
 
 --- Keymaps
 local legend = {
@@ -25,4 +25,4 @@ local legend = {
 		{"dm=",       description="Delete the bookmark under the cursor."},
 	},
 }
-_G.LEGEND_append(legend)
+_G.legendary.append(legend)

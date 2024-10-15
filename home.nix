@@ -243,7 +243,9 @@ extension:
 	home.file.".config/nvim/ftdetect/nu.vim".text = builtins.readFile ./custom-syntax-vim/nu-ftdetect.vim;
 	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
 	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
-	programs.neovim = (import ./nvim.nix) {inherit pkgs; blink = blink;};
+	home.file.".config/nvim/ftdetect/http.vim".text = builtins.readFile ./custom-syntax-vim/http-ftdetect.vim;
+	home.file.".config/nvim/ftdetect/idr.vim".text = builtins.readFile ./custom-syntax-vim/idr-ftdetect.vim;
+	programs.neovim = (import ./nvim.nix) {inherit pkgs; inherit blink;};
 	programs.tmux = {
 		enable = true;
 		clock24 = true;
