@@ -31,7 +31,8 @@ require('lze').load {
 				vim.keymap.set('n', 'gI',         vim.lsp.buf.signature_help,     { buffer = ev.buf, desc = " Lsp show type signature" } )
 				vim.keymap.set('n', 'gD',         vim.lsp.buf.declaration,        { buffer = ev.buf, desc = " Lsp goto declaration" } )
 				vim.keymap.set('n', 'gd',         vim.lsp.buf.definition,         { buffer = ev.buf, desc = " Lsp goto definition" } )
-				vim.keymap.set('n', 'gR',         vim.lsp.buf.rename,             { buffer = ev.buf, desc = " Lsp rename symbol under cursor" } )
+				-- inc-rename do this.
+				-- vim.keymap.set('n', 'gR',         vim.lsp.buf.rename,             { buffer = ev.buf, desc = " Lsp rename symbol under cursor" } )
 				vim.keymap.set('n', 'gr',         vim.lsp.buf.references,         { buffer = ev.buf, desc = " Lsp goto references" } )
 				vim.keymap.set('n', "<leader>e",  vim.diagnostic.open_float,      { buffer = ev.buf, desc = " Lsp open/enter diagnostic window" } )
 				vim.keymap.set('n', '<leader>lL', "<cmd>LspLog<cr>",              { buffer = ev.buf, desc = "Format the current buffer with the lsp" } )
@@ -120,5 +121,6 @@ require('lze').load {
 			end
 			inlay_hint_handler(err, result, ctx, config)
 		end
-	end
+	end,
+	dep_of = { "inc-rename.nvim" },
 }

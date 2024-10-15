@@ -74,7 +74,7 @@ require('lze').load {
 				{"]H",         function() gitsigns.nav_hunk('last', {navigation_message = true }) end,              description = "jump to last hunk"},
 			},
 		}
-		_G.legendary.append(legend)
+		require('legendary').setup(legend)
 
 		_G.diffthis_select = telescope_select_commit
 	end

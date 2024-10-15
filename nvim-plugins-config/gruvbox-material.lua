@@ -24,6 +24,7 @@ require('lze').load {
 				hi! link Search Visual
 				hi! link IncSearch ClapSpinner
 				hi! link CurSearch ClapSpinner
+				hi! Substitute ctermbg=239 guibg=#5a5251 guifg=#EA3F3F
 				]]
 			end
 		})

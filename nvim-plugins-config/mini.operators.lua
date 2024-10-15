@@ -9,7 +9,7 @@ require('lze').load {
 		{"sss"},
 		{"sS", "ss$", nowait = true},
 		
-		{"gp", mode = { "n", "x" }},
+		{"sp", mode = { "n", "x" }},
 		{"spp"},
 		{"sP", "sp$", nowait = true},
 		

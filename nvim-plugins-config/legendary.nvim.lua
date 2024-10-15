@@ -6,7 +6,6 @@ local setup = function ()
 			--- descriptions for keymaps
 			--- Basic key maps
 			{"<A-p>",   "<cmd>Legendary<cr>", description="Open Legendary keybind manager" },
-			{"\\",      '<cmd>split<cr>',     description="Split horizontal" , nowait = true},
 			{"|",       '<cmd>vsplit<cr>',    description="Split vertical" },
 			{"<leader>q",'<cmd>wqa!<cr>', description = "Quit neovim"},
 			{"<leader>ss", '<cmd>SessionLoadLast<cr>', description = "Load last session"},
@@ -100,6 +99,7 @@ local setup = function ()
 	vim.api.nvim_set_keymap("n", "q:", "", {nowait = true}) -- to open command buffer editing
 	vim.api.nvim_set_keymap("n", "?", "<cmd>noh<cr>", {nowait = true}) -- To suppress research highlight
 	vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<C-\\><C-n>", {})
+	vim.api.nvim_set_keymap("n", "\\", "<cmd<split<cr>", { nowait = true, desc = "Split horizontal" })
 
 	vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 		pattern = "Legendary Scratchpad",

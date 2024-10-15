@@ -4,8 +4,9 @@ require('lze').load {
 	after = function ()
 		require('which-key').setup {
 			preset = "helix",
+			delay = 500,
 			plugins = {
-				marks = true,
+				marks = false,
 				registers = false,
 				spelling = { enabled = false, },
 			},

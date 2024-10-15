@@ -12,9 +12,9 @@ require('lze').load {
 			textsubjects = {
 				enable = true,
 				keymaps = {
-					-- ['.'] = 'textsubjects-smart',
+					['.'] = 'textsubjects-smart',
 					-- [';'] = 'textsubjects-container-outer',
-					['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
+					-- ['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
 				},
 			},
 		}

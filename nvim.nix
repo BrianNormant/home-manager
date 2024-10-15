@@ -31,7 +31,6 @@
 
 		plugins = with pkgs.vimPlugins; let
 		configPlugin = {
-		# TODO: Lazyload plugins https://github.com/BirdeeHub/lze
 			plugin,
 			src ? null,
 			preLua ? "",
@@ -60,7 +59,7 @@
 			(configPlugin {plugin = vim-lastplace;})
 			(configPlugin {plugin = vim-wakatime;})
 			(configPlugin {plugin = vim-fugitive;})
-			# (configPlugin {plugin = dressing-nvim; config = false;})
+			(configPlugin {plugin = dressing-nvim;})
 			(configPlugin {plugin = dropbar-nvim;})
 			(configPlugin {plugin = nvim-treesitter-context;})
 			(configPlugin {plugin = ccc-nvim;})
@@ -170,10 +169,11 @@
 					hash = "sha256-2WNuaIEXcAgUl2Kb/cCHEOrtehw9alaoM96qb4MLArw=";
 				};
 			})
+			
+			# LSP
+			(configPlugin {plugin = inc-rename-nvim;})
 			(configPlugin {plugin = lsp_signature-nvim;})
 			(configPlugin {plugin = actions-preview-nvim;})
-
-			# LSP
 			(configPlugin {plugin = nvim-lspconfig; config = false;})
 			(configPlugin {plugin = lsp-zero-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
