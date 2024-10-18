@@ -35,6 +35,7 @@ in {
 	usbutils
 	neovide
 	networkmanagerapplet
+	(callPackage ./pep8.nix {})
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

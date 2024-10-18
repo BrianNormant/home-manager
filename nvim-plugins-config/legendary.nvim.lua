@@ -99,7 +99,7 @@ local setup = function ()
 	vim.api.nvim_set_keymap("n", "q:", "", {nowait = true}) -- to open command buffer editing
 	vim.api.nvim_set_keymap("n", "?", "<cmd>noh<cr>", {nowait = true}) -- To suppress research highlight
 	vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<C-\\><C-n>", {})
-	vim.api.nvim_set_keymap("n", "\\", "<cmd<split<cr>", { nowait = true, desc = "Split horizontal" })
+	vim.api.nvim_set_keymap("n", "\\", "<cmd>split<cr>", { nowait = true, desc = "Split horizontal" })
 
 	vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 		pattern = "Legendary Scratchpad",
