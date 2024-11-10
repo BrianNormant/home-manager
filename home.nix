@@ -36,6 +36,8 @@ in {
 	neovide
 	networkmanagerapplet
 	(callPackage ./pep8.nix {})
+
+	lxqt.lxqt-wayland-session
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

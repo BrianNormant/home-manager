@@ -41,6 +41,7 @@ hostname:{
 			gaps_in = 3;
 			gaps_out = 5;
 			border_size = 2;
+			allow_tearing = true;
 
 			"col.active_border" = "rgb(d80032)";
 			"col.inactive_border" = "rgb(8d99ae)";
@@ -93,6 +94,7 @@ hostname:{
 			"center, title:(reStream)"
 
 			"idleinhibit fullscreen, fullscreen:1"
+			"immediate, class:(gamescope)"
 		];
 	};
 
