@@ -13,6 +13,7 @@ require('lze').load {
 		"xml",
 		"nu",
 		"exilir",
+		"idris2"
 	},
 	after = function ()
 		local lsp_zero = require('lsp-zero')
@@ -122,5 +123,5 @@ require('lze').load {
 			inlay_hint_handler(err, result, ctx, config)
 		end
 	end,
-	dep_of = { "inc-rename.nvim" },
+	dep_of = { "inc-rename.nvim", "idris2-nvim" },
 }
