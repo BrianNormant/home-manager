@@ -12,7 +12,9 @@ hostname:{
 			"/run/current-system/sw/bin/lxqt-policykit-agent"
 			"systemctl --user start waybar.service"
 			"/etc/profiles/per-user/brian/bin/copyq --start-server"
-			"systemctl --user start dunst.service"
+			# "systemctl --user start dunst.service"
+			"lxqt-notificationd"
+			"lxqt-panel"
 			"systemctl --user start hyprpaper.service"
 			"systemctl --user start cycle-paper.timer"
 			"systemctl --user start cycle-paper.service" # Set the background
@@ -100,6 +102,10 @@ hostname:{
 
 
 	extraConfig = ''
+env = QT_QPA_PLATFORMTHEME,lxqt
+env = QT_PLATFORM_PLUGIN,lxqt
+env = XDG_MENU_PREFIX,lxqt-
+
 #animations {
 #	enabled = true
 #	bezier = myBezier, 0.05, 0.9, 0.1, 1.05

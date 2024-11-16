@@ -38,6 +38,15 @@ in {
 	(callPackage ./pep8.nix {})
 
 	lxqt.lxqt-wayland-session
+	lxqt.lxqt-session
+	lxqt.lxqt-config
+	lxqt.lxqt-runner
+	lxqt.pcmanfm-qt
+	lxqt.lxqt-notificationd
+	lxqt.lxqt-themes
+	lxqt.lxqt-panel
+
+	zafiro-icons
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -83,13 +92,13 @@ in {
 
 	# xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
 
-	gtk = {
-		enable = true;
-		theme = {
-			name = "gruvbox-dark";
-			package = pkgs.gruvbox-dark-gtk;
-		};
-	};
+	# gtk = {
+	# 	enable = true;
+	# 	theme = {
+	# 		name = "gruvbox-dark";
+	# 		package = pkgs.gruvbox-dark-gtk;
+	# 	};
+	# };
 
 	programs.lsd = { enable = true; };
 	home.file.".config/lsd/icons.yaml".text = ''
@@ -169,7 +178,7 @@ extension:
 	
 	xdg.portal = {
 		extraPortals = with pkgs; [
-			xdg-desktop-portal-gtk
+			lxqt.xdg-desktop-portal-lxqt
 			xdg-desktop-portal-hyprland
 		];
 		xdgOpenUsePortal = true;
