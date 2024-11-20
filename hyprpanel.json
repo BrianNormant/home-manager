@@ -1,13 +1,13 @@
 {
   "bar.customModules.updates.pollingInterval": 1440000,
-  "theme.font.name": "Fira Code Semi-Bold",
+  "theme.font.name": "Fira Code",
   "theme.font.size": "1.0rem",
   "theme.font.weight": 500,
   "tear": false,
   "terminal": "kitty",
   "menus.transition": "crossfade",
-  "scalingPriority": "hyprland",
-  "theme.bar.floating": true,
+  "scalingPriority": "both",
+  "theme.bar.floating": false,
   "theme.bar.buttons.enableBorders": true,
   "theme.bar.buttons.borderSize": "0.05em",
   "bar.launcher.icon": "",
@@ -56,5 +56,75 @@
   "theme.bar.buttons.modules.updates.enableBorder": true,
   "bar.customModules.updates.updateCommand": "$HOME/.config/ags/scripts/checkUpdates.sh -nix",
   "menus.bluetooth.showBattery": true,
-  "menus.bluetooth.batteryState": "connected"
+  "menus.bluetooth.batteryState": "connected",
+  "theme.bar.menus.monochrome": true,
+  "wallpaper.enable": false,
+  "theme.matugen": false,
+  "theme.matugen_settings.mode": "light",
+  "theme.matugen_settings.scheme_type": "fidelity",
+  "theme.matugen_settings.variation": "vivid_2",
+  "theme.bar.transparent": true,
+  "theme.bar.buttons.modules.ram.enableBorder": false,
+  "menus.clock.time.hideSeconds": true,
+  "menus.clock.weather.location": "Montreal",
+  "menus.clock.weather.unit": "metric",
+  "bar.customModules.scrollSpeed": 0,
+  "notifications.showActionsOnHover": true,
+  "bar.clock.format": "%d %a %b  %H:%M:%S",
+  "theme.bar.buttons.clock.enableBorder": false,
+  "bar.clock.showTime": true,
+  "bar.media.rightClick": "systemctl --user start switch-playerctl.service",
+  "bar.media.show_active_only": true,
+  "bar.layouts": {
+    "0": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "network",
+        "bluetooth",
+        "systray",
+        "clock",
+        "notifications",
+        "battery"
+      ]
+    },
+    "1": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    },
+    "2": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    }
+  },
+  "theme.bar.menus.menu.power.scaling": 100
 }
