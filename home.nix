@@ -37,6 +37,7 @@ in {
 	networkmanagerapplet
 	(callPackage ./pep8.nix {})
 	hyprpicker
+	hyprpanel
 
 	lxqt.lxqt-wayland-session
 	lxqt.lxqt-session
@@ -45,7 +46,6 @@ in {
 	lxqt.pcmanfm-qt
 	lxqt.lxqt-notificationd
 	lxqt.lxqt-themes
-	lxqt.lxqt-panel
 
 	zafiro-icons
   ];
