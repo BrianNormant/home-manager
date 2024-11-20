@@ -36,6 +36,7 @@ in {
 	neovide
 	networkmanagerapplet
 	(callPackage ./pep8.nix {})
+	hyprpicker
 
 	lxqt.lxqt-wayland-session
 	lxqt.lxqt-session
@@ -53,6 +54,7 @@ in {
   # plain files is through 'home.file'.
   home.file = {
 		".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
+		".config/lxqt".source = ./lxqt;
 	
 		".config/hypr/wallpaper.nu".text = builtins.readFile ./wallpaper.nu;
 		".config/hypr/wallpaper.nu".executable = true;
