@@ -1,6 +1,6 @@
 {
   "bar.customModules.updates.pollingInterval": 1440000,
-  "theme.font.name": "Fira Code",
+  "theme.font.name": "JetBrainsMono Nerd Font",
   "theme.font.size": "1.0rem",
   "theme.font.weight": 500,
   "tear": false,
@@ -11,7 +11,7 @@
   "theme.bar.buttons.enableBorders": true,
   "theme.bar.buttons.borderSize": "0.05em",
   "bar.launcher.icon": "",
-  "bar.launcher.autoDetectIcon": false,
+  "bar.launcher.autoDetectIcon": true,
   "theme.bar.buttons.dashboard.enableBorder": false,
   "theme.bar.buttons.workspaces.enableBorder": false,
   "bar.workspaces.show_numbered": true,
@@ -19,7 +19,7 @@
   "theme.bar.buttons.workspaces.smartHighlight": true,
   "theme.bar.buttons.bluetooth.enableBorder": false,
   "theme.bar.buttons.battery.enableBorder": false,
-  "bar.battery.hideLabelWhenFull": false,
+  "bar.battery.hideLabelWhenFull": true,
   "bar.battery.label": true,
   "bar.notifications.show_total": true,
   "bar.notifications.hideCountWhenZero": true,
@@ -70,7 +70,7 @@
   "menus.clock.weather.unit": "metric",
   "bar.customModules.scrollSpeed": 0,
   "notifications.showActionsOnHover": true,
-  "bar.clock.format": "%d %a %b  %H:%M:%S",
+  "bar.clock.format": "%H:%M:%S",
   "theme.bar.buttons.clock.enableBorder": false,
   "bar.clock.showTime": true,
   "bar.media.rightClick": "systemctl --user start switch-playerctl.service",
@@ -91,8 +91,8 @@
         "bluetooth",
         "systray",
         "clock",
-        "notifications",
-        "battery"
+        "battery",
+        "notifications"
       ]
     },
     "1": {
@@ -126,5 +126,10 @@
       ]
     }
   },
-  "theme.bar.menus.menu.power.scaling": 100
+  "theme.bar.menus.menu.power.scaling": 100,
+  "menus.transitionTime": 20,
+  "bar.workspaces.showAllActive": false,
+  "theme.bar.buttons.network.enableBorder": false,
+  "bar.clock.showIcon": false,
+  "bar.bluetooth.label": false
 }

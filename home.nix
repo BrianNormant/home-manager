@@ -173,8 +173,6 @@ extension:
 		in builtins.map build-against-rofi-wayland rofi-wayland-plugins;
 	};
 
-	services.wob.enable = true;
-
 	programs.firefox.enable = true;
 
 	programs.waybar = (import ./waybar.nix) hostname;

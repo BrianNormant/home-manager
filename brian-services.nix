@@ -15,6 +15,14 @@ pkgs: {
 			Service.RestartSec="5s";
 		};
 
+		nm-applet = {
+			Service.Type = "exec";
+			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
+			Service.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+			Service.Restart="on-failure";
+			Service.RestartSec="5s";
+		};
+
 		hyprpaper = {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
