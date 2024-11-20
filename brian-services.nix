@@ -1,9 +1,16 @@
 pkgs: {
 	services = {
-		waybar = {
+		# waybar = {
+		# 	Service.Type = "exec";
+		# 	Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
+		# 	Service.ExecStart = "${pkgs.waybar}/bin/waybar";
+		# 	Service.Restart="on-failure";
+		# 	Service.RestartSec="5s";
+		# };
+		hyprpanel = {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-			Service.ExecStart = "${pkgs.waybar}/bin/waybar";
+			Service.ExecStart = "${pkgs.hyprpanel}/bin/hyprpanel";
 			Service.Restart="on-failure";
 			Service.RestartSec="5s";
 		};

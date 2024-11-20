@@ -10,14 +10,11 @@ hostname:{
 		exec-once = [
 			"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 			"/run/current-system/sw/bin/lxqt-policykit-agent"
-			"systemctl --user start waybar.service"
+			"systemctl --user start hyprpanel.service"
 			"/etc/profiles/per-user/brian/bin/copyq --start-server"
-			# "systemctl --user start dunst.service"
-			"lxqt-notificationd"
 			"lxqt-panel"
 			"systemctl --user start hyprpaper.service"
 			"systemctl --user start cycle-paper.timer"
-			"systemctl --user start cycle-paper.service" # Set the background
 			"systemctl --user start wob.service"
 			"systemctl --user start wob.socket"
 			"gpu-screen-recorder -a $(wpctl inspect @DEFAULT_AUDIO_SINK@ | grep \"node.name\" | sed -E 's/\\s*\\*?\\s*node.name = \"([A-Za-z0-9_.-]+)\"/\\1/').monitor -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null"

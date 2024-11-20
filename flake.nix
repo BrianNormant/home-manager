@@ -9,12 +9,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blink-cmp.url = "github:BrianNormant/blink.cmp";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, blink-cmp, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, blink-cmp, hyprpanel, ... }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ hyprpanel.overlay ];
+      };
       blink = blink-cmp.packages."${system}".blink-cmp;
     in {
       homeConfigurations."brian@BrianNixDesktop" = home-manager.lib.homeManagerConfiguration {
@@ -26,7 +30,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-		extraSpecialArgs = {hostname = "BrianNixDesktop"; inherit blink;};
+        extraSpecialArgs = {hostname = "BrianNixDesktop"; inherit blink;};
       };
       homeConfigurations."brian@BrianNixLaptop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -37,7 +41,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-		extraSpecialArgs = {hostname = "BrianNixLaptop"; inherit inputs; inherit blink;};
+        extraSpecialArgs = {hostname = "BrianNixLaptop"; inherit inputs; inherit blink;};
       };
     };
 }
