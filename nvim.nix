@@ -6,7 +6,6 @@
 			jdt-language-server # java
 			clang-tools # c/cpp
 			phpactor # php
-			idris2Packages.idris2Lsp # idris2
 			lua-language-server # lua
 			nil # nix
 			lemminx # xml
