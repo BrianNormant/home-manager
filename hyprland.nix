@@ -3,7 +3,6 @@ hostname:{
 	systemd.enable = true;
 	systemd.extraCommands = [ ];
 
-	xwayland.enable = true;
 	plugins = [ ];
 	settings = {
 

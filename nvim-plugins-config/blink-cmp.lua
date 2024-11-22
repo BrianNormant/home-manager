@@ -38,12 +38,11 @@ require('lze').load {
 		end
 		blink.setup {
 			keymap = {
-				accept = { "<CR>", },
-				hide = { "<C-e>", },
-				select_next = "<Tab>",
-				select_prev = "<S-Tab>",
-				snippet_forward = { "<C-l>" },
-				snippet_backward = { "<C-j>" },
+				preset = 'enter',
+				[ "<Tab>" ]   = {'select_next', 'fallback' },
+				[ "<S-Tab>" ] = {'select_prev', 'fallback' },
+				[ "<C-l>" ] = { 'snippet_forward' },
+				[ "<C-j>" ] = { 'snippet_backward' },
 			},
 			accept = {
 				auto_brackets = {
@@ -57,39 +56,56 @@ require('lze').load {
 				}
 			},
 			sources = {
+				completion = {
+					enabled_providers = {
+						'supermaven',
+						'lsp',
+						'path',
+						'snippets',
+						'buffer',
+					},
+				},
 				providers = {
-					{
-						{
-							'blink.cmp.sources.supermaven',
-							score_offset = 20,
-						},
-						{ 'blink.cmp.sources.lsp' },
-						{ 'blink.cmp.sources.path' },
-						{
-							'blink.cmp.sources.snippets',
-							opts = {
-								search_paths = { vim_snippets_path .. "/snippets", }
-							},
-							score_offset = -10,
+					supermaven = {
+						name = 'Supermaven',
+						module = 'supermaven',
+						score_offset = 20,
+					},
+					path = {
+						name = 'Path',
+						module = 'blink.cmp.sources.path',
+					},
+					snippets = {
+						name = 'Snippets',
+						module = 'blink.cmp.sources.snippets',
+						score_offset = -3,
+						opts = {
+							friendly_snippets = true,
+							search_paths = { vim_snippets_path .. "/snippets", },
 						},
 					},
-					{ { 'blink.cmp.sources.buffer' } },
-				},
+					-- maybe remove if lag
+					buffer = {
+						name = 'Buffer',
+						module = 'blink.cmp.sources.buffer',
+					}
+				}
 			},
 
 			windows = {
 				autocomplete = {
 					border = "rounded",
-					draw = custom_draw,
-					cycle = {
-						from_bottom = true,
-						from_top = true,
+					selection = 'auto_insert',
+					draw = {
+						columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
 					},
-					preselect = false,
 				},
 				documentation = {
 					border = "double",
 					auto_show_delay_ms = 2000,
+				},
+				ghost_text = {
+					enabled = false,
 				},
 			}
 		}

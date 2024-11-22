@@ -8,7 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    blink-cmp.url = "github:BrianNormant/blink.cmp";
+    blink-cmp.url = "github:Saghen/blink.cmp";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel?ref=1c287a9";
   };
 

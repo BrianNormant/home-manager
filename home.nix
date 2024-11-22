@@ -53,6 +53,7 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+  		".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
 		".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
 		".config/lxqt".source = ./lxqt;
 	
@@ -81,6 +82,26 @@ in {
 		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./checkstyle.xml;
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
+
+		".config/openvr/openvrpaths.vrpath.monado".text = ''
+{
+	"config" :
+	[
+		"/home/brian/.local/share/Steam/config"
+	],
+	"external_drivers" : null,
+	"jsonid" : "vrpathreg",
+	"log" :
+	[
+		"/home/brian/.local/share/Steam/logs"
+	],
+	"runtime" :
+	[
+		"${pkgs.opencomposite}/lib/opencomposite"
+	],
+	"version" : 1
+}
+		'';
   };
 
 	home.pointerCursor = {
