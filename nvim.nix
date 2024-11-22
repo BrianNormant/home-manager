@@ -183,6 +183,10 @@
 				};
 			};})
 
+			# Unit Test
+			(configPlugin {plugin = neotest; optional = false;})
+			(configPlugin {plugin = neotest-java; config = false; optional = false;})
+
 			# Auto Completion
 			(configPlugin {plugin = friendly-snippets; config=false;})
 			(configPlugin {plugin = vim-snippets; config=false;})
