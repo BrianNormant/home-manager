@@ -11,7 +11,6 @@
     blink-cmp.url = "github:Saghen/blink.cmp";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel?ref=1c287a9";
   };
-
   outputs = inputs@{ nixpkgs, home-manager, blink-cmp, hyprpanel, ... }:
     let
       system = "x86_64-linux";

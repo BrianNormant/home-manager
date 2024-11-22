@@ -97,7 +97,13 @@ require('lze').load {
 					border = "rounded",
 					selection = 'auto_insert',
 					draw = {
-						columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+						columns = { { "label", "source", gap = 1}, { "kind_icon", "kind", } },
+						components = {
+							source = {
+								text = function(ctx) return ctx.item.source end,
+								highlight = "BlinkCmpKind",
+							}
+						}
 					},
 				},
 				documentation = {

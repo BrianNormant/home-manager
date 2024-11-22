@@ -113,91 +113,102 @@ in {
 
 
 	systemd.user = (import ./brian-services.nix) pkgs;
+	programs = {
+		lsd = { enable = true; };
+		nushell = {
+			enable = true;
+			configFile.source = ./default-config.nu;
+			extraConfig = with pkgs.nushellPlugins; ''
+				plugin add ${polars}/bin/nu_plugin_polars
+				'';
+		};
+		oh-my-posh = {
+			enable = true;
+			enableZshIntegration = true;
+			enableNushellIntegration = true;
+			useTheme = "gruvbox";
+		};
+		kitty = {
+			enable = true;
+			font = {
+				name = "FiraCode Nerd Font";
+				package = pkgs.rictydiminished-with-firacode;
+				size = 12;
+			};
+			settings = {
+				enable_audio_bell = false;
+				confirm_os_window_close = "0";
+				background_opacity = "0.8";
+				dynamic_background_opacity = true;
+				background_tint = "0.0";
+			};
+			extraConfig = ''
+				map alt+F1 set_background_opacity +0.1
+				map alt+F2 set_background_opacity -0.1
+				'';
+		};
+		git = {
+			enable = true;
+			userName = "BrianNixDesktop";
+			userEmail = "briannormant@gmail.com";
+		};
+		rofi = {
+			enable = true;
+			package = pkgs.rofi-wayland;
+			theme = "gruvbox-dark-soft";
+			plugins = let
+				build-against-rofi-wayland = plugin: plugin.overrideAttrs ( final: self: {
+						version = "wayland";
+						buildInputs = with pkgs; [
+						rofi-wayland-unwrapped # here we replace rofi by rofi-wayland
+						libqalculate
+						glib
+						cairo
+						];
+						});
 
-	# xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
+			rofi-wayland-plugins = with pkgs; [
+				rofi-calc
+					rofi-emoji
+			];
+			in builtins.map build-against-rofi-wayland rofi-wayland-plugins;
+		};
+		firefox.enable = true;
+# Let Home Manager install and manage itself.
+		home-manager.enable = true;
+		neovim = (import ./nvim.nix) {inherit pkgs; inherit blink;};
+		tmux = {
+			enable = true;
+			clock24 = true;
+			escapeTime = 10;
+			keyMode = "vi";
+			plugins = with pkgs.tmuxPlugins; [
+				gruvbox
+					tmux-fzf
+					mode-indicator
+					cmus-tmux
+			];
+			terminal = "tmux-256color";
+			mouse = true;
+			extraConfig = (builtins.readFile ./tmux.conf) + ''
+				run-shell /nix/store/vf642b579fil3zgbbnqzc1vcqgf3yank-tmuxplugin-tmux-cmus-2/share/tmux-plugins/tmux-cmus/tmux-cmus.tmux
+				run-shell /nix/store/jqlzwm1929y8i808jzrqfpka9lmk13jm-tmuxplugin-mode-indicator-unstable-2021-10-01/share/tmux-plugins/mode-indicator/mode_indicator.tmux
+				'';
+		};
+		fzf = {
+			enable = true;
+			tmux = {
+				enableShellIntegration = true;
+				shellIntegrationOptions = [ "-p 80%,35%" ];
+			};
+		};
+	};
 
-	# gtk = {
-	# 	enable = true;
-	# 	theme = {
-	# 		name = "gruvbox-dark";
-	# 		package = pkgs.gruvbox-dark-gtk;
-	# 	};
-	# };
-
-	programs.lsd = { enable = true; };
 	home.file.".config/lsd/icons.yaml".text = ''
 extension:
 	gnuplot: 
 	data: 
 	'';
-
-	programs.nushell = {
-		enable = true;
-		configFile.source = ./default-config.nu;
-		extraConfig = with pkgs.nushellPlugins; ''
-			plugin add ${polars}/bin/nu_plugin_polars
-		'';
-	};
-
-	programs.oh-my-posh = {
-		enable = true;
-		enableZshIntegration = true;
-		enableNushellIntegration = true;
-		useTheme = "gruvbox";
-	};
-
-	programs.kitty = {
-		enable = true;
-		font = {
-			name = "FiraCode Nerd Font";
-			package = pkgs.rictydiminished-with-firacode;
-			size = 12;
-		};
-		settings = {
-			enable_audio_bell = false;
-			confirm_os_window_close = "0";
-			background_opacity = "0.8";
-			dynamic_background_opacity = true;
-			background_tint = "0.0";
-		};
-		extraConfig = ''
-			map alt+F1 set_background_opacity +0.1
-			map alt+F2 set_background_opacity -0.1
-		'';
-	};
-
-
-	programs.git = {
-		enable = true;
-		userName = "BrianNixDesktop";
-		userEmail = "briannormant@gmail.com";
-	};
-
-	programs.rofi = {
-		enable = true;
-		package = pkgs.rofi-wayland;
-		theme = "gruvbox-dark-soft";
-		plugins = let
-			build-against-rofi-wayland = plugin: plugin.overrideAttrs ( final: self: {
-				version = "wayland";
-				buildInputs = with pkgs; [
-					rofi-wayland-unwrapped # here we replace rofi by rofi-wayland
-					libqalculate
-					glib
-					cairo
-				];
-			});
-
-			rofi-wayland-plugins = with pkgs; [
-				rofi-calc
-				rofi-emoji
-			];
-		in builtins.map build-against-rofi-wayland rofi-wayland-plugins;
-	};
-
-	programs.firefox.enable = true;
-
-	programs.waybar = (import ./waybar.nix) hostname;
 	
 	xdg.portal = {
 		extraPortals = with pkgs; [
@@ -271,40 +282,10 @@ extension:
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Wallpapers";
 	};
-
-  # Let Home Manager install and manage itself.
-	programs.home-manager.enable = true;
 	home.file.".config/nvim/syntax/nu.vim".text   = builtins.readFile ./custom-syntax-vim/nu-syntax.vim;
 	home.file.".config/nvim/ftdetect/nu.vim".text = builtins.readFile ./custom-syntax-vim/nu-ftdetect.vim;
 	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
 	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
 	home.file.".config/nvim/ftdetect/http.vim".text = builtins.readFile ./custom-syntax-vim/http-ftdetect.vim;
 	home.file.".config/nvim/ftdetect/idr.vim".text = builtins.readFile ./custom-syntax-vim/idr-ftdetect.vim;
-	programs.neovim = (import ./nvim.nix) {inherit pkgs; inherit blink;};
-	programs.tmux = {
-		enable = true;
-		clock24 = true;
-		escapeTime = 10;
-		keyMode = "vi";
-		plugins = with pkgs.tmuxPlugins; [
-			gruvbox
-			tmux-fzf
-			mode-indicator
-			cmus-tmux
-		];
-		terminal = "tmux-256color";
-		mouse = true;
-		extraConfig = (builtins.readFile ./tmux.conf) + ''
-run-shell /nix/store/vf642b579fil3zgbbnqzc1vcqgf3yank-tmuxplugin-tmux-cmus-2/share/tmux-plugins/tmux-cmus/tmux-cmus.tmux
-run-shell /nix/store/jqlzwm1929y8i808jzrqfpka9lmk13jm-tmuxplugin-mode-indicator-unstable-2021-10-01/share/tmux-plugins/mode-indicator/mode_indicator.tmux
-		'';
-	};
-
-	programs.fzf = {
-		enable = true;
-		tmux = {
-			enableShellIntegration = true;
-			shellIntegrationOptions = [ "-p 80%,35%" ];
-		};
-	};
 }
