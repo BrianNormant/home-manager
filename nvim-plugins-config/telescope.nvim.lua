@@ -17,6 +17,7 @@ require('lze').load {
 		"telescope-ui-select.nvim",
 		"nvchad-menu",
 		"persisted.nvim",
+		"icon-picker.nvim",
 	},
 }
 
