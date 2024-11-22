@@ -44,21 +44,21 @@ hostname:{
 			"col.inactive_border" = "rgb(8d99ae)";
 		};
 
-		decoration = {
-			rounding = 10;
-			blur = {
-				enabled = true;
-				size = 3;
-				passes = 1;
-				special = false;
-			};
-
-			drop_shadow = true;
-			shadow_range = 4;
-			shadow_render_power = 3;
-			"col.shadow" = "rgba(1a1a1aee)";
-		};
-
+		# decoration = {
+		# 	rounding = 10;
+		# 	blur = {
+		# 		enabled = true;
+		# 		size = 3;
+		# 		passes = 1;
+		# 		special = false;
+		# 	};
+		#
+		# 	drop_shadow = true;
+		# 	shadow_range = 4;
+		# 	shadow_render_power = 3;
+		# 	"col.shadow" = "rgba(1a1a1aee)";
+		# };
+		#
 		dwindle.preserve_split = true;
 		gestures.workspace_swipe = true;
 
@@ -274,7 +274,7 @@ bind = ,XF86Messenger, exec, vesktop
 	'' + (  if hostname == "BrianNixDesktop"
 		then ''
 		monitor = DP-1,3840x2160@144,auto,1,bitdepth,8
-		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,8
+		monitor = DP-2,preferred,auto-left,1,bitdepth,8
 		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,8''
 		else "monitor = ,preferred,auto,2" ) ;
 }
