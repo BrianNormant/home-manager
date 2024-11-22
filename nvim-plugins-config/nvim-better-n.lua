@@ -5,6 +5,7 @@ require('lze').load {
 
 require('lze').load {
 	'nvim-better-n',
+	event = "DeferredUIEnter",
 	keys = {
 		{"n"}, {"<s-n>"}, {","}, {";"},
 		{ "*", mode = { "n", "x" } },

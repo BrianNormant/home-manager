@@ -65,4 +65,4 @@ vim.cmd "cabbrev h tab help"
 -- Open Man in a new tab
 vim.cmd "cabbrev Man tab Man"
 
--- vim.cmd "colorscheme gruvbox-material"
+vim.cmd "colorscheme gruvbox-material"
