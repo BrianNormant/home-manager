@@ -2,8 +2,6 @@ require('lze').load {
 	'mini.ai',
 	keys = {
 		{"i",  mode = { "o", "x" }},
-		{"il", mode = { "o", "x" }},
-		{"in", mode = { "o", "x" }},
 	},
 	after = function()
 		local gen_ai_spec = require('mini.extra').gen_ai_spec

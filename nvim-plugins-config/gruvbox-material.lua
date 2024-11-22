@@ -1,7 +1,6 @@
 require('lze').load {
 	"gruvbox-material",
-	-- colorscheme = "gruvbox-material",
-	event = "DeferredUIEnter",
+	colorscheme = "gruvbox-material",
 	dep_of = { "lualine.nvim", "blink-cmp" },
 	before = function ()
 		vim.g.gruvbox_material_background = 'soft'
@@ -28,7 +27,6 @@ require('lze').load {
 				]]
 			end
 		})
-		vim.cmd "colorscheme gruvbox-material"
 	end
 }
 

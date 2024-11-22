@@ -91,10 +91,6 @@ local setup = function ()
 		vim.api.nvim_set_keymap(mode, "<S-Up>",   "<Up>",   {nowait = true})
 		vim.api.nvim_set_keymap(mode, "<S-Down>", "<Down>", {nowait = true})
 	end
-	vim.keymap.set('n', '\\L', "")
-	vim.keymap.set('n', '\\la', "")
-	vim.keymap.set('n', '\\gD', "")
-	vim.keymap.set('n', '\\G', "")
 
 	vim.api.nvim_set_keymap("n", "q:", "", {nowait = true}) -- to open command buffer editing
 	vim.api.nvim_set_keymap("n", "?", "<cmd>noh<cr>", {nowait = true}) -- To suppress research highlight
