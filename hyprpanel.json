@@ -131,5 +131,9 @@
   "bar.workspaces.showAllActive": false,
   "theme.bar.buttons.network.enableBorder": false,
   "bar.clock.showIcon": false,
-  "bar.bluetooth.label": false
+  "bar.bluetooth.label": false,
+  "bar.volume.scrollDown": "wpctl set-volume @DEFAULT_SINK@ 5%-",
+  "bar.volume.scrollUp": "wpctl set-volume @DEFAULT_SINK@ 5%+",
+  "bar.battery.scrollUp": "brightnessctl 5%+",
+  "bar.battery.scrollDown": "brightnessctl 5%-"
 }

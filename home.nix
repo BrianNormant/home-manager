@@ -83,6 +83,15 @@ in {
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 
+		"monado.json".text = ''
+{
+    "file_format_version": "1.0.0",
+    "runtime": {
+        "name": "Monado",
+        "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
+    }
+}
+		'';
 		".config/openvr/openvrpaths.vrpath.monado".text = ''
 {
 	"config" :
@@ -102,7 +111,7 @@ in {
 	"version" : 1
 }
 		'';
-  };
+	};
 
 	home.pointerCursor = {
 		name = "phinger-cursors-dark";
