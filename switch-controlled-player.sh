@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/zsh
+#!env zsh
 
 typeset -A all_players=()
 
@@ -11,7 +11,8 @@ done
 
 if [[ ${#all_players} == 0 ]]; then
 	systemctl --user unset-environment CURRENT_PLAYER
-	echo "no player, unset"
+	notify-send "No player selected"
+    echo "notify"
 	exit
 fi
 
@@ -20,7 +21,8 @@ eval `systemctl --user show-environment | grep CURRENT_PLAYER`
 
 if [[ -z $CURRENT_PLAYER ]]; then
 	CURRENT_PLAYER=$all_players[1]
-	echo "wrong player, choosed $CURRENT_PLAYER"
+	notify-send "selected $CURRENT_PLAYER"
+    echo "notify"
 	systemctl --user set-environment CURRENT_PLAYER=$CURRENT_PLAYER
 	exit;
 fi
@@ -37,13 +39,15 @@ for i p in ${(kv)all_players}; do
 		if [[ $i == ${#all_players} ]]; then
 			CURRENT_PLAYER=$all_players[1]
 			systemctl --user set-environment CURRENT_PLAYER=$CURRENT_PLAYER
-			echo "Rollback $CURRENT_PLAYER"
+            notify-send "selected $CURRENT_PLAYER"
+    echo "notify"
 			exit
 		else
 			i=$(( i + 1 ))
 			CURRENT_PLAYER=$all_players[$i]
 			systemctl --user set-environment CURRENT_PLAYER=$CURRENT_PLAYER
-			echo "Next $CURRENT_PLAYER"
+            notify-send "selected $CURRENT_PLAYER"
+    echo "notify"
 			exit
 		fi
 	fi

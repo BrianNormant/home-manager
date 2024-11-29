@@ -38,6 +38,7 @@ in {
 	(callPackage ./pep8.nix {})
 	hyprpicker
 	hyprpanel
+	libnotify
 
 	lxqt.lxqt-wayland-session
 	lxqt.lxqt-session
