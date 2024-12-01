@@ -135,5 +135,6 @@
   "bar.volume.scrollDown": "wpctl set-volume @DEFAULT_SINK@ 5%-",
   "bar.volume.scrollUp": "wpctl set-volume @DEFAULT_SINK@ 5%+",
   "bar.battery.scrollUp": "brightnessctl 5%+",
-  "bar.battery.scrollDown": "brightnessctl 5%-"
+  "bar.battery.scrollDown": "brightnessctl 5%-",
+  "bar.media.middleClick": "zsh ~/.config/home-manager/switch-controlled-player.sh"
 }

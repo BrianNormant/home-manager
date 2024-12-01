@@ -12,6 +12,7 @@
 			# Install dap here
 			gdb # c/cpp
 			elixir-ls # elixir
+			idris2Packages.idris2Lsp
 			# Install none-ls depencencies (linter/formatter/static analyzer) here
 			statix checkstyle cppcheck
 			# other dependencies for plugins
