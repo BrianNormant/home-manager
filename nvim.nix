@@ -340,7 +340,18 @@
 						 rev = "0bb9a60";
 						 hash = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
 					};
-				}) ] ++ nvim-treesitter.allGrammars
+				})
+				(pkgs.tree-sitter.buildGrammar {
+					language = "idris";
+					version = "alpha";
+					src = pkgs.fetchFromGitHub {
+						owner = "kayhide";
+						repo = "tree-sitter-idris";
+						rev = "c56a25c";
+						hash = "sha256-aOAxb0KjhSwlNX/IDvGwEysYvImgUEIDeNDOWRl1qNk=";
+					};
+				})
+				] ++ nvim-treesitter.allGrammars
 			)))
 			(configPlugin {plugin = legendary-nvim;})
 			(configPlugin {plugin = which-key-nvim;})
