@@ -59,7 +59,7 @@
   "menus.bluetooth.batteryState": "connected",
   "theme.bar.menus.monochrome": false,
   "wallpaper.enable": false,
-  "theme.matugen": true,
+  "theme.matugen": false,
   "theme.matugen_settings.mode": "dark",
   "theme.matugen_settings.scheme_type": "expressive",
   "theme.matugen_settings.variation": "monochrome_3",
