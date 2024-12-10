@@ -84,6 +84,8 @@ in {
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 
+		# idris
+		".pack/user/pack.toml".source = ./pack.toml;
 		"monado.json".text = ''
 {
     "file_format_version": "1.0.0",
@@ -271,10 +273,9 @@ extension:
 			"ssh://BrianNixDesktopI//home/brian/Prog"
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Prog";
-# UNISON='/home/brian/.local/share/unison/Prog' unison /home/brian/Prog ssh://BrianNixDesktopI//home/brian/Prog -ignore='Name .git' -ignore='Name .ccls-cache' -ignore='Name *log*' -ignore='Name *bin*' -ignore='Name *.jar' -ignore='Name result' -ignore='Name target' -ignore='Name .m2'
 		commandOptions = {
 			ignore = [
-				"Name .git"
+				# "Name .git"
 				"Name .ccls-cache"
 				"Name *log*"
 				"Name *bin*"
@@ -283,6 +284,11 @@ extension:
 				"Name target" # maven build output
 				"Name .m2"    # maven repo
 			];
+			repeat = "watch";
+			batch = "true";
+			ui = "text";
+			auto = "true";
+			log = "false";
 		};
 	};
 	services.unison.pairs."Wallpapers" = {
