@@ -3,9 +3,9 @@ require('lze').load {
 	ft = "idris2",
 	after = function ()
 		require('idris2').setup {
-			autostart_semantic = true,
-			use_default_semantic_hl_groups = true,
-			default_regexp_syntax = false,
+			-- autostart_semantic = true,
+			-- use_default_semantic_hl_groups = true,
+			-- default_regexp_syntax = false,
 			code_action_post_hook = function (_)
 				vim.cmd "silent write"
 			end,
