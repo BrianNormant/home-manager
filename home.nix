@@ -84,6 +84,8 @@ in {
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 
+		# idris
+		".pack/user/pack.toml".source = ./pack.toml;
 		"monado.json".text = ''
 {
     "file_format_version": "1.0.0",
