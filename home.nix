@@ -273,6 +273,11 @@ extension:
 				"Name target" # maven build output
 				"Name .m2"    # maven repo
 			];
+			repeat = "watch";
+			batch = "true";
+			ui = "text";
+			auto = "true";
+			log = "false";
 		};
 	};
 	services.unison.pairs."Wallpapers" = {
