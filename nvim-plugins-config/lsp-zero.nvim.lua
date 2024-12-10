@@ -13,7 +13,6 @@ require('lze').load {
 		"xml",
 		"nu",
 		"exilir",
-		"idris2"
 	},
 	after = function ()
 		local lsp_zero = require('lsp-zero')

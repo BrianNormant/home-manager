@@ -56,6 +56,10 @@ require('lze').load {
 
 		local bracketed_override = function(key, name, desc_name)
 			local bracket = require('mini.bracketed')
+			bracket.setup {
+				diagnostic = { options = { severity = vim.diagnostic.severity.ERROR } },
+			}
+
 			local nav = better_n.create {
 				next = function() bracket[name]('forward') end,
 				previous = function() bracket[name]('backward') end,
