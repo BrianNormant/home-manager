@@ -114,6 +114,12 @@ ipkg = "async-epoll.ipkg"
 # url  = "https://github.com/bar/foo"
 # ipkg = "foo.ipkg"
 
+[custom.all.idrisGL]
+type = "git"
+url  = "https://github.com/BrianNormant/Idris2GL"
+ipkg = "idrisGL.ipkg"
+commit = "2fc40b8b0fb3878db034f30c0397c5e371ab8038"
+
 # Override library `toml` from package collection `nightly-220503`
 # by using a custom commit hash.
 # [custom.nightly-220503.toml]
