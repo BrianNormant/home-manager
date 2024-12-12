@@ -120,6 +120,13 @@ url  = "https://github.com/BrianNormant/Idris2GL"
 ipkg = "idrisGL.ipkg"
 commit = "2fc40b8b0fb3878db034f30c0397c5e371ab8038"
 
+
+[custom.all.containers]
+type = "git"
+url = "https://github.com/BrianNormant/idris2-containers"
+ipkg = "containers.ipkg"
+commit = "8e8fc1ad614c00d0eaa8784a57533c34b59a2338"
+
 # Override library `toml` from package collection `nightly-220503`
 # by using a custom commit hash.
 # [custom.nightly-220503.toml]
