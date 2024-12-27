@@ -25,17 +25,6 @@ require('lze').load {
 			log_level = "off", -- Shut off the warnings
 		}
 		local blink = require("blink-cmp")
-		local function custom_draw(ctx)
-			return {{
-				ctx.item.label,
-				fill = true,
-				hl_group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel'
-			},
-			{
-				string.format("%s %s", ctx.kind_icon, ctx.item.blink.source),
-				hl_group = 'BlinkCmpKind' .. ctx.kind,
-			}}
-		end
 		blink.setup {
 			keymap = {
 				preset = 'enter',
@@ -44,32 +33,23 @@ require('lze').load {
 				[ "<C-l>" ] = { 'snippet_forward' },
 				[ "<C-j>" ] = { 'snippet_backward' },
 			},
-			accept = {
-				auto_brackets = {
-					enabled = true,
-				},
-			},
-
-			trigger = {
-				signature_help = {
-					enabled = false,
-				}
-			},
 			sources = {
-				completion = {
-					enabled_providers = {
-						'supermaven',
-						'lsp',
-						'path',
-						'snippets',
-						'buffer',
-					},
+				default = {
+					'supermaven',
+					'lsp',
+					'path',
+					'snippets',
+					'buffer',
 				},
 				providers = {
 					supermaven = {
 						name = 'Supermaven',
 						module = 'supermaven',
 						score_offset = 20,
+					},
+					lsp = {
+						name = "LSP",
+						module = "blink.cmp.sources.lsp",
 					},
 					path = {
 						name = 'Path',
@@ -92,27 +72,67 @@ require('lze').load {
 				}
 			},
 
-			windows = {
-				autocomplete = {
+			completion = {
+				list = {
+					max_items = 50,
+					selection = "auto_insert",
+				},
+				menu = {
 					border = "rounded",
-					selection = 'auto_insert',
 					draw = {
 						columns = { { "label", "source", gap = 1}, { "kind_icon", "kind", } },
 						components = {
+							kind_icon = {
+								ellipsis = false,
+								text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
+								highlight = function(ctx)
+									return (require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind') .. ctx.kind
+								end,
+							},
+
+							kind = {
+								ellipsis = false,
+								width = { fill = true },
+								text = function(ctx) return ctx.kind end,
+								highlight = function(ctx)
+									return (require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind') .. ctx.kind
+								end,
+							},
+							label = {
+								width = { fill = true, max = 60 },
+								text = function(ctx) return ctx.label .. ctx.label_detail end,
+								highlight = function(ctx)
+									-- label and label details
+									local highlights = {
+										{ 0, #ctx.label, group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel' },
+									}
+									if ctx.label_detail then
+										table.insert(highlights, { #ctx.label, #ctx.label + #ctx.label_detail, group = 'BlinkCmpLabelDetail' })
+									end
+
+									-- characters matched on the label by the fuzzy matcher
+									for _, idx in ipairs(ctx.label_matched_indices) do
+										table.insert(highlights, { idx, idx + 1, group = 'BlinkCmpLabelMatch' })
+									end
+
+									return highlights
+								end,
+							},
 							source = {
-								text = function(ctx) return ctx.item.source end,
-								highlight = "BlinkCmpKind",
+								text = function(ctx) return ctx.source_name end,
+								highlight = "BlinkCmpSource",
 							}
 						}
 					},
 				},
 				documentation = {
-					border = "double",
-					auto_show_delay_ms = 2000,
+					auto_show = true,
+					auto_show_delay_ms = 100,
+					window = { border = "double", }
 				},
-				ghost_text = {
-					enabled = false,
-				},
+			},
+			signature = {
+				enabled = true,
 			}
 		}
 

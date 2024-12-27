@@ -172,7 +172,7 @@
 			
 			# LSP
 			(configPlugin {plugin = inc-rename-nvim;})
-			(configPlugin {plugin = lsp_signature-nvim;})
+			# (configPlugin {plugin = lsp_signature-nvim;})
 			(configPlugin {plugin = actions-preview-nvim;})
 			(configPlugin {plugin = nvim-lspconfig; config = false;})
 			(configPlugin {plugin = nvim-lightbulb;})

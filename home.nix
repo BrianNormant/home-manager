@@ -83,6 +83,7 @@ in {
 		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./checkstyle.xml;
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
+		"./config/openxr/1/active_runtime.json".source = mkMutableSymlink "~/.local/share/Steam/steamapps/common/SteamVR/steamxr_linux64.json";
 
 		# idris
 		".pack/user/pack.toml".source = ./pack.toml;
@@ -150,9 +151,10 @@ in {
 			settings = {
 				enable_audio_bell = false;
 				confirm_os_window_close = "0";
-				background_opacity = "0.8";
-				dynamic_background_opacity = true;
-				background_tint = "0.0";
+				# background_opacity = "0.8";
+				# dynamic_background_opacity = true;
+				# background_tint = "0.0";
+				background = "#32302F";
 			};
 			extraConfig = ''
 				map alt+F1 set_background_opacity +0.1
