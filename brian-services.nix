@@ -1,17 +1,10 @@
 pkgs: {
 	services = {
-		# waybar = {
-		# 	Service.Type = "exec";
-		# 	Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-		# 	Service.ExecStart = "${pkgs.waybar}/bin/waybar";
-		# 	Service.Restart="on-failure";
-		# 	Service.RestartSec="5s";
-		# };
 		hyprpanel = {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
 			Service.ExecStart = "${pkgs.hyprpanel}/bin/hyprpanel";
-			Service.Restart="on-failure";
+			Service.Restart="always";
 			Service.RestartSec="5s";
 		};
 
@@ -19,7 +12,7 @@ pkgs: {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
 			Service.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-			Service.Restart="on-failure";
+			Service.Restart="always";
 			Service.RestartSec="5s";
 		};
 
@@ -27,7 +20,7 @@ pkgs: {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
 			Service.ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper";
-			Service.Restart="on-failure";
+			Service.Restart="always";
 			Service.RestartSec="5s";
 		};
 		cycle-paper =  {
@@ -35,6 +28,7 @@ pkgs: {
 			Service.Type = "oneshot";
 			Service.ExecStart = "${pkgs.nushell}/bin/nu /home/brian/.config/hypr/wallpaper.nu";
 			Unit.Description = "Cycle through wallpapers";
+			Service.Restart="always";
 		};
 		switch-playerctl = {
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
@@ -43,7 +37,7 @@ pkgs: {
 	};
 
 	timers = {
-		 cycle-paper.Timer.OnCalendar = "*-*-* *:*:00"; 
+		 cycle-paper.Timer.OnCalendar = "*-*-* *:*:00";
 	};
 
 	tmpfiles.rules = [ ];
