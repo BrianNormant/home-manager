@@ -30,13 +30,6 @@ pkgs: {
 			Service.Restart="on-failure";
 			Service.RestartSec="5s";
 		};
-		dunst = {
-			Service.Type = "exec";
-			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-			Service.ExecStart = "${pkgs.dunst}/bin/dunst";
-			Service.Restart="on-failure";
-			Service.RestartSec="5s";
-		};
 		cycle-paper =  {
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
 			Service.Type = "oneshot";
