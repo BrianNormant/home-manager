@@ -90,7 +90,7 @@ in {
 
 		# idris
 		".pack/user/pack.toml".source = ./pack.toml;
-		"monado.json".text = ''
+		".config/openxr/1/active_runtime-monado.json".text = ''
 {
     "file_format_version": "1.0.0",
     "runtime": {
