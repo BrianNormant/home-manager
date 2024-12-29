@@ -57,7 +57,10 @@ in {
   		".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
 		".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
 		".config/lxqt".source = ./lxqt;
-	
+
+		# vesktop
+		".config/vesktop/themes/gruvbox.theme.css".source = ./gruvbox.theme.css;
+
 		".config/hypr/wallpaper.nu".text = builtins.readFile ./wallpaper.nu;
 		".config/hypr/wallpaper.nu".executable = true;
 		
@@ -75,7 +78,7 @@ in {
 
 		".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if hostname == "BrianNixDesktop" then "DP-1" else "eDP-1");
 		".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
-		".cache/ags/hyprpanel/options.json".source = ./hyprpanel.json;
+		".config/hyprpanel/config.json".source = ./hyprpanel.json;
 
 		# ".java/home/jdk-8".source =  pkgs.jdk8  + "/lib/openjdk";
 		".java/home/jdk-17".source = pkgs.jdk17 + "/lib/openjdk";
