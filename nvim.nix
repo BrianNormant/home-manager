@@ -173,6 +173,15 @@
 			# LSP
 			(configPlugin {plugin = inc-rename-nvim;})
 			# (configPlugin {plugin = lsp_signature-nvim;})
+			(configPlugin {
+				plugin.pname = "signup.nvim";
+				src = {
+					owner = "Dan7h3x";
+					repo = "signup.nvim";
+					rev = "d768638";
+					hash = "sha256-95nFty1iy1m5oi36nG0jL5+rMb0V9t24IDrKkyoCGgg=";
+				};
+			})
 			(configPlugin {plugin = actions-preview-nvim;})
 			(configPlugin {plugin = nvim-lspconfig; config = false;})
 			(configPlugin {plugin = nvim-lightbulb;})
@@ -195,6 +204,8 @@
 				local vim_snippets_path = "${vim-snippets}"
 				'';
 			})
+
+			# (configPlugin {plugin = sniprun;})
 
 
 			(configPlugin {plugin = goto-preview;})
@@ -284,15 +295,6 @@
 				};
 			};})
 
-# Compile and run from vim
-			(configPlugin {plugin = compiler-nvim.overrideAttrs {
-				 src = pkgs.fetchFromGitHub {
-					 owner = "BrianNormant";
-					 repo = "compiler.nvim";
-					 rev = "353a094";
-					 sha256 = "sha256-YItRjdgHlRwoC0jBFLpul/lc5Z75gSA99YObEjePmj8=";
-				 };
-			};})
 			(configPlugin {
 				plugin.pname = "nvim-better-n";
 				src = {

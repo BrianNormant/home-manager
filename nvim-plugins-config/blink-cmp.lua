@@ -75,7 +75,7 @@ require('lze').load {
 			completion = {
 				list = {
 					max_items = 50,
-					selection = "auto_insert",
+					selection = { preselect = false, auto_insert = true },
 				},
 				menu = {
 					border = "rounded",
@@ -132,8 +132,15 @@ require('lze').load {
 				},
 			},
 			signature = {
-				enabled = true,
-			}
+				enabled = false,
+			},
+			fuzzy = {
+				prebuilt_binaries = {
+					ignore_version_mismatch = true,
+					force_version = nil,
+				}
+			},
+			cmdline = { enabled = false },
 		}
 
 		vim.cmd [[

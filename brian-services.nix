@@ -35,7 +35,7 @@ pkgs: {
 		steam = {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-			Service.ExecStart = "${pkgs.steam}/bin/steam";
+			Service.ExecStart = "/run/current-system/sw/bin/steam";
 			Service.Restart="always";
 			Service.RestartSec="5s";
 		};
