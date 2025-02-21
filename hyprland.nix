@@ -10,14 +10,15 @@ hostname:{
 			"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 			"/run/current-system/sw/bin/lxqt-policykit-agent"
 			"systemctl --user start hyprpanel.service"
-			"/etc/profiles/per-user/brian/bin/copyq --start-server"
+			"systemctl --user start copyq.service"
 			"systemctl --user start hyprpaper.service"
-			"systemctl --user start cycle-paper.timer"
 			"systemctl --user start nm-applet.service"
+			"systemctl --user start waypaper.timer"
+			"systemctl --user start hypridle.service"
+			"systemctl --user start steam.service"
+			"systemctl --user start vesktop.service"
+			"systemctl --user start corectrl.service"
 			"gpu-screen-recorder -a $(wpctl inspect @DEFAULT_AUDIO_SINK@ | grep \"node.name\" | sed -E 's/\\s*\\*?\\s*node.name = \"([A-Za-z0-9_.-]+)\"/\\1/').monitor -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null"
-			"hypridle"
-			"steam"
-			"vesktop"
 		];
 		input = {
 			kb_layout = "us,us";

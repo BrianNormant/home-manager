@@ -57,19 +57,16 @@ in {
   # plain files is through 'home.file'.
   home.file = {
   		".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
-		".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
+		".config/nvim-simple/init.lua".source = ./nvim-simple.lua;
 		".config/lxqt".source = ./lxqt;
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
 
 		# vesktop
 		".config/vesktop/themes/gruvbox.theme.css".source = ./config/vesktop/gruvbox.theme.css;
 
-		".config/hypr/wallpaper.nu".text = builtins.readFile ./wallpaper.nu;
-		".config/hypr/wallpaper.nu".executable = true;
-		
-		".config/hypr/brightness.nu".text = builtins.readFile ./script/brightness.nu;
-		".config/hypr/plugged.nu".text = builtins.readFile ./script/plugged.nu;
-		".config/hypr/volume.nu".text = builtins.readFile ./script/volume.nu;
+		".config/hypr/brightness.nu".source = ./script/brightness.nu;
+		".config/hypr/plugged.nu".source = ./script/plugged.nu;
+		".config/hypr/volume.nu".source = ./script/volume.nu;
 			
 		".config/script/media.zsh".text = builtins.readFile ./script/fetch-and-format-media.zsh;
 		".config/script/media.zsh".executable = true;
@@ -80,13 +77,13 @@ in {
 		".config/script/replay.sh".executable = true;
 
 		".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if hostname == "BrianNixDesktop" then "DP-1" else "eDP-1");
-		".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
+		".config/hypr/hypridle.conf".source = ./hypridle.conf;
 		".config/hyprpanel/config.json".source = ./config/hyprpanel/hyprpanel.json;
 
 		# ".java/home/jdk-8".source =  pkgs.jdk8  + "/lib/openjdk";
 		".java/home/jdk-17".source = pkgs.jdk17 + "/lib/openjdk";
 		".java/home/jdk-21".source = pkgs.jdk   + "/lib/openjdk";
-		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./config/checkstyle.xml;
+		".java/checkstyle/checkstyle.xml".source = ./config/checkstyle.xml;
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 		"./config/openxr/1/active_runtime.json".source = mkMutableSymlink "~/.local/share/Steam/steamapps/common/SteamVR/steamxr_linux64.json";
@@ -136,7 +133,7 @@ in {
 		lsd = { enable = true; };
 		nushell = {
 			enable = true;
-			configFile.source = ./default-config.nu;
+			configFile.source = ./config/nushell/default-config.nu;
 			extraConfig = with pkgs.nushellPlugins; ''
 				plugin add ${polars}/bin/nu_plugin_polars
 				'';
@@ -306,10 +303,10 @@ extension:
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Wallpapers";
 	};
-	home.file.".config/nvim/syntax/nu.vim".text   = builtins.readFile ./custom-syntax-vim/nu-syntax.vim;
-	home.file.".config/nvim/ftdetect/nu.vim".text = builtins.readFile ./custom-syntax-vim/nu-ftdetect.vim;
-	home.file.".config/nvim/syntax/pep.vim".text   = builtins.readFile ./custom-syntax-vim/pep-syntax.vim;
-	home.file.".config/nvim/ftdetect/pep.vim".text = builtins.readFile ./custom-syntax-vim/pep-ftdetect.vim;
-	home.file.".config/nvim/ftdetect/http.vim".text = builtins.readFile ./custom-syntax-vim/http-ftdetect.vim;
-	home.file.".config/nvim/ftdetect/idr.vim".text = builtins.readFile ./custom-syntax-vim/idr-ftdetect.vim;
+	home.file.".config/nvim/syntax/nu.vim".source   = ./custom-syntax-vim/nu-syntax.vim;
+	home.file.".config/nvim/ftdetect/nu.vim".source = ./custom-syntax-vim/nu-ftdetect.vim;
+	home.file.".config/nvim/syntax/pep.vim".source   = ./custom-syntax-vim/pep-syntax.vim;
+	home.file.".config/nvim/ftdetect/pep.vim".source = ./custom-syntax-vim/pep-ftdetect.vim;
+	home.file.".config/nvim/ftdetect/http.vim".source = ./custom-syntax-vim/http-ftdetect.vim;
+	home.file.".config/nvim/ftdetect/idr.vim".source = ./custom-syntax-vim/idr-ftdetect.vim;
 }
