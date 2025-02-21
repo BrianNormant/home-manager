@@ -110,15 +110,15 @@
 				};
 			})
 			(configPlugin {plugin = nvim-bqf;})
-			(configPlugin {
-				plugin.pname = "iswap.nvim";
-				src = {
-					owner = "mizlan";
-					repo = "iswap.nvim";
-					rev = "e02cc91";
-					hash = "sha256-lAYHvz23f9nJ6rb0NIm+1aq0Vr0SwjPVitPuROtUS2A=";
-				};
-			})
+			# (configPlugin {
+			# 	plugin.pname = "iswap.nvim";
+			# 	src = {
+			# 		owner = "mizlan";
+			# 		repo = "iswap.nvim";
+			# 		rev = "e02cc91";
+			# 		hash = "sha256-lAYHvz23f9nJ6rb0NIm+1aq0Vr0SwjPVitPuROtUS2A=";
+			# 	};
+			# })
 
 			(configPlugin {plugin = telescope-ui-select-nvim; config = false;})
 			(configPlugin {plugin = telescope-lsp-handlers-nvim; config = false;})
@@ -134,15 +134,15 @@
 					sha256 = "VZKsVeSmPR3AA8267Mtd5sSTZl2CAqnbgqceCptgp4w=";
 				};
 			})
-			(configPlugin {
-				plugin.pname = "muren.nvim";
-				src = {
-					owner = "AckslD";
-					repo = "muren.nvim";
-					rev = "b6484a1";
-					sha256 = "hv8IfNJ+3O1L1PPIZlPwXc37Oa4u8uZPJmISLnNkBGw=";
-				};
-			})
+			# (configPlugin {
+			# 	plugin.pname = "muren.nvim";
+			# 	src = {
+			# 		owner = "AckslD";
+			# 		repo = "muren.nvim";
+			# 		rev = "b6484a1";
+			# 		sha256 = "hv8IfNJ+3O1L1PPIZlPwXc37Oa4u8uZPJmISLnNkBGw=";
+			# 	};
+			# })
 			(configPlugin {plugin = persisted-nvim;})
 
 			# Mini.nvim plugins
@@ -184,10 +184,6 @@
 					hash = "sha256-QEd5UXBLz3Z6NL9TMPlJmfYugs4Ec3zpEUWwei6jPKs=";
 				};
 			};})
-
-			# Unit Test
-			# (configPlugin {plugin = neotest; optional = false;})
-			# (configPlugin {plugin = neotest-java; config = false; optional = false;})
 
 			# Auto Completion
 			(configPlugin {plugin = friendly-snippets; config=false;})
@@ -306,28 +302,6 @@
 					hash = "sha256-4SjjPNPrPF0kPBiJBd2VMNU5UuEJbYe9YGWB15PPNVQ=";
 				};
 			})
-
-			(configPlugin {
-				plugin.pname = "nvchad-menu";
-				src = {
-					owner = "NvChad";
-					repo = "menu";
-					rev = "205b3de";
-					hash = "sha256-e9QoyP+4Vu85b0iJu0scIn/32jbjLMDc99leVz7EdJs=";
-				};
-			})
-
-			(configPlugin {
-				plugin.pname = "nvchad-volt";
-				src = {
-					owner = "NvChad";
-					repo = "volt";
-					rev = "ce1e55d";
-					hash = "sha256-jqQQ6r/EhwYpY19uAtebVOSeTIYTpAUwvzzSTkZVzC4=";
-				};
-				config = false;
-			})
-
 # Treesitter
 			(configPlugin { plugin = nvim-treesitter;})
 			(nvim-treesitter.withPlugins (_: (

@@ -38,7 +38,9 @@ in {
 	(callPackage ./pep8.nix {})
 	hyprpicker
 	hyprpanel
+	waypaper
 	libnotify
+	libreoffice
 
 	lxqt.lxqt-wayland-session
 	lxqt.lxqt-session
