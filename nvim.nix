@@ -160,6 +160,7 @@
 			(configPlugin {plugin = nvim-treesitter-textsubjects;})
 			(configPlugin {plugin = oil-nvim;})
 			(configPlugin {plugin = nvim-navbuddy;})
+			(configPlugin {plugin = glance-nvim;})
 			(configPlugin {
 				plugin.pname = "diagflow.nvim";
 				src = {
