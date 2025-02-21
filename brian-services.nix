@@ -23,13 +23,21 @@ pkgs: {
 			Service.Restart="always";
 			Service.RestartSec="5s";
 		};
-		cycle-paper =  {
-			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
+
+		waypaper = {
 			Service.Type = "oneshot";
-			Service.ExecStart = "${pkgs.nushell}/bin/nu /home/brian/.config/hypr/wallpaper.nu";
-			Unit.Description = "Cycle through wallpapers";
-			Service.Restart="always";
+			Service.ExecStart = "waypaper --random";
+			Unit.Description = "Randomize the wallpaper";
 		};
+
+		# cycle-paper =  {
+		# 	Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
+		# 	Service.Type = "oneshot";
+		# 	Service.ExecStart = "${pkgs.nushell}/bin/nu /home/brian/.config/hypr/wallpaper.nu";
+		# 	Unit.Description = "Cycle through wallpapers";
+		# 	Service.Restart="always";
+		# };
+
 		switch-playerctl = {
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
 			Service.ExecStart = "/home/brian/.config/script/switch-playerctl.zsh";
@@ -38,6 +46,7 @@ pkgs: {
 
 	timers = {
 		 cycle-paper.Timer.OnCalendar = "*-*-* *:*:00";
+		 waypaper.Timer.OnCalendar = "*:0/1";
 	};
 
 	tmpfiles.rules = [ ];
