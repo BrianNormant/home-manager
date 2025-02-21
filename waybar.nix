@@ -1,7 +1,7 @@
 hostname:
 {
 	enable = true;
-	style = ./waybar-style.css;
+	style = ./config/waybar/waybar-style.css;
 	settings = {
 		mainBar = {
 			layer = "top";

@@ -390,7 +390,7 @@
   "menus.volume.raiseMaximumVolume": true,
   "menus.clock.time.military": true,
   "menus.clock.weather.enabled": false,
-  "menus.dashboard.powermenu.avatar.image": "/home/brian/.config/home-manager/user.jpg",
+  "menus.dashboard.powermenu.avatar.image": "/home/brian/.config/home-manager/config/hyprpanel/user.jpg",
   "menus.dashboard.stats.enable_gpu": false,
   "menus.dashboard.shortcuts.left.shortcut1.icon": "󰈹",
   "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Firefox",

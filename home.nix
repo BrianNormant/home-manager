@@ -59,39 +59,40 @@ in {
   		".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
 		".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
 		".config/lxqt".source = ./lxqt;
+		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
 
 		# vesktop
-		".config/vesktop/themes/gruvbox.theme.css".source = ./gruvbox.theme.css;
+		".config/vesktop/themes/gruvbox.theme.css".source = ./config/vesktop/gruvbox.theme.css;
 
 		".config/hypr/wallpaper.nu".text = builtins.readFile ./wallpaper.nu;
 		".config/hypr/wallpaper.nu".executable = true;
 		
-		".config/hypr/brightness.nu".text = builtins.readFile ./brightness.nu;
-		".config/hypr/plugged.nu".text = builtins.readFile ./plugged.nu;
-		".config/hypr/volume.nu".text = builtins.readFile ./volume.nu;
+		".config/hypr/brightness.nu".text = builtins.readFile ./script/brightness.nu;
+		".config/hypr/plugged.nu".text = builtins.readFile ./script/plugged.nu;
+		".config/hypr/volume.nu".text = builtins.readFile ./script/volume.nu;
 			
-		".config/script/media.zsh".text = builtins.readFile ./fetch-and-format-media.zsh;
+		".config/script/media.zsh".text = builtins.readFile ./script/fetch-and-format-media.zsh;
 		".config/script/media.zsh".executable = true;
 
-		".config/script/switch-playerctl.zsh".text = builtins.readFile ./switch-controlled-player.sh;
+		".config/script/switch-playerctl.zsh".text = builtins.readFile ./script/switch-controlled-player.sh;
 		".config/script/switch-playerctl.zsh".executable = true;
-		".config/script/replay.sh".text = builtins.readFile ./replay.sh;
+		".config/script/replay.sh".text = builtins.readFile ./script/replay.sh;
 		".config/script/replay.sh".executable = true;
 
 		".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if hostname == "BrianNixDesktop" then "DP-1" else "eDP-1");
 		".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
-		".config/hyprpanel/config.json".source = ./hyprpanel.json;
+		".config/hyprpanel/config.json".source = ./config/hyprpanel/hyprpanel.json;
 
 		# ".java/home/jdk-8".source =  pkgs.jdk8  + "/lib/openjdk";
 		".java/home/jdk-17".source = pkgs.jdk17 + "/lib/openjdk";
 		".java/home/jdk-21".source = pkgs.jdk   + "/lib/openjdk";
-		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./checkstyle.xml;
+		".java/checkstyle/checkstyle.xml".text = builtins.readFile ./config/checkstyle.xml;
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 		"./config/openxr/1/active_runtime.json".source = mkMutableSymlink "~/.local/share/Steam/steamapps/common/SteamVR/steamxr_linux64.json";
 
 		# idris
-		".pack/user/pack.toml".source = ./pack.toml;
+		".pack/user/pack.toml".source = ./config/idris/pack.toml;
 		".config/openxr/1/active_runtime-monado.json".text = ''
 {
     "file_format_version": "1.0.0",
@@ -209,7 +210,7 @@ in {
 			];
 			terminal = "tmux-256color";
 			mouse = true;
-			extraConfig = (builtins.readFile ./tmux.conf) + ''
+			extraConfig = (builtins.readFile ./config/tmux.conf) + ''
 				run-shell /nix/store/vf642b579fil3zgbbnqzc1vcqgf3yank-tmuxplugin-tmux-cmus-2/share/tmux-plugins/tmux-cmus/tmux-cmus.tmux
 				run-shell /nix/store/jqlzwm1929y8i808jzrqfpka9lmk13jm-tmuxplugin-mode-indicator-unstable-2021-10-01/share/tmux-plugins/mode-indicator/mode_indicator.tmux
 				'';

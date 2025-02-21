@@ -246,8 +246,8 @@ bind = $mainMod, Escape, exec, $HOME/.config/rofi/scripts/powermenu_t1
 bind = $mainMod, grave, exec, rofi -show calc # Calculator
 bind = $mainMod, Tab, exec, rofi -show window
 bind = $mainMod, semicolon, exec, rofi -show emoji
-bind = $mainMod, S, exec, /home/brian/.config/home-manager/rofi-systemd.sh
-bind = $mainMod SHIFT, semicolon, exec, /home/brian/.config/home-manager/rofi-bluetooth.sh
+bind = $mainMod, S, exec, /home/brian/.config/home-manager/script/rofi-systemd.sh
+bind = $mainMod SHIFT, semicolon, exec, /home/brian/.config/home-manager/script/rofi-bluetooth.sh
 
 # Screenshot
 bind = $mainMod SHIFT, S, exec, $HOME/.config/rofi/applets/bin/screenshot.sh
