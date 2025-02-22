@@ -35,7 +35,7 @@ pkgs: {
 		steam = {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-			Service.ExecStart = "/run/current-system/sw/bin/steam";
+			Service.ExecStart = "/run/current-system/sw/bin/steam -silent";
 			Service.Restart="always";
 			Service.RestartSec="5s";
 		};
@@ -63,10 +63,15 @@ pkgs: {
 
 		copyq = {
 			Service.Type = "exec";
-			Service.ExecStart = "${pkgs.copyq}/bin/copyq --start-server";
+			Service.ExecStart = "${pkgs.copyq}/bin/copyq";
 			Service.Restart="always";
 			Service.RestartSec="5s";
 		};
+
+		# video = {
+		# 	Service.Type = "oneshot";
+		# 	Service.ExecStart = "/home/brian/.nix-profile/bin/mpvpaper "
+		# }
 
 		# cycle-paper =  {
 		# 	Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
@@ -78,7 +83,7 @@ pkgs: {
 
 		switch-playerctl = {
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-			Service.ExecStart = "/home/brian/.config/script/switch-playerctl.zsh";
+			Service.ExecStart = "/run/current-system/sw/bin/zsh /home/brian/.config/script/switch-playerctl.zsh";
 		};
 	};
 

@@ -1,5 +1,5 @@
 require('lze').load {
-	'glance-nvim',
+	'glance.nvim',
 	event = { "BufEnter" },
 	after = function()
 		require('glance').setup {

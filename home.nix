@@ -71,8 +71,7 @@ in {
 		".config/script/media.zsh".text = builtins.readFile ./script/fetch-and-format-media.zsh;
 		".config/script/media.zsh".executable = true;
 
-		".config/script/switch-playerctl.zsh".text = builtins.readFile ./script/switch-controlled-player.sh;
-		".config/script/switch-playerctl.zsh".executable = true;
+		".config/script/switch-playerctl.zsh".source = ./script/switch-controlled-player.sh;
 		".config/script/replay.sh".text = builtins.readFile ./script/replay.sh;
 		".config/script/replay.sh".executable = true;
 
