@@ -61,9 +61,6 @@ in {
 		".config/lxqt".source = ./lxqt;
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
 
-		# vesktop
-		".config/vesktop/themes/gruvbox.theme.css".source = ./config/vesktop/gruvbox.theme.css;
-
 		".config/hypr/brightness.nu".source = ./script/brightness.nu;
 		".config/hypr/plugged.nu".source = ./script/plugged.nu;
 		".config/hypr/volume.nu".source = ./script/volume.nu;

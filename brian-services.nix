@@ -40,10 +40,10 @@ pkgs: {
 			Service.RestartSec="5s";
 		};
 
-		vesktop = {
+		discord = {
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
-			Service.ExecStart = "${pkgs.vesktop}/bin/vesktop";
+			Service.ExecStart = "${pkgs.discord}/bin/discord";
 			Service.Restart="always";
 			Service.RestartSec="5s";
 		};

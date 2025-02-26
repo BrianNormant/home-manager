@@ -16,7 +16,7 @@ hostname:{
 			"systemctl --user start waypaper.timer"
 			"systemctl --user start hypridle.service"
 			"systemctl --user start steam.service"
-			"systemctl --user start vesktop.service"
+			"systemctl --user start discord.service"
 			"systemctl --user start corectrl.service"
 			"gpu-screen-recorder -a $(wpctl inspect @DEFAULT_AUDIO_SINK@ | grep \"node.name\" | sed -E 's/\\s*\\*?\\s*node.name = \"([A-Za-z0-9_.-]+)\"/\\1/').monitor -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null"
 		];
@@ -269,7 +269,7 @@ bind = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle
 bind = ,XF86AudioMute, exec, nu ~/.config/hypr/volume.nu 0
 bind = ,XF86MonBrightnessDown, exec, nu ~/.config/hypr/brightness.nu -5
 bind = ,XF86MonBrightnessUp, exec, nu ~/.config/hypr/brightness.nu 5
-bind = ,XF86Messenger, exec, vesktop
+bind = ,XF86Messenger, exec, discord
 
 	'' + (  if hostname == "BrianNixDesktop"
 		then ''
