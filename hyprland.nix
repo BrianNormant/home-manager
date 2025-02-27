@@ -250,6 +250,8 @@ bind = ,XF86MonBrightnessDown, exec, nu ~/.config/hypr/brightness.nu -5
 bind = ,XF86MonBrightnessUp, exec, nu ~/.config/hypr/brightness.nu 5
 bind = ,XF86Messenger, exec, discord
 
+binds:window_direction_monitor_fallback = false
+
 plugin {
 	scroller {
 		column_default_width = one
