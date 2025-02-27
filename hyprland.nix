@@ -1,9 +1,12 @@
-hostname:{
+{pkgs, hostname}: {
 	enable = true;
 	systemd.enable = true;
 	systemd.extraCommands = [ ];
 
-	plugins = [ ];
+	plugins = with pkgs.hyprlandPlugins; [
+		hyprscroller
+		hyprexpo
+	];
 	settings = {
 
 		exec-once = [
@@ -34,11 +37,11 @@ hostname:{
 		};
 
 		general = {
-			layout = "dwindle";
+			layout = "scroller";
 			gaps_in = 3;
 			gaps_out = 5;
 			border_size = 2;
-			allow_tearing = true;
+			allow_tearing = false;
 
 			"col.active_border" = "rgb(d80032)";
 			"col.inactive_border" = "rgb(8d99ae)";
@@ -59,10 +62,6 @@ hostname:{
 		# 	"col.shadow" = "rgba(1a1a1aee)";
 		# };
 		#
-		dwindle.preserve_split = true;
-		gestures.workspace_swipe = true;
-
-	
 
 		windowrulev2 = [
 			"float, class:(ProcessManager)"
@@ -80,10 +79,6 @@ hostname:{
 			"float, class:(com.github.hluk.copyq)"
 			"size 20% 20%, class:(com.github.hluk.copyq)"
 			"move 71% 5%, class:(com.github.hluk.copyq)"
-
-			"fullscreen, title:(Picture-in-Picture)"
-#"keepaspectratio, title:(Picture-in-Picture)"
-#"move 73% 4%, title:(Picture-in-Picture)"
 
 			"float, title:(reStream)"
 			"keepaspectratio, title:(reStream)"
@@ -115,7 +110,7 @@ env = XDG_MENU_PREFIX,lxqt-
 #}
 
 misc {
-	mouse_move_enables_dpms = false
+	mouse_move_enables_dpms = true
 	key_press_enables_dpms = true
 }
 
@@ -128,23 +123,7 @@ $mainMod = SUPER
 bind = $mainMod, Q, killactive,
 bind = $mainMod SHIFT, Q, exit
 bind = $mainMod, Space, togglefloating # Set floating/layout
-bind = $mainMod, M, fullscreen
-bind = $mainMod, r, layoutmsg, cyclenext
-bind = $mainMod ALT, r, layoutmsg, cycleprev
-bind = $mainMod SHIFT, r, layoutmsg, swapnext
-bind = $mainMod ALT SHIFT, r, layoutmsg, swaprev
-bind = $mainMod, l, layoutmsg, orientationnext
-bind = $mainMod ALT, l, layoutmsg, orientationprev
-# bind = $mainMod, W, split-workspace, previous
-bind = $mainMod SHIFT, W, movetoworkspace, previous
-bind = $mainMod, C, centerwindow
-bind = $mainMod, A, layoutmsg, togglesplit
-bind = $mainMod, bracketright, layoutmsg, preselect r
-bind = $mainMod, bracketleft, layoutmsg, preselect l
-bind = $mainMod SHIFT, bracketright, layoutmsg, preselect t
-bind = $mainMod SHIFT, bracketleft, layoutmsg, preselect b
-
-bind = $mainMod, P, togglegroup
+bind = $mainMod, F, fullscreen
 
 # Resize window
 bind = $mainMod ALT, left, resizeactive, -5% 0%
@@ -152,18 +131,25 @@ bind = $mainMod ALT, up, resizeactive, 0% -5%
 bind = $mainMod ALT, right, resizeactive, 5% 0%
 bind = $mainMod ALT, down, resizeactive, 0% 5%
 
-
 # Scratchpad
 bind = $mainMod, N, movetoworkspacesilent, special
 bind = $mainMod ALT, N, togglespecialworkspace
 
-bind = $mainMod, z, layoutmsg, addmaster
-bind = $mainMod, x, layoutmsg, removemaster
+# Layout manipulation
+bind = $mainMod, p, scroller:pin
+bind = $mainMod, r, scroller:cyclesize, next
+bind = $mainMod, z, scroller:setmode, r
+bind = $mainMod, x, scroller:setmode, c
+bind = $mainMod, c, scroller:alignwindow, center
+bind = $mainMod SHIFT, X, scroller:alignwindow, r
+bind = $mainMod SHIFT, Z, scroller:alignwindow, l
+bind = $mainMod, bracketleft, scroller:admitwindow
+bind = $mainMod, bracketright, scroller:expelwindow
 # Move focus with mainMod + arrow keys
 bind = $mainMod, left, movefocus, l
 bind = $mainMod, right, movefocus, r
-bind = $mainMod, comma, movefocus, l
-bind = $mainMod, period, movefocus, r
+bind = $mainMod, mouse_up, movefocus, l
+bind = $mainMod, mouse_down, movefocus, r
 bind = $mainMod, up, movefocus, u
 bind = $mainMod, down, movefocus, d
 # Move current window with mainMod + arrow keys
@@ -171,9 +157,6 @@ bind = $mainMod SHIFT, left, movewindow, l
 bind = $mainMod SHIFT, right, movewindow, r
 bind = $mainMod SHIFT, up, movewindow, u
 bind = $mainMod SHIFT, down, movewindow, d
-# Move window to monitor
-# bind = $mainMod SHIFT, comma, split-changemonitor, prev
-# bind = $mainMod SHIFT, period, split-changemonitor, next
 
 # Switch workspaces with mainMod + [0-9]
 bind = $mainMod, 1, workspace, 1
@@ -238,14 +221,11 @@ bind = $mainMod ALT, I, exec, $HOME/.config/rofi/applets/bin/quicklinks.sh
 
 # Runners
 bind = $mainMod, D, exec, $HOME/.config/rofi/scripts/launcher_t3
-bind = $mainMod, R, exec, $HOME/.config/rofi/applets/bin/apps.sh
-bind = $mainMod ALT, 1, exec, $HOME/.config/rofi/applets/bin/cmus.sh
-bind = $mainMod ALT, 2, exec, pavucontrol
-bind = $mainMod ALT, 3, exec, $HOME/.config/rofi/applets/bin/battery.sh
-bind = $mainMod ALT, 4, exec, $HOME/.config/rofi/applets/bin/brightness.sh
+# bind = $mainMod, R, exec, $HOME/.config/rofi/applets/bin/apps.sh
 bind = $mainMod, Escape, exec, $HOME/.config/rofi/scripts/powermenu_t1
 bind = $mainMod, grave, exec, rofi -show calc # Calculator
-bind = $mainMod, Tab, exec, rofi -show window
+bind = $mainMod SHIFT, Tab, hyprexpo:expo, toggle
+bind = $mainMod, Tab, scroller:toggleoverview
 bind = $mainMod, semicolon, exec, rofi -show emoji
 bind = $mainMod, S, exec, /home/brian/.config/home-manager/script/rofi-systemd.sh
 bind = $mainMod SHIFT, semicolon, exec, /home/brian/.config/home-manager/script/rofi-bluetooth.sh
@@ -270,6 +250,13 @@ bind = ,XF86AudioMute, exec, nu ~/.config/hypr/volume.nu 0
 bind = ,XF86MonBrightnessDown, exec, nu ~/.config/hypr/brightness.nu -5
 bind = ,XF86MonBrightnessUp, exec, nu ~/.config/hypr/brightness.nu 5
 bind = ,XF86Messenger, exec, discord
+
+plugin {
+	scroller {
+		column_default_width = one
+		focus_wrap = false
+	}
+}
 
 	'' + (  if hostname == "BrianNixDesktop"
 		then ''
