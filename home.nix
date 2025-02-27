@@ -38,6 +38,7 @@ in {
 	(callPackage ./pep8.nix {})
 	hyprpicker
 	hyprpanel
+	hyprpolkitagent
 	waypaper mpvpaper
 	libnotify
 	libreoffice

@@ -11,7 +11,7 @@
 
 		exec-once = [
 			"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-			"/run/current-system/sw/bin/lxqt-policykit-agent"
+			"systemctl --user start hyprpolkitagent.service"
 			"systemctl --user start hyprpanel.service"
 			"systemctl --user start copyq.service"
 			"systemctl --user start hyprpaper.service"
