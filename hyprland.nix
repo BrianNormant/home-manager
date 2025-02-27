@@ -80,6 +80,11 @@
 			"size 20% 20%, class:(com.github.hluk.copyq)"
 			"move 71% 5%, class:(com.github.hluk.copyq)"
 
+			"float, title:(Picture-in-Picture)"
+			"move 73% 4%, title:(Picture-in-Picture)"
+			"keepaspectratio, title:(Picture-in-Picture)"
+			"pin, title:(Picture-in-Picture)"
+
 			"float, title:(reStream)"
 			"keepaspectratio, title:(reStream)"
 			"size 90% 90%, title:(reStream)"
@@ -224,7 +229,8 @@ bind = $mainMod, D, exec, $HOME/.config/rofi/scripts/launcher_t3
 bind = $mainMod, Escape, exec, $HOME/.config/rofi/scripts/powermenu_t1
 bind = $mainMod, grave, exec, rofi -show calc # Calculator
 bind = $mainMod SHIFT, Tab, hyprexpo:expo, toggle
-bind = $mainMod, Tab, scroller:toggleoverview
+bind = $mainMod ALT, Tab, scroller:toggleoverview
+bind = $mainMod, Tab, scroller:jump
 bind = $mainMod, semicolon, exec, rofi -show emoji
 bind = $mainMod, S, exec, /home/brian/.config/home-manager/script/rofi-systemd.sh
 bind = $mainMod SHIFT, semicolon, exec, /home/brian/.config/home-manager/script/rofi-bluetooth.sh
