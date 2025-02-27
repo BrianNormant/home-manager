@@ -146,17 +146,22 @@ bind = $mainMod SHIFT, Z, scroller:alignwindow, l
 bind = $mainMod, bracketleft, scroller:admitwindow
 bind = $mainMod, bracketright, scroller:expelwindow
 # Move focus with mainMod + arrow keys
-bind = $mainMod, left, movefocus, l
-bind = $mainMod, right, movefocus, r
-bind = $mainMod, mouse_up, movefocus, l
-bind = $mainMod, mouse_down, movefocus, r
-bind = $mainMod, up, movefocus, u
-bind = $mainMod, down, movefocus, d
+bind = $mainMod, left, scroller:movefocus, l
+bind = $mainMod, right, scroller:movefocus, r
+bind = $mainMod, mouse_up, scroller:movefocus, l
+bind = $mainMod, mouse_down, scroller:movefocus, r
+bind = $mainMod, up, scroller:movefocus, u
+bind = $mainMod, down, scroller:movefocus, d
 # Move current window with mainMod + arrow keys
-bind = $mainMod SHIFT, left, movewindow, l
-bind = $mainMod SHIFT, right, movewindow, r
-bind = $mainMod SHIFT, up, movewindow, u
-bind = $mainMod SHIFT, down, movewindow, d
+bind = $mainMod SHIFT, left, scroller:movewindow, l
+bind = $mainMod SHIFT, right, scroller:movewindow, r
+bind = $mainMod SHIFT, up, scroller:movewindow, u
+bind = $mainMod SHIFT, down, scroller:movewindow, d
+bind = $mainMod SHIFT, grave, scroller:fitsize, visible
+
+# Move between workspace
+bind = $mainMod, Next, workspace, +1
+bind = $mainMod, Prior, workspace, -1
 
 # Switch workspaces with mainMod + [0-9]
 bind = $mainMod, 1, workspace, 1
@@ -192,16 +197,10 @@ bind = $mainMod CONTROL, 8, movetoworkspacesilent, 8
 bind = $mainMod CONTROL, 9, movetoworkspacesilent, 9
 bind = $mainMod CONTROL, 0, movetoworkspacesilent, 10
 # Pin active window to a workspace with mainMod + ALT + [0-9]
-bind = $mainMod ALT, 1, pin, 1
-bind = $mainMod ALT, 2, pin, 2
-bind = $mainMod ALT, 3, pin, 3
-bind = $mainMod ALT, 4, pin, 4
-bind = $mainMod ALT, 5, pin, 5
-bind = $mainMod ALT, 6, pin, 6
-bind = $mainMod ALT, 7, pin, 7
-bind = $mainMod ALT, 8, pin, 8
-bind = $mainMod ALT, 9, pin, 9
-bind = $mainMod ALT, 0, pin, 10
+bind = $mainMod ALT, 1, scroller:setsize, 0
+bind = $mainMod ALT, 2, scroller:setsize, 1
+bind = $mainMod ALT, 3, scroller:setsize, 2
+bind = $mainMod ALT, 4, scroller:setsize, 3
 
 # Move/resize windows with mainMod + LMB/RMB and dragging
 bindm = $mainMod, mouse:272, movewindow
