@@ -14,6 +14,7 @@ cmus-tmux = pkgs.tmuxPlugins.mkTmuxPlugin rec {
 	};
 };
 in {
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "brian";
@@ -257,6 +258,11 @@ extension:
     EDITOR = "vim";
 	FLAKE = "/home/brian/nixos-config";
   };
+
+	programs.walker = {
+		enable = true;
+		runAsService = true;
+	};
 
 	services.unison.enable = (hostname == "BrianNixLaptop");
 	services.unison.pairs."Music" = {
