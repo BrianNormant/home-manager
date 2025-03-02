@@ -84,10 +84,13 @@ in {
 		".java/checkstyle/checkstyle.xml".source = ./config/checkstyle.xml;
 		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
-		"./config/openxr/1/active_runtime.json".source = mkMutableSymlink "~/.local/share/Steam/steamapps/common/SteamVR/steamxr_linux64.json";
+		# "./config/openxr/1/active_runtime.json".source = mkMutableSymlink "~/.local/share/Steam/steamapps/common/SteamVR/steamxr_linux64.json";
 
 		# idris
 		".pack/user/pack.toml".source = ./config/idris/pack.toml;
+
+		"OpenComposite".source = "${pkgs.opencomposite}/lib/opencomposite";
+
 		".config/openxr/1/active_runtime-monado.json".text = ''
 {
     "file_format_version": "1.0.0",
