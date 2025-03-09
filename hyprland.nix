@@ -225,7 +225,8 @@ bind = $mainMod SHIFT, I, exec, firefox -private-window # Alternative Web Browse
 bind = $mainMod ALT, I, exec, $HOME/.config/rofi/applets/bin/quicklinks.sh
 
 # Runners
-bind = $mainMod, D, exec, $HOME/.config/rofi/scripts/launcher_t3
+# bind = $mainMod, D, exec, $HOME/.config/rofi/scripts/launcher_t3
+bind = $mainMod, D, exec, walker
 # bind = $mainMod, R, exec, $HOME/.config/rofi/applets/bin/apps.sh
 bind = $mainMod, Escape, exec, $HOME/.config/rofi/scripts/powermenu_t1
 bind = $mainMod, grave, exec, rofi -show calc # Calculator
