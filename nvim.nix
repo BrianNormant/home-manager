@@ -185,7 +185,7 @@
 			})
 			(configPlugin {plugin = actions-preview-nvim;})
 			(configPlugin {plugin = nvim-lspconfig; config = false;})
-			(configPlugin {plugin = nvim-lightbulb;})
+			# (configPlugin {plugin = nvim-lightbulb;})
 			(configPlugin {plugin = lsp-zero-nvim.overrideAttrs {
 				src = pkgs.fetchFromGitHub {
 					owner = "VonHeikemen";
@@ -222,15 +222,15 @@
 # Lint and Format
 			(configPlugin {plugin = none-ls-nvim;})
 			(configPlugin {plugin = nvim-lint;})
-			(configPlugin {
-				plugin.pname = "spellwarn.nvim";
-				src = {
-					owner = "ravibrock";
-					repo  = "spellwarn.nvim";
-					rev   = "2f4dbc5";
-					hash  = "sha256-BE02RNS2j4TwUvZEWaQQYXfHR5eGj/EuCSue+eeUySI=";
-				};
-			})
+			# (configPlugin {
+			# 	plugin.pname = "spellwarn.nvim";
+			# 	src = {
+			# 		owner = "ravibrock";
+			# 		repo  = "spellwarn.nvim";
+			# 		rev   = "2f4dbc5";
+			# 		hash  = "sha256-BE02RNS2j4TwUvZEWaQQYXfHR5eGj/EuCSue+eeUySI=";
+			# 	};
+			# })
 # Debugger
 			(configPlugin {plugin = nvim-dap-ui;})
 			(configPlugin {
