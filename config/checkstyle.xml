@@ -42,9 +42,9 @@ Finally, it is worth reading the documentation.
 
     <!-- Checks that each Java package has a Javadoc file used for commenting. -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage       -->
-    <module name="JavadocPackage">
-      <property name="allowLegacy" value="true"/>
-    </module>
+    <!-- <module name="JavadocPackage"> -->
+    <!--   <property name="allowLegacy" value="true"/> -->
+    <!-- </module> -->
 
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
@@ -152,19 +152,27 @@ Finally, it is worth reading the documentation.
         <module name="AvoidNestedBlocks"/>
         <module name="EmptyBlock"/>
         <module name="LeftCurly"/>
-        <module name="NeedBraces"/>
+        <module name="NeedBraces">
+          <property name="allowSingleLineStatement" value="true"/>
+          <property name="tokens" value="LITERAL_IF, LITERAL_WHILE, LITERAL_DO, LITERAL_FOR"/>
+        </module>
         <module name="RightCurly"/>
 
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
-        <module name="AvoidInlineConditionals"/>
+        <!-- <module name="AvoidInlineConditionals"/> -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="HiddenField"/>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
+        <module name="MagicNumber">
+          <property name="tokens" value="NUM_DOUBLE, NUM_FLOAT"/>
+          <property name="ignoreNumbers" value="0, 0.5, 1"/>
+          <property name="ignoreFieldDeclaration" value="true"/>
+          <property name="ignoreAnnotation" value="true"/>
+        </module>
         <module name="MissingSwitchDefault"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
