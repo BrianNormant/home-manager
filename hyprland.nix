@@ -263,6 +263,7 @@ plugin {
 	scroller {
 		column_default_width = onehalf
 		focus_wrap = false
+		center_row_if_space_available = true
 	}
 }
 
