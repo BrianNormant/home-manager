@@ -80,59 +80,17 @@ require('lze').load {
 				menu = {
 					border = "rounded",
 					draw = {
-						columns = { { "label", "source", gap = 1}, { "kind_icon", "kind", } },
-						components = {
-							kind_icon = {
-								ellipsis = false,
-								text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
-								highlight = function(ctx)
-									return (require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind') .. ctx.kind
-								end,
-							},
-
-							kind = {
-								ellipsis = false,
-								width = { fill = true },
-								text = function(ctx) return ctx.kind end,
-								highlight = function(ctx)
-									return (require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind') .. ctx.kind
-								end,
-							},
-							label = {
-								width = { fill = true, max = 60 },
-								text = function(ctx) return ctx.label .. ctx.label_detail end,
-								highlight = function(ctx)
-									-- label and label details
-									local highlights = {
-										{ 0, #ctx.label, group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel' },
-									}
-									if ctx.label_detail then
-										table.insert(highlights, { #ctx.label, #ctx.label + #ctx.label_detail, group = 'BlinkCmpLabelDetail' })
-									end
-
-									-- characters matched on the label by the fuzzy matcher
-									for _, idx in ipairs(ctx.label_matched_indices) do
-										table.insert(highlights, { idx, idx + 1, group = 'BlinkCmpLabelMatch' })
-									end
-
-									return highlights
-								end,
-							},
-							source = {
-								text = function(ctx) return ctx.source_name end,
-								highlight = "BlinkCmpSource",
-							}
-						}
+						columns = { { "label", "source_name", gap = 1}, { "kind_icon", "kind", } },
 					},
 				},
 				documentation = {
-					auto_show = true,
+					auto_show = false,
 					auto_show_delay_ms = 100,
 					window = { border = "double", }
 				},
 			},
 			signature = {
-				enabled = false,
+				enabled = true,
 			},
 			fuzzy = {
 				prebuilt_binaries = {
