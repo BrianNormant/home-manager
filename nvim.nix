@@ -188,6 +188,7 @@
 			};})
 			# Documentation
 			(configPlugin {plugin = nvim-docs-view;})
+			(configPlugin {plugin = hover-nvim;})
 			# Auto Completion
 			(configPlugin {plugin = friendly-snippets; config=false;})
 			(configPlugin {plugin = vim-snippets; config=false;})
