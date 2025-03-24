@@ -174,15 +174,6 @@
 			# LSP
 			(configPlugin {plugin = inc-rename-nvim;})
 			# (configPlugin {plugin = lsp_signature-nvim;})
-			(configPlugin {
-				plugin.pname = "signup.nvim";
-				src = {
-					owner = "Dan7h3x";
-					repo = "signup.nvim";
-					rev = "d768638";
-					hash = "sha256-95nFty1iy1m5oi36nG0jL5+rMb0V9t24IDrKkyoCGgg=";
-				};
-			})
 			(configPlugin {plugin = actions-preview-nvim;})
 			(configPlugin {plugin = nvim-lspconfig; config = false;})
 			# (configPlugin {plugin = nvim-lightbulb;})
