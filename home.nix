@@ -63,6 +63,7 @@ in {
 		".config/nvim-simple/init.lua".source = ./nvim-simple.lua;
 		".config/lxqt".source = ./lxqt;
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
+		".config/.tridactylrc".source = ./config/.tridactylrc;
 
 		".config/hypr/brightness.nu".source = ./script/brightness.nu;
 		".config/hypr/plugged.nu".source = ./script/plugged.nu;
