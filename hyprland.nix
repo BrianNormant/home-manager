@@ -157,6 +157,11 @@ bind = $mainMod, mouse_up, scroller:movefocus, l
 bind = $mainMod, mouse_down, scroller:movefocus, r
 bind = $mainMod, up, scroller:movefocus, u
 bind = $mainMod, down, scroller:movefocus, d
+# Move focus with hjkl
+bind = $mainMod, h, scroller:movefocus, l
+bind = $mainMod, j, scroller:movefocus, d
+bind = $mainMod, k, scroller:movefocus, u
+bind = $mainMod, l, scroller:movefocus, r
 # Move current window with mainMod + arrow keys
 bind = $mainMod SHIFT, left, scroller:movewindow, l
 bind = $mainMod SHIFT, right, scroller:movewindow, r
