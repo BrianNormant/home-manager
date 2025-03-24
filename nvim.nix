@@ -175,6 +175,7 @@
 			(configPlugin {plugin = inc-rename-nvim;})
 			# (configPlugin {plugin = lsp_signature-nvim;})
 			(configPlugin {plugin = actions-preview-nvim;})
+			(configPlugin {plugin = fidget-nvim;})
 			(configPlugin {plugin = nvim-lspconfig; config = false;})
 			# (configPlugin {plugin = nvim-lightbulb;})
 			(configPlugin {plugin = lsp-zero-nvim.overrideAttrs {
