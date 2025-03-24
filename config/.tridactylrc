@@ -1,2 +1,3 @@
-set searchurls.nixpgks https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.nixpkgs https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=%s
 set searchurls.nixopts https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=%s
+set searchurls.tube https://www.youtube.com/results?search_query=%s
