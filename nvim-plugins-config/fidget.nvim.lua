@@ -1,5 +1,5 @@
 require('lze').load {
-	'fidget-nvim',
+	'fidget.nvim',
 	event = 'BufEnter',
 	after = function ()
 		require('fidget').setup {
