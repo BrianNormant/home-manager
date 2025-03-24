@@ -21,10 +21,10 @@ require('lze').load {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			desc = 'LSP mappings',
 			callback = function(ev)
-				vim.keymap.set('n', 'K', function()
-					local winid = require('ufo').peekFoldedLinesUnderCursor()
-					if not winid then vim.lsp.buf.hover() end
-				end)
+				-- vim.keymap.set('n', 'K', function()
+				-- 	local winid = require('ufo').peekFoldedLinesUnderCursor()
+				-- 	if not winid then vim.lsp.buf.hover() end
+				-- end)
 				vim.keymap.set('n', 'H',          vim.lsp.buf.document_highlight, { buffer = ev.buf, desc = " Lsp highligh current symbol" } )
 				vim.keymap.set('n', 'gi',         vim.lsp.buf.implementation,     { buffer = ev.buf, desc = " Lsp goto implementation" } )
 				vim.keymap.set('n', 'go',         vim.lsp.buf.type_definition,    { buffer = ev.buf, desc = " Lsp goto type definition" } )

@@ -19,6 +19,7 @@ end
 
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.scrolloff = 5
+vim.o.updatetime = 200
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
