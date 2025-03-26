@@ -65,7 +65,7 @@ in {
 		".config/nvim-simple/init.lua".source = ./nvim-simple.lua;
 		".config/lxqt".source = ./lxqt;
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
-		".config/.tridactylrc".source = ./config/.tridactylrc;
+		".config/.tridactylrc".source = ./config/tridactylrc;
 
 		".config/hypr/brightness.nu".source = ./script/brightness.nu;
 		".config/hypr/plugged.nu".source = ./script/plugged.nu;
@@ -95,36 +95,9 @@ in {
 
 		"OpenComposite".source = "${pkgs.opencomposite}/lib/opencomposite";
 
-		".config/openxr/1/active_runtime-monado.json".text = ''
-{
-    "file_format_version": "1.0.0",
-    "runtime": {
-        "name": "Monado",
-        "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
-    }
-}
-		'';
-		".config/openvr/openvrpaths.vrpath.monado".text = ''
-{
-	"config" :
-	[
-		"/home/brian/.local/share/Steam/config"
-	],
-	"external_drivers" : null,
-	"jsonid" : "vrpathreg",
-	"log" :
-	[
-		"/home/brian/.local/share/Steam/logs"
-	],
-	"runtime" :
-	[
-		"${pkgs.opencomposite}/lib/opencomposite"
-	],
-	"version" : 1
-}
-		'';
+		".config/openxr/1/active_runtime-monado.json".text = (import ./config/monado-runtime.json.nix) {inherit (pkgs) monado; };
+		".config/openvr/openvrpaths.vrpath.monado".text = (import ./config/openvrpath.json.nix) { inherit (pkgs) opencomposite; };
 	};
-
 	home.pointerCursor = {
 		name = "phinger-cursors-dark";
 		package = pkgs.phinger-cursors;
@@ -227,6 +200,32 @@ in {
 			extraConfig = {
 				push = {
 					followTags = "true";
+				};
+				"credential \"https://github.com\"" = {
+					helper = "${pkgs.gh} auth git-credential";
+				};
+				"credential \"https://gist.github.com\"" = {
+					helper = "${pkgs.gh} auth git-credential";
+				};
+			};
+		};
+		ssh = {
+			enable = true;
+			matchBlocks = {
+				"BrianNixDesktop" = {
+					hostname = "192.168.2.71";
+					port = 4269;
+					user = "brian";
+				};
+				"BrianNixDesktopI" = {
+					hostname = "ggkbrian.com";
+					port = 4269;
+					user = "brian";
+				};
+				"BrianNixLaptop" = {
+					hostname = "192.168.2.73";
+					port = 4269;
+					user = "brian";
 				};
 			};
 		};
