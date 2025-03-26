@@ -109,6 +109,7 @@ end
 
 require('lze').load {
 	'legendary.nvim',
+	dep_of = "gitsigns.nvim",
 	event = "DeferredUIEnter",
 	after = setup,
 }
