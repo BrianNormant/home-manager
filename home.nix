@@ -225,7 +225,7 @@ in {
 			userEmail = "briannormant@gmail.com";
 			userName = hostname;
 			extraConfig = {
-				core = {
+				push = {
 					followTags = "true";
 				};
 			};
