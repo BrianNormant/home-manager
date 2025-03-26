@@ -169,11 +169,6 @@ in {
 				map alt+F2 set_background_opacity -0.1
 				'';
 		};
-		git = {
-			enable = true;
-			userName = "BrianNixDesktop";
-			userEmail = "briannormant@gmail.com";
-		};
 		rofi = {
 			enable = true;
 			package = pkgs.rofi-wayland;
@@ -222,6 +217,17 @@ in {
 			tmux = {
 				enableShellIntegration = true;
 				shellIntegrationOptions = [ "-p 80%,35%" ];
+			};
+		};
+		git = {
+			enable = true;
+			delta.enable = true;
+			userEmail = "briannormant@gmail.com";
+			userName = hostname;
+			extraConfig = {
+				core = {
+					followTags = "true";
+				};
 			};
 		};
 	};
