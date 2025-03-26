@@ -10,7 +10,7 @@
     };
     blink-cmp.url = "github:Saghen/blink.cmp";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-    walker.url = "github:abenz1267/walker";
+    walker.url = "github:abenz1267/walker?ref=v0.12.16";
     nspire-tools.url = "github:BrianNormant/nspire-tools";
   };
   outputs = inputs@{ nixpkgs, home-manager, blink-cmp, hyprpanel, walker, nspire-tools, ... }:
