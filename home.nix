@@ -1,4 +1,4 @@
-{config, pkgs, hostname, blink, ... }: let
+{config, pkgs, hostname, ... }: let
 
 mkMutableSymlink = config.lib.file.mkOutOfStoreSymlink;
 
@@ -43,6 +43,8 @@ in {
 	waypaper mpvpaper
 	libnotify
 	libreoffice
+	radeontop
+	nspire-tools
 
 	lxqt.lxqt-wayland-session
 	lxqt.lxqt-session
@@ -196,7 +198,7 @@ in {
 		firefox.enable = true;
 # Let Home Manager install and manage itself.
 		home-manager.enable = true;
-		neovim = (import ./nvim.nix) {inherit pkgs; inherit blink;};
+		neovim = (import ./nvim.nix) {inherit pkgs;};
 		tmux = {
 			enable = true;
 			clock24 = true;

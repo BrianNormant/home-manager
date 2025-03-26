@@ -1,4 +1,4 @@
-{pkgs, blink, ...}: {
+{pkgs, ...}: {
 		enable = true;
 		withPython3 = true;
 		extraPackages = with pkgs; [
@@ -194,7 +194,7 @@
 			(configPlugin {plugin = vim-snippets; config=false;})
 			(configPlugin {plugin = supermaven-nvim; config=false;})
 			(configPlugin {
-				plugin = blink;
+				plugin = pkgs.blink;
 				preLua = ''
 				local vim_snippets_path = "${vim-snippets}"
 				'';
