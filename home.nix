@@ -45,6 +45,8 @@ in {
 	libreoffice
 	radeontop
 	nspire-tools
+	wl-clipboard
+	xsel
 
 	lxqt.lxqt-wayland-session
 	lxqt.lxqt-session
@@ -174,16 +176,13 @@ in {
 			keyMode = "vi";
 			plugins = with pkgs.tmuxPlugins; [
 				gruvbox
-					tmux-fzf
-					mode-indicator
-					cmus-tmux
+				mode-indicator
+				cmus-tmux
+				yank
 			];
 			terminal = "tmux-256color";
 			mouse = true;
-			extraConfig = (builtins.readFile ./config/tmux.conf) + ''
-				run-shell /nix/store/vf642b579fil3zgbbnqzc1vcqgf3yank-tmuxplugin-tmux-cmus-2/share/tmux-plugins/tmux-cmus/tmux-cmus.tmux
-				run-shell /nix/store/jqlzwm1929y8i808jzrqfpka9lmk13jm-tmuxplugin-mode-indicator-unstable-2021-10-01/share/tmux-plugins/mode-indicator/mode_indicator.tmux
-				'';
+			extraConfig = builtins.readFile ./config/tmux.conf;
 		};
 		fzf = {
 			enable = true;
