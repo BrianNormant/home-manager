@@ -6,10 +6,12 @@ require('lze').load {
 	cmd = "Gen",
 	after = function ()
 		require 'gen'.setup({
-			model = 'llama3:latest',
-			display_mode = 'split',
+			model = 'gemma3:27b',
+			display_mode = 'float',
 			show_prompt = true,
 			show_model = true,
+			host = "ollama.ggkbrian.com",
+			port = 80,
 		})
 	end
 }
