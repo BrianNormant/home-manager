@@ -6,10 +6,10 @@
 			jdt-language-server # java
 			clang-tools # c/cpp
 			phpactor # php
+			nixd # nix
 			lua-language-server # lua
 			svelte-language-server # svelte
 			typescript-language-server # typescript
-			nil # nix
 			lemminx # xml
 			# Install dap here
 			gdb # c/cpp
@@ -67,7 +67,7 @@
 			(configPlugin {plugin = dressing-nvim;})
 			(configPlugin {plugin = dropbar-nvim;})
 			(configPlugin {plugin = nvim-treesitter-context;})
-			(configPlugin {plugin = ccc-nvim;})
+			# (configPlugin {plugin = ccc-nvim;})
 			(configPlugin {plugin = gitsigns-nvim;})
 			(configPlugin {plugin = diffview-nvim;})
 			(configPlugin {plugin = lualine-nvim;})

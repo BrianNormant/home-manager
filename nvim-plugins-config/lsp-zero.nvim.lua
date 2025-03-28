@@ -13,6 +13,8 @@ require('lze').load {
 		"xml",
 		"nu",
 		"exilir",
+		"svelte",
+		"ts"
 	},
 	after = function ()
 		local lsp_zero = require('lsp-zero')
@@ -100,7 +102,7 @@ require('lze').load {
 		lsp_zero.setup_servers {
 			'clangd',
 			'lua_ls',
-			'nil_ls',
+			'nixd',
 			'lemminx',
 			'phpactor',
 			'nushell',

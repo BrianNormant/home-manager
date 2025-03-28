@@ -15,22 +15,22 @@ cmus-tmux = pkgs.tmuxPlugins.mkTmuxPlugin rec {
 };
 in {
 
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "brian";
-  home.homeDirectory = "/home/brian";
+	# Home Manager needs a bit of information about you and the paths it should
+	# manage.
+	home.username = "brian";
+	home.homeDirectory = "/home/brian";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changingDown
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
+	# This value determines the Home Manager release that your configuration is
+	# compatible with. This helps avoid breakage when a new Home Manager release
+	# introduces backwards incompatible changes.
+	#
+	# You should not change this value, even if you update Home Manager. If you do
+	# want to update the value, then make sure to first check the Home Manager
+	# release notes.
+	home.stateVersion = "24.05"; # Please read the comment before changingDown
+	# The home.packages option allows you to install Nix packages into your
+	# environment.
+	home.packages = with pkgs; [
 	nix-output-monitor
 	manix
 	usbutils
