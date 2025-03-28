@@ -7,6 +7,8 @@
 			clang-tools # c/cpp
 			phpactor # php
 			lua-language-server # lua
+			svelte-language-server # svelte
+			typescript-language-server # typescript
 			nil # nix
 			lemminx # xml
 			# Install dap here

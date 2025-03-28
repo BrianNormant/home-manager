@@ -104,6 +104,8 @@ require('lze').load {
 			'lemminx',
 			'phpactor',
 			'nushell',
+			'svelte',
+			'ts_ls',
 		}
 		lsp_config.elixirls.setup { cmd = { vim.fn.exepath('elixir-ls') }, }
 		-- https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921
