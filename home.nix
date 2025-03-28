@@ -226,6 +226,11 @@ in {
 					port = 22;
 					user = "server";
 				};
+				"RootNixServer" = {
+					hostname = "192.168.2.72";
+					port = 22;
+					user = "root";
+				};
 				"BrianNixLaptop" = {
 					hostname = "192.168.2.73";
 					port = 4269;
