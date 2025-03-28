@@ -7,6 +7,8 @@
 			clang-tools # c/cpp
 			phpactor # php
 			lua-language-server # lua
+			svelte-language-server # svelte
+			typescript-language-server # typescript
 			nil # nix
 			lemminx # xml
 			# Install dap here
@@ -36,6 +38,8 @@
 			preLua ? "",
 			config ? true,
 			optional ? true,
+			deps ? [],
+			...
 		}: {
 			inherit optional;
 			plugin = if src == null
@@ -44,6 +48,7 @@
 					inherit (plugin) pname;
 					version = "${src.rev}";
 					src = pkgs.fetchFromGitHub src;
+					buildInputs = deps;
 				};
 			config = let
 			config-file = pkgs.writeText
@@ -267,6 +272,17 @@
 			(configPlugin {plugin = vim-dadbod;})
 # Database
 			(configPlugin {plugin = idris2-nvim;})
+			(configPlugin {
+				plugin.pname = "csharp.nvim";
+				src = {
+					owner = "iabdelkareem";
+					repo = "csharp.nvim";
+					rev = "e44e275";
+					hash = "sha256-3M4u4EMNoP86oxeoS51+0+jqZFEt5lM0gtNPuEGUsPY=";
+				};
+				deps = [pkgs.vimPlugins.nvim-dap];
+			})
+
 			# (configPlugin {
 			# 	plugin.pname = "dbext.vim";
 			# 		 src = {
