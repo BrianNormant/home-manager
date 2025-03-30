@@ -16,7 +16,7 @@ require('lze').load {
 		"svelte",
 		"ts",
 		"php",
-	,
+	},
 	after = function ()
 		local lsp_zero = require('lsp-zero')
 		local lsp_config = require('lspconfig')
