@@ -21,6 +21,7 @@ pkgs: {
 			Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
 			Service.ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper";
 			Service.Restart="always";
+			Service.RuntimeMaxSec="30min";
 			Service.RestartSec="5s";
 		};
 		
