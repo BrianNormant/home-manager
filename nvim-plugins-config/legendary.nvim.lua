@@ -93,7 +93,7 @@ local setup = function ()
 	end
 
 	vim.api.nvim_set_keymap("n", "q:", "", {nowait = true}) -- to open command buffer editing
-	vim.api.nvim_set_keymap("n", "?", "<cmd>noh<cr>", {nowait = true}) -- To suppress research highlight
+	vim.api.nvim_set_keymap("n", "<A-/>", "<cmd>noh<cr>", {}) -- To suppress research highlight
 	vim.api.nvim_set_keymap("t", "<Esc><Esc>", "<C-\\><C-n>", {})
 	vim.api.nvim_set_keymap("n", "\\", "<cmd>split<cr>", { nowait = true, desc = "Split horizontal" })
 
