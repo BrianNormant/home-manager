@@ -1,4 +1,15 @@
-{pkgs, ...}: {
+{pkgs, ...}:
+let
+	nvim-startuptime = pkgs.vimUtils.buildVimPlugin rec {
+			pname = "nvim-startup";
+			version = "v0.6.0";
+			src = pkgs.fetchgit {
+				url = "https://git.sr.ht/~henriquehbr/nvim-startup.lua";
+				tag = version;
+				hash = "sha256-96XvHPUzFN7ehUXTV+0+dBPdVej+57icuECRVYMqZaA";
+			};
+		};
+in {
 		enable = true;
 		withPython3 = true;
 		extraPackages = with pkgs; [
@@ -74,6 +85,7 @@
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
 			(configPlugin {plugin = nvim-ufo;})
+			(configPlugin {plugin = nvim-startuptime; config = true; optional = false;})
 			# leap, telepath and flit are configured at the same place
 			(configPlugin {plugin = leap-nvim; optional = false;})
 			(configPlugin {
