@@ -10,7 +10,7 @@ let
 			};
 		};
 in {
-		enable = true;
+		enable = false;
 		withPython3 = true;
 		extraPackages = with pkgs; [
 			# Install lsp here

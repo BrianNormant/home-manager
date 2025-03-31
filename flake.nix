@@ -13,8 +13,12 @@
     walker.url = "github:abenz1267/walker?ref=v0.12.16";
     nspire-tools.url = "github:BrianNormant/nspire-tools";
     nixd.url = "github:nix-community/nixd?ref=2.6.2";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs@{ nixpkgs, home-manager, blink-cmp, hyprpanel, walker, nspire-tools, nixd, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, blink-cmp, hyprpanel, nspire-tools, nixd, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -53,16 +57,16 @@
           hyprpanel.overlay
         ];
       };
+      modules = with inputs; [
+        ./home.nix
+        ./nixvim.nix
+        walker.homeManagerModules.default
+        nixvim.homeManagerModules.default
+      ];
     in {
       homeConfigurations."brian@BrianNixDesktop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-          ./home.nix
-          walker.homeManagerModules.default
-        ];
+        inherit modules;
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
@@ -70,13 +74,7 @@
       };
       homeConfigurations."brian@BrianNixLaptop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-          ./home.nix
-          walker.homeManagerModules.default
-        ];
+        inherit modules;
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
