@@ -7,18 +7,18 @@
 				owner = "David-Kunz";
 				repo  = "gen.nvim";
 				rev = version;
-				hash = pkgs.lib.fakeHash;
+				hash = "sha256-s3Ky2uhRviKAaKF3iCF2uHctzk+kFV7BnqyxAGwqhbo=";
 			};
 		})];
 		extraConfigLua = ''
-			require 'gen'.setup({
+			require('gen').setup {
 				model = 'llama3:latest',
 				display_mode = 'float',
 				show_prompt = true,
 				show_model = true,
 				host = "ollama.ggkbrian.com",
 				port = 80,
-			})
+			}
 		'';
 		keymaps = [
 			{

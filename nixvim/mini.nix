@@ -8,7 +8,13 @@
 				align = {};
 				comment = {};
 				move = {};
-				operators = {};
+				operators = {
+					evaluate.prefix = "g=";
+					exchange.prefix = "gx";
+					multiply.prefix = "gm";
+					replace.prefix  = "sp";
+					sort.prefix     = "gs";
+				};
 				pairs = {};
 				surround = {};
 				bracketed = {};

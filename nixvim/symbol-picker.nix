@@ -15,20 +15,28 @@ in {
 			};
 		})];
 		extraConfigLua = ''
-		require("icon-picker").setup({ disable_legacy_commands = true })
+		require("icon-picker").setup { disable_legacy_commands = true }
 		'';
 		keymaps = let selected = "alt_font emoji html_colors nerd_font_v3 symbols"; in
 			[
 			{
-				key = "<C-E>";
+				key = "<C-e>";
 				action = "<Cmd>IconPickerNormal ${selected}<cr>";
-				options.desc = "Pick Icon";
+				options = {
+					desc = "Pick Icon";
+					noremap = true;
+					silent = true;
+				};
 			}
 			{
-				key = "<C-I>";
+				key = "<C-i>";
 				action = "<Cmd>IconPickerInsert ${selected}<cr>";
 				mode = ["i"];
-				options.desc = "Pick Icon";
+				options = {
+					desc = "Pick Icon";
+					noremap = true;
+					silent = true;
+				};
 			}
 		];
 	};

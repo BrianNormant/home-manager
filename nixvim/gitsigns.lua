@@ -39,3 +39,6 @@ map('n', '<leader>tw', gitsigns.toggle_word_diff, { desc = 'Git Toggle word diff
 
 -- Text object
 map({'o', 'x'}, 'ih', gitsigns.select_hunk, { desc = 'Git Hunk'})
+
+map('n', "[H", function() gitsigns.nav_hunk('first',{navigation_message = true }) end, { desc = "jump to first hunk" })
+map('n', "]H", function() gitsigns.nav_hunk('last', {navigation_message = true }) end, { desc = "jump to last hunk" })

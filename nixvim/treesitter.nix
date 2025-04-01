@@ -7,12 +7,12 @@ in{
 	programs.nixvim = {
 		extraPlugins = [( buildVimPlugin rec {
 			pname = "nvim-better-n";
-			version = "bddb1c9";
-			src = {
+			version = "v0.0.1";
+			src = fetchFromGitHub {
 				owner = "jonatan-branting";
 				repo = "nvim-better-n";
-				rev = version;
-				hash = pkgs.lib.fakeHash;
+				rev = "73a16d9";
+				hash = "sha256-4SjjPNPrPF0kPBiJBd2VMNU5UuEJbYe9YGWB15PPNVQ=";
 			};
 		})];
 		extraConfigLua = builtins.readFile ./treesitter.lua;
@@ -25,7 +25,6 @@ in{
 		plugins.treesitter = {
 			enable = true;
 			folding = true;
-
 
 			grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
 				markdown
@@ -48,7 +47,7 @@ in{
 						 owner = "nushell";
 						 repo = "tree-sitter-nu";
 						 rev = "d5c71a1";
-						 hash = pkgs.lib.fakeHash;
+						 hash = "sha256-7Ny3wXa5iE6s7szqTkPqaXWL/NL5yA2MbhdQHylxwE0=";
 					};
 				})
 				(buildGrammar {

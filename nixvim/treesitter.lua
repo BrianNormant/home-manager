@@ -1,3 +1,7 @@
+require('nvim-treesitter.configs').setup {
+	highlight = { enable = true },
+}
+
 local better_n = require("better-n")
 better_n.setup { disable_default_mappings = true }
 

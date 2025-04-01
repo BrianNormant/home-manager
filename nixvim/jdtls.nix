@@ -13,7 +13,7 @@ programs.nixvim = {
 				};
 			};
 			initOptions = {
-				bundles.__raw = "{vim.fn.glob(${pkgs.vscode-extensions.vscjava.vscode-java-debug} .. \"/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar\", true)}";
+				# bundles.__raw = "{vim.fn.glob(${pkgs.vscode-extensions.vscjava.vscode-java-debug} .. \"/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar\", true)}";
 			};
 		};
 		keymaps = [
@@ -23,5 +23,6 @@ programs.nixvim = {
 				options.desc = "JDTLS: Organize Imports";
 			}
 		];
+		# extraConfigLua = builtins.readFile ./jdtls.lua;
 	};
 }

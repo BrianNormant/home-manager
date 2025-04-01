@@ -1,6 +1,7 @@
 {config, pkgs, ...}: {
 	imports = [
 		# Add configuration from ./nixvim/*.nix
+		./nixvim/keymaps.nix
 		./nixvim/colorscheme.nix
 		./nixvim/boole.nix
 		./nixvim/mini.nix
@@ -24,7 +25,7 @@
 		./nixvim/linter.nix
 		./nixvim/blink.nix
 		./nixvim/muren.nix
-		./nixvim/symbol-picker.nix
+		# ./nixvim/symbol-picker.nix
 		./nixvim/dap.nix
 		./nixvim/ai.nix
 		./nixvim/jdtls.nix
@@ -47,6 +48,9 @@
 			marks.enable = true;
 			guess-indent.enable = true;
 		};
+		extraPackages = with pkgs; [
+			ripgrep
+		];
 		extraPlugins = with pkgs.vimPlugins; [
 			vim-startuptime
 		];
