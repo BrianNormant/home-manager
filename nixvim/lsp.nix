@@ -1,5 +1,8 @@
 {pkgs, ... }: {
 	programs.nixvim = {
+		diagnostics = {
+			virtual_text = false;
+		};
 		plugins = {
 			lsp = {
 				enable = true;

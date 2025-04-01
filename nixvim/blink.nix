@@ -68,9 +68,9 @@
 			supermaven-nvim
 		];
 		extraConfigLua = builtins.readFile ./blink.lua;
-		highlight = {
-			"Float" = { link = "Pmenu"; default = false;};
-			"Cursorline" = { link = "PmenuSel"; default = false;};
+		highlightOverride = {
+			Pmenu = { link = "Float"; default = false;};
+			PmenuSel = { link = "CursorLine"; default = false;};
 		};
 	};
 }

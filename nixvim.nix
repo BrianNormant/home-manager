@@ -12,7 +12,8 @@
 		./nixvim/diffview.nix
 		./nixvim/lualine.nix
 		./nixvim/tabby.nix
-		./nixvim/foldtext.nix
+		# ./nixvim/foldtext.nix
+		./nixvim/ufo.nix
 		./nixvim/leap.nix
 		./nixvim/registers.nix
 		./nixvim/quicklist.nix
@@ -96,6 +97,21 @@
 			mapleader = " ";
 			maplocalleader = " ";
 		};
+		highlightOverride = {
+			Search    = { link = "Visual"     ; force = true; };
+			IncSearch = { link = "ClapSpinner"; force = true; };
+			CurSearch = { link = "ClapSpinner"; force = true; };
+			Substitute = {
+				bg = "#5a5251";
+				fg = "#EA3F3F";
+			};
+		};
+		extraConfigLuaPost = ''
+			vim.cmd "hi clear SpellBad"
+			vim.cmd "hi clear SpellCap"
+			vim.cmd "hi clear SpellRare"
+			vim.cmd "hi clear SpellLocal"
+		'';
 		autoCmd = [
 			{
 				pattern = [ "*" ];

@@ -19,6 +19,9 @@ in{
 		plugins.treesitter-context = {
 			enable = true;
 		};
+		highlightOverride = {
+			TreesitterContext = { link = "CursorLine"; };
+		};
 		plugins.ts-autotag = {
 			enable = true;
 		};

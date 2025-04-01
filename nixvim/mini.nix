@@ -29,7 +29,12 @@
 					open.enable = true;
 					close.enable = true;
 				};
+				starter = {};
 			};
+		};
+		highlightOverride = {
+			MiniCursorword = { underline = true; };
+			MiniCursorwordCurrent = { underline = true; };
 		};
 	};
 }

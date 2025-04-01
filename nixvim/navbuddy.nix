@@ -9,5 +9,10 @@
 				};
 			};
 		};
+		keymaps = [{
+			key = "L";
+			action = "<Cmd>Navbuddy<cr>";
+			options.desc = "Navbuddy";
+		}];
 	};
 }
