@@ -11,6 +11,8 @@
 		./nixvim/diffview.nix
 		./nixvim/lualine.nix
 		./nixvim/tabby.nix
+		./nixvim/foldtext.nix
+		./nixvim/leap.nix
 	];
 
 	programs.nixvim = {
