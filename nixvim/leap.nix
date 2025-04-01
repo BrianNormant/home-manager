@@ -41,7 +41,7 @@
 			{
 				key = "r";
 				action = "<Plug>(leap-from-window)";
-				mode = [ "n" "x" "o" ];
+				mode = [ "n" "x" ]; # operator mode is replaced by telepath
 				options.desc = "Leap Anywhere";
 			}
 		];

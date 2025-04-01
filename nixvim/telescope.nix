@@ -5,7 +5,7 @@
 			enable = true;
 			keymaps = {
 				"<leader>ft" = {
-					action = "builtins";
+					action = "builtin";
 					options.desc = "Telescope: Builtins";
 				};
 				"<leader>ff" = {

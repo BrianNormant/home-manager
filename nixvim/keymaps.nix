@@ -14,7 +14,7 @@
 			}
 			{
 				key = "z=";
-				action = ''
+				action.__raw = ''
 				function()
 					require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor())
 				end
@@ -35,6 +35,11 @@
 				key = "<A-/>";
 				action = "<cmd>noh<cr>";
 				options.desc = "Supress search highlight";
+			}
+			{
+				key = "gf";
+				action = ":e <cfile><CR>";
+				options.desc = "Open/Create File";
 			}
 		];
 	};

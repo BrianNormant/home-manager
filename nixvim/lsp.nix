@@ -19,7 +19,10 @@
 				};
 				onAttach = builtins.readFile ./lsp-attach.lua;
 			};
-			glance.enable = true;
+			glance = {
+				enable = true;
+				settings.border = { enable = true; };
+			};
 			inc-rename = {
 				enable = true;
 				settings = {

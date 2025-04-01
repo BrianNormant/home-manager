@@ -19,7 +19,7 @@ programs.nixvim = {
 		keymaps = [
 			{
 				key = "<A-o>";
-				action = "require('jdtls').organize_imports";
+				action.__raw = "require('jdtls').organize_imports";
 				options.desc = "JDTLS: Organize Imports";
 			}
 		];

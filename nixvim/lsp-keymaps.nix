@@ -4,22 +4,22 @@
 			# vim.lps
 			{
 				key = "gD";
-				action = "vim.lsp.buf.declaration";
+				action.__raw = "vim.lsp.buf.declaration";
 				options.desc = "LSP: Goto declaration";
 			}
 			{
 				key = "<leader>e";
-				action = "vim.diagnostic.open_float";
+				action.__raw = "vim.diagnostic.open_float";
 				options.desc = "LSP: Open diagnostic";
 			}
 			{
 				key = "<leader>ld";
-				action = "vim.diagnostic.setqflist";
+				action.__raw = "vim.diagnostic.setqflist";
 				options.desc = "LSP: Send diagnostic to QFlist";
 			}
 			{
 				key = "<leader>ll";
-				action = "vim.diagnostic.setloclist";
+				action.__raw = "vim.diagnostic.setloclist";
 				options.desc = "LSP: Send diagnostic to loclist";
 			}
 			# Glance.nvim
@@ -47,75 +47,76 @@
 			# Inc Rename
 			{
 				key = "gR";
-				action = ''
+				action.__raw = ''
 				function()
 					return ":IncRename " .. vim.fn.expand("<cword>")
 				end
 				'';
 				options.desc = "LSP: Rename";
+				options.expr = true;
 			}
-			# Action Preview
+			# Action.__raw Preview
 			{
 				key = "<Leader>la";
-				action = ''
+				action.__raw = ''
 				function()
 					require('actions-preview').code_actions()
 				end
 				'';
-				options.desc = "LSP: Code actions";
+				options.desc = "LSP: Code action.__raws";
 				mode = [ "v" "n" ];
 			}
 			# Hover.nvim
 			{
 				key = "K";
-				action = "require('hover').hover";
+				action.__raw = "require('hover').hover";
 				options.desc = "LSP: Hover";
 			}
 			{
 				key = "gk";
-				action = "require('hover').hover_select";
+				action.__raw = "require('hover').hover_select";
 				options.desc = "LSP: Hover";
 			}
 			{
 				key = "g[";
-				action = "function() require('hover').hover_switch(\"previous\") end";
+				action.__raw = "function() require('hover').hover_switch(\"previous\") end";
 				options.desc = "LSP: Hover";
 			}
 			{
 				key = "g]";
-				action = "function() require('hover').hover_switch(\"next\") end";
+				action.__raw = "function() require('hover').hover_switch(\"next\") end";
 				options.desc = "LSP: Hover";
 			}
 
 			# Goto Preview
 			{
 				key = "gpd";
-				action = "require('goto-preview').goto_preview_definition";
+				action.__raw = "require('goto-preview').goto_preview_definition";
 				options.desc = "LPS: Preview definition";
 			}
 			{
 				key = "gpt";
-				action = "require('goto-preview').goto_preview_type_definition";
+				action.__raw = "require('goto-preview').goto_preview_type_definition";
 				options.desc = "LPS: Preview type definition";
 			}
 			{
 				key = "gpi";
-				action = "require('goto-preview').goto_preview_implementation";
+				action.__raw = "require('goto-preview').goto_preview_implementation";
 				options.desc = "LPS: Preview implementation";
 			}
 			{
 				key = "gpD";
-				action = "require('goto-preview').goto_preview_declaration";
+				action.__raw = "require('goto-preview').goto_preview_declaration";
 				options.desc = "LPS: Preview declaration";
 			}
 			{
 				key = "gpr";
-				action = "require('goto-preview').goto_preview_references";
+				action.__raw = "require('goto-preview').goto_preview_references";
 				options.desc = "LPS: Preview references";
 			}
 			{
 				key = "gP";
-				action = "require('goto-preview').goto_preview_close";
+				action.__raw = "require('goto-preview').close_all_win";
 				options.desc = "LPS: Close preview window";
 			}
 		];
