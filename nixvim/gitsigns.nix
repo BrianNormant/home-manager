@@ -5,7 +5,7 @@
 			lazyLoad.settings = {
 				event = [ "DeferredUIEnter" ];
 			};
-			luaConfig.post = builtins.readFile ./gitsigns.lua;
+			luaConfig.content = builtins.readFile ./gitsigns.lua;
 		};
 	};
 }

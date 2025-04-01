@@ -13,10 +13,12 @@
 				surround = {};
 				bracketed = {};
 				cursorword = {};
-				notify = {};
+				notify = {
+					lsp_progress.enable = false;
+				};
 				animate = {
 					cursor.enable = false;
-					scroll.enable = true;
+					scroll.enable = false;
 					resize.enable = true;
 					open.enable = true;
 					close.enable = true;

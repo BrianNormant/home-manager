@@ -1,15 +1,15 @@
 {config, pkgs, ...}: {
 	programs.nixvim = {
 		extraPlugins = [ ( pkgs.vimUtils.buildVimPlugin rec {
-			pname = "foldtest.nvim";
-			version = "v0.1.0";
+			pname = "foldtext-nvim";
+			version = "v1.0.0";
 			src = pkgs.fetchFromGitHub {
 				owner = "OXY2DEV";
-				repo = "foldtest.nvim";
+				repo = "foldtext.nvim";
 				tag = version;
-				hash = pkgs.lib.fakeHash;
+				hash = "sha256-2tdAlxKRFtrnTukAXTLXbIa9J7JZ6BisyxJGYGW4SR8=";
 			};
 		} ) ];
-		extraConfigLua = builtins.readFile ./foldtest.lua;
+		extraConfigLua = builtins.readFile ./foldtext.lua;
 	};
 }

@@ -10,7 +10,7 @@
 				labeled_modes = "nvo";
 			};
 		};
-		extraPlugins = [ ( pkgs.vimUtils.buildVimPackage rec {
+		extraPlugins = [ ( pkgs.vimUtils.buildVimPlugin rec {
 			pname = "telepath-nvim";
 			version = "2879da0";
 			src = pkgs.fetchFromGitHub {
@@ -24,19 +24,19 @@
 		keymaps = [
 			{
 				key = "x";
-				action = "<Plug>(leap-forward)"
+				action = "<Plug>(leap-forward)";
 				mode = [ "n" "x" "o" ];
 				options.desc = "Leap forward";
 			}
 			{
 				key = "X";
-				action = "<Plug>(leap-backward)"
+				action = "<Plug>(leap-backward)";
 				mode = [ "n" "x" "o" ];
 				options.desc = "Leap backward";
 			}
 			{
 				key = "r";
-				action = "<Plug>(leap-from-window)"
+				action = "<Plug>(leap-from-window)";
 				mode = [ "n" "x" "o" ];
 				options.desc = "Leap Anywhere";
 			}

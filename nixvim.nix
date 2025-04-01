@@ -13,6 +13,23 @@
 		./nixvim/tabby.nix
 		./nixvim/foldtext.nix
 		./nixvim/leap.nix
+		./nixvim/registers.nix
+		./nixvim/quicklist.nix
+		./nixvim/indent-bl.nix
+		./nixvim/oil.nix
+		./nixvim/navbuddy.nix
+		./nixvim/treesitter.nix
+		./nixvim/lsp.nix
+		./nixvim/lsp-keymaps.nix
+		./nixvim/linter.nix
+		./nixvim/blink.nix
+		./nixvim/muren.nix
+		./nixvim/symbol-picker.nix
+		./nixvim/dap.nix
+		./nixvim/ai.nix
+		./nixvim/jdtls.nix
+		./nixvim/idris2.nix
+		./nixvim/telescope.nix
 	];
 
 	programs.nixvim = {
@@ -27,6 +44,8 @@
 			lastplace.enable = true;
 			fugitive.enable = true;
 			web-devicons.enable = true;
+			marks.enable = true;
+			guess-indent.enable = true;
 		};
 		extraPlugins = with pkgs.vimPlugins; [
 			vim-startuptime
@@ -70,8 +89,8 @@
 			spell = true;
 		};
 		globals = {
-			mapleader = "<space>";
-			maplocalleader = "<space>";
+			mapleader = " ";
+			maplocalleader = " ";
 		};
 		autoCmd = [
 			{
