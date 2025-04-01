@@ -63,7 +63,6 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-  		".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
 		".config/nvim-simple/init.lua".source = ./nvim-simple.lua;
 		".config/lxqt".source = ./lxqt;
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
@@ -168,7 +167,7 @@ in {
 		firefox.enable = true;
 # Let Home Manager install and manage itself.
 		home-manager.enable = true;
-		neovim = (import ./nvim.nix) {inherit pkgs;};
+		# neovim = (import ./nvim.nix) {inherit pkgs;};
 		tmux = {
 			enable = true;
 			clock24 = true;
@@ -337,4 +336,5 @@ extension:
 	home.file.".config/nvim/ftdetect/pep.vim".source = ./custom-syntax-vim/pep-ftdetect.vim;
 	home.file.".config/nvim/ftdetect/http.vim".source = ./custom-syntax-vim/http-ftdetect.vim;
 	home.file.".config/nvim/ftdetect/idr.vim".source = ./custom-syntax-vim/idr-ftdetect.vim;
+  	home.file.".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
 }

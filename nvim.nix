@@ -10,7 +10,7 @@ let
 			};
 		};
 in {
-		enable = false;
+		enable = true;
 		withPython3 = true;
 		extraPackages = with pkgs; [
 			# Install lsp here
@@ -85,7 +85,7 @@ in {
 			(configPlugin {plugin = tabby-nvim;})
 			(configPlugin {plugin = comment-nvim;})
 			(configPlugin {plugin = nvim-ufo;})
-			(configPlugin {plugin = nvim-startuptime; config = true; optional = false;})
+			(configPlugin {plugin = nvim-startuptime; config = false; optional = false;})
 			# leap, telepath and flit are configured at the same place
 			(configPlugin {plugin = leap-nvim; optional = false;})
 			(configPlugin {
