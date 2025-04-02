@@ -127,4 +127,11 @@ function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
 			}
 		];
 	};
+	home.file.".config/nvim/syntax/nu.vim".source   = ./custom-syntax-vim/nu-syntax.vim;
+	home.file.".config/nvim/ftdetect/nu.vim".source = ./custom-syntax-vim/nu-ftdetect.vim;
+	home.file.".config/nvim/syntax/pep.vim".source   = ./custom-syntax-vim/pep-syntax.vim;
+	home.file.".config/nvim/ftdetect/pep.vim".source = ./custom-syntax-vim/pep-ftdetect.vim;
+	home.file.".config/nvim/ftdetect/http.vim".source = ./custom-syntax-vim/http-ftdetect.vim;
+	home.file.".config/nvim/ftdetect/idr.vim".source = ./custom-syntax-vim/idr-ftdetect.vim;
+	home.file.".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
 }
