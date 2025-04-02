@@ -29,7 +29,34 @@
 					open.enable = true;
 					close.enable = true;
 				};
-				starter = {};
+				starter = {
+					items.__raw = ''
+						{
+							function()
+								return {
+									{ action = 'Telescope find_files',   name = 'Files',        section = "Telescope" },
+									{ action = 'Telescope git_files',    name = 'Git Files',    section = "Telescope" },
+									{ action = 'Telescope git_commits',  name = 'Git Commits',  section = "Telescope" },
+									{ action = 'Telescope git_branches', name = 'Git Branches', section = "Telescope" },
+									{ action = 'Telescope git_stash',    name = 'Git Stash',    section = "Telescope" },
+									{ action = 'Telescope help_tags',    name = 'Help',         section = "Telescope" },
+									{ action = 'Telescope colorscheme',  name = 'ColorScheme',  section = "Telescope" },
+									{ action = 'Telescope keymaps',      name = 'Keymaps',      section = "Telescope" },
+								}
+							end,
+							function()
+								return {
+									{ action = "Git",        name = "Git",        section = "Fugitive" },
+									{ action = "Git commit", name = "Git Commit", section = "Fugitive" },
+									{ action = "Git pull",   name = "Git Pull",   section = "Fugitive" },
+									{ action = "Git push",   name = "Git Push",   section = "Fugitive" },
+									{ action = "Git stash",  name = "Git stash",  section = "Fugitive" },
+								}
+							end,
+							require('mini.starter').sections.builtin_actions(),
+						}
+					'';
+				};
 			};
 		};
 		highlightOverride = {
