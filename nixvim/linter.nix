@@ -3,7 +3,7 @@
 		plugins.none-ls = {
 			enable = true;
 			lazyLoad.settings = {
-				ft = [ "c" "elixir" "nix" "php" ];
+				ft = [ "c" "elixir" "nix" "php" "java" ];
 			};
 			sources = {
 				# Nix
