@@ -1,5 +1,8 @@
 {config, pkgs, ...}: {
 	programs.nixvim = {
+		extraPackages = with pkgs; [
+			figlet
+		];
 		plugins.mini = {
 			enable = true;
 			luaConfig.post = builtins.readFile ./mini.lua;
@@ -30,6 +33,19 @@
 					close.enable = true;
 				};
 				starter = {
+					header.__raw = ''
+						function()
+							local text = "nixvim"
+							local font = "starwars"
+
+							if (vim.env.PROJECT) then
+								text = vim.env.PROJECT
+							end
+
+							local figlet = vim.system({'figlet', '-t', '-c', '-f', font, text }, {text=true}):wait()
+							return figlet.stdout
+						end
+					'';
 					items.__raw = ''
 						{
 							function()
