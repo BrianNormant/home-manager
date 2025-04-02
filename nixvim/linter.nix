@@ -21,7 +21,13 @@
 				diagnostics.phpstan.enable = true;
 
 				# Java
-				diagnostics.pmd.enable = true;
+				diagnostics.pmd = {
+					enable = true;
+					settings.extra_args = [
+						"--rulesets"
+						"category/java/bestpractices.xml,category/jsp/bestpractices.xml"
+					];
+				};
 				diagnostics.checkstyle = {
 					enable = true;
 					settings.extra_args = [
@@ -33,4 +39,5 @@
 			};
 		};
 	};
+	home.file.".java/checkstyle/checkstyle.xml".source = ./config/checkstyle.xml;
 }
