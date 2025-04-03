@@ -22,7 +22,7 @@
 
 				# Java
 				diagnostics.pmd = {
-					enable = true;
+					enable = false;
 					settings.extra_args = [
 						"--rulesets"
 						"category/java/bestpractices.xml,category/jsp/bestpractices.xml"
@@ -39,5 +39,5 @@
 			};
 		};
 	};
-	home.file.".java/checkstyle/checkstyle.xml".source = ./config/checkstyle.xml;
+	home.file.".java/checkstyle/checkstyle.xml".source = ../config/checkstyle.xml;
 }

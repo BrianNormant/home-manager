@@ -51,6 +51,7 @@
 							function()
 								return {
 									{ action = 'Telescope find_files',   name = 'Files',        section = "Telescope" },
+									{ action = 'Telescope oldfiles',     name = 'Recent Files', section = "Telescope" },
 									{ action = 'Telescope git_files',    name = 'Git Files',    section = "Telescope" },
 									{ action = 'Telescope git_commits',  name = 'Git Commits',  section = "Telescope" },
 									{ action = 'Telescope git_branches', name = 'Git Branches', section = "Telescope" },
