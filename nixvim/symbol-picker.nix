@@ -20,22 +20,23 @@ in {
 		keymaps = let selected = "alt_font emoji html_colors nerd_font_v3 symbols"; in
 			[
 			{
-				key = "<C-e>";
+				key = "<C-q>";
 				action = "<Cmd>IconPickerNormal ${selected}<cr>";
+				mode = ["n"];
 				options = {
 					desc = "Pick Icon";
-					noremap = true;
-					silent = true;
+					# noremap = true;
+					# silent = true;
 				};
 			}
 			{
-				key = "<C-i>";
+				key = "<C-q>";
 				action = "<Cmd>IconPickerInsert ${selected}<cr>";
 				mode = ["i"];
 				options = {
 					desc = "Pick Icon";
-					noremap = true;
-					silent = true;
+					# noremap = true;
+					# silent = true;
 				};
 			}
 		];
