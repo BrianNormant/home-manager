@@ -1,6 +1,5 @@
 {config, pkgs, ...}: {
 	imports = [
-		# Add configuration from ./nixvim/*.nix
 		./nixvim/keymaps.nix
 		./nixvim/colorscheme.nix
 		./nixvim/boole.nix
@@ -24,10 +23,10 @@
 		./nixvim/linter.nix
 		./nixvim/blink.nix
 		./nixvim/muren.nix
-		# ./nixvim/symbol-picker.nix
+		./nixvim/symbol-picker.nix
 		./nixvim/dap.nix
 		./nixvim/ai.nix
-		./nixvim/jdtls.nix
+		./nixvim/java.nix
 		./nixvim/idris2.nix
 		./nixvim/telescope.nix
 	];
@@ -108,6 +107,10 @@
 			vim.cmd "hi clear SpellCap"
 			vim.cmd "hi clear SpellRare"
 			vim.cmd "hi clear SpellLocal"
+
+			require('mason').setup {
+				PATH = "skip",
+			}
 		'';
 		autoCmd = [
 			{

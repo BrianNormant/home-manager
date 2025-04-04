@@ -29,7 +29,7 @@
 					];
 				};
 				diagnostics.checkstyle = {
-					enable = true;
+					enable = false;
 					settings.extra_args = [
 						"-c"
 						"/home/brian/.java/checkstyle/checkstyle.xml"
