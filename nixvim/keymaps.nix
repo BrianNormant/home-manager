@@ -3,6 +3,10 @@
 	programs.nixvim = {
 		keymaps = [
 			{
+				key = "<leader>tt";
+				action = "<cmd>tab term<CR>";
+			}
+			{
 				key = "|";
 				action = "<cmd>vsplit<cr>";
 				options.desc = "Split Vertical";
