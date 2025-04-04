@@ -35,7 +35,12 @@ local lines = {
 	"----------------- Stash -----------------",
 	"czz : push stash",
 	"czA : apply top most stash",
-	"czP : Pop top stash",
+	"czP : pop top stash",
+	"---------------- Rebase -----------------",
+	"ri : Interactive rebase from commit",
+	"rr : Continue rebase",
+	"ra : Abort rebase",
+	"re : Edit rebase TODO list",
 }
 
 local bufnr = vim.api.nvim_create_buf(false, true)
