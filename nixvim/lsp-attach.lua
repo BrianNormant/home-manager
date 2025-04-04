@@ -41,3 +41,5 @@ if (client.supports_method('textDocument/inlayHint')) then
 		end
 	})
 end
+
+require('action-hints').setup {}

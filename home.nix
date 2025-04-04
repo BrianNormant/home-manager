@@ -48,13 +48,7 @@ in {
 	wl-clipboard
 	xsel
 
-	lxqt.lxqt-wayland-session
-	lxqt.lxqt-session
-	lxqt.lxqt-config
-	lxqt.lxqt-runner
-	lxqt.pcmanfm-qt
-	lxqt.lxqt-notificationd
-	lxqt.lxqt-themes
+	xournalpp # pdf editor
 
 	zafiro-icons
 	libqalculate

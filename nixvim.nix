@@ -7,12 +7,10 @@
 		./nixvim/mini.nix
 		./nixvim/dressing.nix
 		./nixvim/dropbar.nix
-		./nixvim/gitsigns.nix
+		./nixvim/git.nix
 		./nixvim/startuptime.nix
-		./nixvim/diffview.nix
 		./nixvim/lualine.nix
 		./nixvim/tabby.nix
-		# ./nixvim/foldtext.nix
 		./nixvim/ufo.nix
 		./nixvim/leap.nix
 		./nixvim/registers.nix
@@ -44,7 +42,6 @@
 			repeat.enable = true;
 			wakatime.enable = true;
 			lastplace.enable = true;
-			fugitive.enable = true;
 			web-devicons.enable = true;
 			marks.enable = true;
 			guess-indent.enable = true;

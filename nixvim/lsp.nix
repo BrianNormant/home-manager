@@ -1,4 +1,9 @@
-{pkgs, ... }: {
+{pkgs, ... }:
+let
+	inherit (pkgs.vimUtils) buildVimPlugin;
+	inherit (pkgs) fetchFromGitHub;
+	inherit (pkgs.lib) fakeHash;
+in {
 	programs.nixvim = {
 		diagnostics = {
 			virtual_text = false;
@@ -20,8 +25,51 @@
 				onAttach = builtins.readFile ./lsp-attach.lua;
 			};
 			glance = {
+				# Keymaps
+				# s         : split
+				# v         : vertical split
+				# t         : open in tab
+				# <leader>l : goto preview
 				enable = true;
 				settings.border = { enable = true; };
+				settings.mappings.list.__raw = ''
+				{
+					['j']         = require('glance').actions.next, -- Next item
+					['k']         = require('glance').actions.previous, -- Previous item
+					['<Down>']    = require('glance').actions.next,
+					['<Up>']      = require('glance').actions.previous,
+					['<Tab>']     = require('glance').actions.next_location, -- Next location (skips groups, cycles)
+					['<S-Tab>']   = require('glance').actions.previous_location, -- Previous location (skips groups, cycles)
+					['<C-u>']     = require('glance').actions.preview_scroll_win(5), -- Scroll up the preview window
+					['<C-d>']     = require('glance').actions.preview_scroll_win(-5), -- Scroll down the preview window
+					['v']         = require('glance').actions.jump_vsplit, -- Open location in vertical split
+					['s']         = require('glance').actions.jump_split, -- Open location in horizontal split
+					['t']         = require('glance').actions.jump_tab, -- Open in new tab
+					['<CR>']      = require('glance').actions.jump, -- Jump to location
+					['o']         = require('glance').actions.jump,
+					['l']         = require('glance').actions.open_fold,
+					['h']         = require('glance').actions.close_fold,
+					['<leader>l'] = require('glance').actions.enter_win('preview'), -- Focus preview window
+					['q']         = require('glance').actions.close, -- Closes Glance window
+					['Q']         = require('glance').actions.close,
+					['<Esc>']     = require('glance').actions.close,
+					['<C-q>']     = require('glance').actions.quickfix, -- Send all locations to quickfix list
+					['g?']        = function()
+						${builtins.readFile ./glance-help-fn.lua}
+					end,
+				}
+				'';
+				settings.mappings.preview.__raw = ''
+				{
+					['Q']         = require('glance').actions.close,
+					['<Tab>']     = require('glance').actions.next_location, -- Next location (skips groups, cycles)
+					['<S-Tab>']   = require('glance').actions.previous_location, -- Previous location (skips groups, cycles)
+					['<leader>l'] = require('glance').actions.enter_win('list'), -- Focus list window
+					['g?']        = function()
+						${builtins.readFile ./glance-help-preview-fn.lua}
+					end,
+				},
+				'';
 			};
 			inc-rename = {
 				enable = true;
@@ -37,6 +85,16 @@
 			hover-nvim
 			nvim-docs-view
 			goto-preview
+			(buildVimPlugin rec {
+				pname = "action-hints-nvim";
+				version = "ab10fef";
+				src = fetchFromGitHub {
+					owner = "roobert";
+					repo = "action-hints.nvim";
+					rev = version;
+					hash = "sha256-BTXmb1uGbXKkORnf1hbEa8jEmpPpzjMaerdldo5tkxs=";
+				};
+			})
 		];
 		extraConfigLua = builtins.readFile ./lsp.lua;
 	};

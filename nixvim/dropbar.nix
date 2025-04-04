@@ -10,6 +10,7 @@
 						desc = "Dropbar pick";
 					}
 				];
+				settings.event = [ "DeferredUIEnter" ];
 			};
 		};
 		highlightOverride = {

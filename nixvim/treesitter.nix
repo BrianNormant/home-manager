@@ -15,7 +15,8 @@ in{
 				hash = "sha256-4SjjPNPrPF0kPBiJBd2VMNU5UuEJbYe9YGWB15PPNVQ=";
 			};
 		})];
-		extraConfigLua = builtins.readFile ./treesitter.lua;
+		# We want this to run after mini to override the mappings with ours
+		extraConfigLuaPost = builtins.readFile ./treesitter.lua;
 		plugins.treesitter-context = {
 			enable = true;
 		};
