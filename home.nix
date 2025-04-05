@@ -189,6 +189,8 @@ in {
 				push = {
 					followTags = "true";
 				};
+				log.excludeDecoration = "refs/stash";
+				merge.tool = "nvim -c \"Git mergetool\"";
 				"credential \"https://github.com\"" = {
 					helper = "${pkgs.gh} auth git-credential";
 				};

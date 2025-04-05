@@ -1,5 +1,8 @@
 {config, pkgs, ...}: {
 	programs.nixvim = {
+		extraPackages = with pkgs; [
+			git-extras
+		];
 		plugins = {
 			fugitive.enable = true;
 			diffview.enable = true;
@@ -26,20 +29,55 @@
 				options.desc = "Fugitive";
 			}
 			{
+				key = "<leader>gl";
+				action = "<CMD>Git log --graph --all --oneline --abbrev-commit --decorate<CR>";
+				options.desc = "Fugitive Git pretty log";
+			}
+			{
 				key = "<leader>gd";
 				action = "<CMD>Gclog<CR>";
-				options.desc = "Fugitive send file log to qfl";
+				options.desc = "Fugitive Git log to qlf";
 			}
 			{
 				key = "<leader>gd";
 				action = ":'<,'>Gclog<CR>";
-				options.desc = "Fugitive Grep to qfl";
+				options.desc = "Fugitive Git grep to qfl";
 				mode = ["v"];
 			}
 			{
 				key = "<leader>gf";
 				action = "<CMD>Ggrep -q ";
-				options.desc = "Fugitive Grep to qfl";
+				options.desc = "Fugitive Git grep to qfl";
+			}
+			{
+				key = "<leader>gc";
+				action = "<CMD>Git commit<cr>";
+				options.desc = "Fugitive Commit";
+			}
+			{
+				key = "<leader>gp";
+				action = "<CMD>Git pull<cr>";
+				options.desc = "Fugitive Pull";
+			}
+			{
+				key = "<leader>gP";
+				action = "<CMD>Git push<cr>";
+				options.desc = "Fugitive Push";
+			}
+			{
+				key = "<leader>gri";
+				action = "<CMD>Git rebase --continue";
+				options.desc = "Fugitive Rebase Continue";
+			}
+			{
+				key = "<leader>gR";
+				action = "<CMD>Git rebase --abort";
+				options.desc = "Fugitive Rebase Abort";
+			}
+			{
+				key = "<leader>gm";
+				action = "<CMD>Git mergetool<cr>";
+				options.desc = "Fugitive Mergetool resolve conflicts";
 			}
 		];
 	};
