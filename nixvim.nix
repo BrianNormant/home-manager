@@ -127,11 +127,22 @@ function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
 			}
 		];
 	};
-	home.file.".config/nvim/syntax/nu.vim".source   = ./custom-syntax-vim/nu-syntax.vim;
-	home.file.".config/nvim/ftdetect/nu.vim".source = ./custom-syntax-vim/nu-ftdetect.vim;
-	home.file.".config/nvim/syntax/pep.vim".source   = ./custom-syntax-vim/pep-syntax.vim;
-	home.file.".config/nvim/ftdetect/pep.vim".source = ./custom-syntax-vim/pep-ftdetect.vim;
-	home.file.".config/nvim/ftdetect/http.vim".source = ./custom-syntax-vim/http-ftdetect.vim;
-	home.file.".config/nvim/ftdetect/idr.vim".source = ./custom-syntax-vim/idr-ftdetect.vim;
-	home.file.".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
+	home.file = {
+		# ftdetect (add a new filetype)
+		".config/nvim/ftdetect/http.vim".source = ./custom-syntax-vim/http-ftdetect.vim;
+		".config/nvim/ftdetect/idr.vim".source = ./custom-syntax-vim/idr-ftdetect.vim;
+		".config/nvim/ftdetect/nu.vim".source = ./custom-syntax-vim/nu-ftdetect.vim;
+		".config/nvim/ftdetect/pep.vim".source = ./custom-syntax-vim/pep-ftdetect.vim;
+
+		# ftplugin (special command for a filetype)
+		".config/nvim/ftplugin/git.vim".source = ./custom-syntax-vim/git-ftplugin.vim;
+		".config/nvim/ftplugin/fugitive.vim".source = ./custom-syntax-vim/fugitive-ftplugin.vim;
+
+		# syntax (custom syntax for a filetype)
+		".config/nvim/syntax/nu.vim".source   = ./custom-syntax-vim/nu-syntax.vim;
+		".config/nvim/syntax/pep.vim".source   = ./custom-syntax-vim/pep-syntax.vim;
+
+		# Others
+		".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
+	};
 }

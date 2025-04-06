@@ -19,8 +19,6 @@
 		_G.fugitive_help = function()
 			${builtins.readFile ./fugitive-help-fn.lua}
 		end
-
-		vim.cmd "autocmd User FugitiveIndex,FugitiveObject nmap <buffer> g? :lua _G.fugitive_help()<CR>"
 		'';
 		keymaps = [
 			{
