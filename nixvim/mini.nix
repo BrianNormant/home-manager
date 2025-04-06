@@ -51,11 +51,12 @@
 							function()
 								return {
 									{ action = 'Telescope find_files',   name = 'Files',        section = "Telescope" },
+									{ action = 'Telescope live_grep',    name = 'LGrep',        section = "Telescope" },
 									{ action = 'Telescope oldfiles',     name = 'Recent Files', section = "Telescope" },
-									{ action = 'Telescope git_files',    name = 'Find Files',    section = "Telescope" },
-									{ action = 'Telescope git_commits',  name = 'Find Commits',  section = "Telescope" },
-									{ action = 'Telescope git_branches', name = 'Find Branches', section = "Telescope" },
-									{ action = 'Telescope git_stash',    name = 'Find Stash',    section = "Telescope" },
+									{ action = 'Telescope git_files',    name = 'FFiles Git',   section = "Telescope" },
+									{ action = 'Telescope git_commits',  name = 'FCommits',     section = "Telescope" },
+									{ action = 'Telescope git_branches', name = 'FBranches',    section = "Telescope" },
+									{ action = 'Telescope git_stash',    name = 'FStash',       section = "Telescope" },
 									{ action = 'Telescope help_tags',    name = 'Help',         section = "Telescope" },
 									{ action = 'Telescope colorscheme',  name = 'ColorScheme',  section = "Telescope" },
 									{ action = 'Telescope keymaps',      name = 'Keymaps',      section = "Telescope" },
@@ -63,12 +64,12 @@
 							end,
 							function()
 								return {
-									{ action = "Git",        name = "Git",        section = "Fugitive" },
-									{ action = "Git log",    name = "Log (Git log)",        section = "Fugitive" },
-									{ action = "Git commit", name = "Commit", section = "Fugitive" },
-									{ action = "Git pull",   name = "Pull",   section = "Fugitive" },
-									{ action = "Git push",   name = "Push",   section = "Fugitive" },
-									{ action = "Git stash",  name = "Stash",  section = "Fugitive" },
+									{ action = "Git",        name = "Git",           section = "Fugitive" },
+									{ action = "Git log",    name = "Log (Git log)", section = "Fugitive" },
+									{ action = "Git commit", name = "Commit",        section = "Fugitive" },
+									{ action = "Git pull",   name = "Pull",          section = "Fugitive" },
+									{ action = "Git push",   name = "Push",          section = "Fugitive" },
+									{ action = "Git stash",  name = "Stash",         section = "Fugitive" },
 								}
 							end,
 							function ()
