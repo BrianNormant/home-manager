@@ -1,14 +1,3 @@
--- We want to pause the autocmd from Glance as they will close
--- Glance whenever we leave it's windows
-
-local group = "Glance"
-local glance_autocmds = vim.api.nvim_get_autocmds {
-	group = group,
-}
-vim.api.nvim_clear_autocmds {
-	group = group,
-}
-
 local lines = {
 	"Q         close preview window",
 	"<Tab>     next location (skips groups, cycles)",
@@ -48,6 +37,7 @@ local winid = vim.api.nvim_open_win(bufnr, true, {
 	zindex = 150,
 	style = "minimal",
 	border = "rounded",
+	noautocmd = true,
 })
 local function close()
 	if vim.api.nvim_win_is_valid(winid) then
@@ -65,23 +55,3 @@ vim.api.nvim_create_autocmd("WinLeave", {
 	once = true,
 	nested = true,
 })
-
--- We can now resume the autocmds
-
-for _, autocmd in ipairs(glance_autocmds) do
-	local event = autocmd.event
-	autocmd.event = nil
-	autocmd.id = nil
-	autocmd.group = autocmd.group_name
-	autocmd.group_name = nil
-	autocmd.buflocal = nil
-	if autocmd.buffer then
-		autocmd.pattern = nil
-	end
-	if autocmd.callback then
-		autocmd.command = nil
-		vim.api.nvim_create_autocmd(event, autocmd)
-	else
-		vim.api.nvim_create_autocmd(event, autocmd)
-	end
-end

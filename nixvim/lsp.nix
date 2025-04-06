@@ -25,11 +25,6 @@ in {
 				onAttach = builtins.readFile ./lsp-attach.lua;
 			};
 			glance = {
-				# Keymaps
-				# s         : split
-				# v         : vertical split
-				# t         : open in tab
-				# <leader>l : goto preview
 				enable = true;
 				settings.border = { enable = true; };
 				settings.mappings.list.__raw = ''
