@@ -9,13 +9,17 @@
 				rev = version;
 				hash = "sha256-s3Ky2uhRviKAaKF3iCF2uHctzk+kFV7BnqyxAGwqhbo=";
 			};
+			patches = [
+				./plugin-patch/gen-nvim.patch
+			];
 		})];
 		extraConfigLua = ''
 			require('gen').setup {
 				model = 'llama3:latest',
-				display_mode = 'float',
-				show_prompt = true,
-				show_model = true,
+				display_mode = 'split',
+				show_prompt = false,
+				show_model = false,
+				no_auto_close = true,
 				host = "ollama.ggkbrian.com",
 				port = 80,
 			}
@@ -24,7 +28,13 @@
 			{
 				key = "<F1>";
 				action = "<cmd>Gen<cr>";
-				mode = [ "n" "v" ];
+				mode = [ "n" ];
+				options.desc = "Ask to Ollama";
+			}
+			{
+				key = "<F1>";
+				action = ":Gen<cr>";
+				mode = [ "v" ];
 				options.desc = "Ask to Ollama";
 			}
 		];

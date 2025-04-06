@@ -1,0 +1,158 @@
+--- a/lua/gen/init.lua
++++ b/lua/gen/init.lua
+@@ -56,7 +56,7 @@ local default_options = {
+                    ":" .. options.port .. "/api/chat -d $body"
+     end,
+     json_response = true,
+-    display_mode = "float",
++    display_mode = "split",
+     no_auto_close = false,
+     init = function() pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
+     list_models = function(options)
+@@ -162,8 +162,6 @@ local function write_to_buffer(lines)
+ 
+     local text = table.concat(lines or {}, "\n")
+ 
+-    vim.api.nvim_set_option_value("modifiable", true,
+-                                  {buf = globals.result_buffer})
+     vim.api.nvim_buf_set_text(globals.result_buffer, last_row - 1, last_col,
+                               last_row - 1, last_col, vim.split(text, "\n"))
+ 
+@@ -177,8 +175,6 @@ local function write_to_buffer(lines)
+         end
+     end
+ 
+-    vim.api.nvim_set_option_value("modifiable", false,
+-                                  {buf = globals.result_buffer})
+ end
+ 
+ local function create_window(cmd, opts)
+@@ -227,9 +223,7 @@ local function create_window(cmd, opts)
+             vim.fn.jobstop(globals.job_id)
+             globals.job_id = nil
+         end
+-        vim.api.nvim_buf_set_option(buf, "modifiable", true)
+         vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
+-        vim.api.nvim_buf_set_option(buf, "modifiable", false)
+         -- vim.api.nvim_win_close(0, true)
+         M.run_command(cmd, opts)
+     end, {buffer = globals.result_buffer})
+@@ -281,11 +275,6 @@ M.exec = function(options)
+     local function substitute_placeholders(input)
+         if not input then return input end
+         local text = input
+-        if string.find(text, "%$input") then
+-            local answer = vim.fn.input("Prompt: ")
+-            text = string.gsub(text, "%$input", answer)
+-        end
+-
+         text = string.gsub(text, "%$register_([%w*+:/\"])", function(r_name)
+             local register = vim.fn.getreg(r_name)
+             if not register or register:match("^%s*$") then
+@@ -319,6 +308,10 @@ M.exec = function(options)
+         end
+     end
+ 
++    if type(opts.input) == "string" then
++        prompt = string.gsub(prompt, "%$input", opts.input)
++    end
++
+     prompt = substitute_placeholders(prompt)
+     opts.extract = substitute_placeholders(opts.extract)
+     prompt = string.gsub(prompt, "%%", "%%%%")
+@@ -535,7 +528,14 @@ vim.api.nvim_create_user_command("Gen", function(arg)
+     select_prompt(function(item)
+         if not item then return end
+         local p = vim.tbl_deep_extend("force", {mode = mode}, M.prompts[item])
+-        M.exec(p)
++        if p.input then
++            vim.ui.input({ prompt = "Prompt: " }, function(input)
++                p.input = input
++                M.exec(p)
++            end)
++        else
++            M.exec(p)
++        end
+     end)
+ end, {
+     range = true,
+--- a/lua/gen/prompts.lua
++++ b/lua/gen/prompts.lua
+@@ -1,43 +1,65 @@
+ return {
+-    Generate = { prompt = "$input", replace = true },
+-    Chat = { prompt = "$input" },
+-    Summarize = { prompt = "Summarize the following text:\n$text" },
+-    Ask = { prompt = "Regarding the following text, $input:\n$text" },
++    Generate = {
++        prompt  = "$input",
++        replace = true,
++        input   = true,
++    },
++    Chat = {
++        prompt = "$input",
++        input  = true,
++    },
++    Summarize = {
++        prompt = "Summarize the following text:\n$text",
++        input  = false,
++    },
++    Ask = {
++        prompt = "Regarding the following text, $input:\n$text",
++        input  = true,
++    },
+     Change = {
+-        prompt = "Change the following text, $input, just output the final text without additional quotes around it:\n$text",
++        prompt  = "Change the following text, $input, just output the final text without additional quotes around it:\n$text",
+         replace = true,
++        input   = true,
+     },
+     Enhance_Grammar_Spelling = {
+-        prompt = "Modify the following text to improve grammar and spelling, just output the final text without additional quotes around it:\n$text",
++        prompt  = "Modify the following text to improve grammar and spelling, just output the final text without additional quotes around it:\n$text",
+         replace = true,
++        input   = false,
+     },
+     Enhance_Wording = {
+-        prompt = "Modify the following text to use better wording, just output the final text without additional quotes around it:\n$text",
++        prompt  = "Modify the following text to use better wording, just output the final text without additional quotes around it:\n$text",
+         replace = true,
++        input   = false,
+     },
+     Make_Concise = {
+-        prompt = "Modify the following text to make it as simple and concise as possible, just output the final text without additional quotes around it:\n$text",
++        prompt  = "Modify the following text to make it as simple and concise as possible, just output the final text without additional quotes around it:\n$text",
+         replace = true,
++        input   = false,
+     },
+     Make_List = {
+-        prompt = "Render the following text as a markdown list:\n$text",
++        prompt  = "Render the following text as a markdown list:\n$text",
+         replace = true,
++        input   = false,
+     },
+     Make_Table = {
+-        prompt = "Render the following text as a markdown table:\n$text",
++        prompt  = "Render the following text as a markdown table:\n$text",
+         replace = true,
++        input   = false,
+     },
+     Review_Code = {
+         prompt = "Review the following code and make concise suggestions:\n```$filetype\n$text\n```",
++        input  = false,
+     },
+     Enhance_Code = {
+-        prompt = "Enhance the following code, only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
++        prompt  = "Enhance the following code, only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+         replace = true,
+         extract = "```$filetype\n(.-)```",
++        input   = false,
+     },
+     Change_Code = {
+-        prompt = "Regarding the following code, $input, only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
++        prompt  = "Regarding the following code, $input, only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+         replace = true,
+         extract = "```$filetype\n(.-)```",
++        input   = true,
+     },
+ }
