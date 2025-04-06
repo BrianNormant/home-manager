@@ -1,4 +1,4 @@
-{config, pkgs, ...}: {
+{pkgs, ... }: {
 	imports = [
 		./nixvim/keymaps.nix
 		./nixvim/colorscheme.nix
@@ -7,7 +7,6 @@
 		./nixvim/dressing.nix
 		./nixvim/dropbar.nix
 		./nixvim/git.nix
-		./nixvim/startuptime.nix
 		./nixvim/lualine.nix
 		./nixvim/tabby.nix
 		./nixvim/ufo.nix
@@ -119,11 +118,6 @@
 				callback.__raw = ''
 function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
 				'';
-			}
-			{
-				pattern = [ "*" ];
-				event = [ "VimLeavePre" ];
-				command = "!rm /tmp/nvim-startuptime";
 			}
 		];
 	};
