@@ -54,6 +54,10 @@
 				options.desc = "Toggle quickfix";
 			}
 		];
-		# TODO help with g? for quickfix list
+		extraConfigLuaPost = ''
+			_G.quickfix_help = function()
+				${builtins.readFile ./quickfix-help-fn.lua}
+			end
+		'';
 	};
 }

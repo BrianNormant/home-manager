@@ -131,6 +131,7 @@ function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
 		# ftplugin (special command for a filetype)
 		".config/nvim/ftplugin/git.vim".source = ./custom-syntax-vim/git-ftplugin.vim;
 		".config/nvim/ftplugin/fugitive.vim".source = ./custom-syntax-vim/fugitive-ftplugin.vim;
+		".config/nvim/ftplugin/qf.vim".source = ./custom-syntax-vim/qf-ftplugin.vim;
 
 		# syntax (custom syntax for a filetype)
 		".config/nvim/syntax/nu.vim".source   = ./custom-syntax-vim/nu-syntax.vim;
