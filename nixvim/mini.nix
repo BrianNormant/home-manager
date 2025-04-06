@@ -52,10 +52,10 @@
 								return {
 									{ action = 'Telescope find_files',   name = 'Files',        section = "Telescope" },
 									{ action = 'Telescope oldfiles',     name = 'Recent Files', section = "Telescope" },
-									{ action = 'Telescope git_files',    name = 'Git Files',    section = "Telescope" },
-									{ action = 'Telescope git_commits',  name = 'Git Commits',  section = "Telescope" },
-									{ action = 'Telescope git_branches', name = 'Git Branches', section = "Telescope" },
-									{ action = 'Telescope git_stash',    name = 'Git Stash',    section = "Telescope" },
+									{ action = 'Telescope git_files',    name = 'Find Files',    section = "Telescope" },
+									{ action = 'Telescope git_commits',  name = 'Find Commits',  section = "Telescope" },
+									{ action = 'Telescope git_branches', name = 'Find Branches', section = "Telescope" },
+									{ action = 'Telescope git_stash',    name = 'Find Stash',    section = "Telescope" },
 									{ action = 'Telescope help_tags',    name = 'Help',         section = "Telescope" },
 									{ action = 'Telescope colorscheme',  name = 'ColorScheme',  section = "Telescope" },
 									{ action = 'Telescope keymaps',      name = 'Keymaps',      section = "Telescope" },
@@ -64,10 +64,16 @@
 							function()
 								return {
 									{ action = "Git",        name = "Git",        section = "Fugitive" },
-									{ action = "Git commit", name = "Git Commit", section = "Fugitive" },
-									{ action = "Git pull",   name = "Git Pull",   section = "Fugitive" },
-									{ action = "Git push",   name = "Git Push",   section = "Fugitive" },
-									{ action = "Git stash",  name = "Git stash",  section = "Fugitive" },
+									{ action = "Git log",    name = "Log (Git log)",        section = "Fugitive" },
+									{ action = "Git commit", name = "Commit", section = "Fugitive" },
+									{ action = "Git pull",   name = "Pull",   section = "Fugitive" },
+									{ action = "Git push",   name = "Push",   section = "Fugitive" },
+									{ action = "Git stash",  name = "Stash",  section = "Fugitive" },
+								}
+							end,
+							function ()
+								return {
+									{ action = "Oil", name=  "Oil", section = "Other" },
 								}
 							end,
 							require('mini.starter').sections.builtin_actions(),
