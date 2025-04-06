@@ -1,0 +1,15 @@
+--- a/lua/supermaven-nvim/init.lua
++++ b/lua/supermaven-nvim/init.lua
+@@ -44,12 +44,6 @@ M.setup = function(args)
+   if cmp_ok then
+     local cmp_source = require("supermaven-nvim.cmp")
+     cmp.register_source("supermaven", cmp_source.new())
+-  else
+-    if config.disable_inline_completion then
+-      log:warn(
+-        "nvim-cmp is not available, but inline completion is disabled. Supermaven nvim-cmp source will not be registered."
+-      )
+-    end
+   end
+ 
+   api.start()

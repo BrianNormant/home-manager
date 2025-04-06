@@ -65,7 +65,11 @@
 		};
 		extraPlugins = with pkgs.vimPlugins; [
 			vim-snippets
-			supermaven-nvim
+			(supermaven-nvim.overrideAttrs {
+				patches = [
+					./plugin-patch/supermaven.patch
+				];
+			})
 		];
 		extraConfigLua = builtins.readFile ./blink.lua;
 		highlightOverride = {
