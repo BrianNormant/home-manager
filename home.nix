@@ -157,7 +157,6 @@ in {
 		firefox.enable = true;
 # Let Home Manager install and manage itself.
 		home-manager.enable = true;
-		# neovim = (import ./nvim.nix) {inherit pkgs;};
 		tmux = {
 			enable = true;
 			clock24 = true;
