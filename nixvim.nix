@@ -83,7 +83,6 @@
 			tabstop = 4;
 			shiftwidth = 4;
 			expandtab = false;
-			colorcolumn = 80;
 
 			# Others
 			updatetime = 200;
@@ -140,8 +139,8 @@ function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
 		".config/nvim/ftplugin/git.vim".source      = ./extra-nvim-files/git-ftplugin.vim;
 		".config/nvim/ftplugin/fugitive.vim".source = ./extra-nvim-files/fugitive-ftplugin.vim;
 		".config/nvim/ftplugin/qf.vim".source       = ./extra-nvim-files/qf-ftplugin.vim;
-		".config/nvim/ftplugin/java.vim".source     = ./extra-nvim-files/java-ftplugin.vim;
-		".config/nvim/ftplugin/lua.vim".source      = ./extra-nvim-files/lua-ftplugin.vim;
+		# ".config/nvim/ftplugin/java.vim".source     = ./extra-nvim-files/java-ftplugin.vim;
+		# ".config/nvim/ftplugin/lua.vim".source      = ./extra-nvim-files/lua-ftplugin.vim;
 
 		# syntax (custom syntax for a filetype)
 		".config/nvim/syntax/nu.vim".source         = ./extra-nvim-files/nu-syntax.vim;
