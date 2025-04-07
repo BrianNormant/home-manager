@@ -73,7 +73,7 @@
 								return {
 									{ action = 'Telescope find_files',   name = 'Files',        section = "Telescope" },
 									{ action = 'Telescope live_grep',    name = 'LGrep',        section = "Telescope" },
-									{ action = 'Telescope oldfiles',     name = 'Recent Files', section = "Telescope" },
+									{ action = 'Telescope frecency',     name = 'Frequent Files', section = "Telescope" },
 									{ action = 'Telescope git_files',    name = 'FFiles Git',   section = "Telescope" },
 									{ action = 'Telescope git_commits',  name = 'FCommits',     section = "Telescope" },
 									{ action = 'Telescope git_branches', name = 'FBranches',    section = "Telescope" },

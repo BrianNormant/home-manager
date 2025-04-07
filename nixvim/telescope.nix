@@ -12,10 +12,6 @@
 					action = "find_files";
 					options.desc = "Telescope: Find Files";
 				};
-				"<leader>fF" = {
-					action = "live_grep";
-					options.desc = "Telescope: Live Grep";
-				};
 				"<leader>fb" = {
 					action = "buffers";
 					options.desc = "Telescope: Buffers";
@@ -37,6 +33,63 @@
 					options.desc = "Telescope: Search Man Pages";
 				};
 			};
+			extensions = {
+				advanced-git-search.enable = true;
+				frecency = {
+					enable = true;
+					settings = {
+						default_workspace = "CWD";
+					};
+				};
+				fzf-native = {
+					enable = true;
+					settings = {
+						case_mode = "ignore_case";
+						fuzzy = true;
+						override_generic_sorter = true;
+						override_file_sorter = true;
+					};
+				};
+				live-grep-args = {
+					enable = true;
+				};
+				manix = { enable = true; };
+			};
 		};
+		keymaps = [
+			# Frecency
+			{
+				key = "<leader>F";
+				action = "<Cmd>Telescope frecency<CR>";
+				options.desc = "Telescope: Frecency";
+			}
+			# advanced git search
+			{
+				key = "<leader>fg";
+				action = "<Cmd>AdvancedGitSearch diff_commit_file<CR>";
+				options.desc = "Telescope Git: Diff current file with <commits>";
+			}
+			{
+				key = "<leader>fg";
+				action = "<Cmd>AdvancedGitSearch diff_commit_line<CR>";
+				options.desc = "Telescope Git: Diff current range with <commits>";
+				mode = [ "v" ];
+			}
+			{
+				key = "<leader>fG";
+				action = "<Cmd>AdvancedGitSearch show_custom_functions<CR>";
+				options.desc = "Telescope Git: Show custom functions";
+			}
+			{
+				key = "<leader>fF";
+				action = "<CMD>Telescope live_grep_args<cr>";
+				options.desc = "Telescope: Live Grep";
+			}
+			{
+				key = "<leader>fn";
+				action = "<CMD>Telescope manix<cr>";
+				options.desc = "Telescope: Nix Help";
+			}
+		];
 	};
 }
