@@ -4,12 +4,12 @@
 			muren = {
 				enable = true;
 				settings = {
-					all_on_line = false;
-					pattern_witdh = 75;
-					pattern_heigh = 10;
-					options_width = 25;
-					preview_height = 12;
-					anchor = "top";
+					all_on_line    = false;
+					patterns_width  = 50;
+					options_width  = 20;
+					patterns_height = 5;
+					preview_height = 45;
+					anchor = "center";
 				};
 			};
 		};
