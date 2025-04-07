@@ -21,6 +21,7 @@
 		./nixvim/search-replace.nix
 		./nixvim/symbol-picker.nix
 		./nixvim/telescope.nix
+		./nixvim/terminal.nix
 		
 		# Languages
 		./nixvim/java.nix
