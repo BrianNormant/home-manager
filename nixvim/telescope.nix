@@ -72,6 +72,11 @@
 				action = "<Cmd>Telescope frecency<CR>";
 				options.desc = "Telescope: Find Files Frecency";
 			}
+			{
+				key = "<leader>F";
+				action = "<Cmd>Telescope find_files<CR>";
+				options.desc = "Telescope: Find Files";
+			}
 			# advanced git search
 			{
 				key = "<leader>fg";
