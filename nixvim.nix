@@ -11,7 +11,7 @@
 		./nixvim/treesitter.nix
 		
 		# Quality of life
-		./nixvim/boole.nix
+		./nixvim/qol.nix
 		./nixvim/mini.nix
 		./nixvim/leap.nix
 		./nixvim/registers.nix
