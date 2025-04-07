@@ -3,6 +3,9 @@
 		colorscheme = "gruvbox-material";
 		extraPlugins = [ pkgs.vimPlugins.gruvbox-material-nvim ];
 		extraConfigLua = builtins.readFile ./gruvbox.lua;
+		plugins.colorizer = {
+			enable = true;
+		};
 		highlightOverride = {
 			NormalFloat = {
 				fg      = "#d4be98";
