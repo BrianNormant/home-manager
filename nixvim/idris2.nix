@@ -9,6 +9,9 @@
 				end
 				'';
 			};
+			lazyLoad.settings = {
+				ft = [ "idris2" ];
+			};
 		};
 	};
 }

@@ -115,8 +115,15 @@
 			vim.cmd "hi clear SpellRare"
 			vim.cmd "hi clear SpellLocal"
 
-			require('mason').setup {
-				PATH = "skip",
+			require('lz.n').load {
+				"mason.nvim",
+				enabled = false,
+				lazy = true,
+				after = function()
+					require('mason').setup {
+						PATH = "skip",
+					}
+				end,
 			}
 			if vim.g.neovide then
 				vim.o.guifont = "FiraCode Nerd Font:h12";
@@ -137,7 +144,7 @@
 				vim.keymap.set({ "n",   "v" },   "<C-_>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
 				vim.keymap.set({ "n",   "v" },   "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
 				vim.keymap.set({ "v"        },   "<C-C>", '"+y', { desc = "Copy system clipboard" })
-				vim.keymap.set({ "n",   "v" },   "<C-V>", '"+p', { desc = "Paste system clipboard" })
+				vim.keymap.set({ "n",       },   "<C-V>", '"+p', { desc = "Paste system clipboard" })
 			end
 		'';
 		autoCmd = [

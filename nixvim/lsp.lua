@@ -1,8 +1,25 @@
-require('actions-preview').setup {
-	highlight_command = {
-		require("actions-preview.highlight").delta(),
+require('lz.n').load {
+	{
+		'goto-preview.nvim',
+		event = 'LspAttach',
+		after = function ()
+			require('goto-preview').setup {
+				border = "rounded"
+			}
+		end
 	},
-	backend = { "telescope" },
+	{
+		'actions-preview.nvim',
+		event = 'LspAttach',
+		after = function ()
+			require('actions-preview').setup {
+				highlight_command = {
+					require("actions-preview.highlight").delta(),
+				},
+				backend = { "telescope" },
+			}
+		end,
+	}
 }
 
 local hover = require('hover')
@@ -19,8 +36,4 @@ hover.setup {
 
 require('docs-view').setup {
 	position = "bottom",
-}
-
-require('goto-preview').setup {
-	border = "rounded"
 }

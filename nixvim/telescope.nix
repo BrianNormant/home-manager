@@ -8,10 +8,6 @@
 					action = "builtin";
 					options.desc = "Telescope: Builtins";
 				};
-				"<leader>ff" = {
-					action = "find_files";
-					options.desc = "Telescope: Find Files";
-				};
 				"<leader>fb" = {
 					action = "buffers";
 					options.desc = "Telescope: Buffers";
@@ -53,15 +49,28 @@
 				live-grep-args = {
 					enable = true;
 				};
-				manix = { enable = true; };
+			};
+			lazyLoad.settings = {
+				keys = [
+					{__unkeyed-1 = "<leader>ft";}
+					{__unkeyed-1 = "<leader>fb";}
+					{__unkeyed-1 = "<leader>f/";}
+					{__unkeyed-1 = "<leader>fh";}
+					{__unkeyed-1 = "<leader>fk";}
+					{__unkeyed-1 = "<leader>fm";}
+				];
+				cmd = [
+					"Telescope"
+					"AdvancedGitSearch"
+				];
 			};
 		};
 		keymaps = [
 			# Frecency
 			{
-				key = "<leader>F";
+				key = "<leader>ff";
 				action = "<Cmd>Telescope frecency<CR>";
-				options.desc = "Telescope: Frecency";
+				options.desc = "Telescope: Find Files Frecency";
 			}
 			# advanced git search
 			{

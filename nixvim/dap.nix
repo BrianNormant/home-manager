@@ -26,6 +26,13 @@
 				linehl = "";
 				numhl  = "";
 			};
+			lazyLoad = {
+				settings = {
+					enabled = true;
+					lazy = true;
+				};
+				enable = true;
+			};
 		};
 		plugins.dap-ui = {
 			enable = true;
@@ -33,17 +40,34 @@
 				keys = [
 					{
 						__unkeyed-1 = "<F10>";
-						__unkeyed-2.__raw = "require('dap').continue";
+						__unkeyed-2.__raw = ''
+							function()
+								require('dap').continue()
+							end
+						'';
 					}
 					{
 						__unkeyed-1 = "<F11>";
-						__unkeyed-2.__raw = "require('dap').toggle_breakpoint";
+						__unkeyed-2.__raw = ''
+							function()
+								require('dap').toggle_breakpoint()
+							end
+						'';
 					}
 					{
 						__unkeyed-1 = "<F12>";
-						__unkeyed-2.__raw = "require('dap').step_over";
+						__unkeyed-2.__raw = ''
+							function()
+								require('dap').step_over()
+							end
+						'';
 					}
 				];
+				before.__raw = ''
+					function()
+						require('lz.n').trigger_load('nvim-dap')
+					end
+				'';
 			};
 			settings = {
 				layouts = [

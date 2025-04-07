@@ -14,29 +14,28 @@
 			];
 		})];
 		extraConfigLua = ''
-			require('gen').setup {
-				model = 'llama3:latest',
-				display_mode = 'split',
-				show_prompt = false,
-				show_model = false,
-				no_auto_close = true,
-				host = "ollama.ggkbrian.com",
-				port = 80,
+			require('lz.n').load {
+				'gen-nvim',
+				keys = {
+					{
+						"<F1>",
+						"<CMD>Gen<CR>",
+						mode = {"v", "n" },
+					},
+				},
+				cmd = "Gen",
+				after = function()
+					require('gen').setup {
+						model = 'llama3:latest',
+						display_mode = 'split',
+						show_prompt = false,
+						show_model = false,
+						no_auto_close = true,
+						host = "ollama.ggkbrian.com",
+						port = 80,
+					}
+				end,
 			}
 		'';
-		keymaps = [
-			{
-				key = "<F1>";
-				action = "<cmd>Gen<cr>";
-				mode = [ "n" ];
-				options.desc = "Ask to Ollama";
-			}
-			{
-				key = "<F1>";
-				action = ":Gen<cr>";
-				mode = [ "v" ];
-				options.desc = "Ask to Ollama";
-			}
-		];
 	};
 }

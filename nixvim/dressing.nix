@@ -21,6 +21,9 @@
 		};
 		plugins.markview = {
 			enable = true;
+			lazyLoad.settings = {
+				ft = "markdown";
+			};
 			settings.preview = {
 				modes = [ "n" "no" "c" ];
 				hybrid_modes = [ "o" "i" ];

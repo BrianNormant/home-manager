@@ -11,24 +11,31 @@
 					preview_height = 45;
 					anchor = "center";
 				};
+				lazyLoad.settings = {
+					keys = [
+						{
+						__unkeyed-1 = "<F3>";
+						__unkeyed-2 = "<Cmd>MurenToggle<CR>";
+						mode = [ "n" ];
+						}
+						{
+						__unkeyed-1 = "<F3>";
+						__unkeyed-2 = ":'<,'>MurenToggle<CR>";
+						mode = [ "v" ];
+						}
+					];
+				};
 			};
 			spectre = {
 				enable = true;
+				lazyLoad.settings = {
+					keys = [{
+						__unkeyed-1 = "<S-F3>";
+						__unkeyed-2 = "<Cmd>Spectre<CR>";
+						mode = [ "n" ];
+					}];
+				};
 			};
 		};
-		keymaps = [
-			{
-				key = "<F3>";
-				action = "<Cmd>MurenToggle<CR>";
-				mode = [ "n" "v" ];
-				options.desc = "Muren: Search And Replace";
-			}
-			{
-				key = "<F15>";
-				action = "<Cmd>Spectre<CR>";
-				mode = [ "n" ];
-				options.desc = "Spectre: Search And Replace in workspace";
-			}
-		];
 	};
 }

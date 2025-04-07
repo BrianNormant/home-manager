@@ -11,6 +11,9 @@
 				enable_get_fold_virt_text = true;
 				fold_virt_text_handler = builtins.readFile ./ufo-text-handler.lua;
 			};
+			lazyLoad.settings = {
+				event = ["DeferredUIEnter"];
+			};
 		};
 		globalOpts = {
 			foldcolumn     = "0";

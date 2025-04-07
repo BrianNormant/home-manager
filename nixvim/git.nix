@@ -5,7 +5,12 @@
 		];
 		plugins = {
 			fugitive.enable = true;
-			diffview.enable = true;
+			# diffview = {
+			# 	enable = true;
+			# 	lazyLoad.settings = {
+			# 		cmd = [ "DiffviewOpen" ];
+			# 	};
+			# };
 			gitsigns = {
 				enable = true;
 				lazyLoad.settings = {

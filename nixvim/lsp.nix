@@ -23,6 +23,20 @@ in {
 					elixirls.enable = true;
 				};
 				onAttach = builtins.readFile ./lsp-attach.lua;
+				lazyLoad.settings = {
+					ft = [
+						"c"
+						"lua"
+						"nix"
+						"xml"
+						"nu"
+						"svelte"
+						"typescript"
+						"elixir"
+						"php"
+						"java"
+					];
+				};
 			};
 			glance = {
 				enable = true;
@@ -73,7 +87,10 @@ in {
 					input_buffer_type = "dressing";
 				};
 			};
-			fidget.enable = true;
+			fidget = {
+				enable = true;
+				lazyLoad.settings = { event = ["LspAttach"]; };
+			};
 		};
 		extraPlugins = with pkgs.vimPlugins; [
 			actions-preview-nvim

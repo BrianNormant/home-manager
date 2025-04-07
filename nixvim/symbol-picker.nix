@@ -14,31 +14,26 @@ in {
 				sha256 = "VZKsVeSmPR3AA8267Mtd5sSTZl2CAqnbgqceCptgp4w=";
 			};
 		})];
-		extraConfigLua = ''
-		require("icon-picker").setup { disable_legacy_commands = true }
+		extraConfigLua = let
+		    selected = "alt_font emoji html_colors nerd_font_v3 symbols";
+		in ''
+			require('lz.n').load {
+				"icon-picker.nvim",
+				keys = {
+					{
+						"<C-q>",
+						"<CMD>IconPickerNormal ${selected}<CR>",
+					},
+					{
+						"<C-q>",
+						"<CMD>IconPickerInsert ${selected}<CR>",
+						mode = "i",
+					}
+			  	},
+				after = function()
+					require("icon-picker").setup { disable_legacy_commands = true }
+				end
+			}
 		'';
-		keymaps = let selected = "alt_font emoji html_colors nerd_font_v3 symbols"; in
-			[
-			{
-				key = "<C-q>";
-				action = "<Cmd>IconPickerNormal ${selected}<cr>";
-				mode = ["n"];
-				options = {
-					desc = "Pick Icon";
-					# noremap = true;
-					# silent = true;
-				};
-			}
-			{
-				key = "<C-q>";
-				action = "<Cmd>IconPickerInsert ${selected}<cr>";
-				mode = ["i"];
-				options = {
-					desc = "Pick Icon";
-					# noremap = true;
-					# silent = true;
-				};
-			}
-		];
 	};
 }
