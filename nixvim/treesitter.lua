@@ -83,3 +83,11 @@ vim.keymap.set({ "n", "x" }, "n", better_n.next, { expr = true, silent = true, n
 vim.keymap.set({ "n", "x" }, "<s-n>", better_n.previous, { expr = true, silent = true, nowait = true })
 vim.keymap.set({ "n", "x"}, ",", better_n.next,     { expr = true, silent = true, nowait = true })
 vim.keymap.set({ "n", }, ";", better_n.previous, { expr = true, silent = true, nowait = true })
+
+require('lz.n').load {
+	'iswap.nvim',
+	cmd = {"ISwap", "ISwapWith"},
+	after = function ()
+		require('iswap').setup {}
+	end
+}
