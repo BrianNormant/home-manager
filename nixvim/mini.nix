@@ -39,7 +39,6 @@
 					replace.prefix  = "sp";
 					sort.prefix     = "gs";
 				};
-				surround = {};
 				bracketed = {};
 				cursorword = {};
 				notify = {

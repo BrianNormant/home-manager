@@ -10,6 +10,11 @@
 					map_c-w = true;
 				};
 			};
+			nvim-surround = {
+				enable = true;
+				lazyLoad.settings = { event = "DeferredUIEnter"; };
+				settings = {};
+			};
 		};
 	};
 }
