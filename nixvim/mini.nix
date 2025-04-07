@@ -7,7 +7,28 @@
 			enable = true;
 			luaConfig.post = builtins.readFile ./mini.lua;
 			modules = {
-				ai = {};
+				extra = {};
+				sessions = {
+					autoread = true;
+				};
+				ai = {
+					custom_textobjects = {
+						# Full buffer
+						g.__raw = ''
+							function()
+								local from = { line = 1, col = 1 }
+								local to = {
+									line = vim.fn.line('$'),
+									col = math.max(vim.fn.getline('$'):len(), 1)
+								}
+								return { from = from, to = to }
+							end
+						'';
+						I.__raw = ''require('mini.extra').gen_ai_spec.indent()'';
+						L.__raw = ''require('mini.extra').gen_ai_spec.line()'';
+						N.__raw = ''require('mini.extra').gen_ai_spec.number()'';
+					};
+				};
 				align = {};
 				comment = {};
 				move = {};
