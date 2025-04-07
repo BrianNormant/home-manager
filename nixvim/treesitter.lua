@@ -12,11 +12,10 @@ vim.keymap.set({ "n", "x" }, "*", asterisk.passthrough, { expr = true, silent = 
 local hash = better_n.create({ key = "#", next = "n", previous = "<s-n>" })
 vim.keymap.set({ "n", "x" }, "#", hash.passthrough, { expr = true, silent = true })
 
+
+
 local bracketed_override = function(key, name, desc_name)
 	local bracket = require('mini.bracketed')
-	bracket.setup {
-		diagnostic = { options = { severity = vim.diagnostic.severity.ERROR } },
-	}
 
 	local nav = better_n.create {
 		next = function() bracket[name]('forward') end,
@@ -79,15 +78,29 @@ for _, v in ipairs(normal_list) do
 	normal_override(unpack(v))
 end
 -- I prefer to use , and ;
-vim.keymap.set({ "n", "x" }, "n", better_n.next, { expr = true, silent = true, nowait = true })
-vim.keymap.set({ "n", "x" }, "<s-n>", better_n.previous, { expr = true, silent = true, nowait = true })
-vim.keymap.set({ "n", "x"}, ",", better_n.next,     { expr = true, silent = true, nowait = true })
-vim.keymap.set({ "n", }, ";", better_n.previous, { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", "x" }, "n", better_n.next,     { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", "x" }, "N", better_n.previous, { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", "x"},  ",", better_n.next,     { expr = true, silent = true, nowait = true })
+vim.keymap.set({ "n", },     ";", better_n.previous, { expr = true, silent = true, nowait = true })
 
 require('lz.n').load {
 	'iswap.nvim',
 	cmd = {"ISwap", "ISwapWith"},
 	after = function ()
 		require('iswap').setup {}
+	end
+}
+
+require('lz.n').load {
+	'nvim-treesitter-textsubjects',
+	event = "DeferredUIEnter",
+	after = function ()
+		require('nvim-treesitter-textsubjects').configure {
+			keymaps = {
+				['.'] = 'textsubjects-smart',
+				[';'] = 'textsubjects-container-outer',
+				[':'] = 'textsubjects-container-inner',
+			}
+		}
 	end
 }

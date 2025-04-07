@@ -39,7 +39,9 @@
 					replace.prefix  = "sp";
 					sort.prefix     = "gs";
 				};
-				bracketed = {};
+				bracketed = {
+					diagnostic.options.severity = "vim.diagnostic.severity.ERROR";
+				};
 				cursorword = {};
 				notify = {
 					lsp_progress.enable = false;

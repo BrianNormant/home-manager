@@ -30,6 +30,7 @@ in{
 					hash = "sha256-lAYHvz23f9nJ6rb0NIm+1aq0Vr0SwjPVitPuROtUS2A=";
 				};
 			})
+			pkgs.vimPlugins.nvim-treesitter-textsubjects
 		];
 		# We want this to run after mini to override the mappings with ours
 		extraConfigLuaPost = builtins.readFile ./treesitter.lua;
