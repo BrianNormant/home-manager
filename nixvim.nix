@@ -83,6 +83,7 @@
 			tabstop = 4;
 			shiftwidth = 4;
 			expandtab = false;
+			colorcolumn = 80;
 
 			# Others
 			updatetime = 200;
@@ -130,19 +131,21 @@ function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
 	};
 	home.file = {
 		# ftdetect (add a new filetype)
-		".config/nvim/ftdetect/http.vim".source = ./custom-syntax-vim/http-ftdetect.vim;
-		".config/nvim/ftdetect/idr.vim".source = ./custom-syntax-vim/idr-ftdetect.vim;
-		".config/nvim/ftdetect/nu.vim".source = ./custom-syntax-vim/nu-ftdetect.vim;
-		".config/nvim/ftdetect/pep.vim".source = ./custom-syntax-vim/pep-ftdetect.vim;
+		".config/nvim/ftdetect/http.vim".source     = ./extra-nvim-files/http-ftdetect.vim;
+		".config/nvim/ftdetect/idr.vim".source      = ./extra-nvim-files/idr-ftdetect.vim;
+		".config/nvim/ftdetect/nu.vim".source       = ./extra-nvim-files/nu-ftdetect.vim;
+		".config/nvim/ftdetect/pep.vim".source      = ./extra-nvim-files/pep-ftdetect.vim;
 
 		# ftplugin (special command for a filetype)
-		".config/nvim/ftplugin/git.vim".source = ./custom-syntax-vim/git-ftplugin.vim;
-		".config/nvim/ftplugin/fugitive.vim".source = ./custom-syntax-vim/fugitive-ftplugin.vim;
-		".config/nvim/ftplugin/qf.vim".source = ./custom-syntax-vim/qf-ftplugin.vim;
+		".config/nvim/ftplugin/git.vim".source      = ./extra-nvim-files/git-ftplugin.vim;
+		".config/nvim/ftplugin/fugitive.vim".source = ./extra-nvim-files/fugitive-ftplugin.vim;
+		".config/nvim/ftplugin/qf.vim".source       = ./extra-nvim-files/qf-ftplugin.vim;
+		".config/nvim/ftplugin/java.vim".source     = ./extra-nvim-files/java-ftplugin.vim;
+		".config/nvim/ftplugin/lua.vim".source      = ./extra-nvim-files/lua-ftplugin.vim;
 
 		# syntax (custom syntax for a filetype)
-		".config/nvim/syntax/nu.vim".source   = ./custom-syntax-vim/nu-syntax.vim;
-		".config/nvim/syntax/pep.vim".source   = ./custom-syntax-vim/pep-syntax.vim;
+		".config/nvim/syntax/nu.vim".source         = ./extra-nvim-files/nu-syntax.vim;
+		".config/nvim/syntax/pep.vim".source        = ./extra-nvim-files/pep-syntax.vim;
 
 		# Others
 		".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
