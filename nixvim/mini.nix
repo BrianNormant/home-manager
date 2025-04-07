@@ -46,13 +46,6 @@
 				notify = {
 					lsp_progress.enable = false;
 				};
-				animate = {
-					cursor.enable = false;
-					scroll.enable = false;
-					resize.enable = true;
-					open.enable = true;
-					close.enable = true;
-				};
 				starter = {
 					header.__raw = ''
 						function()
@@ -63,7 +56,7 @@
 								text = vim.env.PROJECT
 							end
 
-							local figlet = vim.system({'figlet', '-t', '-c', '-f', font, text }, {text=true}):wait()
+							local figlet = vim.system({'figlet', '-w', 80, '-c', '-f', font, text }, {text=true}):wait()
 							return figlet.stdout
 						end
 					'';
@@ -99,6 +92,7 @@
 								}
 							end,
 							require('mini.starter').sections.builtin_actions(),
+							
 						}
 					'';
 				};
