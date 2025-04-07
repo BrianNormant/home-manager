@@ -18,7 +18,7 @@
 		./nixvim/quickfix.nix
 		./nixvim/oil.nix
 		./nixvim/navbuddy.nix
-		./nixvim/muren.nix
+		./nixvim/search-replace.nix
 		./nixvim/symbol-picker.nix
 		./nixvim/telescope.nix
 		
