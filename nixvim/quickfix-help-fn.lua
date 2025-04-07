@@ -46,7 +46,7 @@ vim.bo[bufnr].modifiable = false
 
 local editor_width = vim.o.columns
 local editor_height = vim.o.lines
-local max_line = 90; -- the max width in the help text
+local max_line = 80; -- the max width in the help text
 local winid = vim.api.nvim_open_win(bufnr, true, {
 	relative = "editor",
 	row = math.max(0, (editor_height - #lines) / 2),

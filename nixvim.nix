@@ -1,33 +1,40 @@
 {pkgs, ... }: {
 	imports = [
-		./nixvim/keymaps.nix
+		# UI
 		./nixvim/colorscheme.nix
-		./nixvim/boole.nix
-		./nixvim/mini.nix
 		./nixvim/dressing.nix
 		./nixvim/dropbar.nix
-		./nixvim/git.nix
 		./nixvim/lualine.nix
 		./nixvim/tabby.nix
 		./nixvim/ufo.nix
+		./nixvim/indent.nix
+		./nixvim/treesitter.nix
+		
+		# Quality of life
+		./nixvim/boole.nix
+		./nixvim/mini.nix
 		./nixvim/leap.nix
 		./nixvim/registers.nix
-		./nixvim/quicklist.nix
-		./nixvim/indent-bl.nix
+		./nixvim/quickfix.nix
 		./nixvim/oil.nix
 		./nixvim/navbuddy.nix
-		./nixvim/treesitter.nix
+		./nixvim/muren.nix
+		./nixvim/symbol-picker.nix
+		./nixvim/telescope.nix
+		
+		# Languages
+		./nixvim/java.nix
+		./nixvim/idris2.nix
+
+		# Others
+		./nixvim/keymaps.nix
+		./nixvim/git.nix
 		./nixvim/lsp.nix
 		./nixvim/lsp-keymaps.nix
 		./nixvim/linter.nix
-		./nixvim/blink.nix
-		./nixvim/muren.nix
-		./nixvim/symbol-picker.nix
+		./nixvim/completion.nix
 		./nixvim/dap.nix
 		./nixvim/ai.nix
-		./nixvim/java.nix
-		./nixvim/idris2.nix
-		./nixvim/telescope.nix
 	];
 
 	programs.nixvim = {
