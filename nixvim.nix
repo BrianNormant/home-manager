@@ -143,8 +143,8 @@
 				vim.keymap.set({ "n",   "v" },   "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
 				vim.keymap.set({ "n",   "v" },   "<C-_>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
 				vim.keymap.set({ "n",   "v" },   "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
-				vim.keymap.set({ "v"        },   "<C-C>", '"+y', { desc = "Copy system clipboard" })
-				vim.keymap.set({ "n",       },   "<C-V>", '"+p', { desc = "Paste system clipboard" })
+				vim.keymap.set({ "v",   "v" },   "<C-S-C>", '"+y', { desc = "Copy system clipboard" })
+				vim.keymap.set({ "n",   "v" },   "<C-S-V>", '"+p', { desc = "Paste system clipboard" })
 				vim.env.NEOVIDE = 1
 			end
 		'';

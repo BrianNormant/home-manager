@@ -98,8 +98,8 @@ require('lz.n').load {
 		require('nvim-treesitter-textsubjects').configure {
 			keymaps = {
 				['.'] = 'textsubjects-smart',
-				[';'] = 'textsubjects-container-outer',
-				[':'] = 'textsubjects-container-inner',
+				-- [';'] = 'textsubjects-container-outer',
+				-- [':'] = 'textsubjects-container-inner',
 			}
 		}
 	end
