@@ -64,7 +64,7 @@
 						{
 							function()
 								return {
-									{ action = 'Telescope frecency',     name = 'Files',        section = "Telescope" },
+									{ action = 'Telescope frecency workspace=CWD',     name = 'Files',        section = "Telescope" },
 									{ action = 'Telescope live_grep',    name = 'LGrep',        section = "Telescope" },
 									{ action = 'Telescope git_files',    name = 'FFiles Git',   section = "Telescope" },
 									{ action = 'Telescope git_commits',  name = 'FCommits',     section = "Telescope" },

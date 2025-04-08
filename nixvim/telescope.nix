@@ -64,12 +64,21 @@
 					"AdvancedGitSearch"
 				];
 			};
+			settings = {
+				defaults.__raw = ''
+					vim.tbl_extend(
+						"force",
+						require("telescope.themes").get_dropdown(),
+						{}
+					)
+				'';
+			};
 		};
 		keymaps = [
 			# Frecency
 			{
 				key = "<leader>ff";
-				action = "<Cmd>Telescope frecency<CR>";
+				action = "<Cmd>Telescope frecency workspace=CWD<CR>";
 				options.desc = "Telescope: Find Files Frecency";
 			}
 			{
