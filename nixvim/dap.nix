@@ -63,6 +63,7 @@
 						'';
 					}
 				];
+				ft = "java"; # nvim-java needs dap to be active to be properly configured
 				before.__raw = ''
 					function()
 						require('lz.n').trigger_load('nvim-dap')
