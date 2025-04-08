@@ -88,8 +88,8 @@ local function mode_color()
 		["S"]    = {fg = "#8ec07c", bg = "#fdf0d5", gui="bold",},
 		[""]   = {fg = "#8ec07c", bg = "#fdf0d5", gui="bold,italic",},
 		---- Terminal
-		["t"]    = {fg = "#7c8ec0", bg = "#99430a"},
-		["nt"]   = {fg = "#ebdbb2", bg = "#99430a"},
+		["t"]    = {fg = "#7c8ec0", bg = "#99430a", gui = "bold",},
+		["nt"]   = {fg = "#ebdbb2", bg = "#99430a", gui = "bold"},
 		--- _CTRL-O
 		["vs"]   = {fg = "#8ec07c", bg = "#32302F", gui="italic"},
 		["Vs"]   = {fg = "#8ec07c", bg = "#fdf0d5", gui="italic"},

@@ -63,7 +63,7 @@
 					require('actions-preview').code_actions()
 				end
 				'';
-				options.desc = "LSP: Code action.__raws";
+				options.desc = "LSP: Code action";
 				mode = [ "v" "n" ];
 			}
 			# Hover.nvim
