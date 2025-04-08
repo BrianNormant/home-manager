@@ -7,6 +7,11 @@ programs.nixvim = {
 			enable = true;
 			lazyLoad.settings = {
 				ft = "java";
+				before.__raw = ''
+					function()
+						require('lz.n').trigger_load('nvim-dap-ui')
+					end
+				'';
 			};
 			settings = {
 				jdk.auto_install = false;
