@@ -16,20 +16,13 @@
 		extraConfigLua = ''
 			require('lz.n').load {
 				'gen-nvim',
-				keys = {
-					{
-						"<F1>",
-						"<CMD>Gen<CR>",
-						mode = {"v", "n" },
-					},
-				},
 				cmd = "Gen",
 				after = function()
 					require('gen').setup {
 						model = 'llama3:latest',
 						display_mode = 'split',
-						show_prompt = false,
-						show_model = false,
+						show_prompt = true,
+						show_model = true,
 						no_auto_close = true,
 						host = "ollama.ggkbrian.com",
 						port = 80,
@@ -37,5 +30,13 @@
 				end,
 			}
 		'';
+		keymaps = [
+			{
+				key = "<F1>";
+				action = "<CMD>Gen<CR>";
+				options.desc = "Ask Ollama";
+				mode = [ "n" "v" ];
+			}
+		];
 	};
 }

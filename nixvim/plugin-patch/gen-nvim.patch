@@ -1,5 +1,26 @@
 --- a/lua/gen/init.lua
 +++ b/lua/gen/init.lua
+@@ -39,14 +39,14 @@ local function trim_table(tbl)
+ end
+ 
+ local default_options = {
+-    model = "mistral",
+-    host = "localhost",
+-    port = "11434",
++    model = "llama3:latest",
++    host = "ollama.ggkbrian.com",
++    port = "80",
+     file = false,
+-    debug = false,
++    debug = true,
+     body = {stream = true},
+-    show_prompt = false,
+-    show_model = false,
++    show_prompt = true,
++    show_model = true,
+     quit_map = "q",
+     accept_map = "<c-cr>",
+     retry_map = "<c-r>",
 @@ -56,7 +56,7 @@ local default_options = {
                     ":" .. options.port .. "/api/chat -d $body"
      end,
@@ -37,7 +58,7 @@
          -- vim.api.nvim_win_close(0, true)
          M.run_command(cmd, opts)
      end, {buffer = globals.result_buffer})
-@@ -281,11 +275,6 @@ M.exec = function(options)
+@@ -281,16 +275,11 @@ M.exec = function(options)
      local function substitute_placeholders(input)
          if not input then return input end
          local text = input
@@ -49,6 +70,13 @@
          text = string.gsub(text, "%$register_([%w*+:/\"])", function(r_name)
              local register = vim.fn.getreg(r_name)
              if not register or register:match("^%s*$") then
+-                error("Prompt uses $register_" .. rname .. " but register " ..
+-                          rname .. " is empty")
++                error("Prompt uses $register_" .. r_name .. " but register " ..
++                          r_name .. " is empty")
+             end
+             return register
+         end)
 @@ -319,6 +308,10 @@ M.exec = function(options)
          end
      end
