@@ -145,6 +145,7 @@
 				vim.keymap.set({ "n",   "v" },   "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
 				vim.keymap.set({ "v"        },   "<C-C>", '"+y', { desc = "Copy system clipboard" })
 				vim.keymap.set({ "n",       },   "<C-V>", '"+p', { desc = "Paste system clipboard" })
+				vim.env.NEOVIDE = 1
 			end
 		'';
 		autoCmd = [
