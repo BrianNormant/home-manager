@@ -1,5 +1,9 @@
 -- client and bufnr are provided
 
+---@diagnostic disable-next-line: undefined-global
+require('nvim-navbuddy').attach(client, bufnr)
+
+
 -- Auto Highlight
 vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
 	pattern = {"*"},

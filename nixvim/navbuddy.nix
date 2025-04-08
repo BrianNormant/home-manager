@@ -13,14 +13,6 @@
 					"<Right>" = "children";
 					"<Left>"  = "parent";
 				};
-				# lazyLoad.settings = {
-				# 	keys = [
-				# 		{
-				# 			__unkeyed-1 = "L";
-				# 			__unkeyed-2 = "<CMD>Navbuddy<CR>";
-				# 		}
-				# 	];
-				# };
 			};
 		};
 		keymaps = [{
