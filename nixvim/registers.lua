@@ -9,7 +9,7 @@ require('lz.n').load {
 		require'registers'.setup {
 			window = {
 				border = "double",
-				transparency = 0,
+				transparency = 10,
 			},
 		}
 	end,
