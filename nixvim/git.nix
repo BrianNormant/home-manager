@@ -147,6 +147,17 @@ in {
 				options.desc = "Fugitive Commit";
 			}
 			{
+				key = "<leader>gC";
+				action.__raw = ''
+					function()
+						local hash = vim.fn.expand("<cword>")
+						return ":Git checkout " .. hash
+					end
+				'';
+				options.desc = "Prefill cmd to checkout commit";
+				options.expr = true;
+			}
+			{
 				key = "<leader>gp";
 				action = "<CMD>Git pull<cr>";
 				options.desc = "Fugitive Pull";
@@ -168,7 +179,7 @@ in {
 			}
 			{
 				key = "<leader>gm";
-				action = "<CMD>Git mergetool<cr>";
+				action = "<CMD>DiffviewOpen<cr>";
 				options.desc = "Fugitive Mergetool resolve conflicts";
 			}
 		];
