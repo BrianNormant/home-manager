@@ -1,3 +1,3 @@
 require('gruvbox-material').setup {
-	contrast = "soft",
+	contrast = _G.gruvbox_contrast,
 }

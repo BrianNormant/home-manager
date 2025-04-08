@@ -1,4 +1,9 @@
-{config, pkgs, ...}: {
+{pkgs, ...}:
+let
+	inherit (pkgs.vimUtils) buildVimPlugin;
+	inherit (pkgs) fetchFromGitHub;
+	inherit (pkgs.lib) fakeHash;
+in {
 	programs.nixvim = {
 		extraPackages = with pkgs; [
 			git-extras
@@ -20,21 +25,105 @@
 			};
 		};
 		# Workaround as Fugitive* are vimscript events
+		extraPlugins = [
+			(buildVimPlugin rec {
+				pname = "gitgraph-nvim";
+				version = "01e466b";
+				src = fetchFromGitHub {
+					owner = "isakbm";
+					repo = "gitgraph.nvim";
+					rev = version;
+					hash = "sha256-d55IRrOhK5tSLo2boSuMhDbkerqij5AHgNDkwtGadyI=";
+				};
+			})
+		];
 		extraConfigLuaPost = ''
-		_G.fugitive_help = function()
-			${builtins.readFile ./fugitive-help-fn.lua}
-		end
+			_G.fugitive_help = function()
+				${builtins.readFile ./fugitive-help-fn.lua}
+			end
+			require('lz.n').load {
+				'gitgraph.nvim',
+				keys = {
+					{
+						"<leader>fg",
+						function()
+							require('gitgraph').draw({}, {all = true, max_count = 100})
+						end
+					},
+				},
+				after = function()
+					require('gitgraph').setup {
+						symbols = {
+							merge_commit = '',
+							commit = '',
+							merge_commit_end = '',
+							commit_end = '',
+
+							-- Advanced symbols
+							GVER = '│',
+							GHOR = '',
+							GCLD = '',
+							GCRU = '',
+							GCRD = '╭',
+							GCLU = '',
+							GLRU = '',
+							GLRD = '',
+							GLUD = '',
+							GRUD = '',
+							GFORKU = '',
+							GFORKD = '',
+							GRUDCD = '',
+							GRUDCU = '',
+							GLUDCD = '',
+							GLUDCU = '',
+							GLRDCL = '',
+							GLRDCR = '',
+							GLRUCL = '',
+							GLRUCR = '',
+						},
+						hooks = {
+							-- TODO: Run a fugitive/diffview command with those actions
+							on_select_commit = function(commit)
+								vim.notify('DiffviewOpen ' .. commit.hash .. '^!')
+								vim.cmd(':DiffviewOpen ' .. commit.hash .. '^!')
+							end,
+							on_select_range_commit = function(from, to)
+								vim.notify('DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
+								vim.cmd(':DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
+							end,
+						},
+					}
+
+					-- Now set the highlights
+					_G.gruvbox_contrast = "soft"
+					local contrast = _G.gruvbox_contrast
+					local theme = require('gruvbox-material.lualine').theme(contrast)
+					local g_colors = require("gruvbox-material.colors")
+					local colors = g_colors.get(vim.o.background, contrast)
+
+					vim.cmd(string.format("hi GitGraphHash gui=bold guifg=%s", "#FFAF00"))
+
+					vim.cmd(string.format("hi GitGraphAuthor guifg=%s", "#0DCDCD"))
+					vim.cmd(string.format("hi GitGraphTimestamp guifg=#565555"))
+					vim.cmd(string.format("hi GitGraphBranchName guifg=%s", colors.red))
+					vim.cmd(string.format("hi GitGraphBranchTag gui=bold guifg=%s", colors.purple))
+					vim.cmd(string.format("hi GitGraphBranchMsg guifg=%s", colors.fg1))
+					vim.cmd("hi! link RainbowRed    GitGraphBranch1")
+					vim.cmd("hi! link RainbowCyan   GitGraphBranch2")
+					vim.cmd("hi! link RainbowBlue   GitGraphBranch3")
+					vim.cmd("hi! link RainbowOrange GitGraphBranch4")
+					vim.cmd("hi! link RainbowViolet GitGraphBranch4")
+
+					-- TODO: Make fugitive autocmd run in graphview buffers
+
+				end
+			}
 		'';
 		keymaps = [
 			{
 				key = "<leader>G";
 				action = "<CMD>Git<CR>";
 				options.desc = "Fugitive";
-			}
-			{
-				key = "<leader>gl";
-				action = "<CMD>Git log --graph --all --oneline --abbrev-commit --decorate<CR>";
-				options.desc = "Fugitive Git pretty log";
 			}
 			{
 				key = "<leader>gd";
@@ -49,7 +138,7 @@
 			}
 			{
 				key = "<leader>gf";
-				action = "<CMD>Ggrep -q ";
+				action = "<CMD>Ggrep -q<CR>";
 				options.desc = "Fugitive Git grep to qfl";
 			}
 			{
@@ -69,12 +158,12 @@
 			}
 			{
 				key = "<leader>gri";
-				action = "<CMD>Git rebase --continue";
+				action = "<CMD>Git rebase --continue<CR>";
 				options.desc = "Fugitive Rebase Continue";
 			}
 			{
 				key = "<leader>gR";
-				action = "<CMD>Git rebase --abort";
+				action = "<CMD>Git rebase --abort<CR>";
 				options.desc = "Fugitive Rebase Abort";
 			}
 			{

@@ -1,6 +1,6 @@
 local lualine = require('lualine')
 
-local contrast = "soft"
+local contrast = _G.gruvbox_contrast
 
 local theme = require('gruvbox-material.lualine').theme(contrast)
 local g_colors = require("gruvbox-material.colors")

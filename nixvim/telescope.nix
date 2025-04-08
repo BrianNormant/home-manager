@@ -30,7 +30,6 @@
 				};
 			};
 			extensions = {
-				advanced-git-search.enable = true;
 				frecency = {
 					enable = true;
 					settings = {
@@ -86,32 +85,10 @@
 				action = "<Cmd>Telescope find_files<CR>";
 				options.desc = "Telescope: Find Files";
 			}
-			# advanced git search
-			{
-				key = "<leader>fg";
-				action = "<Cmd>AdvancedGitSearch diff_commit_file<CR>";
-				options.desc = "Telescope Git: Diff current file with <commits>";
-			}
-			{
-				key = "<leader>fg";
-				action = "<Cmd>AdvancedGitSearch diff_commit_line<CR>";
-				options.desc = "Telescope Git: Diff current range with <commits>";
-				mode = [ "v" ];
-			}
-			{
-				key = "<leader>fG";
-				action = "<Cmd>AdvancedGitSearch show_custom_functions<CR>";
-				options.desc = "Telescope Git: Show custom functions";
-			}
 			{
 				key = "<leader>fF";
 				action = "<CMD>Telescope live_grep_args<cr>";
 				options.desc = "Telescope: Live Grep";
-			}
-			{
-				key = "<leader>fn";
-				action = "<CMD>Telescope manix<cr>";
-				options.desc = "Telescope: Nix Help";
 			}
 		];
 	};

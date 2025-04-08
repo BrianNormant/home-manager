@@ -116,9 +116,9 @@ in {
 		kitty = {
 			enable = true;
 			font = {
-				name = "FiraCode Nerd Font";
+				name = "FiraCode Nerd Font Ret";
 				package = pkgs.rictydiminished-with-firacode;
-				size = 12;
+				size = 14;
 			};
 			settings = {
 				enable_audio_bell = false;

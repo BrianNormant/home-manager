@@ -46,7 +46,7 @@
 			
 			# Inc Rename
 			{
-				key = "gR";
+				key = "<A-r>";
 				action.__raw = ''
 				function()
 					return ":IncRename " .. vim.fn.expand("<cword>")

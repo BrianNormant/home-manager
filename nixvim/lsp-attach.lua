@@ -42,7 +42,7 @@ if (client.supports_method('textDocument/inlayHint')) then
 	})
 end
 
-local contrast = "soft"
+local contrast = _G.gruvbox_contrast
 local g_colors = require("gruvbox-material.colors")
 local colors = g_colors.get(vim.o.background, contrast)
 

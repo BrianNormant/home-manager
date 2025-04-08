@@ -77,12 +77,14 @@
 							end,
 							function()
 								return {
-									{ action = "Git",        name = "Git",           section = "Fugitive" },
-									{ action = "Git log",    name = "Log (Git log)", section = "Fugitive" },
-									{ action = "Git commit", name = "Commit",        section = "Fugitive" },
-									{ action = "Git pull",   name = "Pull",          section = "Fugitive" },
-									{ action = "Git push",   name = "Push",          section = "Fugitive" },
-									{ action = "Git stash",  name = "Stash",         section = "Fugitive" },
+									{ action = "Git",        name = "Status",           section = "Git" },
+									{ action = function()
+										require('gitgraph').draw({}, {all = true, max_count = 100})
+									end,    name = "Log (Git log)", section = "Git" },
+									{ action = "Git commit", name = "Commit",        section = "Git" },
+									{ action = "Git pull",   name = "Pull",          section = "Git" },
+									{ action = "Git push",   name = "Push",          section = "Git" },
+									{ action = "Git stash",  name = "Stash",         section = "Git" },
 								}
 							end,
 							function ()

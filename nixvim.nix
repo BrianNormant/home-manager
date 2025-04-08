@@ -126,7 +126,7 @@
 				end,
 			}
 			if vim.g.neovide then
-				vim.o.guifont = "FiraCode Nerd Font:h12";
+				vim.o.guifont = "FiraCode_Nerd_Font_Ret,Flog_Symbols:h14";
 				vim.g.neovide_floating_shadow = true;
 				vim.g.neovide_floating_z_height = 1.0;
 				vim.g.neovide_position_animation_length = 0.10;
