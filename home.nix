@@ -196,6 +196,11 @@ in {
 				"credential \"https://gist.github.com\"" = {
 					helper = "${pkgs.gh} auth git-credential";
 				};
+				"color \"decorate\"" = {
+					HEAD = "blink bold italic 196";
+					branch = "214";
+					tag = "bold 222";
+				};
 			};
 		};
 		ssh = {

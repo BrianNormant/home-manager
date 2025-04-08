@@ -109,6 +109,9 @@
 				fg = "#EA3F3F";
 			};
 		};
+		extraConfigLuaPre = ''
+			_G.gruvbox_contrast = "soft"
+		'';
 		extraConfigLuaPost = ''
 			vim.cmd "hi clear SpellBad"
 			vim.cmd "hi clear SpellCap"

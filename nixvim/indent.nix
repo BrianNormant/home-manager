@@ -25,13 +25,13 @@
 				settings = {
 					indent = {
 						inherit highlight;
-						char = "▏";
+						char = "";
 						tab_char = "·";
 					};
 					scope = {
 						enabled = true;
 						highlight = "Blue";
-						char = "║";
+						char = "";
 						show_end = false;
 					};
 				};
