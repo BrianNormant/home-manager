@@ -6,95 +6,107 @@ local theme = require('gruvbox-material.lualine').theme(contrast)
 local g_colors = require("gruvbox-material.colors")
 local colors = g_colors.get(vim.o.background, contrast)
 
-local conditions = {
-	buffer_not_empty = function()
-		return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-	end,
-	hide_in_width = function()
-		return vim.fn.winwidth(0) > 80
-	end,
-	check_git_workspace = function()
-		local filepath = vim.fn.expand('%:p:h')
-		local gitdir = vim.fn.finddir('.git', filepath .. ';')
-		return gitdir and #gitdir > 0 and #gitdir < #filepath
-	end,
-}
 
-
-
--- Config
-local config = {
-	options = {
-		-- Disable sections and component separators
-		component_separators = '',
-		section_separators = '',
-		theme = theme,
-	},
-	sections = {
-		-- these are to remove the defaults
-		lualine_a = {},
-		lualine_b = {},
-		lualine_y = {},
-		lualine_z = {},
-		-- These will be filled later
-		lualine_c = {},
-		lualine_x = {},
-	},
-	inactive_sections = {
-		-- these are to remove the defaults
-		lualine_a = {},
-		lualine_b = {},
-		lualine_y = {},
-		lualine_z = {},
-		lualine_c = {},
-		lualine_x = {},
-	},
-}
-
--- Inserts a component in lualine_c at left section
-local function ins_left(component)
-	table.insert(config.sections.lualine_c, component)
-end
-
--- Inserts a component in lualine_x at right section
-local function ins_right(component)
-	table.insert(config.sections.lualine_x, component)
+local function mode_text()
+	local equtbl = {
+		--- see :help mode()
+		--- Normal
+		["n"]    = "      Normal     ",
+		--- Insert
+		["i"]    = "      Insert     ",
+		["ix"]   = "   InsertCompl   ",
+		["ic"]   = "    OmniCompl    ",
+		--- Replace
+		["R"]    = "     Replace     ",
+		["Rx"]   = "   ReplaceCompl  ",
+		["Rc"]   = "   ReplaceOmni   ",
+		--- Virtual Replace
+		["Rv"]   = "   VirtReplace   ",
+		["Rvx"]  = " VirtReplaceCompl",
+		["Rvc"]  = " VirtReplaceOmni ",
+		--- Visual
+		["v"]    = "      Visual     ",
+		["V"]    = "    VisualLine   ",
+		[""]   = "   VisualBlock   ",
+		--- Select
+		["s"]    = "      Select     ",
+		["S"]    = "    SelectLine   ",
+		[""]   = "   SelectBlock   ",
+		--- Terminal
+		["t"]    = "     Terminal    ",
+		["nt"]   = "    NTerminal    ", -- Ctrl-\_Ctrl-N
+		--- _CTRL-O
+		["vs"]   = "   VisualSelect  ",
+		["Vs"]   = " VisualSelectLine",
+		["s"]  = "VisualSelectBlock",
+		["niI"]  = "    C-OInsert    ",
+		["niR"]  = "    C-OReplace   ",
+		["niV"]  = " C-OVirtReplace  ",
+		["ntT"]  = "   C-OTerminal   ",
+		--- Operator Pending
+		["no"]   = "     Operator    ",
+		["nov"]  = "  OperatorFChar  ",
+		["noV"]  = "  OperatorFLine  ",
+		["no"] = "  OperatorFBlock ",
+		--- Command
+		["c"]    = "     Command     ",
+		--- Wait
+		["!"]    = "       Wait      ",
+	}
+	local mode = vim.fn.mode(1)
+	for m, txt in pairs(equtbl) do
+		if mode == m then
+			return txt
+		end
+	end
+	return mode
 end
 
 local function mode_color()
 	local equtbl = {
 		--- see :help mode()
-		["R"]    = { fg = colors.blue, },
-		["Rx"]   = { fg = colors.blue, bg = colors.bg_diff_red },
-		["Rc"]   = { fg = colors.blue, bg = colors.bg_diff_green },
-		["Rv"]   = { fg = colors.blue, gui = "bold"},
-		["Rvx"]  = { fg = colors.blue, bg = colors.bg_diff_red ,gui = "bold"},
-		["Rvc"]  = { fg = colors.blue, bg = colors.bg_diff_green, gui = "bold"},
-		["s"]    = { fg = colors.green },
-		["S"]    = { fg = colors.green },
-		[""]   = { fg = colors.green, gui  = "bold" },
-		["vs"]   = { fg = colors.green, bg = colors.orange},
-		["Vs"]   = { fg = colors.green, bg = colors.orange},
-		["s"]  = { fg = colors.green, bg = colors.orange, gui = "bold"},
-		["v"]    = { fg = colors.orange, },
-		["V"]    = { fg = colors.orange, },
-		[""]   = { fg = colors.orange, gui = "bold" },
-		["i"]    = { fg = colors.red, },
-		["ic"]   = { fg = colors.red, bg = colors.bg_diff_green },
-		["ix"]   = { fg = colors.red, bg = colors.bg_diff_red },
-		["niI"]  = { fg = colors.red, gui = "underline" },
-		["niR"]  = { fg = colors.blue, gui = "underline" },
-		["niV"]  = { fg = colors.blue, gui = "underline" },
-		["t"]    = { fg = colors.yellow, },
-		["nt"]   = { fg = colors.yellow, gui = "underline" },
-		["ntT"]  = { fg = colors.yellow, gui = "underline" },
-		["no"]   = { fg = colors.purple, },
-		["nov"]  = { fg = colors.purple, },
-		["noV"]  = { fg = colors.purple, },
-		["no"] = { fg = colors.purple, gui = "bold" },
-		["n"]    = { fg = colors.fg1, },
-		["!"]    = { fg = colors.red, bg = colors.bg_visual_red, gui = "bold"},
-		["c"]    = { fg = "#331a99" }
+		--- Normal
+		["n"]    = {fg = "#ebdbb2", bg = "#32302F"},
+		--- Insert
+		["i"]    = {fg = "#7c8ec0", bg = "#32302f"},
+		["ix"]   = {fg = "#7c8ec0", bg = "#fdf0d5"},
+		["ic"]   = {fg = "#7c8ec0", bg = "#fdf0d5"},
+		--- Replace
+		["R"]    = {fg = "#c11c1f", bg = "#32302F"},
+		["Rx"]   = {fg = "#c11c1f", bg = "#fdf0d5"},
+		["Rc"]   = {fg = "#c11c1f", bg = "#fdf0d5"},
+		--- Virtual Replace
+		["Rv"]   = {fg = "#c11c1f", bg = "#32302F", gui="bold",},
+		["Rvx"]  = {fg = "#c11c1f", bg = "#fdf0d5", gui="bold",},
+		["Rvc"]  = {fg = "#c11c1f", bg = "#fdf0d5", gui="bold",},
+		--- Visual
+		["v"]    = {fg = "#8ec07c", bg = "#32302F"},
+		["V"]    = {fg = "#8ec07c", bg = "#fdf0d5"},
+		[""]   = {fg = "#8ec07c", bg = "#fdf0d5", gui = "italic"},
+		--- Select
+		["s"]    = {fg = "#8ec07c", bg = "#32302F", gui="bold",},
+		["S"]    = {fg = "#8ec07c", bg = "#fdf0d5", gui="bold",},
+		[""]   = {fg = "#8ec07c", bg = "#fdf0d5", gui="bold,italic",},
+		---- Terminal
+		["t"]    = {fg = "#7c8ec0", bg = "#99430a"},
+		["nt"]   = {fg = "#ebdbb2", bg = "#99430a"},
+		--- _CTRL-O
+		["vs"]   = {fg = "#8ec07c", bg = "#32302F", gui="italic"},
+		["Vs"]   = {fg = "#8ec07c", bg = "#fdf0d5", gui="italic"},
+		["s"]  = {fg = "#8ec07c", bg = "#fdf0d5", gui="italic"},
+		["niI"]  = {fg = "#7c8ec0", bg = "#32302F", gui="italic"},
+		["niR"]  = {fg = "#c11c1f", bg = "#32302F", gui="italic"},
+		["niV"]  = {fg = "#c11c1f", bg = "#32302F", gui="italic,bold"},
+		["ntT"]  = {fg = "#fe8019", bg = "#32302F", gui="italic"},
+		--- Operator pending
+		["no"]   = {fg = "#b16286", bg = "#32302F"},
+		["nov"]  = {fg = "#b16286", bg = "#32302F"},
+		["noV"]  = {fg = "#b16286", bg = "#32302F", gui = "italic"},
+		["no"] = {fg = "#b16286", bg = "#32302F", gui = "bold"},
+		--- Command
+		["c"]    = {fg = "#FFAF00", bg = "#32302F"},
+		--- Wait
+		["!"]    = {fg = "#ff0000", bg = "#cc00e6"},
 	}
 	local mode = vim.api.nvim_get_mode().mode
 	if equtbl[mode] then
@@ -104,183 +116,89 @@ local function mode_color()
 	end
 end
 
-local function mode_text()
-	local equtbl = {
-		--- see :help mode()
-		[""]   = "SelectBlock      ",
-		[""]   = "VisualBlock      ",
-		["s"]  = "VisualSelectBlock",
-		["!"]    = "Wait             ",
-		["R"]    = "Replace          ",
-		["Rc"]   = "ReplaceOmni      ",
-		["Rv"]   = "VirtReplace      ",
-		["Rvc"]  = "VirtReplaceOmni  ",
-		["Rvx"]  = "VirtReplaceCompl ",
-		["Rx"]   = "ReplaceCompl     ",
-		["S"]    = "SelectLine       ",
-		["V"]    = "VisualLine       ",
-		["Vs"]   = "VisualSelectLine ",
-		["i"]    = "Insert           ",
-		["ic"]   = "OmniComp         ",
-		["ix"]   = "InsertCompl      ",
-		["n"]    = "Normal           ",
-		["niI"]  = "NInsert          ",
-		["niR"]  = "NReplace         ",
-		["niV"]  = "NVirtReplace     ",
-		["no"] = "OperatorBlock    ",
-		["no"]   = "Operator         ",
-		["noV"]  = "OperatorLine     ",
-		["nov"]  = "OperatorChar     ",
-		["nt"]   = "NTerminal        ",
-		["ntT"]  = "NNTerminal       ",
-		["s"]    = "Select           ",
-		["t"]    = "Terminal         ",
-		["v"]    = "Visual           ",
-		["vs"]   = "VisualSelect     ",
-		["c"]    = "Command          ",
-	}
-	local mode = vim.api.nvim_get_mode().mode
-	for m, txt in pairs(equtbl) do
-		if mode == m then
-			return txt
-		end
-	end
-	return mode
-end
-
-local function format_recording()
-	if vim.fn.reg_recording() ~= "" then
-		return "Recording @" .. vim.fn.reg_recording()
-	else
-		return ""
-	end
-end
-
-ins_left {
-	-- mode component
-	mode_text,
-	color = mode_color,
-	icon = '',
-	padding = { right = 1 },
-}
-
-ins_left {
-	format_recording,
-	cond = function()
-		return vim.fn.reg_recording() ~= ""
-	end,
-	color = { fg = colors.fg0 }
-}
-
-
-ins_left {
-	-- filesize component
-	'filetype',
-	cond = conditions.buffer_not_empty,
-}
-
-ins_left {
-	'filename',
-	cond = conditions.buffer_not_empty,
-	color = { fg = colors.magenta, gui = 'bold' },
-}
-
-ins_left { 'location' }
-
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
-
-ins_left {
-	'diagnostics',
-	sources = { 'nvim_diagnostic' },
-	symbols = { error = ' ', warn = ' ', info = ' ' },
-	diagnostics_color = {
-		color_error = { fg = colors.red },
-		color_warn = { fg = colors.yellow },
-		color_info = { fg = colors.cyan },
+local config = {
+	options = {
+		-- Disable sections and component separators
+		icons_enabled = true;
+		component_separators = '',
+		section_separators = '',
+		theme = theme,
 	},
-}
+	sections = {
+		lualine_a = { {
+			mode_text,
+			color = mode_color,
+			icon = '',
+			padding = { left = 1, right = 1},
+		}, },
+		lualine_b = {
+			{'selectioncount'},
+			{
+				'FugitiveStatusline',
+				icon = '',
+				padding = { left = 1, right = 1 },
+				color = { fg = colors.orange },
+			},
+			{
+				'diagnostics',
+			},
+		},
+		lualine_c = {
+			{'progress', color = { fg = colors.fg, gui = 'italic'}},
+			{
+				'filetype',
+				icon_only = true,
+				padding = { left = 1, right = 0 },
+				icon = { align = 'right' }
+			},
+			{
+				'filename',
+				color = { fg = colors.fg, gui = 'bold'},
+				padding = { left = 0, right = 1 },
+			},
+			{
+				function()
+					local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf()})
+					if next(clients) == nil then
+						return ' No Lsp'
+					end
 
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
+					local c = vim.tbl_map(function(v) return v.name end, clients)
 
-ins_left {
-	color = { fg = colors.grey, gui = 'bold' },
-	-- Lsp server name .,
-	function()
-		local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf()})
-		if next(clients) == nil then
-			return '%=No Lsp'
-		end
+					return '⚡' .. table.concat(c, ' & ')
+				end,
+				color = { fg = "#FFAF00", },
+			},
+			-- {'location', color = { fg = colors.fg, gui = 'italic'}},
+		},
 
-		local c = vim.tbl_map(function(v) return v.name end, clients)
-
-		return '%=' .. ' LSP:' .. table.concat(c, ' & ')
-	end,
-}
-
-ins_right {
-	function()
-		return '%='
-	end,
-}
--- Add components to right sections
-ins_right {
-	function()
-		if vim.v.hlsearch == 0 then
-			return ''
-		end
-		local last_search = vim.fn.getreg('/')
-		if not last_search or last_search == '' then
-			return ''
-		end
-		local searchcount = vim.fn.searchcount { maxcount = 9999 }
-		return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
-	end,
-}
-
-
-ins_right {
-	'rest',
-	color = { fg = colors.violet, gui = 'bold' },
-}
-
-ins_right {
-	'o:encoding', -- option component same as &encoding in viml
-	fmt = string.upper, -- I'm not sure why it's upper case either ;)
-	cond = conditions.hide_in_width,
-	color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
-	'fileformat',
-	fmt = string.upper,
-	icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
-	color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
-	'branch',
-	icon = '',
-	color = { fg = colors.violet, gui = 'bold' },
-}
-
-ins_right {
-	'diff',
-	-- Is it me or the symbol for modified us really weird
-	symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
-	diff_color = {
-		added = { fg = colors.green },
-		modified = { fg = colors.orange },
-		removed = { fg = colors.red },
+		lualine_x = {
+			'o:encoding',
+			'o:fileformat',
+		},
+		lualine_y = {
+			function()
+				if vim.v.hlsearch == 0 then
+					return ' '
+				end
+				local sh = vim.fn.getreg('/')
+				if sh ~= '' then
+					return "search: " .. sh
+				else
+					return " "
+				end
+			end,
+		},
+		lualine_z = {
+			{
+				'diff',
+				symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
+				color = { bg = "#282828", }
+			}
+		},
 	},
-	cond = conditions.hide_in_width,
 }
 
 vim.o.laststatus = 3; -- https://www.reddit.com/r/neovim/comments/1clx1cu/optionsvimoptlaststatus_config_being_overridden/
 lualine.setup(config)
 
-lualine.setup {
-	options = {
-		theme = require('gruvbox-material.lualine').theme("soft")
-	}
-}
