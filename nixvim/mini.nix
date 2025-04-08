@@ -56,7 +56,7 @@
 					sort.prefix     = "gs";
 				};
 				bracketed = {
-					diagnostic.options.severity = "vim.diagnostic.severity.ERROR";
+					diagnostic.options.severity = 1; #"vim.diagnostic.severity.ERROR";
 				};
 				cursorword = {};
 				notify = {
@@ -118,6 +118,7 @@
 		highlightOverride = {
 			MiniCursorword = { underline = true; };
 			MiniCursorwordCurrent = { underline = true; };
+			MiniOperatorsExchangeFrom = { bg = "#d79921"; bold=true; };
 		};
 	};
 }
