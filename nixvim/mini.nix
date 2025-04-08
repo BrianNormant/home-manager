@@ -5,7 +5,23 @@
 		];
 		plugins.mini = {
 			enable = true;
-			luaConfig.post = builtins.readFile ./mini.lua;
+			luaConfig = {
+				pre = ''
+					_G.minicursorword_disable = function()
+						local ft = vim.bo.filetype
+						local disable = (
+								ft == 'git' or
+								ft == 'fugitive' or
+								ft == 'help' or
+								ft == 'man' or
+								ft == 'gitgraph'
+								)
+						vim.b.minicursorword_disable = disable
+					end
+					vim.cmd "au BufEnter * lua _G.minicursorword_disable()"
+				'';
+				post = builtins.readFile ./mini.lua;
+			};
 			modules = {
 				extra = {};
 				sessions = {
