@@ -188,6 +188,7 @@ in {
 			extraConfig = {
 				push = {
 					followTags = "true";
+					default = "upstream"; # Push to the tracked branch (see with git branch -vv)
 				};
 				log.excludeDecoration = "refs/stash";
 				merge.tool = "nvim -c \"Git mergetool\"";
