@@ -35,6 +35,7 @@ in {
 					rev = version;
 					hash = "sha256-d55IRrOhK5tSLo2boSuMhDbkerqij5AHgNDkwtGadyI=";
 				};
+				patches = [ ./plugin-patch/gitgraph.patch ];
 			})
 		];
 		extraConfigLuaPost = ''
@@ -84,12 +85,12 @@ in {
 						hooks = {
 							-- TODO: Run a fugitive/diffview command with those actions
 							on_select_commit = function(commit)
-								vim.notify('DiffviewOpen ' .. commit.hash .. '^!')
-								vim.cmd(':DiffviewOpen ' .. commit.hash .. '^!')
+								vim.notify('DiffviewOpen ' .. commit.hash)
+								vim.cmd(':DiffviewOpen ' .. commit.hash)
 							end,
 							on_select_range_commit = function(from, to)
-								vim.notify('DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
-								vim.cmd(':DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
+								vim.notify('DiffviewOpen ' .. from.hash .. '..' .. to.hash)
+								vim.cmd(':DiffviewOpen ' .. from.hash .. '..' .. to.hash)
 							end,
 						},
 					}
