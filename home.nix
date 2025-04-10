@@ -33,6 +33,7 @@ in {
 	home.packages = with pkgs; [
 	nix-output-monitor
 	manix
+	cool-retro-term
 	usbutils
 	neovide
 	networkmanagerapplet
