@@ -5,7 +5,6 @@ in {
 	imports = [
 		# UI
 		./nixvim/colorscheme.nix
-		./nixvim/dressing.nix
 		./nixvim/dropbar.nix
 		./nixvim/lualine.nix
 		./nixvim/tabby.nix
@@ -29,6 +28,7 @@ in {
 		# Languages
 		./nixvim/java.nix
 		./nixvim/idris2.nix
+		./nixvim/markdown.nix
 
 		# Others
 		./nixvim/keymaps.nix
