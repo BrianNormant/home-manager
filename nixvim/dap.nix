@@ -1,5 +1,8 @@
 {pkgs, ... }: {
 	programs.nixvim = {
+		highlightOverride = {
+			DapBreakpoint = { fg = "#EA3F3F"; bold=true; };
+		};
 		plugins.dap = {
 			enable = true;
 			adapters = {
@@ -21,10 +24,10 @@
 				}];
 			};
 			signs.dapBreakpoint = {
-				text   = "🛑";
+				text   = "";
 				texthl = "";
 				linehl = "";
-				numhl  = "";
+				numhl  = "DapBreakpoint";
 			};
 			lazyLoad = {
 				settings = {
@@ -43,6 +46,14 @@
 						__unkeyed-1 = "<F10>";
 						__unkeyed-2.__raw = ''
 							function()
+								require('dap').toggle_breakpoint()
+							end
+						'';
+					}
+					{
+						__unkeyed-1 = "<S-F10>";
+						__unkeyed-2.__raw = ''
+							function()
 								require('dap').continue()
 							end
 						'';
@@ -51,7 +62,15 @@
 						__unkeyed-1 = "<F11>";
 						__unkeyed-2.__raw = ''
 							function()
-								require('dap').toggle_breakpoint()
+								require('dap').step_over()
+							end
+						'';
+					}
+					{
+						__unkeyed-1 = "<S-F11>";
+						__unkeyed-2.__raw = ''
+							function()
+								require('dap').continue()
 							end
 						'';
 					}
@@ -59,7 +78,15 @@
 						__unkeyed-1 = "<F12>";
 						__unkeyed-2.__raw = ''
 							function()
-								require('dap').step_over()
+								require('dap').step_into()
+							end
+						'';
+					}
+					{
+						__unkeyed-1 = "<S-F12>";
+						__unkeyed-2.__raw = ''
+							function()
+								require('dap').step_out()
 							end
 						'';
 					}
