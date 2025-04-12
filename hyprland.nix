@@ -221,8 +221,8 @@ bind = $mainMod ALT, V, exec, ~/.config/hypr/toggle_video_bg.nu
 
 bind = $mainMod, Return, exec, kitty zsh ~/.config/tmux.zsh # Open Terminal
 bind = $mainMod, T, exec, kitty --class PopUp zsh ~/.config/tmux.zsh # Terminal PopUp
-bind = $mainMod ALT, Return, exec, zutty # Alternative, simpler terminal
-bind = $mainMod, E, exec, kitty --class Explorer vifm ~ ~# File Explorer
+bind = $mainMod ALT, Return, exec, cool-retro-term # Nostagia
+bind = $mainMod, E, exec, neovide
 bind = $mainMod ALT, E, exec, thunar
 bind = $mainMod, V, exec, copyq toggle
 bind = $mainMod, I, exec, firefox # Web Browser
