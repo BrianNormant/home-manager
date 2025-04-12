@@ -20,7 +20,7 @@
 	};
 	outputs = inputs@{ nixpkgs, home-manager, blink-cmp, hyprpanel, nspire-tools, nixd, ... }:
 		let
-		system = "x86_64-linux";
+	system = "x86_64-linux";
 	pkgs = import nixpkgs {
 		inherit system;
 		config.allowUnfree = true;
