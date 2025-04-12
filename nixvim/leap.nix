@@ -23,7 +23,7 @@
 		extraConfigLua = "require('telepath').use_default_mappings()";
 		highlightOverride = {
 			LeapBackdrop = { fg = "#888888"; };
-			LeapLabel    = { fg = "#FF0000"; };
+			LeapLabel    = { fg = "#FF0000"; bold = true;};
 		};
 		keymaps = [
 			{

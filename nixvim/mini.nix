@@ -56,7 +56,7 @@
 				bracketed = {
 					diagnostic.options.severity = 1; #"vim.diagnostic.severity.ERROR";
 				};
-				cursorword = {};
+				cursorword = { delay = 500; };
 				notify = {
 					lsp_progress.enable = false;
 				};
@@ -114,8 +114,8 @@
 			};
 		};
 		highlightOverride = {
-			MiniCursorword = { underline = true; };
-			MiniCursorwordCurrent = { underline = true; };
+			MiniCursorword = { bold = true; };
+			MiniCursorwordCurrent = { bold = true; };
 			MiniOperatorsExchangeFrom = { bg = "#d79921"; bold=true; };
 		};
 	};
