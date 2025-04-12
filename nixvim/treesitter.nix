@@ -34,57 +34,68 @@ in{
 		];
 		# We want this to run after mini to override the mappings with ours
 		extraConfigLuaPost = builtins.readFile ./treesitter.lua;
-		plugins.treesitter-context = {
-			enable = true;
-		};
 		highlightOverride = {
 			TreesitterContext = { link = "CursorLine"; };
 		};
-		plugins.ts-autotag = {
-			enable = true;
-			lazyLoad.settings = {
-				event = [ "DeferredUIEnter" ];
+		plugins = {
+			treesitter-context = {
+				enable = true;
+				lazyLoad.settings = { event = [ "DeferredUIEnter" ]; };
 			};
-		};
-		plugins.treesitter = {
-			enable = true;
-			folding = true;
-
-			grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-				markdown
-				lua
-				json
-				make
-				vim
-				vimdoc
-				toml
-				xml
-				yaml
-				nix
-				java
-				c
-				regex
-				(buildGrammar {
-					 language = "nu";
-					 version = "2.1.1";
-					 src = fetchFromGitHub {
-						 owner = "nushell";
-						 repo = "tree-sitter-nu";
-						 rev = "d5c71a1";
-						 hash = "sha256-7Ny3wXa5iE6s7szqTkPqaXWL/NL5yA2MbhdQHylxwE0=";
+			ts-autotag = {
+				enable = true;
+				lazyLoad.settings = { event = [ "DeferredUIEnter" ]; };
+			};
+			treesitter = {
+				enable = true;
+				folding = true;
+				lazyLoad.settings = { event = "DeferredUIEnter"; };
+				grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+					markdown
+					lua
+					json
+					make
+					vim
+					vimdoc
+					toml
+					xml
+					yaml
+					nix
+					java
+					c
+					regex
+					(buildGrammar {
+						 language = "nu";
+						 version = "2.1.1";
+						 src = fetchFromGitHub {
+							 owner = "nushell";
+							 repo = "tree-sitter-nu";
+							 rev = "d5c71a1";
+							 hash = "sha256-7Ny3wXa5iE6s7szqTkPqaXWL/NL5yA2MbhdQHylxwE0=";
+						};
+					})
+					(buildGrammar {
+						language = "idris";
+						version = "alpha";
+						src = fetchFromGitHub {
+							owner = "kayhide";
+							repo = "tree-sitter-idris";
+							rev = "c56a25c";
+							hash = "sha256-aOAxb0KjhSwlNX/IDvGwEysYvImgUEIDeNDOWRl1qNk=";
+						};
+					})
+				];
+				settings = {
+					highlight = {
+						enable = true;
+						additional_vim_regex_highlighting = [
+							"idris2"
+							"idr"
+						];
 					};
-				})
-				(buildGrammar {
-					language = "idris";
-					version = "alpha";
-					src = fetchFromGitHub {
-						owner = "kayhide";
-						repo = "tree-sitter-idris";
-						rev = "c56a25c";
-						hash = "sha256-aOAxb0KjhSwlNX/IDvGwEysYvImgUEIDeNDOWRl1qNk=";
-					};
-				})
-			];
+					indent.enable = true;
+				};
+			};
 		};
 		keymaps = [
 			{

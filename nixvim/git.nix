@@ -10,12 +10,6 @@ in {
 		];
 		plugins = {
 			fugitive.enable = true;
-			diffview = {
-				enable = true;
-				# lazyLoad.settings = {
-				# 	cmd = [ "DiffviewOpen" ];
-				# };
-			};
 			gitsigns = {
 				enable = true;
 				lazyLoad.settings = {
@@ -37,87 +31,105 @@ in {
 				};
 				patches = [ ./plugin-patch/gitgraph.patch ];
 			})
+			pkgs.vimPlugins.diffview-nvim
 		];
 		extraConfigLuaPost = ''
 			_G.fugitive_help = function()
 				${builtins.readFile ./fugitive-help-fn.lua}
 			end
 			require('lz.n').load {
-				'gitgraph.nvim',
-				keys = {
-					{
-						"<leader>fg",
-						function()
-							require('gitgraph').draw({}, {all = true, max_count = 100})
-						end
-					},
+				{
+					'diffview.nvim',
+					event = "DeferredUIEnter",
+					after = function()
+						require('diffview').setup {
+							enhanced_diff_hl = true,
+							view = {
+								merge_tool = {
+									layout = "diff4_mixed",
+								},
+							},
+							file_panel = {
+								listing_style = "list",
+							},
+						}
+					end
 				},
-				after = function()
-					require('gitgraph').setup {
-						symbols = {
-							merge_commit = '',
-							commit = '',
-							merge_commit_end = '',
-							commit_end = '',
-
-							-- Advanced symbols
-							GVER = '│',
-							GHOR = '',
-							GCLD = '',
-							GCRU = '',
-							GCRD = '╭',
-							GCLU = '',
-							GLRU = '',
-							GLRD = '',
-							GLUD = '',
-							GRUD = '',
-							GFORKU = '',
-							GFORKD = '',
-							GRUDCD = '',
-							GRUDCU = '',
-							GLUDCD = '',
-							GLUDCU = '',
-							GLRDCL = '',
-							GLRDCR = '',
-							GLRUCL = '',
-							GLRUCR = '',
+				{
+					'gitgraph.nvim',
+					keys = {
+						{
+							"<leader>fg",
+							function()
+								require('gitgraph').draw({}, {all = true, max_count = 100})
+							end
 						},
-						hooks = {
-							-- TODO: Run a fugitive/diffview command with those actions
-							on_select_commit = function(commit)
-								vim.notify('DiffviewOpen ' .. commit.hash)
-								vim.cmd(':DiffviewOpen ' .. commit.hash)
-							end,
-							on_select_range_commit = function(from, to)
-								vim.notify('DiffviewOpen ' .. from.hash .. '..' .. to.hash)
-								vim.cmd(':DiffviewOpen ' .. from.hash .. '..' .. to.hash)
-							end,
-						},
-					}
+					},
+					after = function()
+						require('gitgraph').setup {
+							symbols = {
+								merge_commit = '',
+								commit = '',
+								merge_commit_end = '',
+								commit_end = '',
 
-					-- Now set the highlights
-					_G.gruvbox_contrast = "soft"
-					local contrast = _G.gruvbox_contrast
-					local theme = require('gruvbox-material.lualine').theme(contrast)
-					local g_colors = require("gruvbox-material.colors")
-					local colors = g_colors.get(vim.o.background, contrast)
+								-- Advanced symbols
+								GVER = '│',
+								GHOR = '',
+								GCLD = '',
+								GCRU = '',
+								GCRD = '╭',
+								GCLU = '',
+								GLRU = '',
+								GLRD = '',
+								GLUD = '',
+								GRUD = '',
+								GFORKU = '',
+								GFORKD = '',
+								GRUDCD = '',
+								GRUDCU = '',
+								GLUDCD = '',
+								GLUDCU = '',
+								GLRDCL = '',
+								GLRDCR = '',
+								GLRUCL = '',
+								GLRUCR = '',
+							},
+							hooks = {
+								-- TODO: Run a fugitive/diffview command with those actions
+								on_select_commit = function(commit)
+									vim.notify('DiffviewOpen ' .. commit.hash)
+									vim.cmd(':DiffviewOpen ' .. commit.hash)
+								end,
+								on_select_range_commit = function(from, to)
+									vim.notify('DiffviewOpen ' .. from.hash .. '..' .. to.hash)
+									vim.cmd(':DiffviewOpen ' .. from.hash .. '..' .. to.hash)
+								end,
+							},
+						}
 
-					vim.cmd(string.format("hi GitGraphHash gui=bold guifg=%s", "#FFAF00"))
+						-- Now set the highlights
+						_G.gruvbox_contrast = "soft"
+						local contrast = _G.gruvbox_contrast
+						local theme = require('gruvbox-material.lualine').theme(contrast)
+						local g_colors = require("gruvbox-material.colors")
+						local colors = g_colors.get(vim.o.background, contrast)
 
-					vim.cmd(string.format("hi GitGraphAuthor guifg=%s", "#0DCDCD"))
-					vim.cmd(string.format("hi GitGraphTimestamp guifg=#565555"))
-					vim.cmd(string.format("hi GitGraphBranchName guifg=%s", colors.red))
-					vim.cmd(string.format("hi GitGraphBranchTag gui=bold guifg=%s", colors.purple))
-					vim.cmd(string.format("hi GitGraphBranchMsg guifg=%s", colors.fg1))
-					vim.cmd("hi! link RainbowRed    GitGraphBranch1")
-					vim.cmd("hi! link RainbowCyan   GitGraphBranch2")
-					vim.cmd("hi! link RainbowBlue   GitGraphBranch3")
-					vim.cmd("hi! link RainbowOrange GitGraphBranch4")
-					vim.cmd("hi! link RainbowViolet GitGraphBranch4")
+						vim.cmd(string.format("hi GitGraphHash gui=bold guifg=%s", "#FFAF00"))
 
-					-- TODO: Make fugitive autocmd run in graphview buffers
-
-				end
+						vim.cmd(string.format("hi GitGraphAuthor guifg=%s", "#0DCDCD"))
+						vim.cmd(string.format("hi GitGraphTimestamp guifg=#565555"))
+						vim.cmd(string.format("hi GitGraphBranchName guifg=%s", colors.red))
+						vim.cmd(string.format("hi GitGraphBranchTag gui=bold guifg=%s", colors.purple))
+						vim.cmd(string.format("hi GitGraphBranchMsg guifg=%s", colors.fg1))
+						vim.cmd("hi! link RainbowRed    GitGraphBranch1")
+						vim.cmd("hi! link RainbowCyan   GitGraphBranch2")
+						vim.cmd("hi! link RainbowBlue   GitGraphBranch3")
+						vim.cmd("hi! link RainbowOrange GitGraphBranch4")
+						vim.cmd("hi! link RainbowViolet GitGraphBranch4")
+						-- TODO: Make fugitive autocmd run in graphview buffers
+					end
+				}
 			}
 		'';
 		keymaps = [

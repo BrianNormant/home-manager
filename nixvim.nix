@@ -1,4 +1,7 @@
-{pkgs, ... }: {
+{pkgs, ... }:
+let
+	inherit (pkgs) vimPlugins;
+in {
 	imports = [
 		# UI
 		./nixvim/colorscheme.nix
@@ -41,6 +44,23 @@
 	programs.nixvim = {
 		enable = true;
 		luaLoader.enable = true;
+		performance = {
+			byteCompileLua = {
+				enable = true;
+				configs = true;
+				initLua = true;
+				nvimRuntime = true;
+				plugins = true;
+			};
+			combinePlugins = {
+				enable = true;
+				standalonePlugins = with vimPlugins; [
+					"nvim-treesitter"
+					"mini.nvim"
+					"friendly-snippets"
+				];
+			};
+		};
 		plugins = {
 			lz-n.enable = true;
 			lz-n.autoLoad = true;

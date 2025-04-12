@@ -1,5 +1,13 @@
-require("supermaven-nvim").setup {
-	disable_inline_completion = true, -- disables inline completion for use with cmp
-	disable_keymaps = true, -- disables built in keymaps for more manual control
-	log_level = "off", -- Shut off the warnings
+require('lz.n').load {
+	{
+		"supermaven-nvim",
+		event = "DeferredUIEnter",
+		after = function ()
+			require("supermaven-nvim").setup {
+				disable_inline_completion = true, -- disables inline completion for use with cmp
+				disable_keymaps = true, -- disables built in keymaps for more manual control
+				log_level = "off", -- Shut off the warnings
+			}
+		end
+	}
 }

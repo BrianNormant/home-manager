@@ -4,6 +4,7 @@
 			friendly-snippets.enable = true;
 			blink-cmp = {
 				enable = true;
+				lazyLoad.settings.event = "DeferredUIEnter";
 				settings = {
 					keymap = {
 						preset = "enter";
@@ -11,6 +12,8 @@
 						"<S-Tab>" = [ "select_prev" "fallback" ];
 						"<C-l>"   = [ "snippet_forward" ];
 						"<C-h>"   = [ "snippet_forward" ];
+						"<Up>"    = [ "fallback" ];
+						"<Down>"   = [ "fallback" ];
 					};
 					sources = {
 						default = [

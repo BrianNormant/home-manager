@@ -14,8 +14,8 @@
 			];
 		})];
 		extraConfigLua = ''
-			require('lz.n').load {
-				'gen-nvim',
+			require('lz.n').load { {
+				'gen.nvim',
 				cmd = "Gen",
 				after = function()
 					require('gen').setup {
@@ -28,7 +28,7 @@
 						port = 80,
 					}
 				end,
-			}
+			} }
 		'';
 		keymaps = [
 			{

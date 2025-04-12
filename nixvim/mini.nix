@@ -1,4 +1,4 @@
-{config, pkgs, ...}: {
+{ pkgs, ...}: {
 	programs.nixvim = {
 		extraPackages = with pkgs; [
 			figlet
@@ -24,9 +24,7 @@
 			};
 			modules = {
 				extra = {};
-				sessions = {
-					autoread = true;
-				};
+				# sessions = { autoread = true; };
 				ai = {
 					custom_textobjects = {
 						# Full buffer
@@ -80,15 +78,15 @@
 						{
 							function()
 								return {
-									{ action = 'Telescope frecency workspace=CWD',     name = 'Files',        section = "Telescope" },
-									{ action = 'Telescope live_grep',    name = 'LGrep',        section = "Telescope" },
-									{ action = 'Telescope git_files',    name = 'FFiles Git',   section = "Telescope" },
-									{ action = 'Telescope git_commits',  name = 'FCommits',     section = "Telescope" },
-									{ action = 'Telescope git_branches', name = 'FBranches',    section = "Telescope" },
-									{ action = 'Telescope git_stash',    name = 'FStash',       section = "Telescope" },
-									{ action = 'Telescope help_tags',    name = 'Help',         section = "Telescope" },
-									{ action = 'Telescope colorscheme',  name = 'ColorScheme',  section = "Telescope" },
-									{ action = 'Telescope keymaps',      name = 'Keymaps',      section = "Telescope" },
+									{ action = 'Telescope frecency workspace=CWD theme=dropdown', name = 'Files',       section = "Telescope" },
+									{ action = 'Telescope live_grep theme=dropdown',              name = 'LGrep',       section = "Telescope" },
+									{ action = 'Telescope git_files theme=dropdown',              name = 'FFiles Git',  section = "Telescope" },
+									{ action = 'Telescope git_commits theme=dropdown',            name = 'FCommits',    section = "Telescope" },
+									{ action = 'Telescope git_branches theme=dropdown',           name = 'FBranches',   section = "Telescope" },
+									{ action = 'Telescope git_stash theme=dropdown',              name = 'FStash',      section = "Telescope" },
+									{ action = 'Telescope help_tags theme=dropdown',              name = 'Help',        section = "Telescope" },
+									{ action = 'Telescope colorscheme theme=ivy',                 name = 'ColorScheme', section = "Telescope" },
+									{ action = 'Telescope keymaps theme=ivy',                     name = 'Keymaps',     section = "Telescope" },
 								}
 							end,
 							function()

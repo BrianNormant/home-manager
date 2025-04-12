@@ -40,6 +40,7 @@ in {
 			};
 			glance = {
 				enable = true;
+				lazyLoad.settings.event = [ "LspAttach" ];
 				settings.border = { enable = true; };
 				settings.mappings.list.__raw = ''
 				{
@@ -84,8 +85,9 @@ in {
 				enable = true;
 				settings = {
 					cmd_name = "IncRename";
-					input_buffer_type = "dressing";
+					# input_buffer_type = "dressing";
 				};
+				lazyLoad.settings = { event = [ "LspAttach" ]; };
 			};
 			fidget = {
 				enable = true;

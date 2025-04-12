@@ -10,21 +10,6 @@
 					event = "DeferredUIEnter";
 				};
 			};
-			smartcolumn = {
-				enable = false;
-				lazyLoad.settings = {
-					event = "DeferredUIEnter";
-				};
-				settings = {
-					colorcolumn = "80";
-					disabled_filetype = [ "help" "ministarter" ];
-					custom_colorcolumn = {
-						lua = "100";
-						nix = "100";
-						java = "100";
-					};
-				};
-			};
 		};
 		highlightOverride = {
 			NormalFloat = {

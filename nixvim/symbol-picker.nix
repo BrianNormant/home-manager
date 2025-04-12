@@ -17,7 +17,7 @@ in {
 		extraConfigLua = let
 		    selected = "alt_font emoji html_colors nerd_font_v3 symbols";
 		in ''
-			require('lz.n').load {
+			require('lz.n').load { {
 				"icon-picker.nvim",
 				keys = {
 					{
@@ -33,7 +33,7 @@ in {
 				after = function()
 					require("icon-picker").setup { disable_legacy_commands = true }
 				end
-			}
+			} }
 		'';
 	};
 }
