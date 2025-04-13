@@ -31,29 +31,29 @@ in {
 	# The home.packages option allows you to install Nix packages into your
 	# environment.
 	home.packages = with pkgs; [
-	nix-output-monitor
-	manix
-	cool-retro-term
-	usbutils
-	neovide
-	networkmanagerapplet
-	(callPackage ./pep8.nix {})
-	hyprpicker
-	hyprpanel
-	hyprpolkitagent
-	waypaper mpvpaper
-	libnotify
-	libreoffice
-	radeontop
-	nspire-tools
-	wl-clipboard
-	xsel
+		nix-output-monitor
+		manix
+		cool-retro-term
+		usbutils
+		neovide
+		networkmanagerapplet
+		(callPackage ./pep8.nix {})
+		hyprpicker
+		hyprpanel
+		hyprpolkitagent
+		waypaper mpvpaper
+		libnotify
+		libreoffice
+		radeontop
+		nspire-tools
+		wl-clipboard
+		xsel
 
-	xournalpp # pdf editor
+		xournalpp # pdf editor
 
-	zafiro-icons
-	libqalculate
-  ];
+		zafiro-icons
+		libqalculate
+	];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -328,4 +328,5 @@ extension:
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Wallpapers";
 	};
+	imports = [ ./zsh.nix ];
 }
