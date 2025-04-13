@@ -108,17 +108,6 @@ in {
 					rev = version;
 					hash = "sha256-BTXmb1uGbXKkORnf1hbEa8jEmpPpzjMaerdldo5tkxs=";
 				};
-			})
-			(buildVimPlugin rec {
-				pname = "symbol-usage-nvim";
-				version = "0f9b3da";
-				src = fetchFromGitHub {
-					owner = "Wansmer";
-					repo = "symbol-usage.nvim";
-					rev = version;
-					hash = "sha256-vNVrh8MV7KZoh2MtP+hAr6Uz20qMMMUcbua/W71lRn0=";
-				};
-			})
 		];
 		extraConfigLua = builtins.readFile ./lsp.lua;
 	};
