@@ -67,12 +67,14 @@
 			};
 		};
 		extraPlugins = with pkgs.vimPlugins; [
-			vim-snippets
-			(supermaven-nvim.overrideAttrs {
-				patches = [
-					./plugin-patch/supermaven.patch
-				];
-			})
+			{
+				plugin = supermaven-nvim.overrideAttrs {
+					patches = [
+						./plugin-patch/supermaven.patch
+					];
+				};
+				optional = true;
+			}
 		];
 		extraConfigLua = builtins.readFile ./blink.lua;
 		highlightOverride = {

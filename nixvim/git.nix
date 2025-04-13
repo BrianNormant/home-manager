@@ -3,13 +3,13 @@ let
 	inherit (pkgs.vimUtils) buildVimPlugin;
 	inherit (pkgs) fetchFromGitHub;
 	inherit (pkgs.lib) fakeHash;
+	inherit (pkgs) vimPlugins;
 in {
 	programs.nixvim = {
 		extraPackages = with pkgs; [
 			git-extras
 		];
 		plugins = {
-			fugitive.enable = true;
 			gitsigns = {
 				enable = true;
 				lazyLoad.settings = {
@@ -19,25 +19,40 @@ in {
 			};
 		};
 		# Workaround as Fugitive* are vimscript events
-		extraPlugins = [
-			(buildVimPlugin rec {
-				pname = "gitgraph-nvim";
-				version = "01e466b";
-				src = fetchFromGitHub {
-					owner = "isakbm";
-					repo = "gitgraph.nvim";
-					rev = version;
-					hash = "sha256-d55IRrOhK5tSLo2boSuMhDbkerqij5AHgNDkwtGadyI=";
+		extraPlugins = with vimPlugins; [
+			{
+				plugin = vim-fugitive;
+				optional = true;
+			}
+			{
+				plugin = buildVimPlugin rec {
+					pname = "gitgraph.nvim";
+					version = "01e466b";
+					src = fetchFromGitHub {
+						owner = "isakbm";
+						repo = "gitgraph.nvim";
+						rev = version;
+						hash = "sha256-d55IRrOhK5tSLo2boSuMhDbkerqij5AHgNDkwtGadyI=";
+					};
+					patches = [ ./plugin-patch/gitgraph.patch ];
 				};
-				patches = [ ./plugin-patch/gitgraph.patch ];
-			})
-			pkgs.vimPlugins.diffview-nvim
+				optional = true;
+			}
+			{
+				plugin = diffview-nvim;
+				optional = true;
+			}
 		];
 		extraConfigLuaPost = ''
 			_G.fugitive_help = function()
 				${builtins.readFile ./fugitive-help-fn.lua}
 			end
 			require('lz.n').load {
+				{
+					'vim-fugitive',
+					event = "DeferredUIEnter",
+					after = function() end,
+				},
 				{
 					'diffview.nvim',
 					event = "DeferredUIEnter",
@@ -158,6 +173,14 @@ in {
 				key = "<leader>gc";
 				action = "<CMD>Git commit<cr>";
 				options.desc = "Fugitive Commit";
+			}
+			{
+				key = "<leader>gt";
+				action.__raw = ''
+					function() return ":Git tag" end
+				'';
+				options.desc = "Prefill cmd to tag commit";
+				options.expr = true;
 			}
 			{
 				key = "<leader>gC";

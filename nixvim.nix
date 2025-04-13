@@ -44,7 +44,7 @@ in {
 
 	programs.nixvim = {
 		enable = true;
-		luaLoader.enable = true;
+		# luaLoader.enable = true;
 		performance = {
 			byteCompileLua = {
 				enable = true;
@@ -67,17 +67,12 @@ in {
 			lz-n.autoLoad = true;
 			vim-suda.enable = true;
 			repeat.enable = true;
-			wakatime.enable = true;
 			lastplace.enable = true;
 			web-devicons.enable = true;
-			marks.enable = true;
 			guess-indent.enable = true;
 		};
 		extraPackages = with pkgs; [
 			ripgrep
-		];
-		extraPlugins = with pkgs.vimPlugins; [
-			vim-startuptime
 		];
 		clipboard.register = "unnamedplus";
 		globalOpts = {

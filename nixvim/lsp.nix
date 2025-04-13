@@ -95,19 +95,35 @@ in {
 			};
 		};
 		extraPlugins = with pkgs.vimPlugins; [
-			actions-preview-nvim
-			hover-nvim
-			nvim-docs-view
-			goto-preview
-			(buildVimPlugin rec {
-				pname = "action-hints-nvim";
-				version = "ab10fef";
-				src = fetchFromGitHub {
-					owner = "roobert";
-					repo = "action-hints.nvim";
-					rev = version;
-					hash = "sha256-BTXmb1uGbXKkORnf1hbEa8jEmpPpzjMaerdldo5tkxs=";
+			{
+				plugin = actions-preview-nvim;
+				optional = true;
+			}
+			{
+				plugin = hover-nvim;
+				optional = true;
+			}
+			{
+				plugin = nvim-docs-view;
+				optional = true;
+			}
+			{
+				plugin = goto-preview;
+				optional = true;
+			}
+			{
+				plugin = buildVimPlugin rec {
+					pname = "action-hints.nvim";
+					version = "ab10fef";
+					src = fetchFromGitHub {
+						owner = "roobert";
+						repo = "action-hints.nvim";
+						rev = version;
+						hash = "sha256-BTXmb1uGbXKkORnf1hbEa8jEmpPpzjMaerdldo5tkxs=";
+					};
 				};
+				optional = true;
+			}
 		];
 		extraConfigLua = builtins.readFile ./lsp.lua;
 	};

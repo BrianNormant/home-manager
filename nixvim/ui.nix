@@ -3,7 +3,12 @@ let
 	inherit (pkgs) vimPlugins;
 in {
 	programs.nixvim = {
-		extraPlugins = with vimPlugins; [ floating-input-nvim ];
+		extraPlugins = with vimPlugins; [
+			{
+				plugin = floating-input-nvim;
+				optional = true;
+			}
+		];
 		extraConfigLua = ''
 			require('lz.n').load {
 				'floating-input.nvim',

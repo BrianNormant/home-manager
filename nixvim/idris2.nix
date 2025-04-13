@@ -1,20 +1,11 @@
 {pkgs, ... }: {
 	programs.nixvim = {
-		# plugins.idris2 = {
-		# 	enable = true;
-		# 	settings = {
-		# 		code_action_post_hook.__raw = ''
-		# 		function(_)
-		# 			vim.cmd "silent write"
-		# 		end
-		# 		'';
-		# 	};
-		# 	lazyLoad.enable = true;
-		# 	lazyLoad.settings = {
-		# 		ft = [ "idris2" ];
-		# 	};
-		# };
-		extraPlugins = with pkgs.vimPlugins; [ idris2-nvim ];
+		extraPlugins = with pkgs.vimPlugins; [
+			{
+				plugin = idris2-nvim;
+				optional = true;
+			}
+		];
 		extraConfigLua = ''
 			require('lz.n').load { {
 				'idris2-nvim',

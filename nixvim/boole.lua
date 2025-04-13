@@ -10,5 +10,10 @@ require('lz.n').load {
 				},
 			}
 		end
-	}
+	},
+	{
+		"vim-wakatime",
+		event = "DeferredUIEnter",
+		after = function() end,
+	},
 }

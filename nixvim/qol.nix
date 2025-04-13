@@ -1,6 +1,18 @@
-{config, pkgs, ...}: {
+{pkgs, ... }:
+let
+	inherit (pkgs) vimPlugins;
+in {
 	programs.nixvim = {
-		extraPlugins = [ pkgs.vimPlugins.boole-nvim ];
+		extraPlugins = with vimPlugins; [
+			{
+				plugin = boole-nvim;
+				optional = true;
+			}
+			{
+				plugin = vim-wakatime;
+				optional = true;
+			}
+		];
 		extraConfigLua = builtins.readFile ./boole.lua;
 		plugins = {
 			nvim-autopairs = {

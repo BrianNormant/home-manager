@@ -3,7 +3,12 @@ let
 	inherit (pkgs) vimPlugins;
 in {
 	programs.nixvim = {
-		extraPlugins = with vimPlugins; [ nvim-navbuddy ];
+		extraPlugins = with vimPlugins; [
+			{
+				plugin = nvim-navbuddy;
+				optional = true;
+			}
+		];
 
 		extraConfigLua = ''
 			require('lz.n').load { {

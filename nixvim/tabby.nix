@@ -1,6 +1,11 @@
 {config, pkgs, ...}: {
 	programs.nixvim = {
-		extraPlugins = [ pkgs.vimPlugins.tabby-nvim ];
+		extraPlugins = [
+			{
+				plugin = pkgs.vimPlugins.tabby-nvim;
+				optional = true;
+			}
+		];
 		extraConfigLua = builtins.readFile ./tabby.lua;
 		keymaps = [
 			{

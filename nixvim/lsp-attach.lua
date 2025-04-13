@@ -45,16 +45,3 @@ if (client.supports_method('textDocument/inlayHint')) then
 		end
 	})
 end
-
-local contrast = _G.gruvbox_contrast
-local g_colors = require("gruvbox-material.colors")
-local colors = g_colors.get(vim.o.background, contrast)
-
-require('action-hints').setup {
-	template = {
-		definition = { text = "󰡱 ", color = colors.red },
-		references = { text = "  %s", color = colors.purple },
-	},
-	use_virtual_text = true,
-}
-
