@@ -10,7 +10,7 @@ in {
 			}
 			{
 				plugin = vim-wakatime;
-				optional = true;
+				optional = false;
 			}
 		];
 		extraConfigLua = builtins.readFile ./boole.lua;
