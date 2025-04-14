@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, lib, ...}:
 let
 	inherit (pkgs.lib) fakeHash;
 	toPlugin = {pkg, file-name ? "init.zsh"} : {
@@ -31,6 +31,7 @@ in {
 			rimsort = "nix run github:vinnymeller/nixpkgs/init-rimsort#rimsort";
 			flake-init = "nix flake init -t github:BrianNormant/nixosconf";
 			icat  =  "kitty +kitten icat --clear";
+			neo = "hyprctl dispatch scroller:setmode c; neovide &>/dev/null &; sleep 1; hyprctl dispatch scroller:setmode s";
 			du = "dust";
 			df = "duf";
 			cd = "z"; # zoxide
@@ -44,7 +45,8 @@ in {
 			gloga = "git log --all --graph --decorate=short --color --pretty=format:'^%C(dim white)%>(12,trunc)%cr%C(reset)^%C(cyan)%<(10,trunc)%cs%C(reset)^%C(bold 214)%<(7,trunc)%h%C(reset)^%C(auto)%<(15,trunc)%D%C(reset)^%C(white)%s%C(reset)' | column -t -s ^";
 		};
 		plugins = map toPlugin selected-zsh-plugins;
-		initContent = builtins.readFile ./config/zshrc;
+		initExtraFirst = builtins.readFile ./config/zshrc.first;
+		initContent = lib.mkOrder 2000 (builtins.readFile ./config/zshrc);
 	};
 	home = {
 		packages = builtins.map ({pkg, ...}: pkg) selected-zsh-plugins;
