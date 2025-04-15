@@ -128,6 +128,19 @@ in {
 				};
 				optional = true;
 			}
+			{
+				plugin = buildVimPlugin rec {
+					pname = "symbol-usage.nvim";
+					version = "0f9b3da";
+					src = fetchFromGitHub {
+						owner = "Wansmer";
+						repo = pname;
+						rev = version;
+						hash = "sha256-vNVrh8MV7KZoh2MtP+hAr6Uz20qMMMUcbua/W71lRn0=";
+					};
+				};
+				optional = true;
+			}
 		];
 		extraConfigLua = builtins.readFile ./lsp.lua;
 	};
