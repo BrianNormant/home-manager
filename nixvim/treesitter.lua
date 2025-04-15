@@ -8,6 +8,9 @@ require('lz.n').load {
 	},
 	{
 		'nvim-treesitter-textsubjects',
+		before = function ()
+			require('lz.n').trigger_load("nvim-treesitter")
+		end,
 		event = "DeferredUIEnter",
 		after = function ()
 			require('nvim-treesitter-textsubjects').configure {

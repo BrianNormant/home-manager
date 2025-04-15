@@ -49,11 +49,21 @@ in{
 		plugins = {
 			treesitter-context = {
 				enable = true;
-				lazyLoad.settings = { event = [ "DeferredUIEnter" ]; };
+				lazyLoad.settings = {
+					event = [ "DeferredUIEnter" ];
+					before.__raw = '' function()
+						require('lz.n').trigger_load("nvim-treesitter")
+					end'';
+				};
 			};
 			ts-autotag = {
 				enable = true;
-				lazyLoad.settings = { event = [ "DeferredUIEnter" ]; };
+				lazyLoad.settings = {
+					event = [ "DeferredUIEnter" ];
+					before.__raw = '' function()
+						require('lz.n').trigger_load("nvim-treesitter")
+					end'';
+				};
 			};
 			treesitter = {
 				enable = true;
