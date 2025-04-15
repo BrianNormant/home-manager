@@ -60,57 +60,6 @@
 				notify = {
 					lsp_progress.enable = false;
 				};
-				starter = {
-					header.__raw = ''
-						function()
-							local text = "nixvim"
-							local font = "starwars"
-
-							if (vim.env.PROJECT) then
-								text = vim.env.PROJECT
-							end
-
-							local figlet = vim.system({'figlet', '-w', 80, '-c', '-f', font, text }, {text=true}):wait()
-							return figlet.stdout
-						end
-					'';
-					items.__raw = ''
-						{
-							function()
-								return {
-									{ action = 'Telescope frecency workspace=CWD theme=dropdown', name = 'Files',       section = "Telescope" },
-									{ action = 'Telescope live_grep theme=dropdown',              name = 'LGrep',       section = "Telescope" },
-									{ action = 'Telescope git_files theme=dropdown',              name = 'FFiles Git',  section = "Telescope" },
-									{ action = 'Telescope git_commits theme=dropdown',            name = 'FCommits',    section = "Telescope" },
-									{ action = 'Telescope git_branches theme=dropdown',           name = 'FBranches',   section = "Telescope" },
-									{ action = 'Telescope git_stash theme=dropdown',              name = 'FStash',      section = "Telescope" },
-									{ action = 'Telescope help_tags theme=dropdown',              name = 'Help',        section = "Telescope" },
-									{ action = 'Telescope colorscheme theme=ivy',                 name = 'ColorScheme', section = "Telescope" },
-									{ action = 'Telescope keymaps theme=ivy',                     name = 'Keymaps',     section = "Telescope" },
-								}
-							end,
-							function()
-								return {
-									{ action = "Git",        name = "Status",           section = "Git" },
-									{ action = function()
-										require('gitgraph').draw({}, {all = true, max_count = 100})
-									end,    name = "Log (Git log)", section = "Git" },
-									{ action = "Git commit", name = "Commit",        section = "Git" },
-									{ action = "Git pull",   name = "Pull",          section = "Git" },
-									{ action = "Git push",   name = "Push",          section = "Git" },
-									{ action = "Git stash",  name = "Stash",         section = "Git" },
-								}
-							end,
-							function ()
-								return {
-									{ action = "Oil", name=  "Oil", section = "Other" },
-								}
-							end,
-							require('mini.starter').sections.builtin_actions(),
-							
-						}
-					'';
-				};
 			};
 		};
 		highlightOverride = {

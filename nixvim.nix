@@ -12,6 +12,7 @@ in {
 		./nixvim/indent.nix
 		./nixvim/treesitter.nix
 		./nixvim/ui.nix
+		./nixvim/starter.nix
 		
 		# Quality of life
 		./nixvim/qol.nix
