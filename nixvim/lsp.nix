@@ -11,6 +11,9 @@ in {
 		plugins = {
 			lsp = {
 				enable = true;
+				preConfig = ''
+					require('lz.n').trigger_load("blink.cmp")
+				'';
 				servers = {
 					clangd.enable   = true;
 					lua_ls.enable   = true;
