@@ -81,7 +81,7 @@
 					{"<cmd>Telescope git_branches theme=dropdown<CR>", "Git Branches", 1},
 					{"<cmd>Telescope git_stash theme=dropdown<CR>",    "Git Stashes", 1},
 					{"<cmd>Telescope help_tags theme=ivy<CR>",         "Help", 1},
-					{"<cmd>Telescope keymaps theme=ivy<CR>",           "Keymaps", 1},
+					{"<cmd>lua _G.telescope_keymaps()<CR>",            "Keymaps", 1},
 					{"<cmd>Telescope colorscheme theme=ivy<CR>",       "Colorscheme", 1},
 					{"<leader>ft", "Telescope Builtins"},
 				}),
@@ -109,9 +109,16 @@
 				opts = { spacing = 1 },
 			}
 			
+			-- Get a cool tip, inspiration from Tip.nvim
+			local get_tip = function()
+				local obj = vim.system({"curl", "-L", "https://vtip.43z.one"}, {text = true}):wait()
+				if obj.code ~= 0 then return "⚠ ERROR" end
+				return obj.stdout
+			end
+			
 			beta.section.footer = {
 				type = "text",
-				val = "",
+				val = get_tip,
 				opts = {
 					position = "center",
 					hl = "Number",

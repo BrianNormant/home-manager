@@ -27,6 +27,54 @@
 			lazyLoad.settings = {
 				event = "DeferredUIEnter";
 			};
+			luaConfig.post = ''
+--- Function that replace telespope native keymap function
+--- Because telescope keymap break when the plugins are combined
+_G.telescope_keymaps = function (m)
+	local format = "%-3s %-7s %s %s"
+	local modes = m or {'n', 'i', 'v'}
+	local strs = {}
+
+	for _, mode in ipairs(modes) do
+		local kys = vim.api.nvim_get_keymap(mode)
+		local cur = vim.tbl_map(function(keymap)
+			local lhs = keymap.lhs
+			local rhs = keymap.rhs or keymap.callback
+			local desc = keymap.desc or ""
+			return string.format(format, mode, lhs, vim.inspect(rhs), desc)
+		end, kys)
+
+		for _, line in ipairs(cur) do table.insert(strs, line) end
+
+		kys = vim.api.nvim_buf_get_keymap(0, mode)
+		cur = vim.tbl_map(function(keymap)
+			local lhs = keymap.lhs
+			local rhs = keymap.rhs or keymap.callback
+			local desc = keymap.desc or ""
+			return string.format(format .. " <Buffer>", mode, lhs, vim.inspect(rhs), desc)
+		end, kys)
+
+		for _, line in ipairs(cur) do table.insert(strs, line) end
+	end
+
+	local pickers = require "telescope.pickers"
+	local finders = require "telescope.finders"
+	local conf = require("telescope.config").values
+
+	local picker = function (opts)
+		opts = opts or {}
+		pickers.new(opts, {
+			prompt_title = "Keymaps",
+			finder = finders.new_table {
+				results = strs,
+			},
+			sorter = conf.generic_sorter(opts),
+		}):find()
+	end
+
+	picker(require("telescope.themes").get_ivy {})
+end
+			'';
 		};
 		keymaps = [
 			# Frecency
@@ -67,7 +115,7 @@
 			}
 			{
 				key = "<leader>fk";
-				action = "<CMD>Telescope keymaps theme=ivy<CR>";
+				action = "<CMD>lua _G.telescope_keymaps()<CR>";
 				options.desc = "Telescope: Search Keymaps";
 			}
 			{
@@ -86,5 +134,21 @@
 				options.desc = "Telescope: LSP Outgoing Calls";
 			}
 		];
+		userCommands = {
+			TelescopeKeymaps = {
+				bar = true;
+				command.__raw = ''
+				function(opts)
+					if #opts.fargs == 0 then
+						_G.telescope_keymaps()
+					else
+						_G.telescope_keymaps(opts.fargs)
+					end
+				end
+				'';
+				nargs = "*";
+				desc = "List all the keymaps for given modes";
+			};
+		};
 	};
 }

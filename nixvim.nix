@@ -172,15 +172,6 @@ in {
 				vim.env.NEOVIDE = 1
 			end
 
-			-- Get a cool tip, inspiration from Tip.nvim
-			vim.defer_fn(function()
-				vim.system({"curl", "-L", "https://vtip.43z.one"}, {text = true},
-					function(obj)
-						if (obj.code ~= 0) then return end
-						vim.notify(obj.stdout)
-					end
-				)
-			end, 150)
 		'';
 		autoCmd = [
 			{
