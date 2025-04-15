@@ -5,6 +5,11 @@
 		];
 		plugins.mini = {
 			enable = true;
+			lazyLoad = {
+				settings = {
+					event = "DeferredUIEnter";
+				};
+			};
 			luaConfig = {
 				pre = ''
 					_G.minicursorword_disable = function()
