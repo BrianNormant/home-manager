@@ -13,6 +13,7 @@ in {
 				enable = true;
 				preConfig = ''
 					require('lz.n').trigger_load("blink.cmp")
+					require('lz.n').trigger_load("nvim-navbuddy")
 				'';
 				servers = {
 					clangd.enable   = true;

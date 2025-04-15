@@ -10,6 +10,7 @@ programs.nixvim = {
 				before.__raw = ''
 					function()
 						require('lz.n').trigger_load('nvim-dap-ui')
+						require('lz.n').trigger_load('nvim-navbuddy')
 					end
 				'';
 			};
