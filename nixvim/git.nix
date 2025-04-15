@@ -77,7 +77,8 @@ in {
 							"<leader>fg",
 							function()
 								require('gitgraph').draw({}, {all = true, max_count = 100})
-							end
+							end,
+							desc = "Open Gitgraph in current window"
 						},
 					},
 					after = function()
