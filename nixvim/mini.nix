@@ -26,14 +26,30 @@
 				extra = {};
 				sessions = {
 					autowrite = true;
-					autoread = true;
+					# Does it only load the local session,
+					# Or the last loaded session?
+					autoread  = false;
 					hooks = {
 						post = {
 							read.__raw = ''function()
-								vim.cmd [[
-									tabnew
-									tabmove 0
-								]]
+								if vim.bo.filetype ~= "ministarter" then
+									vim.cmd [[
+										tabnew
+										tabmove 0
+									]]
+								end
+								-- we update the PROJECT environment variable
+								local obj = vim.system(
+									{"zsh", "-c", "source .envrc && printf $PROJECT"},
+									{text=true}
+								):wait()
+
+								if obj.code == 0 then
+									vim.env.PROJECT = obj.stdout
+								else
+									vim.env.PROJECT = nil
+								end
+
 								local bufnr = vim.api.nvim_get_current_buf()
 								MiniStarter.open(bufnr)
 							end'';
@@ -53,7 +69,7 @@
 						
 						{ mode = "n"; keys = "g"; } # `m` mappings
 						{ mode = "x"; keys = "g"; }
-						
+
 						{ mode = "n"; keys = "z";} # `z` mappigns
 						{ mode = "x"; keys = "z";}
 

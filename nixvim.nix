@@ -116,6 +116,9 @@ in {
 			# Spell
 			spelllang = "en_us";
 			spell = true;
+
+			# Session options
+			sessionoptions = "buffers,curdir,folds,help,tabpages,winsize";
 		};
 		globals = {
 			mapleader = " ";
