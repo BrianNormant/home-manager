@@ -29,7 +29,55 @@
 			};
 			modules = {
 				extra = {};
-				# sessions = { autoread = true; };
+				clue = {
+					triggers = [
+						{ mode = "n"; keys = "<Leader>"; } # leader
+						
+						{ mode = "i"; keys = "<C-x>"; } # Omnicomp
+						
+						{ mode = "n"; keys = "<C-w>"; } # window
+
+						{ mode = "n"; keys = "g"; } # `g` mappings
+						{ mode = "x"; keys = "g"; }
+						
+						{ mode = "n"; keys = "g"; } # `m` mappings
+						{ mode = "x"; keys = "g"; }
+						
+						{ mode = "n"; keys = "z";} # `z` mappigns
+						{ mode = "x"; keys = "z";}
+
+						{ mode = "n"; keys = "]";} # `]` mappigns
+						{ mode = "x"; keys = "]";} # hunks
+						{ mode = "n"; keys = "[";} # `[` mappigns
+						{ mode = "x"; keys = "[";} # hunks
+
+					];
+					clues.__raw = ''
+						require('mini.clue').gen_clues.builtin_completion(),
+						require('mini.clue').gen_clues.windows({
+							submode_move = true,
+							submode_navigate = true,
+							submode_resize = true,
+						}),
+						require('mini.clue').gen_clues.z(),
+						require('mini.clue').gen_clues.g(),
+						{ mode = 'n', keys = '<Leader>f', desc = '+Telescope/Find' },
+						{ mode = 'n', keys = '<Leader>g', desc = '+Git' },
+						{ mode = 'n', keys = '<Leader>h', desc = '+Hunks' },
+						{ mode = 'n', keys = '<Leader>o', desc = '+Oil' },
+						{ mode = 'n', keys = '<Leader>l', desc = '+LSP' },
+						{ mode = 'n', keys = '<Leader>t', desc = '+Tabs' },
+						
+						{ mode = 'n', keys = 'gp', desc = '+GotoPreview' },
+						
+						-- Window/Buffer submodes
+						{ mode = 'n', keys = ']b', postkeys = ']' },
+						{ mode = 'n', keys = ']w', postkeys = ']' },
+
+						{ mode = 'n', keys = '[b', postkeys = '[' },
+						{ mode = 'n', keys = '[w', postkeys = '[' },
+					}'';
+				};
 				ai = {
 					custom_textobjects = {
 						# Full buffer
