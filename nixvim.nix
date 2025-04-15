@@ -30,6 +30,7 @@ in {
 		./nixvim/java.nix
 		./nixvim/idris2.nix
 		./nixvim/markdown.nix
+		./nixvim/help.nix
 
 		# Others
 		./nixvim/keymaps.nix
@@ -42,9 +43,12 @@ in {
 		./nixvim/ai.nix
 	];
 
+	home.packages = with pkgs; [
+		vim-startuptime
+	];
+
 	programs.nixvim = {
 		enable = true;
-		# luaLoader.enable = true;
 		performance = {
 			byteCompileLua = {
 				enable = true;

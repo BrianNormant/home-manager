@@ -51,9 +51,7 @@
 			})
 		(final: prev: {nspire-tools = nspire-tools.packages."${system}".default;})
 			(final: prev: {blink = blink-cmp.packages."${system}".default;})
-			(final: prev: {inherit (nixd.packages."${system}") nixd;})
-			(final: prev: {inherit (nixd.packages."${system}") nixf;})
-			(final: prev: {inherit (nixd.packages."${system}") nixt;})
+			(final: prev: {inherit (nixd.packages."${system}") nixd nixf nixt;})
 			hyprpanel.overlay
 			];
 	};
