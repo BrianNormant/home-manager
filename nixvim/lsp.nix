@@ -26,6 +26,7 @@ in {
 					elixirls.enable = true;
 				};
 				onAttach = builtins.readFile ./lsp-attach.lua;
+				inlayHints = true;
 				lazyLoad.settings = {
 					ft = [
 						"c"
