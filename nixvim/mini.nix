@@ -5,11 +5,6 @@
 		];
 		plugins.mini = {
 			enable = true;
-			lazyLoad = {
-				settings = {
-					event = "DeferredUIEnter";
-				};
-			};
 			luaConfig = {
 				pre = ''
 					_G.minicursorword_disable = function()
@@ -29,6 +24,22 @@
 			};
 			modules = {
 				extra = {};
+				sessions = {
+					autowrite = true;
+					autoread = true;
+					hooks = {
+						post = {
+							read.__raw = ''function()
+								vim.cmd [[
+									tabnew
+									tabmove 0
+								]]
+								local bufnr = vim.api.nvim_get_current_buf()
+								MiniStarter.open(bufnr)
+							end'';
+						};
+					};
+				};
 				clue = {
 					triggers = [
 						{ mode = "n"; keys = "<Leader>"; } # leader
@@ -52,7 +63,7 @@
 						{ mode = "x"; keys = "[";} # hunks
 
 					];
-					clues.__raw = ''
+					clues.__raw = ''{
 						require('mini.clue').gen_clues.builtin_completion(),
 						require('mini.clue').gen_clues.windows({
 							submode_move = true,

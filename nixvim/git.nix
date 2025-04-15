@@ -81,6 +81,7 @@ in {
 							desc = "Open Gitgraph in current window"
 						},
 					},
+					cmd = "GitGraph",
 					after = function()
 						require('gitgraph').setup {
 							symbols = {
@@ -124,6 +125,10 @@ in {
 							},
 						}
 
+						-- create user command
+						vim.api.nvim_create_user_command('GitGraph', function()
+							require('gitgraph').draw({}, {all = true, max_count = 100})
+						end, {})
 						-- Now set the highlights
 						_G.gruvbox_contrast = "soft"
 						local contrast = _G.gruvbox_contrast
