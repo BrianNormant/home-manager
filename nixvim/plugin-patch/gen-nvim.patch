@@ -12,7 +12,7 @@
 +    port = "80",
      file = false,
 -    debug = false,
-+    debug = true,
++    debug =  false,
      body = {stream = true},
 -    show_prompt = false,
 -    show_model = false,

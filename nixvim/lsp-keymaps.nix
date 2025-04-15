@@ -1,7 +1,12 @@
 {pkgs, ... }: {
 	programs.nixvim = {
 		plugins.lsp.keymaps.extra = [
-			# vim.lps
+			# vim.lsp
+			{
+				key = "<C-]>";
+				action.__raw = "vim.lsp.buf.definition";
+				options.desc = "LSP: Goto definition";
+			}
 			{
 				key = "gD";
 				action.__raw = "vim.lsp.buf.declaration";

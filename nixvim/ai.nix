@@ -25,7 +25,7 @@
 				cmd = "Gen",
 				after = function()
 					require('gen').setup {
-						model = 'llama3:latest',
+						model = 'gemma3:27b',
 						display_mode = 'split',
 						show_prompt = true,
 						show_model = true,
