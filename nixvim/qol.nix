@@ -27,6 +27,21 @@ in {
 				lazyLoad.settings = { event = "DeferredUIEnter"; };
 				settings = {};
 			};
+			undotree = {
+				enable = true;
+				# lazyLoad.settings = { cmd = "UndotreeToggle"; };
+				settings = {
+					WindowLayout = 3;
+				};
+			};
+			# Comment.nvim
 		};
+		keymaps = [
+			{
+				key = "<a-u>";
+				action = "<CMD>UndotreeToggle<CR>";
+				options.desc = "Toggle undotree";
+			}
+		];
 	};
 }

@@ -17,4 +17,6 @@
 			};
 		};
 	};
+	# diagram.nvim/
+	# markdown-preview
 }

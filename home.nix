@@ -35,6 +35,7 @@ in {
 		manix
 		cool-retro-term
 		usbutils
+
 		neovide
 		networkmanagerapplet
 		(callPackage ./pep8.nix {})

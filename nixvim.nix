@@ -32,6 +32,7 @@ in {
 		./nixvim/idris2.nix
 		./nixvim/markdown.nix
 		./nixvim/help.nix
+		./nixvim/nix.nix
 
 		# Others
 		./nixvim/keymaps.nix
@@ -42,6 +43,7 @@ in {
 		./nixvim/completion.nix
 		./nixvim/dap.nix
 		./nixvim/ai.nix
+		# overseer.nvim with runner for nix build, nix check, ect
 	];
 
 	home.packages = with pkgs; [

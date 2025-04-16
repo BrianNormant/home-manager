@@ -1,5 +1,28 @@
 {pkgs, ... }: {
 	programs.nixvim = {
+		plugins = {
+			# avante = {
+			# 	enable = true;
+			# 	lazyLoad.settings = {
+			# 		enable = false;
+			# 		cmd = "AvanteAsk";
+			# 	};
+			# 	settings = {
+			# 		provider = "ollama";
+			# 		ollama = {
+			# 			model = "gemma3:27b";
+			# 		};
+			# 		vendors = {
+			# 			ollama = {
+			# 				endpoint = "http://ollama.ggkbrian.com";
+			# 			};
+			# 		};
+			# 	};
+			# 	luaConfig.post = ''
+			# 		vim.fn.sign_define("AvanteInputPromptSign", { text = "=>" })
+			# 	'';
+			# };
+		};
 		extraPlugins = [
 			{
 				plugin = pkgs.vimUtils.buildVimPlugin rec {
@@ -18,8 +41,9 @@
 				optional = true;
 			}
 		];
-		# Maybe avante.nvim https://github.com/yetone/avante.nvim
 		extraConfigLua = ''
+			-- we preload ollama by sending a empty request
+			vim.system({"zsh", "-c", "ollama run gemma3:27b \"\" &>/dev/null &!"}, {}, function() end)
 			require('lz.n').load { {
 				'gen.nvim',
 				cmd = "Gen",
@@ -38,9 +62,15 @@
 		'';
 		keymaps = [
 			{
-				key = "<F1>";
+				key = "<S-F1>";
 				action = "<CMD>Gen<CR>";
 				options.desc = "Ask Ollama";
+				mode = [ "n" "v" ];
+			}
+			{
+				key = "<F1>";
+				action = "<CMD>AvanteAsk<CR>";
+				options.desc = "Ask Avante";
 				mode = [ "n" "v" ];
 			}
 		];

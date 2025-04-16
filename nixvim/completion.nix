@@ -2,6 +2,7 @@
 	programs.nixvim = {
 		plugins = {
 			friendly-snippets.enable = true;
+			wilder = { enable = true; };
 			blink-cmp = {
 				enable = true;
 				lazyLoad.settings.event = "DeferredUIEnter";
@@ -54,7 +55,12 @@
 							auto_insert = true;
 						};
 						menu = {
-							border = "rounded";
+							border = "solid";
+							min_width = 50;
+							max_height = 20;
+							winblend = 30;
+							scrollbar = false;
+							auto_show = true;
 							draw.columns = [
 								["label" "source_name"] ["kind_icon" "kind"]
 							];

@@ -3,6 +3,11 @@
 	programs.nixvim = {
 		plugins.telescope = {
 			enable = true;
+			settings = {
+				defaults = {
+					winblend = 50;
+				};
+			};
 			extensions = {
 				frecency = { enable = true; };
 				fzf-native = {

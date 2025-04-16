@@ -5,6 +5,9 @@
 				enable = true;
 				settings = {
 					direction = "float";
+					float_opts = {
+						winblend = 50;
+					};
 				};
 				lazyLoad.settings = {
 					keys = [
