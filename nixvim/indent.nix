@@ -2,7 +2,7 @@
 	programs.nixvim =
 	let
 		highlight = [
-			"Comment"
+			"RainbowComment"
 			"RainbowRed"
 			"RainbowYellow"
 			"RainbowBlue"
@@ -30,7 +30,7 @@
 					};
 					scope = {
 						enabled = true;
-						highlight = "Blue";
+						highlight = "CurrentScope";
 						char = "";
 						show_end = false;
 					};
@@ -38,6 +38,7 @@
 			};
 		};
 		highlightOverride = {
+			RainbowComment = { fg = "#928374"; };
 			RainbowRed    = { fg = "#E06C75"; };
 			RainbowYellow = { fg = "#E5C07B"; };
 			RainbowBlue   = { fg = "#61AFEF"; };
@@ -45,6 +46,7 @@
 			RainbowGreen  = { fg = "#98C379"; };
 			RainbowViolet = { fg = "#C678DD"; };
 			RainbowCyan   = { fg = "#56B6C2"; };
+			CurrentScope  = { fg = "#FFAF00"; bold=true;};
 		};
 	};
 }

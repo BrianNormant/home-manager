@@ -3,6 +3,7 @@
 		colorscheme = "gruvbox-material";
 		extraPlugins = [ pkgs.vimPlugins.gruvbox-material-nvim ];
 		extraConfigLua = builtins.readFile ./gruvbox.lua;
+		extraConfigLuaPre = builtins.readFile ./snippets.lua;
 		plugins = {
 			colorizer = {
 				enable = true;

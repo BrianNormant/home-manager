@@ -75,6 +75,10 @@
 			"float, class:(PopUp)"
 			"size 40% 80%, class:(PopUp)"
 			"center, class:(PopUp)"
+			
+			"float, class:(cool-retro-term.)"
+			"size 40% 80%, class:(cool-retro-term.)"
+			"center, class:(cool-retro-term.)"
 
 			"float, class:(com.github.hluk.copyq)"
 			"size 20% 20%, class:(com.github.hluk.copyq)"
@@ -220,7 +224,7 @@ bindm = $mainMod, mouse:273, resizewindow
 bind = $mainMod ALT, V, exec, ~/.config/hypr/toggle_video_bg.nu
 
 bind = $mainMod, Return, exec, kitty zsh ~/.config/tmux.zsh # Open Terminal
-bind = $mainMod, T, exec, kitty --class PopUp zsh ~/.config/tmux.zsh # Terminal PopUp
+bind = $mainMod, T, exec, cool-retro-term
 bind = $mainMod ALT, Return, exec, cool-retro-term # Nostagia
 bind = $mainMod, E, exec, neovide
 bind = $mainMod ALT, E, exec, thunar

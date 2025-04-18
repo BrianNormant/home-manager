@@ -80,6 +80,7 @@ in {
 		};
 		extraPackages = with pkgs; [
 			ripgrep
+			wkhtmltopdf
 		];
 		clipboard.register = "unnamedplus";
 		globalOpts = {
@@ -127,9 +128,9 @@ in {
 			maplocalleader = " ";
 		};
 		highlightOverride = {
-			Search    = { link = "Visual"     ; force = true; };
-			IncSearch = { link = "ClapSpinner"; force = true; };
-			CurSearch = { link = "ClapSpinner"; force = true; };
+			Search    = { bg = "#45403d"; };
+			IncSearch = { bg = "#196F3D"; };
+			CurSearch = { bg = "#7B241C"; };
 			Substitute = {
 				bg = "#5a5251";
 				fg = "#EA3F3F";

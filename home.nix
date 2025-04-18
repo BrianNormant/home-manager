@@ -129,6 +129,7 @@ in {
 				# dynamic_background_opacity = true;
 				# background_tint = "0.0";
 				background = "#32302F";
+				sync_to_monitor = "no";
 			};
 			extraConfig = ''
 				map alt+F1 set_background_opacity +0.1
