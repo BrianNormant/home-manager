@@ -20,6 +20,7 @@ in {
 				lazyLoad.settings = { event = "DeferredUIEnter"; };
 				settings = {
 					map_c-w = true;
+					map_cr = false;
 				};
 			};
 			nvim-surround = {

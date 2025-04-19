@@ -50,9 +50,7 @@ require('lz.n').load {
 		"action-hints.nvim",
 		event = "LspAttach",
 		after = function ()
-			local contrast = _G.gruvbox_contrast
-			local g_colors = require("gruvbox-material.colors")
-			local colors = g_colors.get(vim.o.background, contrast)
+			local colors = _G.get_colors()
 			require('action-hints').setup {
 				template = {
 					definition = { text = "󰡱 ", color = colors.red },

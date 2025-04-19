@@ -5,7 +5,7 @@ require('lz.n').load {
 		require('tabby').setup {
 			preset = "active_wins_at_tail",
 			option = {
-				lualine_theme = 'gruvbox-material',
+				lualine_theme = _G.get_lualine_name(),
 				nerdfont = true,
 			},
 		}

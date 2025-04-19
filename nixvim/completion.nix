@@ -1,76 +1,14 @@
-{pkgs, ... }: {
+{pkgs, ... }:
+let
+	inherit (pkgs.vimUtils) buildVimPlugin;
+	inherit (pkgs.lib) fakeHash;
+	inherit (pkgs) fetchFromGitHub;
+
+in {
 	programs.nixvim = {
 		plugins = {
 			friendly-snippets.enable = true;
 			wilder = { enable = true; };
-			blink-cmp = {
-				enable = true;
-				lazyLoad.settings.event = "DeferredUIEnter";
-				settings = {
-					keymap = {
-						preset = "enter";
-						"<Tab>"   = [ "select_next" "fallback" ];
-						"<S-Tab>" = [ "select_prev" "fallback" ];
-						"<C-l>"   = [ "snippet_forward" ];
-						"<C-h>"   = [ "snippet_backward" ];
-						"<Up>"    = [ "fallback" ];
-						"<Down>"   = [ "fallback" ];
-					};
-					sources = {
-						default = [
-							"supermaven"
-							"lsp"
-							"path"
-							"snippets"
-						];
-						providers = {
-							supermaven = {
-								name = "SuperMaven";
-								fallbacks = [ "buffer" ];
-								module = "supermaven";
-								score_offset = 20;
-							};
-							lsp = {
-								name = "LSP";
-								module = "blink.cmp.sources.lsp";
-							};
-							path = {
-								name = "Path";
-								module = "blink.cmp.sources.path";
-							};
-							snippets = {
-								name = "Snippets";
-								module = "blink.cmp.sources.snippets";
-								opts = { friendly_snippets = true; };
-							};
-							buffer = {
-								name = "Buffer";
-								module = "blink.cmp.sources.buffer";
-							};
-						};
-					};
-					completion = {
-						list.selection = {
-							preselect = false;
-							auto_insert = true;
-						};
-						menu = {
-							border = "solid";
-							min_width = 50;
-							max_height = 20;
-							winblend = 30;
-							scrollbar = false;
-							auto_show = true;
-							draw.columns = [
-								["label" "source_name"] ["kind_icon" "kind"]
-							];
-						};
-						documentation.auto_show = true;
-					};
-					signature.enabled = true;
-					cmdline.enabled = false;
-				};
-			};
 		};
 		extraPlugins = with pkgs.vimPlugins; [
 			{
@@ -81,11 +19,26 @@
 				};
 				optional = true;
 			}
+			{
+				plugin = buildVimPlugin rec {
+					pname = "compl.nvim";
+					version = "3fe5dd7";
+					src = fetchFromGitHub {
+						owner = "brianaung";
+						repo = pname;
+						rev = version;
+						hash = "sha256-XrFNPYr4XcfcVG6QiQdplBGyy+dAHYsQfVOxLR7TQv8=";
+					};
+					patches = [
+						./plugin-patch/compl.nvim.patch
+					];
+				};
+				optional = true;
+			}
 		];
-		extraConfigLua = builtins.readFile ./blink.lua;
-		highlightOverride = {
-			Pmenu = { link = "Float"; default = false;};
-			PmenuSel = { link = "CursorLine"; default = false;};
-		};
+		extraConfigLuaPre = ''
+			_G.friendly_snippets_path = "${pkgs.vimPlugins.friendly-snippets}"
+		'';
+		extraConfigLuaPost = builtins.readFile ./completion.lua;
 	};
 }

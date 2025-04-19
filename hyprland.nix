@@ -103,7 +103,7 @@
 	extraConfig = ''
 env = QT_QPA_PLATFORMTHEME,lxqt
 env = QT_PLATFORM_PLUGIN,lxqt
-env = XDG_MENU_PREFIX,lxqt-
+env = XDG_GENU_PREFIX,lxqt-
 
 #animations {
 #	enabled = true

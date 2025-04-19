@@ -15,6 +15,11 @@ cmus-tmux = pkgs.tmuxPlugins.mkTmuxPlugin rec {
 };
 in {
 
+	imports = [
+		./zsh.nix
+		./nixvim.nix
+	];
+
 	# Home Manager needs a bit of information about you and the paths it should
 	# manage.
 	home.username = "brian";
@@ -330,5 +335,4 @@ extension:
 		];
 		stateDirectory = "${config.xdg.dataHome}/unison/Wallpapers";
 	};
-	imports = [ ./zsh.nix ];
 }

@@ -43,6 +43,15 @@ in {
 					];
 				};
 			};
+			lsp-signature = {
+				enable = true;
+				lazyLoad.settings = { event = [ "DeferredUIEnter" ]; };
+				settings = {
+					bind = true;
+					handler_opts = { border = "solid"; };
+					transparency = 90;
+				};
+			};
 			glance = {
 				enable = true;
 				lazyLoad.settings.event = [ "LspAttach" ];
@@ -90,7 +99,6 @@ in {
 				enable = true;
 				settings = {
 					cmd_name = "IncRename";
-					# input_buffer_type = "dressing";
 				};
 				lazyLoad.settings = { event = [ "LspAttach" ]; };
 			};

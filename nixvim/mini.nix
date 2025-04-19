@@ -60,7 +60,7 @@
 					triggers = [
 						{ mode = "n"; keys = "<Leader>"; } # leader
 						
-						{ mode = "i"; keys = "<C-x>"; } # Omnicomp
+						# { mode = "i"; keys = "<C-x>"; } # Omnicomp
 						
 						{ mode = "n"; keys = "<C-w>"; } # window
 
@@ -80,7 +80,7 @@
 
 					];
 					clues.__raw = ''{
-						require('mini.clue').gen_clues.builtin_completion(),
+						-- require('mini.clue').gen_clues.builtin_completion(),
 						require('mini.clue').gen_clues.windows({
 							submode_move = true,
 							submode_navigate = true,

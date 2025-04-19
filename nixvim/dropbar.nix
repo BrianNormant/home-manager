@@ -15,14 +15,10 @@
 		};
 		highlightOverride = {
 			WinBar = {
-				sp = "#665c54";
-				bg = "#313131";
-				underline = true;
+				link = "Normal";
 			};
 			WinBarNC = {
-				sp = "#665c54";
-				bg = "#313131";
-				underline = true;
+				link = "Normal";
 			};
 		};
 	};

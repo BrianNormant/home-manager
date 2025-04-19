@@ -1,10 +1,7 @@
 local lualine = require('lualine')
 
-local contrast = _G.gruvbox_contrast
-
-local theme = require('gruvbox-material.lualine').theme(contrast)
-local g_colors = require("gruvbox-material.colors")
-local colors = g_colors.get(vim.o.background, contrast)
+local theme = _G.get_lualine_theme()
+local colors = _G.get_colors()
 
 
 local function mode_text()

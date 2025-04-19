@@ -85,6 +85,21 @@
 					})
 				end,
 
+				-- Oil
+				function()
+					return vim.tbl_map(function(tbl)
+						return {
+							section = "Oil",
+							name = tbl[1],
+							action = tbl[2],
+						}
+					end,
+					{
+						{"Oil",   "Oil"},
+						{"Oil Float", "Oil --float"},
+					})
+				end,
+
 				-- Sessions
 				require("mini.starter").sections.sessions(5, false),
 

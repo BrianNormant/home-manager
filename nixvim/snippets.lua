@@ -1,6 +1,8 @@
 -- Inspiration from
 -- https://www.reddit.com/r/neovim/comments/1jxgcml/convert_code_to_image_while_preserving_neovim/
 
+
+
 vim.api.nvim_create_autocmd("Colorscheme", {
 	pattern = "*",
 	callback = function(_)

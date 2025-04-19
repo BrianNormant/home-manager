@@ -129,20 +129,14 @@ in {
 						vim.api.nvim_create_user_command('GitGraph', function()
 							require('gitgraph').draw({}, {all = true, max_count = 100})
 						end, {})
-						-- Now set the highlights
-						_G.gruvbox_contrast = "soft"
-						local contrast = _G.gruvbox_contrast
-						local theme = require('gruvbox-material.lualine').theme(contrast)
-						local g_colors = require("gruvbox-material.colors")
-						local colors = g_colors.get(vim.o.background, contrast)
 
 						vim.cmd(string.format("hi GitGraphHash gui=bold guifg=%s", "#FFAF00"))
 
 						vim.cmd(string.format("hi GitGraphAuthor guifg=%s", "#0DCDCD"))
 						vim.cmd(string.format("hi GitGraphTimestamp guifg=#565555"))
-						vim.cmd(string.format("hi GitGraphBranchName guifg=%s", colors.red))
-						vim.cmd(string.format("hi GitGraphBranchTag gui=bold guifg=%s", colors.purple))
-						vim.cmd(string.format("hi GitGraphBranchMsg guifg=%s", colors.fg1))
+						vim.cmd(string.format("hi GitGraphBranchName guifg=%s", "#E43E1E"))
+						vim.cmd(string.format("hi GitGraphBranchTag gui=bold guifg=%s", "#4A2574"))
+						vim.cmd(string.format("hi GitGraphBranchMsg guifg=%s", "#565555"))
 						vim.cmd("hi! link RainbowRed    GitGraphBranch1")
 						vim.cmd("hi! link RainbowCyan   GitGraphBranch2")
 						vim.cmd("hi! link RainbowBlue   GitGraphBranch3")
