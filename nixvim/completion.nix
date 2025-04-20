@@ -45,7 +45,27 @@ in {
 			{
 				key = "<leader>c";
 				action.__raw = ''function()
-					_G.auto_trigger_completion = not _G.auto_trigger_completion
+					if _G.auto_trigger_completion then
+						_G.auto_trigger_completion = false
+						-- if we trigger the completion now, we'd like to
+						-- autoselect it.
+						vim.opt.completeopt = {
+							"menuone",
+							"preview",
+						}
+						vim.opt.shortmess:remove "c"
+						vim.notify("Auto-completion is disabled")
+					else
+						_G.auto_trigger_completion = true
+						vim.opt.completeopt = {
+							"menuone",
+							"noselect",
+							"noinsert",
+							"preview",
+						}
+						vim.opt.shortmess:append "c"
+						vim.notify("Auto-completion is enabled")
+					end
 				end'';
 				options.desc = "Toggle completion auto-triggering";
 			}

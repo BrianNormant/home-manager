@@ -1,4 +1,4 @@
-{pkgs, ... }: {
+{pkgs, config, ... }: {
 	programs.nixvim = {
 		plugins = {
 			# avante = {
@@ -49,7 +49,7 @@
 				cmd = "Gen",
 				after = function()
 					require('gen').setup {
-						model = 'gemma3:27b',
+						model = "${config.nixvim.ollama_model}",
 						display_mode = 'split',
 						show_prompt = true,
 						show_model = true,

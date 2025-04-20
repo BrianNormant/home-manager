@@ -7,6 +7,9 @@ in {
 		colorscheme = lib.mkOption {
 			type = lib.types.enum [ "gruvbox" "cuddlefish" ];
 		};
+		ollama_model = lib.mkOption {
+			type = lib.types.str;
+		};
 	};
 
 	imports = [
@@ -57,6 +60,7 @@ in {
 
 		nixvim = {
 			colorscheme = "cuddlefish";
+			ollama_model = "gemma3:27b";
 		};
 
 		home.packages = with pkgs; [
@@ -245,15 +249,11 @@ in {
 			".config/nvim/ftplugin/git.vim".source      = ./extra-nvim-files/git-ftplugin.vim;
 			".config/nvim/ftplugin/fugitive.vim".source = ./extra-nvim-files/fugitive-ftplugin.vim;
 			".config/nvim/ftplugin/qf.vim".source       = ./extra-nvim-files/qf-ftplugin.vim;
-			# ".config/nvim/ftplugin/java.vim".source     = ./extra-nvim-files/java-ftplugin.vim;
-			# ".config/nvim/ftplugin/lua.vim".source      = ./extra-nvim-files/lua-ftplugin.vim;
 
 			# syntax (custom syntax for a filetype)
 			".config/nvim/syntax/nu.vim".source         = ./extra-nvim-files/nu-syntax.vim;
 			".config/nvim/syntax/pep.vim".source        = ./extra-nvim-files/pep-syntax.vim;
 
-			# Others
-			".config/nvim/lua/supermaven.lua".source = ./supermaven.lua;
 		};
 	};
 }

@@ -35,7 +35,6 @@ in {
 					WindowLayout = 3;
 				};
 			};
-			# Comment.nvim
 		};
 		keymaps = [
 			{

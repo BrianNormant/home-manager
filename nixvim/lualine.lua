@@ -8,47 +8,47 @@ local function mode_text()
 	local equtbl = {
 		--- see :help mode()
 		--- Normal
-		["n"]    = "      Normal     ",
+		["n"]    = "      Normal     ", -- <Esc>, <C-c>, ...
 		--- Insert
-		["i"]    = "      Insert     ",
-		["ix"]   = "   InsertCompl   ",
-		["ic"]   = "    OmniCompl    ",
+		["i"]    = "      Insert     ", -- i,a,o,c,...
+		["ix"]   = "   InsertCompl   ", -- i_ctrl-x
+		["ic"]   = "    OmniCompl    ", -- i_ctrl-x_ctrl-o
 		--- Replace
-		["R"]    = "     Replace     ",
-		["Rx"]   = "   ReplaceCompl  ",
-		["Rc"]   = "   ReplaceOmni   ",
+		["R"]    = "     Replace     ", -- R ,i_INS
+		["Rx"]   = "   ReplaceCompl  ", -- r_ctrl-x
+		["Rc"]   = "   ReplaceOmni   ", -- r_ctrl-x_ctrl-o
 		--- Virtual Replace
-		["Rv"]   = "   VirtReplace   ",
-		["Rvx"]  = " VirtReplaceCompl",
-		["Rvc"]  = " VirtReplaceOmni ",
+		["Rv"]   = "   VirtReplace   ", -- gR
+		["Rvx"]  = " VirtReplaceCompl", -- gR_ctrl-x
+		["Rvc"]  = " VirtReplaceOmni ", -- gR_ctrl-x_ctrl-o
 		--- Visual
-		["v"]    = "      Visual     ",
-		["V"]    = "    VisualLine   ",
-		[""]   = "   VisualBlock   ",
+		["v"]    = "      Visual     ", -- v
+		["V"]    = "    VisualLine   ", -- V
+		[""]   = "   VisualBlock   ", -- <c-v>
 		--- Select
-		["s"]    = "      Select     ",
-		["S"]    = "    SelectLine   ",
-		[""]   = "   SelectBlock   ",
+		["s"]    = "      Select     ", -- v_ctrl-g
+		["S"]    = "    SelectLine   ", -- V_ctrl-g
+		[""]   = "   SelectBlock   ", -- <c-v>ctrl-g
 		--- Terminal
-		["t"]    = "     Terminal    ",
+		["t"]    = "     Terminal    ", -- :term
 		["nt"]   = "    NTerminal    ", -- Ctrl-\_Ctrl-N
 		--- _CTRL-O
-		["vs"]   = "   VisualSelect  ",
-		["Vs"]   = " VisualSelectLine",
-		["s"]  = "VisualSelectBlock",
-		["niI"]  = "    C-OInsert    ",
-		["niR"]  = "    C-OReplace   ",
-		["niV"]  = " C-OVirtReplace  ",
-		["ntT"]  = "   C-OTerminal   ",
+		["vs"]   = "   VisualSelect  ", -- v_ctrl-g_ctrl-o
+		["Vs"]   = " VisualSelectLine", -- V_ctrl-g_ctrl-o
+		["s"]  = "VisualSelectBlock", -- <C-v>_ctrl-g_ctrl-o
+		["niI"]  = "    C-OInsert    ", -- i_ctrl-o
+		["niR"]  = "    C-OReplace   ", -- R_ctrl-o
+		["niV"]  = " C-OVirtReplace  ", -- gR_ctrl-o
+		["ntT"]  = "   C-OTerminal   ", -- t_Ctrl-\_ctrl-o
 		--- Operator Pending
-		["no"]   = "     Operator    ",
-		["nov"]  = "  OperatorFChar  ",
-		["noV"]  = "  OperatorFLine  ",
-		["no"] = "  OperatorFBlock ",
+		["no"]   = "     Operator    ", -- after an operator, ie: d,y,c,gm,ga,ys,...
+		["nov"]  = "  OperatorFChar  ", -- o_v -- force the movement to be charwise
+		["noV"]  = "  OperatorFLine  ", -- o_V -- force the movement to be linewise
+		["no"] = "  OperatorFBlock ", -- o_Ctrl-v -- force the movement to be block wise
 		--- Command
-		["c"]    = "     Command     ",
+		["c"]    = "     Command     ", -- :
 		--- Wait
-		["!"]    = "       Wait      ",
+		["!"]    = "       Wait      ", -- I don't know how to trigger this mode...
 	}
 	local mode = vim.fn.mode(1)
 	for m, txt in pairs(equtbl) do
@@ -59,6 +59,9 @@ local function mode_text()
 	return mode
 end
 
+-- This would be a pain to change because different colorscheme
+-- Have different way to name their colors
+-- Maybe get the color with nvim_get_hl?
 local function mode_color()
 	local equtbl = {
 		--- see :help mode()

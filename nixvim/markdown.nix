@@ -17,6 +17,5 @@
 			};
 		};
 	};
-	# diagram.nvim/
-	# markdown-preview
+	# TODO markdown-preview
 }

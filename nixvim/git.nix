@@ -220,7 +220,7 @@ in {
 			}
 			{
 				key = "<leader>gg";
-				action = "cexpr system(\"git jump --stdout diff\") | copen";
+				action = "<CMD>cexpr system(\"git jump --stdout diff\") | copen<CR>";
 				options.desc = "Open Quickfix with git changes";
 			}
 		];

@@ -85,11 +85,9 @@ vim.opt.completeopt = {
 	"menuone",
 	"noselect",
 	"noinsert",
-	"fuzzy",
 	"preview",
 }
 vim.opt.shortmess:append "c"
-
 
 --- Up/Down should ignore with the completion menu
 vim.keymap.set("i", "<Down>", function()
