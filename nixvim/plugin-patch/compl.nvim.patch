@@ -1,6 +1,5 @@
-
 diff --git a/lua/compl.lua b/lua/compl.lua
-index 835ee34..346967d 100644
+index 835ee34..653e93a 100644
 --- a/lua/compl.lua
 +++ b/lua/compl.lua
 @@ -76,7 +76,7 @@ function M.setup(opts)
@@ -12,7 +11,17 @@ index 835ee34..346967d 100644
  		end,
  	})
  
-@@ -133,14 +133,12 @@ function M._start_completion()
+@@ -122,6 +122,9 @@ function M.setup(opts)
+ end
+ 
+ function M._start_completion()
++	if not _G.auto_trigger_completion then
++		return
++	end
+ 	M._ctx.cancel_pending()
+ 
+ 	local bufnr = vim.api.nvim_get_current_buf()
+@@ -133,14 +136,12 @@ function M._start_completion()
  	if
  		-- No LSP clients
  		not next(vim.lsp.get_clients { bufnr = bufnr, method = "textDocument/completion" })
@@ -29,16 +38,66 @@ index 835ee34..346967d 100644
  		-- Context didn't change
  		or vim.deep_equal(M._ctx.cursor, { row, col })
  	then
-@@ -190,7 +188,7 @@ function M._start_completion()
- 		M._completion.responses = responses
+@@ -152,30 +153,31 @@ function M._start_completion()
  
+ 	-- Make a request to get completion items
+ 	local position_params = M._make_position_params()
++
+ 	local cancel_fn = vim.lsp.buf_request_all(bufnr, "textDocument/completion", position_params, function(responses)
+-		-- Apply itemDefaults to completion item as per the LSP specs:
+-		--
+-		-- "In many cases the items of an actual completion result share the same
+-		-- value for properties like `commitCharacters` or the range of a text
+-		-- edit. A completion list can therefore define item defaults which will
+-		-- be used if a completion item itself doesn't specify the value.
+-		--
+-		-- If a completion list specifies a default value and a completion item
+-		-- also specifies a corresponding value the one from the item is used."
+ 		vim.iter(pairs(responses))
+ 			:filter(function(_, response)
+-				return (not response.err) and response.result and response.result.itemDefaults
++				return (not response.err) and response.result
+ 			end)
+-			:each(function(_, response)
++			:each(function(client_id, response)
++				local name = vim.lsp.get_client_by_id(client_id)["name"]
+ 				local itemDefaults = response.result.itemDefaults
+ 				local items = response.result.items or response.result or {}
+ 				vim.iter(ipairs(items)):each(function(_, item)
++					item.menu = "LSP"
++					if name == "jdtls" and item.kind ~= 1 then
++						item.expandme = true
++					end
++					if string.match(name, "snippets#-.+") then
++						item.menu = "Snippets"
++					end
++					if itemDefaults == nil then return end
+ 					-- https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/completion.lua#L173
+ 					item.insertTextFormat = item.insertTextFormat or itemDefaults.insertTextFormat
+ 					item.insertTextMode = item.insertTextMode or itemDefaults.insertTextMode
+ 					item.data = item.data or itemDefaults.data
+ 					if itemDefaults.editRange then
+-						local textEdit = item.textEdit or {}
++						local textEdit =  item.textEdit or {}
+ 						item.textEdit = textEdit
+ 						textEdit.newText = textEdit.newText or item.textEditText or item.insertText
+ 						if itemDefaults.editRange.start then
+@@ -188,11 +190,12 @@ function M._start_completion()
+ 				end)
+ 			end)
+ 		M._completion.responses = responses
+-
  		if vim.fn.mode() == "i" then
 -			vim.api.nvim_feedkeys(vim.keycode "<C-x><C-u>", "m", false)
 +			vim.api.nvim_feedkeys(vim.keycode "<C-x><C-o>", "m", false)
  		end
  	end)
++
++
  	table.insert(M._ctx.pending_requests, cancel_fn)
-@@ -335,11 +333,12 @@ function _G.Compl.completefunc(findstart, base)
+ end
+ 
+@@ -335,11 +338,13 @@ function _G.Compl.completefunc(findstart, base)
  		return #a.label < #b.label
  	end)
  
@@ -47,20 +106,23 @@ index 835ee34..346967d 100644
  		:map(function(_, match)
  			local item = match.item
  			local client_id = match.client_id
++
  			local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or "Unknown"
-+			local menu = "LSP"
++			local menu = item.menu
  			local word
  			if kind == "Snippet" then
  				word = item.label or ""
-@@ -356,6 +355,7 @@ function _G.Compl.completefunc(findstart, base)
+@@ -356,7 +361,9 @@ function _G.Compl.completefunc(findstart, base)
  				icase = 1,
  				dup = 1,
  				empty = 1,
 +				menu = menu,
  				user_data = {
++					expandme = item.expandme ~= nil,
  					nvim = {
  						lsp = {
-@@ -368,9 +368,55 @@ function _G.Compl.completefunc(findstart, base)
+ 							completion_item = item,
+@@ -368,9 +375,59 @@ function _G.Compl.completefunc(findstart, base)
  			}
  		end)
  		:totable()
@@ -106,8 +168,12 @@ index 835ee34..346967d 100644
 +		CompPrev:dispose_inlay()
 +		return match
 +	end
-+
-+	table.insert(matches, 2, get_sm_match())
++	-- We want to let an snippet take precedencd
++	if #matches ~= 0 then
++		table.insert(matches, 2, get_sm_match())
++	else
++		table.insert(matches, get_sm_match())
++	end
 +	return matches
  end
  
@@ -117,7 +183,7 @@ index 835ee34..346967d 100644
  	M._info.close_windows()
  	M._ctx.cancel_pending()
  
-@@ -459,10 +505,13 @@ function M._open_info_window(item)
+@@ -459,10 +516,13 @@ function M._open_info_window(item)
  			height = height,
  			focusable = false,
  			style = "minimal",
@@ -133,7 +199,24 @@ index 835ee34..346967d 100644
  	end
  end
  
-@@ -535,14 +584,37 @@ function M._on_completedone()
+@@ -470,6 +530,7 @@ function M._on_completedone()
+ 	M._info.close_windows()
+ 
+ 	local lsp_data = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp") or {}
++	local expandme = vim.tbl_get(vim.v.completed_item, "user_data", "expandme") or false
+ 	local completion_item = lsp_data.completion_item or {}
+ 	if not next(completion_item) then
+ 		return
+@@ -502,7 +563,7 @@ function M._on_completedone()
+ 	end
+ 
+ 	-- Expand snippets
+-	if kind == "Snippet" then
++	if kind == "Snippet" or expandme then
+ 		pcall(vim.api.nvim_buf_set_text, bufnr, row - 1, col - vim.fn.strwidth(completed_word), row - 1, col, { "" })
+ 		pcall(vim.api.nvim_win_set_cursor, winnr, { row, col - vim.fn.strwidth(completed_word) })
+ 		vim.snippet.expand(vim.tbl_get(completion_item, "textEdit", "newText") or completion_item.insertText or "")
+@@ -535,14 +596,37 @@ function M._on_completedone()
  	end
  end
  
@@ -174,7 +257,7 @@ index 835ee34..346967d 100644
  					detail = "snippet",
  					label = prefix,
  					kind = vim.lsp.protocol.CompletionItemKind["Snippet"],
-@@ -557,7 +629,6 @@ function M._start_snippet()
+@@ -557,7 +641,6 @@ function M._start_snippet()
  		end)
  	end
  
@@ -182,7 +265,7 @@ index 835ee34..346967d 100644
  	vim.iter(ipairs(M._opts.snippet.paths)):each(function(_, root)
  		local manifest_path = table.concat({ root, "package.json" }, M._sep)
  		M._async_read_json(manifest_path, function(manifest_data)
-@@ -580,7 +651,10 @@ function M._start_snippet()
+@@ -580,7 +663,10 @@ function M._start_snippet()
  		end)
  	end)
  
@@ -194,7 +277,7 @@ index 835ee34..346967d 100644
  end
  
  -- https://github.com/nvim-lua/plenary.nvim/blob/master/lua/plenary/path.lua#L21
-@@ -597,19 +671,18 @@ M._sep = (function()
+@@ -597,19 +683,18 @@ M._sep = (function()
  	end
  end)()
  

@@ -218,6 +218,11 @@ in {
 				action = "<CMD>DiffviewOpen<cr>";
 				options.desc = "Fugitive Mergetool resolve conflicts";
 			}
+			{
+				key = "<leader>gg";
+				action = "cexpr system(\"git jump --stdout diff\") | copen";
+				options.desc = "Open Quickfix with git changes";
+			}
 		];
 	};
 }

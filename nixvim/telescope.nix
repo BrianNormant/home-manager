@@ -9,7 +9,16 @@
 				};
 			};
 			extensions = {
-				frecency = { enable = true; };
+				frecency = {
+					enable = true;
+					settings = {
+						db_safe_mode = false;
+						default_workspace = "CWD";
+						path_display = [ "shorten" ];
+						show_scores = true;
+						show_unindexed = true;
+					};
+				};
 				fzf-native = {
 					enable = true;
 					settings = {

@@ -38,7 +38,17 @@ in {
 		];
 		extraConfigLuaPre = ''
 			_G.friendly_snippets_path = "${pkgs.vimPlugins.friendly-snippets}"
+			_G.auto_trigger_completion = true
 		'';
 		extraConfigLuaPost = builtins.readFile ./completion.lua;
+		keymaps = [
+			{
+				key = "<leader>c";
+				action.__raw = ''function()
+					_G.auto_trigger_completion = not _G.auto_trigger_completion
+				end'';
+				options.desc = "Toggle completion auto-triggering";
+			}
+		];
 	};
 }

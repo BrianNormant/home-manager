@@ -67,9 +67,9 @@ in {
 			enable = true;
 			performance = {
 				byteCompileLua = {
-					enable = true;
+					enable = false;
 					configs = true;
-					initLua = false;
+					initLua = true;
 					nvimRuntime = true;
 					plugins = true;
 				};

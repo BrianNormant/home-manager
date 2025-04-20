@@ -25,21 +25,21 @@ programs.nixvim = {
 			require('lspconfig').jdtls.setup {
 				cmd = {"${pkgs.jdt-language-server}/bin/jdtls"},
 				autostart = true,
-				init_options = {
-					documentSymbols = {
-						dynamicRegistration = false,
-						hierarchicalDocumentSymbolSupport = true,
-						labelSupport = true,
-						symbolKind = {
-							valueSet = {
-								1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-								11, 12, 13, 14, 15, 16, 17, 18,
-								19, 20, 21, 22, 23, 24, 25, 26,
-								27, 28, 29, 30, 31,
-							},
-						},
-					},
-				},
+				-- init_options = {
+				-- 	documentSymbols = {
+				-- 		dynamicRegistration = false,
+				-- 		hierarchicalDocumentSymbolSupport = true,
+				-- 		labelSupport = true,
+				-- 		symbolKind = {
+				-- 			valueSet = {
+				-- 				1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+				-- 				11, 12, 13, 14, 15, 16, 17, 18,
+				-- 				19, 20, 21, 22, 23, 24, 25, 26,
+				-- 				27, 28, 29, 30, 31,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
 				settings = {
 					java = {
 						configuration = {
