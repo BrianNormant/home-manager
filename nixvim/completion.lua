@@ -46,12 +46,11 @@ end, {expr = true})
 
 --- adapted from :help ins-completion
 local clevertab = function (tab, next_or_previous)
-		--- When the line is not empty, call completion
-	if #vim.fn.getline('.') == 0 then
-		return tab
-	else
-		return next_or_previous
-	end
+	-- local after = get_chars_after_cursor()
+	-- if string.match("(\t|' ')*", after) ~= nil then
+	-- 	return next_or_previous
+	-- end
+	return tab
 end
 
 --- tabkey to navigated in completion menu
