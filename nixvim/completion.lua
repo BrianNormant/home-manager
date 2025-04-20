@@ -33,16 +33,24 @@ require('lz.n').load {
 }
 
 --- <CR> to select if and only if a item is selected
-vim.keymap.set("i", "<CR>", function()
-	if vim.fn.complete_info()["selected"] ~= -1 then
-		return "<C-y>"
-	end
+--- use autopairs functionnality of:
+--- {|} -> {
+--- \t|
+--- }
+_G.MUtils= {}
+MUtils.CR = function()
+	local npairs = require('nvim-autopairs');
 	if vim.fn.pumvisible() ~= 0 then
-		return "<c-e><CR>"
+		if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+			return npairs.esc('<c-y>')
+		else
+			return npairs.esc('<c-e>') .. npairs.autopairs_cr()
+		end
 	else
-		return "<CR>"
+		return npairs.autopairs_cr()
 	end
-end, {expr = true})
+end
+vim.api.nvim_set_keymap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
 
 --- adapted from :help ins-completion
 local clevertab = function (tab, next_or_previous)
@@ -83,8 +91,6 @@ end, {desc = "Snippets jump previous"})
 
 vim.opt.completeopt = {
 	"menuone",
-	"noselect",
-	"noinsert",
 	"preview",
 }
 vim.opt.shortmess:append "c"

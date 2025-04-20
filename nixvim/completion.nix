@@ -38,7 +38,7 @@ in {
 		];
 		extraConfigLuaPre = ''
 			_G.friendly_snippets_path = "${pkgs.vimPlugins.friendly-snippets}"
-			_G.auto_trigger_completion = true
+			_G.auto_trigger_completion = false
 		'';
 		extraConfigLuaPost = builtins.readFile ./completion.lua;
 		keymaps = [

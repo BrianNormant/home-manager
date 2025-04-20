@@ -22,6 +22,20 @@ in {
 					map_c-w = true;
 					map_cr = false;
 				};
+				luaConfig.post = ''
+					local Rule = require('nvim-autopairs.rule')
+					local npairs = require('nvim-autopairs')
+					--- Autoclose let in
+					npairs.add_rules {
+						Rule("let", "in ", "nix"):end_wise(function(opts)
+							return string.match(opts.line, '^%s*let') ~= nil
+						end),
+						Rule("{", "};", {"nix"}):end_wise(function(opts) return true end),
+						Rule("function%s?[%a_]*%([^%)]*%)$", "end", {"lua"}):use_regex(true),
+						Rule("then", "end", "lua"),
+						Rule("(", ")", {"lua", "nix"}),
+					}
+				'';
 			};
 			nvim-surround = {
 				enable = true;

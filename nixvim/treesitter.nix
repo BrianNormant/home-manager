@@ -70,7 +70,9 @@ in{
 				folding = true;
 				lazyLoad.settings = { event = "DeferredUIEnter"; };
 				grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-					markdown
+					markdown markdown_inline latex
+					html
+					typst
 					lua
 					json
 					make
