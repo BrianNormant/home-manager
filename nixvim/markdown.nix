@@ -30,6 +30,9 @@ vim.wo[win].conceallevel = 2
 				event = ["BufWrite" "BufRead"];
 				pattern = [ "*.md" ];
 				callback.__raw = ''function()
+					local name = vim.fn.expand("%:r")
+					local outputfile = "/var/lib/nvimpreview/" .. name .. ".html"
+
 					local inputfile = vim.fn.expand("%:p")
 					vim.system({
 						-- TODO, use pandoc extensions with plant-uml, mermaid, ect to genenerate
@@ -40,8 +43,9 @@ vim.wo[win].conceallevel = 2
 						"--to",
 						"html",
 						inputfile,
-						"--output",
-						"/var/lib/nvimpreview/preview.html",
+						"--output", outputfile,
+						"--metadata", "pagetitle=" .. name,
+						"--highlight-style", "/home/brian/.local/share/gruvboxdark.theme";
 						"-H", "/home/brian/.local/share/autoreload.html",
 						"-H", "/home/brian/.local/share/githubstyle.css",
 						"--standalone",
@@ -50,7 +54,7 @@ vim.wo[win].conceallevel = 2
 							if not _G.firefox_open then
 								_G.firefox_open = true
 								vim.defer_fn(function()
-									vim.system {"firefox", "localhost/preview.html"}
+									vim.system {"firefox", "localhost/" .. name .. ".html"}
 									-- We create a callback to clear firefox_open when we close this buffer
 									vim.cmd "auto BufWinLeave <buffer> lua _G.firefox_open = false"
 								end, 10)
@@ -64,5 +68,6 @@ vim.wo[win].conceallevel = 2
 		".local/share/autoreload.html".text =
 			''<script type="text/javascript" src="https://livejs.com/live.js"></script>'';
 		".local/share/githubstyle.css".source = ../share/githubstyle.css;
+		".local/share/gruvboxdark.theme".source = ../share/gruvboxdark.theme;
 	};
 }
