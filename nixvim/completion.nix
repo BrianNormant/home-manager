@@ -39,22 +39,10 @@ in {
 				action.__raw = ''function()
 					if _G.auto_trigger_completion then
 						_G.auto_trigger_completion = false
-						-- if we trigger the completion now, we'd like to
-						-- autoselect it.
-						vim.opt.completeopt = {
-							"menuone",
-							"preview",
-						}
 						vim.opt.shortmess:remove "c"
 						vim.notify("Auto-completion is disabled")
 					else
 						_G.auto_trigger_completion = true
-						vim.opt.completeopt = {
-							"menuone",
-							"preview",
-							-- "noselect",
-							-- "noinsert",
-						}
 						vim.opt.shortmess:append "c"
 						vim.notify("Auto-completion is enabled")
 					end

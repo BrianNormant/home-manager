@@ -11,7 +11,6 @@ in {
 			type = lib.types.str;
 		};
 	};
-
 	imports = [
 		# UI
 		./nixvim/colorscheme.nix

@@ -26,7 +26,6 @@ M._ctx = {
 		end
 		M._ctx.pending_requests = {}
 	end,
-	completion_history = {},
 }
 
 M._completion = {
@@ -35,9 +34,9 @@ M._completion = {
 }
 
 M._info = {
-	timer = vim.uv.new_timer(),
 	bufnr = 0,
 	winids = {},
+	request = false,
 	close_windows = function()
 		for idx, winid in ipairs(M._info.winids) do
 			if pcall(vim.api.nvim_win_close, winid, false) then
@@ -95,10 +94,6 @@ function M.setup(opts)
 		group = group,
 		callback = function()
 			M._ctx.cancel_pending()
-
-			M._completion.timer:stop()
-			M._info.timer:stop()
-
 			M._info.close_windows()
 		end,
 	})
@@ -107,11 +102,6 @@ function M.setup(opts)
 		M._info.bufnr = vim.api.nvim_create_buf(false, true)
 		vim.api.nvim_buf_set_name(M._info.bufnr, "Compl:InfoWindow")
 		vim.fn.setbufvar(M._info.bufnr, "&buftype", "nofile")
-
-		vim.api.nvim_create_autocmd("CompleteChanged", {
-			group = group,
-			callback = M._debounce(M._info.timer, M._opts.info.timeout, M._start_info),
-		})
 	end
 
 	if M._opts.snippet.enable then
@@ -124,7 +114,8 @@ end
 
 
 -- This function populate the completion options with the lsps
-function M._start_completion()
+-- if the open_after option is set, we open the completion menu with the items after
+function M._start_completion(open_after)
 	M._ctx.cancel_pending()
 
 	local bufnr = vim.api.nvim_get_current_buf()
@@ -140,7 +131,7 @@ function M._start_completion()
 		-- Item is selected
 		or vim.fn.complete_info()["selected"] ~= -1
 		-- Context didn't change
-		or vim.deep_equal(M._ctx.cursor, { row, col })
+		-- or vim.deep_equal(M._ctx.cursor, { row, col })
 	then
 		M._ctx.cursor = { row, col }
 		-- Do not trigger completion
@@ -189,21 +180,86 @@ function M._start_completion()
 		M._completion.responses = responses
 	end)
 
-
 	table.insert(M._ctx.pending_requests, cancel_fn)
 end
 
-function _G.Compl.completetefunc(findstart, base)
+function M._process_items(items_arg, base)
+	local matches = {}
+	for client_id, response in pairs(items_arg) do
+		if not response.err and response.result then
+			local items = response.result.items or response.result or {}
+
+			for _, item in pairs(items) do
+				local text = item.filterText
+					or (vim.tbl_get(item, "textEdit", "newText") or item.insertText or item.label or "")
+				if vim.startswith(text, base) then
+					table.insert(matches, { client_id = client_id, item = item })
+				end
+			end
+		end
+	end
+
+	matches = vim.iter(ipairs(matches))
+		:map(function(_, match)
+			local item = match.item
+			local client_id = match.client_id
+
+			local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or "Unknown"
+			local menu = item.menu
+			-- local doc = M._get_documentation(client_id, item)
+			local word
+			if kind == "Snippet" then
+				word = item.label or ""
+			else
+				word = vim.tbl_get(item, "textEdit", "newText") or item.insertText or item.label or ""
+			end
+
+			return {
+				word = word,
+				abbr = item.label,
+				kind = kind,
+				-- info = doc,
+				icase = 1,
+				dup = 1,
+				menu = menu,
+				user_data = {
+					expandme = item.expandme ~= nil,
+					nvim = {
+						lsp = {
+							completion_item = item,
+							client_id = client_id,
+						},
+					},
+				},
+			}
+		end)
+		:totable()
+	return matches
+end
+
+function M._get_documentation(client_id, item)
+	local Client = vim.lsp.get_client_by_id(client_id)
+	if not Client then return end
+	--- This may be very very slow...
+	local err, result = Client:request_sync("completionItem/resolve", item)
+	if err then return end
+	if result then return result end
+end
+
+function _G.Compl.completefunc(findstart, base)
 	local line = vim.api.nvim_get_current_line()
 	local winnr = vim.api.nvim_get_current_win()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(winnr))
 
 	-- Find completion start
 	if findstart == 1 then
+
+		M._start_completion()
+
 		--- no responses
-		if #M._completion.responses == 0 then
-			return -3
-		end
+		-- if #M._completion.responses == 0 then
+		-- 	return -3
+		-- end
 		-- Example from: https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/completion.lua#L331
 		-- Completion response items may be relative to a position different than `client_start_boundary`.
 		-- Concrete example, with lua-language-server:
@@ -240,148 +296,12 @@ function _G.Compl.completetefunc(findstart, base)
 	end
 
 	-- Process and find completion words
-	local matches = {}
-	for client_id, response in pairs(M._completion.responses) do
-		if not response.err and response.result then
-			local items = response.result.items or response.result or {}
-
-			for _, item in pairs(items) do
-				local text = item.filterText
-					or (vim.tbl_get(item, "textEdit", "newText") or item.insertText or item.label or "")
-				if M._opts.completion.fuzzy then
-					local fuzzy = vim.fn.matchfuzzy({ text }, base)
-					if vim.startswith(text, base:sub(1, 1)) and (base == "" or next(fuzzy)) then
-						table.insert(matches, { client_id, item })
-					end
-				else
-					if vim.startswith(text, base) then
-						table.insert(matches, { client_id = client_id, item = item })
-					end
-				end
-				-- Add an extra custom field to mark exact matches
-				item.exact = text == base
-			end
-		end
-	end
-
-	-- Sorting is done with multiple fallbacks.
-	-- If it fails to find diff in each stage, it will then fallback to the next stage.
-	-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
-	table.sort(matches, function(a, b)
-		a, b = a.item, b.item
-
-		-- Sort by exact matches
-		if a.exact ~= b.exact then
-			return a.exact or false -- nil should return false
-		end
-
-		-- Sort by frecency
-		local a_frequency = vim.tbl_get(M._ctx.completion_history, a.label, "frequency")
-		local a_accepted_at = vim.tbl_get(M._ctx.completion_history, a.label, "accepted_at")
-		local a_frecency_score = M._calculate_frecency_score(a_frequency, a_accepted_at)
-		local b_frequency = vim.tbl_get(M._ctx.completion_history, b.label, "frequency")
-		local b_accepted_at = vim.tbl_get(M._ctx.completion_history, b.label, "accepted_at")
-		local b_frecency_score = M._calculate_frecency_score(b_frequency, b_accepted_at)
-		if a_frecency_score ~= b_frecency_score then
-			return a_frecency_score > b_frecency_score
-		end
-
-		-- Sort by ordinal value of 'kind'.
-		-- Exceptions: 'Snippet' are ranked highest, and 'Text' are ranked lowest
-		if a.kind ~= b.kind then
-			if not a.kind then
-				return false
-			end
-			if not b.kind then
-				return true
-			end
-			local a_kind = vim.lsp.protocol.CompletionItemKind[a.kind]
-			local b_kind = vim.lsp.protocol.CompletionItemKind[b.kind]
-			if a_kind == "Snippet" then
-				return true
-			end
-			if b_kind == "Snippet" then
-				return false
-			end
-			if a_kind == "Text" then
-				return false
-			end
-			if b_kind == "Text" then
-				return true
-			end
-			local diff = a.kind - b.kind
-			if diff < 0 then
-				return true
-			elseif diff > 0 then
-				return false
-			end
-		end
-
-		-- Sort by lexicographical order of 'sortText'.
-		if a.sortText ~= b.sortText then
-			if not a.sortText then
-				return false
-			end
-			if not b.sortText then
-				return true
-			end
-			local diff = vim.stricmp(a.sortText, b.sortText)
-			if diff < 0 then
-				return true
-			elseif diff > 0 then
-				return false
-			end
-		end
-
-		-- Sort by length
-		return #a.label < #b.label
-	end)
-
-	matches = vim.iter(ipairs(matches))
-		:map(function(_, match)
-			local item = match.item
-			local client_id = match.client_id
-
-			local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or "Unknown"
-			local menu = item.menu
-			local word
-			if kind == "Snippet" then
-				word = item.label or ""
-			else
-				word = vim.tbl_get(item, "textEdit", "newText") or item.insertText or item.label or ""
-			end
-			local word_to_be_replaced = line:sub(col + 1, col + vim.fn.strwidth(word))
-			local replace = word_to_be_replaced == word
-			return {
-				word = replace and "" or word,
-				equal = 1, -- we will do the filtering ourselves
-				abbr = item.label,
-				kind = kind,
-				icase = 1,
-				dup = 1,
-				empty = 1,
-				menu = menu,
-				user_data = {
-					expandme = item.expandme ~= nil,
-					nvim = {
-						lsp = {
-							completion_item = item,
-							client_id = client_id,
-							replace = replace and word or "",
-						},
-					},
-				},
-			}
-		end)
-		:totable()
-	
-	return matches
+	return M._process_items(M._completion.responses, base)
 end
-
 
 function M._start_info(data)
 	M._info.close_windows()
-	M._ctx.cancel_pending()
+	M._info.request = true
 
 	local lsp_data = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp") or {}
 	local completion_item = lsp_data.completion_item or {}
@@ -396,23 +316,15 @@ function M._start_info(data)
 
 	-- get resolved item only if item does not already contain documentation
 	if completion_item.documentation then
+		M.request = true
 		M._open_info_window(completion_item)
 	else
 		local ok, request_id = client.request("completionItem/resolve", completion_item, function(err, result)
 			if not err and result.documentation then
+				M.request = true
 				M._open_info_window(result)
-			else
-				-- we try the ""
 			end
 		end)
-		if ok then
-			local cancel_fn = function()
-				if client then
-					client.cancel_request(request_id)
-				end
-			end
-			table.insert(M._ctx.pending_requests, cancel_fn)
-		end
 	end
 end
 
@@ -489,11 +401,6 @@ function M._on_completedone()
 	if not next(completion_item) then
 		return
 	end
-
-	M._ctx.completion_history[completion_item.label] = {
-		frequency = (vim.tbl_get(M._ctx.completion_history, completion_item.label, "frequency") or 0) + 1,
-		accepted_at = vim.uv.now(),
-	}
 
 	local client = vim.lsp.get_client_by_id(lsp_data.client_id)
 	local bufnr = vim.api.nvim_get_current_buf()
