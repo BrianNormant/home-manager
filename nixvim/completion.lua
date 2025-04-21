@@ -17,7 +17,7 @@ require('lz.n').load {
 			require("compl").setup {
 				completion = {
 					fuzzy = false,
-					timeout = 500,
+					timeout = 1,
 				},
 				info = { enable = true, },
 				snippet = {
@@ -108,3 +108,52 @@ vim.keymap.set("i", "<Up>", function()
 	end
 	return "<Up>"
 end, {expr = true, silent = true})
+
+_G.auto_supermaven = true
+
+--- Everytime the text changes, we check if supermaven has a suggestion
+--- If it does, we show the complete window (enabling noinsert noselect first)
+vim.api.nvim_create_autocmd({ "TextChangedI" }, {
+	callback = vim.schedule_wrap(function()
+		if not _G.auto_trigger_completion then return end
+
+		-- if the completion window is open, we stop immediately
+		if vim.fn.complete_info()["selected"] ~= -1 then return end
+
+		local CompPrev = require('supermaven-nvim.completion_preview')
+		local inlay_instance = CompPrev:get_inlay_instance()
+		if inlay_instance == nil then
+			return
+		end
+		if not inlay_instance.is_active then
+			inlay_instance:dispose_inlay()
+			return
+		end
+
+		local col = vim.fn.col('.')
+
+		-- we have a suggestion!
+		local text = inlay_instance.completion_text
+		local next = string.sub(vim.api.nvim_get_current_line(), col+1, -1)
+		local function esc(t) return t:gsub("(%W)", "%%%1") end
+
+		--- if would be better to delete the characters
+		--- After the cursor before inserting the completion...
+		text = string.gsub(text, esc(next) .. "$", "", 1)
+
+		CompPrev:dispose_inlay()
+		local abbr = text
+		local menu = "SuperMaven"
+		local match = { word = text, abbr = abbr, menu = menu }
+
+		vim.opt.completeopt:append('noinsert')
+		vim.opt.completeopt:append('noselect')
+
+
+
+		vim.fn.complete(col, {match})
+
+		vim.opt.completeopt:remove('noinsert')
+		vim.opt.completeopt:remove('noselect')
+	end)
+})

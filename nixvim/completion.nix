@@ -1,8 +1,8 @@
 {pkgs, ... }:
 let
 	inherit (pkgs.vimUtils) buildVimPlugin;
-	inherit (pkgs.lib) fakeHash;
 	inherit (pkgs) fetchFromGitHub;
+	inherit (pkgs.lib) fakeHash;
 
 in {
 	programs.nixvim = {
@@ -20,25 +20,17 @@ in {
 				optional = true;
 			}
 			{
-				plugin = buildVimPlugin rec {
+				plugin = buildVimPlugin {
 					pname = "compl.nvim";
 					version = "3fe5dd7";
-					src = fetchFromGitHub {
-						owner = "brianaung";
-						repo = pname;
-						rev = version;
-						hash = "sha256-XrFNPYr4XcfcVG6QiQdplBGyy+dAHYsQfVOxLR7TQv8=";
-					};
-					patches = [
-						./plugin-patch/compl.nvim.patch
-					];
+					src = ./plugin-src/compl.nvim;
 				};
 				optional = true;
 			}
 		];
 		extraConfigLuaPre = ''
 			_G.friendly_snippets_path = "${pkgs.vimPlugins.friendly-snippets}"
-			_G.auto_trigger_completion = false
+			_G.auto_trigger_completion = true
 		'';
 		extraConfigLuaPost = builtins.readFile ./completion.lua;
 		keymaps = [
@@ -59,9 +51,9 @@ in {
 						_G.auto_trigger_completion = true
 						vim.opt.completeopt = {
 							"menuone",
-							"noselect",
-							"noinsert",
 							"preview",
+							-- "noselect",
+							-- "noinsert",
 						}
 						vim.opt.shortmess:append "c"
 						vim.notify("Auto-completion is enabled")
