@@ -59,7 +59,7 @@ in {
 	config = {
 
 		nixvim = {
-			colorscheme = "cuddlefish";
+			colorscheme = "gruvbox";
 			ollama_model = "gemma3:27b";
 		};
 

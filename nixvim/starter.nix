@@ -23,8 +23,40 @@
 					{"curl", "-L", "https://vtip.43z.one"},
 					{text = true},
 					vim.schedule_wrap(function(obj)
-						if obj.code ~= 0 then return "⚠ ERROR" end
-						txt = obj.stdout
+						if obj.code ~= 0 then
+							txt = " ERROR ";
+							return
+						end
+						local sublen = 50
+						local spliter
+						spliter = function(longstr, res)
+							if not res then
+								res = {}
+							end
+							if #longstr > sublen then
+								local fst = string.sub(longstr, 1, sublen)
+								local scd = string.sub(longstr, sublen+1)
+								res[#res+1]=fst
+								res = spliter(scd, res)
+							else
+								res[#res+1]=longstr
+							end
+							return res
+						end
+
+						local res = spliter(obj.stdout);
+
+						local result = ""
+						for i = 1, #res, 2 do
+							local str = res[i] .. (res[i + 1] or "");
+							local padding = 100 - #str;
+							local left = math.floor(padding / 2);
+							local right = padding - left;
+
+							result = result .. "\n" .. string.rep(" ", left) .. str .. string.rep(" ", right)
+						end
+
+						txt = result;
 						MiniStarter.refresh()
 					end)
 				)
@@ -40,13 +72,13 @@
 							action = tbl[2],
 						}
 					end,
-					{
-						{"Files",   "Telescope frecency workspace=CWD theme=dropdown"},
-						{"Help",    "Telescope help_tags theme=ivy"},
-						{"Keymaps", "TelescopeKeymaps"},
-						{"Colors",  "Telescope colorscheme theme=ivy"},
-						{"Builtins","Telescope builtin theme=ivy"},
-					}
+						{
+							{"Files",   "Telescope frecency workspace=CWD theme=dropdown"},
+							{"Help",    "Telescope help_tags theme=ivy"},
+							{"Keymaps", "TelescopeKeymaps"},
+							{"Colors",  "Telescope colorscheme theme=ivy"},
+							{"Builtins","Telescope builtin theme=ivy"},
+						}
 					)
 				end,
 
@@ -59,13 +91,13 @@
 							action = tbl[2],
 						}
 					end,
-					{
-						{"Status",   "Git"},
-						{"Log",      "GitGraph"},
-						{"Commit",   "Telescope git_commits theme=dropdown"},
-						{"Branches", "Telescope git_branches theme=dropdown"},
-						{"Stashes",  "Telescope git_stash theme=dropdown"},
-					})
+						{
+							{"Status",   "Git"},
+							{"Log",      "GitGraph"},
+							{"Commit",   "Telescope git_commits theme=dropdown"},
+							{"Branches", "Telescope git_branches theme=dropdown"},
+							{"Stashes",  "Telescope git_stash theme=dropdown"},
+						})
 				end,
 
 				-- Git actions
@@ -77,12 +109,12 @@
 							action = tbl[2],
 						}
 					end,
-					{
-						{"Commit",   "Git commit"},
-						{"Push",     "Git push"},
-						{"Pull",     "Git pull"},
-						{"Stash",    "Git stash"},
-					})
+						{
+							{"Commit",   "Git commit"},
+							{"Push",     "Git push"},
+							{"Pull",     "Git pull"},
+							{"Stash",    "Git stash"},
+						})
 				end,
 
 				-- Oil
@@ -94,10 +126,10 @@
 							action = tbl[2],
 						}
 					end,
-					{
-						{"Oil",   "Oil"},
-						{"Oil Float", "Oil --float"},
-					})
+						{
+							{"Oil",   "Oil"},
+							{"Oil Float", "Oil --float"},
+						})
 				end,
 
 				-- Sessions
