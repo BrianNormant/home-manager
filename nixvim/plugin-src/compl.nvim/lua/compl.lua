@@ -82,7 +82,10 @@ function M.setup(opts)
 
 	vim.api.nvim_create_autocmd({ "TextChangedI", "TextChangedP" }, {
 		group = group,
-		callback = vim.schedule_wrap(M._start_completion),
+		callback = vim.schedule_wrap(function()
+			if not _G.compl_autorefresh then return end
+			M._start_completion(false)
+		end),
 	})
 
 	vim.api.nvim_create_autocmd("CompleteDone", {
@@ -102,6 +105,9 @@ function M.setup(opts)
 		M._info.bufnr = vim.api.nvim_create_buf(false, true)
 		vim.api.nvim_buf_set_name(M._info.bufnr, "Compl:InfoWindow")
 		vim.fn.setbufvar(M._info.bufnr, "&buftype", "nofile")
+		vim.fn.setbufvar(M._info.bufnr, "&filetype", "markdown")
+		require('markview').actions.attach(M._info.bufnr)
+		require('markview').actions.enable(M._info.bufnr)
 	end
 
 	if M._opts.snippet.enable then
@@ -116,7 +122,7 @@ end
 -- This function populate the completion options with the lsps
 -- if the open_after option is set, we open the completion menu with the items after
 function M._start_completion(open_after)
-	M._ctx.cancel_pending()
+	-- M._ctx.cancel_pending()
 
 	local bufnr = vim.api.nvim_get_current_buf()
 	local winnr = vim.api.nvim_get_current_win()
@@ -141,7 +147,7 @@ function M._start_completion(open_after)
 
 	-- Make a request to get completion items
 	local position_params = M._make_position_params()
-
+	M._completion.responses = {}
 	local cancel_fn = vim.lsp.buf_request_all(bufnr, "textDocument/completion", position_params, function(responses)
 		vim.iter(pairs(responses))
 			:filter(function(_, response)
@@ -178,9 +184,22 @@ function M._start_completion(open_after)
 				end)
 			end)
 		M._completion.responses = responses
+		if open_after and vim.fn.mode() == "i" then
+			local from = M._completefunc_getcol() + 1
+			local to = vim.fn.col(".")
+			local line_ = vim.api.nvim_get_current_line()
+			local base = line_:sub(from, to - from)
+			vim.fn.complete(
+				from,
+				M._process_items(M._completion.responses, base)
+			)
+			M._start_info() -- because we preselect, we need to show the info window
+			-- manually for the first item
+			M._completion.responses = {}
+		end
 	end)
 
-	table.insert(M._ctx.pending_requests, cancel_fn)
+	-- table.insert(M._ctx.pending_requests, cancel_fn)
 end
 
 function M._process_items(items_arg, base)
@@ -246,53 +265,56 @@ function M._get_documentation(client_id, item)
 	if result then return result end
 end
 
-function _G.Compl.completefunc(findstart, base)
-	local line = vim.api.nvim_get_current_line()
+function M._completefunc_getcol()
+	-- Example from: https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/completion.lua#L331
+	-- Completion response items may be relative to a position different than `client_start_boundary`.
+	-- Concrete example, with lua-language-server:
+	--
+	-- require('plenary.asy|
+	--         ▲       ▲   ▲
+	--         │       │   └── cursor_pos:                     20
+	--         │       └────── client_start_boundary:          17
+	--         └────────────── textEdit.range.start.character: 9
+	--                                 .newText = 'plenary.async'
+	--                  ^^^
+	--                  prefix (We'd remove everything not starting with `asy`,
+	--                  so we'd eliminate the `plenary.async` result
+	--
+	-- We prefer to use the language server boundary if available.
 	local winnr = vim.api.nvim_get_current_win()
+	local line = vim.api.nvim_get_current_line()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(winnr))
+	for _, response in pairs(M._completion.responses) do
+		if not response.err and response.result then
+			local items = response.result.items or response.result or {}
+			for _, item in pairs(items) do
+				-- Get server start (if completion item has text edits)
+				-- https://github.com/echasnovski/mini.completion/blob/main/lua/mini/completion.lua#L1306
+				if type(item.textEdit) == "table" then
+					local range = type(item.textEdit.range) == "table" and item.textEdit.range
+						or item.textEdit.insert
+					return range.start.character
+				end
+			end
+		end
+	end
+
+	-- Fallback to client start (if completion item does not provide text edits)
+	return vim.fn.match(line:sub(1, col), "\\k*$")
+end
+
+function _G.Compl.completefunc(findstart, base)
 
 	-- Find completion start
 	if findstart == 1 then
 
-		M._start_completion()
-
 		--- no responses
-		-- if #M._completion.responses == 0 then
-		-- 	return -3
-		-- end
-		-- Example from: https://github.com/neovim/neovim/blob/master/runtime/lua/vim/lsp/completion.lua#L331
-		-- Completion response items may be relative to a position different than `client_start_boundary`.
-		-- Concrete example, with lua-language-server:
-		--
-		-- require('plenary.asy|
-		--         ▲       ▲   ▲
-		--         │       │   └── cursor_pos:                     20
-		--         │       └────── client_start_boundary:          17
-		--         └────────────── textEdit.range.start.character: 9
-		--                                 .newText = 'plenary.async'
-		--                  ^^^
-		--                  prefix (We'd remove everything not starting with `asy`,
-		--                  so we'd eliminate the `plenary.async` result
-		--
-		-- We prefer to use the language server boundary if available.
-		for _, response in pairs(M._completion.responses) do
-			if not response.err and response.result then
-				local items = response.result.items or response.result or {}
-				for _, item in pairs(items) do
-					-- Get server start (if completion item has text edits)
-					-- https://github.com/echasnovski/mini.completion/blob/main/lua/mini/completion.lua#L1306
-					if type(item.textEdit) == "table" then
-						local range = type(item.textEdit.range) == "table" and item.textEdit.range
-							or item.textEdit.insert
-						return range.start.character
-					end
-				end
-			end
+		if #M._completion.responses == 0 then
+			vim.schedule(function() M._start_completion(true) end)
+			return -3
 		end
 
-
-		-- Fallback to client start (if completion item does not provide text edits)
-		return vim.fn.match(line:sub(1, col), "\\k*$")
+		return M._completefunc_getcol()
 	end
 
 	-- Process and find completion words
@@ -329,6 +351,7 @@ function M._start_info(data)
 end
 
 function M._open_info_window(item)
+	require('markview').clear(M._info.bufnr)
 	local detail = item.detail or ""
 
 	local documentation
@@ -356,12 +379,12 @@ function M._open_info_window(item)
 
 	if next(lines) and next(pumpos) then
 		-- Convert lines into syntax highlighted regions and set it in the buffer
-		vim.lsp.util.stylize_markdown(M._info.bufnr, lines)
+		vim.api.nvim_buf_set_lines(M._info.bufnr, 0, -1, false, lines)
 
 		local pum_left = pumpos.col - 1
 		local pum_right = pumpos.col + pumpos.width + (pumpos.scrollbar and 1 or 0)
-		local space_left = pum_left
-		local space_right = vim.o.columns - pum_right
+		local space_left = pum_left + 1
+		local space_right = vim.o.columns - pum_right - 1
 
 		-- Choose the side to open win
 		local anchor, col, space = "NW", pum_right, space_right
@@ -376,17 +399,19 @@ function M._open_info_window(item)
 		local win_opts = {
 			relative = "editor",
 			anchor = anchor,
+			zindex = 100,
 			row = pumpos.row,
 			col = col,
-			width = width,
+			width = 80,
 			height = height,
 			focusable = false,
 			style = "minimal",
-			border = "solid",
+			border = "none",
 		}
 
 		local wid = vim.api.nvim_open_win(M._info.bufnr, false, win_opts)
 		vim.api.nvim_win_set_option(wid, "winblend", 90)
+		require('markview').render(M._info.bufnr)
 
 		table.insert(M._info.winids, wid)
 	end

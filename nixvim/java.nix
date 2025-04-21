@@ -23,23 +23,51 @@ programs.nixvim = {
 			};
 			luaConfig.post = ''
 			require('lspconfig').jdtls.setup {
+				capabilities = {
+					textDocument = {
+						completion = {
+							dataSupport = true,
+							enabled = true,
+							dynamicRegistration = true,
+							completionItem = {
+								snippetSupport = true,
+								documentationFormat = "markdown",
+								resolveSupport = {
+									properties = { "documentation", "detail", "additionalTextEdits" },
+								},
+								labelDetailsSupport = true,
+							},
+							contextSupport = true,
+							completionList = {
+								itemDefaults = {
+									"data",
+									"editRange",
+								},
+							},
+						},
+					},
+				},
 				cmd = {"${pkgs.jdt-language-server}/bin/jdtls"},
 				autostart = true,
-				-- init_options = {
-				-- 	documentSymbols = {
-				-- 		dynamicRegistration = false,
-				-- 		hierarchicalDocumentSymbolSupport = true,
-				-- 		labelSupport = true,
-				-- 		symbolKind = {
-				-- 			valueSet = {
-				-- 				1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-				-- 				11, 12, 13, 14, 15, 16, 17, 18,
-				-- 				19, 20, 21, 22, 23, 24, 25, 26,
-				-- 				27, 28, 29, 30, 31,
-				-- 			},
-				-- 		},
-				-- 	},
-				-- },
+				init_options = {
+					completion = {
+						dynamicRegistration = true,
+						dataSupport = true,
+					},
+					documentSymbols = {
+						dynamicRegistration = false,
+						hierarchicalDocumentSymbolSupport = true,
+						labelSupport = true,
+						symbolKind = {
+							valueSet = {
+								1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+								11, 12, 13, 14, 15, 16, 17, 18,
+								19, 20, 21, 22, 23, 24, 25, 26,
+								27, 28, 29, 30, 31,
+							},
+						},
+					},
+				},
 				settings = {
 					java = {
 						configuration = {
@@ -59,6 +87,27 @@ programs.nixvim = {
 							parameterNames = {
 								---@type "none" | "literals" | "all"
 								enabled = 'all',
+							},
+						},
+						completion = {
+							dataSupport = true,
+							enabled = true,
+							dynamicRegistration = true,
+							completionItem = {
+								dataSupport = true,
+								snippetSupport = true,
+								documentationFormat = "markdown",
+								resolveSupport = {
+									properties = { "documentation", "detail", "additionalTextEdits" },
+								},
+								labelDetailsSupport = true,
+							},
+							contextSupport = true,
+							completionList = {
+								itemDefaults = {
+									"data",
+									"editRange",
+								},
 							},
 						},
 

@@ -25,17 +25,22 @@ in {
 	programs.nixvim = {
 		plugins.markview = {
 			enable = true;
-			lazyLoad.settings = {
-				enable = false;
-				ft = [ "markdown" "tex" "typst" "yaml" "html" ];
+			lazyLoad = {
+				enable = true;
+				settings = {
+					ft = [ "markdown" "tex" "typst" "yaml" "html" ];
+				};
 			};
 			settings.preview = {
+				enable = true;
 				modes = [ "n" "no" "c" ];
 				hybrid_modes = [ "o" "i" ];
+				linewise_hybrid_modes = true;
 				callbacks.on_enable.__raw = ''
 					function(_, win)
-vim.wo[win].conceallevel = 2
+						vim.wo[win].conceallevel = 2
 						vim.wo[win].concealcursor = "c"
+						vim.wo[win].wrap = true
 					end
 				'';
 			};

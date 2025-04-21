@@ -13,6 +13,9 @@ require('lz.n').load {
 	{
 		"compl.nvim",
 		event = "DeferredUIEnter",
+		before = function ()
+			require('lz.n').trigger_load('markview.nvim')
+		end,
 		after = function ()
 			require("compl").setup {
 				completion = {
@@ -43,11 +46,15 @@ vim.opt.completeopt = {
 vim.opt.shortmess:append "c"
 vim.o.pumheight = 20
 
+_G.compl_autorefresh = false -- refresh the completion items on every keystroke
+_G.auto_trigger_completion = true -- trigger completion as soon as supermaven has suggestion
+
 
 vim.keymap.set("i", "<C-x>", function()
 	if vim.fn.complete_info()["selected"] == -1 and vim.fn.pumvisible() == 1 then
-		-- in most scenerios, this means that supermaven have
+		-- in 99% of scenarios, this means that supermaven have
 		-- a suggestion but we don't want to use it.
+		-- because we always autoselect the other suggestions.
 		-- If we were use <C-l> for lines and wanted to repeat it
 		-- If would already be selected because of autoselect options
 		return "<C-e><C-x>"
@@ -115,7 +122,7 @@ vim.keymap.set({"i", "s"}, "<c-k>", function()
 	end
 end, {desc = "Snippets jump previous"})
 
---- Up/Down should ignore with the completion menu
+--- Up/Down should ignore the completion menu
 vim.keymap.set("i", "<Down>", function()
 	if vim.fn.pumvisible() ~= 0 then
 		return "<C-e><Down>"
