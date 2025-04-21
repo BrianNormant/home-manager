@@ -30,7 +30,7 @@ in {
 						Rule("let", "in ", "nix"):end_wise(function(opts)
 							return string.match(opts.line, '^%s*let') ~= nil
 						end),
-						Rule("{", "};", {"nix"}):end_wise(function(opts) return true end),
+						Rule(" =", ";", "nix"),
 						Rule("function%s?[%a_]*%([^%)]*%)$", "end", {"lua"}):use_regex(true),
 						Rule("then", "end", "lua"),
 						Rule("(", ")", {"lua", "nix"}),

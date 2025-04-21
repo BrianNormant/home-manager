@@ -1,6 +1,9 @@
 {pkgs, ...}:
 let
 	inherit (pkgs) vimPlugins;
+	inherit (pkgs.vimUtils) buildVimPlugin;
+	inherit (pkgs) fetchFromGitHub;
+	inherit (pkgs.lib) fakeHash;
 in {
 	programs.nixvim = {
 		extraPlugins = with vimPlugins; [

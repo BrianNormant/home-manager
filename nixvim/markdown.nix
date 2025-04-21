@@ -3,6 +3,24 @@
 	inherit (pkgs.vimUtils) buildVimPlugin;
 	inherit (pkgs.tree-sitter) buildGrammar;
 	inherit (pkgs.lib) fakeHash;
+	diagram = pkgs.stdenv.mkDerivation rec {
+		pname = "diagram";
+		version = "023b317";
+		src = fetchFromGitHub {
+			owner = "pandoc-ext";
+			repo = pname;
+			rev = version;
+			hash = "sha256-NmaI1ikZHLPD+Q+LnETUnwTvXQdzZinHIhGpBq6ESeQ=";
+		};
+		# Didn't find a way to override this phase :(
+		buildPhase = ''
+					printf "hello world"
+		'';
+		installPhase = ''
+					mkdir -p $out/
+					cp -L $src/diagram.lua $out/diagram.lua
+		'';
+	};
 in {
 	programs.nixvim = {
 		plugins.markview = {
@@ -24,6 +42,11 @@ vim.wo[win].conceallevel = 2
 		};
 		extraPackages = with pkgs; [
 			pandoc
+			texliveSmall
+			asymptote # 2d/3d graphing https://asymptote.sourceforge.io/gallery/
+			plantuml # UML diagrams https://plantuml.com/
+			graphviz # graphes https://www.graphviz.org/doc/info/lang.html
+			diagram
 		];
 		autoCmd = [
 			{
@@ -35,8 +58,8 @@ vim.wo[win].conceallevel = 2
 
 					local inputfile = vim.fn.expand("%:p")
 					vim.system({
-						-- TODO, use pandoc extensions with plant-uml, mermaid, ect to genenerate
 						-- Diagrams and such
+						-- https://github.com/pandoc-ext/diagram
 						"pandoc",
 						"--from",
 						"markdown",
@@ -46,19 +69,27 @@ vim.wo[win].conceallevel = 2
 						"--output", outputfile,
 						"--metadata", "pagetitle=" .. name,
 						"--highlight-style", "/home/brian/.local/share/gruvboxdark.theme";
+						"--lua-filter", "${diagram}/diagram.lua",
+						"--embed-resources=true", -- the generated images are always svg
 						"-H", "/home/brian/.local/share/autoreload.html",
 						"-H", "/home/brian/.local/share/githubstyle.css",
 						"--standalone",
 						"--katex", -- render inline latex
-					},{}, function()
-							if not _G.firefox_open then
-								_G.firefox_open = true
-								vim.defer_fn(function()
+					},{}, function(obj)
+							if obj.code ~= 0 then
+								vim.notify("Pandoc generation failed")
+								vim.notify(obj.stderr)
+								return
+							end
+							vim.notify("Pandoc generated!")
+							vim.schedule(function()
+								if not _G.firefox_open then
+									_G.firefox_open = true
 									vim.system {"firefox", "localhost/" .. name .. ".html"}
 									-- We create a callback to clear firefox_open when we close this buffer
 									vim.cmd "auto BufWinLeave <buffer> lua _G.firefox_open = false"
-								end, 10)
-							end
+								end
+							end)
 						end)
 				end'';
 			}
