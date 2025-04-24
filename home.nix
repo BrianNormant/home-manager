@@ -61,6 +61,17 @@ in {
 		libqalculate
 	];
 
+	xdg = {
+		mime = {
+			enable = true;
+		};
+		mimeApps = {
+			defaultApplications = {
+				"text/plain" = ["neovide.desktop"];
+				"inode/directory" = ["Thunar.desktop"];
+			};
+		};
+	};
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
