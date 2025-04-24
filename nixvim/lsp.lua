@@ -53,8 +53,8 @@ require('lz.n').load {
 			local colors = _G.get_colors()
 			require('action-hints').setup {
 				template = {
-					definition = { text = "󰡱 ", color = colors.red },
-					references = { text = "  %s", color = colors.purple },
+					definition = { text = "󰡱 ", color = "#c11c1f" },
+					references = { text = "  %s", color = "#99430a" },
 				},
 				use_virtual_text = true,
 			}

@@ -5,6 +5,10 @@ local colors = _G.get_colors()
 
 
 local function mode_text()
+	-- When supermaven has a suggestion
+	if vim.fn.pumvisible() == 1 and vim.fn.complete_info()["selected"] == -1 then
+		return "   SuperMaven    "
+	end
 	local equtbl = {
 		--- see :help mode()
 		--- Normal
@@ -63,6 +67,9 @@ end
 -- Have different way to name their colors
 -- Maybe get the color with nvim_get_hl?
 local function mode_color()
+	if vim.fn.pumvisible() == 1 and vim.fn.complete_info()["selected"] == -1 then
+		return {fg = "#7c8ec0", bg = "#32302f", gui="italic"}
+	end
 	local equtbl = {
 		--- see :help mode()
 		--- Normal
@@ -70,7 +77,7 @@ local function mode_color()
 		--- Insert
 		["i"]    = {fg = "#7c8ec0", bg = "#32302f"},
 		["ix"]   = {fg = "#7c8ec0", bg = "#fdf0d5"},
-		["ic"]   = {fg = "#7c8ec0", bg = "#fdf0d5"},
+		["ic"]   = {fg = "#7c8ec0", bg = "#32302f", gui="bold"},
 		--- Replace
 		["R"]    = {fg = "#c11c1f", bg = "#32302F"},
 		["Rx"]   = {fg = "#c11c1f", bg = "#fdf0d5"},

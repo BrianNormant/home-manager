@@ -5,7 +5,7 @@ in {
 
 	options.nixvim = {
 		colorscheme = lib.mkOption {
-			type = lib.types.enum [ "gruvbox" "cuddlefish" ];
+			type = lib.types.enum [ "gruvbox" "cuddlefish" "melange"];
 		};
 		ollama_model = lib.mkOption {
 			type = lib.types.str;
@@ -58,7 +58,7 @@ in {
 	config = {
 
 		nixvim = {
-			colorscheme = "gruvbox";
+			colorscheme = "melange";
 			ollama_model = "gemma3:27b";
 		};
 
@@ -158,7 +158,7 @@ in {
 				'' + (
 				if config.nixvim.colorscheme == "gruvbox" then
 					''
-						_G.gruvbox_contrast = "soft"
+						_G.gruvbox_contrast = "medium"
 						_G.colorscheme_name = "gruvbox"
 						_G.get_colors = function()
 							local g_colors = require("gruvbox-material.colors")
@@ -183,6 +183,19 @@ in {
 						end
 						_G.get_lualine_name = function()
 							return "cuddlefish"
+						end
+					''
+				else if config.nixvim.colorscheme == "melange" then
+					''
+						_G.get_lualine_theme = function()
+							return require('lualine.themes.melange')
+						end
+						_G.colorscheme_name = "melange"
+						_G.get_colors = function()
+							return require('melange.palettes.dark')
+						end
+						_G.get_lualine_name = function()
+							return "melange"
 						end
 					''
 				else abort "${config.nixvim.colorscheme} is not a valid colorscheme"

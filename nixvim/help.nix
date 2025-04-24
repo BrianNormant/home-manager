@@ -3,7 +3,15 @@ let
 in {
 	programs.nixvim = {
 		plugins = {
-			helpview = { enable = true; };
+			helpview = {
+				enable = true;
+				lazyLoad = {
+					enable = true;
+					settings = {
+						ft = [ "help" ];
+					};
+				};
+			};
 		};
 	};
 }
