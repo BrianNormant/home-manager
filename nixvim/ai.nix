@@ -43,7 +43,7 @@
 		];
 		extraConfigLua = ''
 			-- we preload ollama by sending a empty request
-			vim.system({"zsh", "-c", "ollama run gemma3:27b \"\" &>/dev/null &!"}, {}, function() end)
+			-- vim.system({"zsh", "-c", "ollama run gemma3:27b \"\" &>/dev/null &!"}, {}, function() end)
 			require('lz.n').load { {
 				'gen.nvim',
 				cmd = "Gen",

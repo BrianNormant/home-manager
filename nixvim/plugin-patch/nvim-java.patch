@@ -1,0 +1,398 @@
+diff --git a/lazy.lua b/lazy.lua
+index a352b8d..4769b36 100644
+--- a/lazy.lua
++++ b/lazy.lua
+@@ -13,14 +13,5 @@ return {
+ 			'JavaHello/spring-boot.nvim',
+ 			commit = '218c0c26c14d99feca778e4d13f5ec3e8b1b60f0',
+ 		},
+-		{
+-			'williamboman/mason.nvim',
+-			-- opts = {
+-			-- registries = {
+-			-- 	'github:nvim-java/mason-registry',
+-			-- 	'github:mason-org/mason-registry',
+-			-- },
+-			-- },
+-		},
+ 	},
+ }
+diff --git a/lua/java.lua b/lua/java.lua
+index 13c8b25..97723ad 100644
+--- a/lua/java.lua
++++ b/lua/java.lua
+@@ -1,5 +1,4 @@
+ local decomple_watch = require('java.startup.decompile-watcher')
+-local mason_dep = require('java.startup.mason-dep')
+ local setup_wrap = require('java.startup.lspconfig-setup-wrap')
+ local startup_check = require('java.startup.startup-check')
+ 
+@@ -32,11 +31,6 @@ function M.setup(custom_config)
+ 		return
+ 	end
+ 
+-	local is_installing = mason_dep.install(config)
+-
+-	if is_installing then
+-		return
+-	end
+ 
+ 	setup_wrap.setup(config)
+ 	decomple_watch.setup()
+diff --git a/lua/java/config.lua b/lua/java/config.lua
+index 7383646..7982490 100644
+--- a/lua/java/config.lua
++++ b/lua/java/config.lua
+@@ -7,8 +7,6 @@
+ ---@field spring_boot_tools { enable: boolean, version: string }
+ ---@field jdk { auto_install: boolean, version: string }
+ ---@field notifications { dap: boolean }
+----@field verification { invalid_order: boolean, duplicate_setup_calls: boolean, invalid_mason_registry: boolean }
+----@field mason { registries: string[] }
+ local config = {
+ 	--  list of file that exists in root of the project
+ 	root_markers = {
+@@ -49,7 +47,6 @@ local config = {
+ 	},
+ 
+ 	jdk = {
+-		-- install jdk using mason.nvim
+ 		auto_install = true,
+ 		version = '17.0.2',
+ 	},
+@@ -78,20 +75,10 @@ local config = {
+ 		-- you know what you are doing
+ 		duplicate_setup_calls = true,
+ 
+-		-- nvim-java checks if nvim-java/mason-registry is added correctly to
+-		-- mason.nvim plugin.
+ 		-- IF it's not registered correctly, an error will be thrown and nvim-java
+ 		-- will stop setup
+-		invalid_mason_registry = false,
+ 	},
+ 
+-	mason = {
+-		-- These mason registries will be prepended to the existing mason
+-		-- configuration
+-		registries = {
+-			'github:nvim-java/mason-registry',
+-		},
+-	},
+ }
+ 
+ return config
+diff --git a/lua/java/startup/lspconfig-setup-wrap.lua b/lua/java/startup/lspconfig-setup-wrap.lua
+index 2c92189..d2bd24b 100644
+--- a/lua/java/startup/lspconfig-setup-wrap.lua
++++ b/lua/java/startup/lspconfig-setup-wrap.lua
+@@ -1,6 +1,5 @@
+ local lspconfig = require('lspconfig')
+ local log = require('java.utils.log')
+-local mason_util = require('java-core.utils.mason')
+ 
+ local server = require('java-core.ls.servers.jdtls')
+ 
+@@ -33,16 +32,16 @@ function M.setup(config)
+ 		local default_config = server.get_config({
+ 			root_markers = config.root_markers,
+ 			jdtls_plugins = jdtls_plugins,
+-			use_mason_jdk = config.jdk.auto_install,
+ 		})
+ 
+ 		if config.spring_boot_tools.enable then
+-			require('spring_boot').setup({
+-				ls_path = mason_util.get_pkg_path('spring-boot-tools')
+-					.. '/extension/language-server',
+-			})
+-
+-			require('spring_boot').init_lsp_commands()
++			-- TODO: add a argument to setup to get the nix store location for this
++			-- package.
++			-- require('spring_boot').setup({
++			-- 	ls_path = placeholder
++			-- })
++			--
++			-- require('spring_boot').init_lsp_commands()
+ 		end
+ 
+ 		org_setup(vim.tbl_extend('force', default_config, user_config))
+diff --git a/lua/java/startup/mason-dep.lua b/lua/java/startup/mason-dep.lua
+deleted file mode 100644
+index 2e00762..0000000
+--- a/lua/java/startup/mason-dep.lua
++++ /dev/null
+@@ -1,85 +0,0 @@
+-local log = require('java.utils.log')
+-local mason_ui = require('mason.ui')
+-local mason_util = require('java.utils.mason')
+-local list_util = require('java-core.utils.list')
+-local notify = require('java-core.utils.notify')
+-local async = require('java-core.utils.async')
+-local lazy = require('java.ui.lazy')
+-local sync = async.sync
+-
+-local List = require('java-core.utils.list')
+-
+-local M = {}
+-
+----Install mason package dependencies for nvim-java
+----@param config java.Config
+-function M.install(config)
+-	local mason_default_config = require('mason.settings').current
+-
+-	local registries = list_util
+-		:new(config.mason.registries)
+-		:concat(mason_default_config.registries)
+-
+-	require('mason').setup({
+-		registries = registries,
+-	})
+-	local packages = M.get_pkg_list(config)
+-	local is_outdated = mason_util.is_outdated(packages)
+-
+-	if is_outdated then
+-		sync(function()
+-				M.refresh_and_install(packages)
+-			end)
+-			.catch(function(err)
+-				notify.error('Failed to setup nvim-java ' .. tostring(err))
+-				log.error('failed to setup nvim-java ' .. tostring(err))
+-			end)
+-			.run()
+-	end
+-
+-	return is_outdated
+-end
+-
+-function M.refresh_and_install(packages)
+-	vim.schedule(function()
+-		-- lazy covers mason
+-		-- https://github.com/nvim-java/nvim-java/issues/51
+-		lazy.close_lazy_if_opened()
+-
+-		mason_ui.open()
+-		notify.warn('Please close and re-open after dependecies are installed')
+-	end)
+-
+-	mason_util.refresh_registry()
+-	mason_util.install_pkgs(packages)
+-end
+-
+----Returns a list of dependency packages
+----@param config java.Config
+----@return table
+-function M.get_pkg_list(config)
+-	local deps = List:new({
+-		{ name = 'jdtls', version = config.jdtls.version },
+-		{ name = 'lombok-nightly', version = config.lombok.version },
+-		{ name = 'java-test', version = config.java_test.version },
+-		{
+-			name = 'java-debug-adapter',
+-			version = config.java_debug_adapter.version,
+-		},
+-	})
+-
+-	if config.jdk.auto_install then
+-		deps:push({ name = 'openjdk-17', version = config.jdk.version })
+-	end
+-
+-	if config.spring_boot_tools.enable then
+-		deps:push({
+-			name = 'spring-boot-tools',
+-			version = config.spring_boot_tools.version,
+-		})
+-	end
+-
+-	return deps
+-end
+-
+-return M
+diff --git a/lua/java/startup/mason-registry-check.lua b/lua/java/startup/mason-registry-check.lua
+deleted file mode 100644
+index 76e3e8d..0000000
+--- a/lua/java/startup/mason-registry-check.lua
++++ /dev/null
+@@ -1,36 +0,0 @@
+-local mason_source = require('mason-registry.sources')
+-
+-local M = {
+-	JAVA_REG_ID = 'github:nvim-java/mason-registry',
+-}
+-
+-function M.is_valid()
+-	local has_reg = false
+-
+-	for reg in mason_source.iter() do
+-		if reg.id == M.JAVA_REG_ID then
+-			has_reg = true
+-			goto continue
+-		end
+-	end
+-
+-	::continue::
+-
+-	if has_reg then
+-		return {
+-			success = true,
+-			continue = true,
+-		}
+-	end
+-
+-	return {
+-		success = false,
+-		continue = false,
+-		message = 'nvim-java mason registry is not added correctly!'
+-			.. '\nThis occurs when mason.nvim configured incorrectly'
+-			.. '\nPlease refer the link below to fix the issue'
+-			.. '\nhttps://github.com/nvim-java/nvim-java/wiki/Q-&-A#no_entry-cannot-find-package-xxxxx',
+-	}
+-end
+-
+-return M
+diff --git a/lua/java/startup/nvim-dep.lua b/lua/java/startup/nvim-dep.lua
+index 10c485e..56e9bb7 100644
+--- a/lua/java/startup/nvim-dep.lua
++++ b/lua/java/startup/nvim-dep.lua
+@@ -1,11 +1,6 @@
+ local log = require('java.utils.log')
+ 
+ local pkgs = {
+-	{
+-		name = 'mason-registry',
+-		err = [[mason.nvim is not installed. nvim-java requires mason.nvim to install dependecies.
+-	Please follow the install guide in https://github.com/nvim-java/nvim-java to install nvim-java]],
+-	},
+ 	{
+ 		name = 'dap',
+ 		err = [[nvim-dap is not installed. nvim-java requires nvim-dap to setup the debugger.
+diff --git a/lua/java/startup/startup-check.lua b/lua/java/startup/startup-check.lua
+index a1bf5bd..d33d887 100644
+--- a/lua/java/startup/startup-check.lua
++++ b/lua/java/startup/startup-check.lua
+@@ -5,13 +5,6 @@ local function get_checkers()
+ 	local config = vim.g.nvim_java_config
+ 	local checks = {}
+ 
+-	if config.verification.invalid_mason_registry then
+-		table.insert(
+-			checks,
+-			select(1, require('java.startup.mason-registry-check'))
+-		)
+-	end
+-
+ 	if config.verification.invalid_order then
+ 		table.insert(checks, select(1, require('java.startup.exec-order-check')))
+ 	end
+diff --git a/lua/java/utils/mason.lua b/lua/java/utils/mason.lua
+deleted file mode 100644
+index 6e239a2..0000000
+--- a/lua/java/utils/mason.lua
++++ /dev/null
+@@ -1,80 +0,0 @@
+-local log = require('java.utils.log')
+-local mason_reg = require('mason-registry')
+-local async = require('java-core.utils.async')
+-local await = async.wait_handle_ok
+-
+-local M = {}
+-
+-function M.is_available(package_name, package_version)
+-	local has_pkg = mason_reg.has_package(package_name)
+-
+-	if not has_pkg then
+-		return false
+-	end
+-
+-	local has_version = false
+-
+-	local pkg = mason_reg.get_package(package_name)
+-	pkg:get_installed_version(function(success, version)
+-		if success and version == package_version then
+-			has_version = true
+-		end
+-	end)
+-
+-	return has_version
+-end
+-
+-function M.is_installed(package_name, package_version)
+-	local pkg = mason_reg.get_package(package_name)
+-	local is_installed = pkg:is_installed()
+-
+-	if not is_installed then
+-		return false
+-	end
+-
+-	local installed_version
+-	pkg:get_installed_version(function(ok, version)
+-		if not ok then
+-			return
+-		end
+-
+-		installed_version = version
+-	end)
+-
+-	return installed_version == package_version
+-end
+-
+-function M.is_outdated(packages)
+-	for _, pkg in ipairs(packages) do
+-		if not M.is_available(pkg.name, pkg.version) then
+-			return true
+-		end
+-
+-		if not M.is_installed(pkg.name, pkg.version) then
+-			return true
+-		end
+-	end
+-end
+-
+-function M.refresh_registry()
+-	await(function(callback)
+-		mason_reg.update(callback)
+-	end)
+-end
+-
+-function M.install_pkgs(packages)
+-	log.info('check mason dependecies')
+-
+-	for _, dep in ipairs(packages) do
+-		if not M.is_installed(dep.name, dep.version) then
+-			local pkg = mason_reg.get_package(dep.name)
+-
+-			pkg:install({
+-				version = dep.version,
+-				force = true,
+-			})
+-		end
+-	end
+-end
+-
+-return M
+diff --git a/tests/prepare-config.lua b/tests/prepare-config.lua
+index f2dafac..aca16d7 100644
+--- a/tests/prepare-config.lua
++++ b/tests/prepare-config.lua
+@@ -49,10 +49,6 @@ require('lazy').setup({
+ 		'neovim/nvim-lspconfig',
+ 		lazy = false,
+ 	},
+-	{
+-		'williamboman/mason.nvim',
+-		lazy = false,
+-	},
+ 	{
+ 		'MunifTanjim/nui.nvim',
+ 		lazy = false,
+diff --git a/tests/test-config.lua b/tests/test-config.lua
+index bf89a3f..8c35b55 100644
+--- a/tests/test-config.lua
++++ b/tests/test-config.lua
+@@ -10,7 +10,6 @@ local plug_path = './.test_plugins'
+ 
+ vim.opt.rtp:append(plug_path .. '/plenary.nvim')
+ vim.opt.rtp:append(plug_path .. '/nvim-lspconfig')
+-vim.opt.rtp:append(plug_path .. '/mason.nvim')
+ vim.opt.rtp:append(plug_path .. '/nui.nvim')
+ 
+ vim.opt.rtp:append(

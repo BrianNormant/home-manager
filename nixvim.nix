@@ -144,9 +144,9 @@ in {
 				maplocalleader = " ";
 			};
 			highlightOverride = {
-				Search    = { bg = "#45403d"; };
-				IncSearch = { bg = "#196F3D"; };
-				CurSearch = { bg = "#7B241C"; };
+				# Search    = { bg = "#45403d"; };
+				# IncSearch = { bg = "#196F3D"; };
+				# CurSearch = { bg = "#7B241C"; };
 				Substitute = {
 					bg = "#5a5251";
 					fg = "#EA3F3F";
@@ -206,16 +206,6 @@ in {
 				vim.cmd "hi clear SpellRare"
 				vim.cmd "hi clear SpellLocal"
 
-				require('lz.n').load {
-					"mason.nvim",
-					enabled = false,
-					lazy = true,
-					after = function()
-						require('mason').setup {
-							PATH = "skip",
-						}
-					end,
-				}
 				if vim.g.neovide then
 					vim.o.guifont = "FiraCode_Nerd_Font_Ret,Flog_Symbols:h14";
 					vim.g.neovide_floating_shadow = true;
