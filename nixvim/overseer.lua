@@ -3,6 +3,7 @@ local overseer = require('overseer')
 -- every `packages` is ran with `nix build`
 local tmpl_pkg = {
 	name = "nix",
+	priority = 10,
 	params = {
 		args = {
 			type = "list",
@@ -26,6 +27,7 @@ local tmpl_pkg = {
 -- every `homeConfigurations` is ran with `home-manager build`
 local tmpl_home = {
 	name = "home-manager",
+	priority = 30,
 	params = {
 		cwd = { optional = false, },
 	},
@@ -37,9 +39,24 @@ local tmpl_home = {
 	end,
 }
 
+local tmpl_home_switch = {
+	name = "home-manager",
+	priority = 20,
+	params = {
+		cwd = { optional = false, },
+	},
+	builder = function(params)
+		return {
+			cmd = { "home-manager", "switch" },
+			cwd = params.cwd,
+		}
+	end,
+}
+
 -- every `nixosConfigurations` is ran with `nixos-rebuild build`
 local tmpl_os = {
 	name = "Nixos",
+	priority = 30,
 	params = {
 		args = {
 			type = "list",
@@ -53,6 +70,28 @@ local tmpl_os = {
 	builder = function(params)
 		return {
 			cmd = { "nixos-rebuild", "build" },
+			args = params.args,
+			cwd = params.cwd,
+		}
+	end,
+}
+
+local tmpl_os_switch = {
+	name = "Nixos",
+	priority = 20,
+	params = {
+		args = {
+			type = "list",
+			name = "conf",
+			desc = "The configuration to build",
+			optional = false,
+			delimiter = " ",
+		},
+		cwd = { optional = false, },
+	},
+	builder = function(params)
+		return {
+			cmd = { "nixos-rebuild", "switch" },
 			args = params.args,
 			cwd = params.cwd,
 		}
@@ -84,6 +123,15 @@ local parse_flake_show = function(_, cb)
 				}
 			)
 			table.insert(tasks, tmpl)
+			override = { name = "home-manager Switch" }
+			tmpl = overseer.wrap_template(
+				tmpl_home_switch,
+				override,
+				{
+					cwd = cwd
+				}
+			)
+			table.insert(tasks, tmpl)
 		end
 
 		if json["nixosConfigurations"] then
@@ -91,6 +139,15 @@ local parse_flake_show = function(_, cb)
 			for conf, _ in pairs(configurations) do
 				local override = { name = string.format("Nixos %s", conf)}
 				local tmpl = overseer.wrap_template(tmpl_os,
+					override,
+					{
+						args = {conf},
+						cwd = cwd
+					}
+				)
+				table.insert(tasks, tmpl)
+				override = { name = string.format("Nixos Switch %s", conf)}
+				tmpl = overseer.wrap_template(tmpl_os_switch,
 					override,
 					{
 						args = {conf},
