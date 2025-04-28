@@ -143,7 +143,7 @@ MUtils.BS = function()
 	if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({"selected"}).selected ~= -1 then
 		return npairs.esc('<c-e>')
 	else
-		npairs.autopairs_bs()
+		return npairs.autopairs_bs()
 	end
 end
 --- BS should cancel the completion if opened

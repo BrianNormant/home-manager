@@ -20,9 +20,9 @@ in {
 		./nixvim/ufo.nix
 		./nixvim/indent.nix
 		./nixvim/treesitter.nix
-		./nixvim/ui.nix
 		./nixvim/starter.nix
-		
+		./nixvim/ui.nix
+
 		# Quality of life
 		./nixvim/qol.nix
 		./nixvim/mini.nix
