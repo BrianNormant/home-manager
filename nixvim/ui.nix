@@ -14,12 +14,12 @@ in {
 			{
 				plugin = buildVimPlugin rec {
 					pname = "ui.nvim";
-					version = "3eb63e4";
+					version = "fc4052a";
 					src = fetchFromGitHub {
 						owner = "OXY2DEV";
 						repo = pname;
 						rev = version;
-						hash = "sha256-P80rKMNR/lFd6suCRwWbl7hUwjdV66mijBH3PRkhMKg=";
+						hash = "sha256-C6JUsnbW5qFgdLKCEg67o8s8vsPd3Mq/AgWjzJ/I8XQ=";
 					};
 					# patches = [
 					# 	./plugin-patch/ui.nvim.patch
@@ -41,9 +41,10 @@ in {
 			}
 			require('ui').setup {
 				popupmenu = { enable = false },
+				cmdline = { enable = false },
 			}
-			--
-			vim.cmd "set noincsearch"
+			vim.cmd "set incsearch"
+			vim.cmd "set cmdheight=1"
 		'';
 	};
 }
