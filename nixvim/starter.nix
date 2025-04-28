@@ -3,7 +3,27 @@
 		plugins.mini.modules.starter = {
 			header.__raw = ''function()
 				local text = "nixvim"
-				local font = "starwars"
+				local fonts = {
+					"banner3",
+					"basic",
+					"bell",
+					"big",
+					"block",
+					"chunky",
+					"crawford",
+					"cricket",
+					"cybermedium",
+					"doom",
+					"drpepper",
+					"gracefulf",
+					"graffiti",
+					"larry3d",
+					"rounded",
+					"slant",
+					"standard",
+					"weirdy",
+				};
+				local font = fonts[math.random(#fonts)]
 
 				if (vim.env.PROJECT) then text = vim.env.PROJECT end
 
