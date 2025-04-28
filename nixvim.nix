@@ -52,7 +52,8 @@ in {
 		./nixvim/completion.nix
 		./nixvim/dap.nix
 		./nixvim/ai.nix
-		# overseer.nvim with runner for nix build, nix check, ect
+		./nixvim/others.nix
+		./nixvim/overseer.nix
 	];
 
 	config = {

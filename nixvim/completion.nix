@@ -8,7 +8,6 @@ in {
 	programs.nixvim = {
 		plugins = {
 			friendly-snippets.enable = true;
-			wilder = { enable = true; };
 		};
 		extraPlugins = with pkgs.vimPlugins; [
 			{

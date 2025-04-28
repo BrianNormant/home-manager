@@ -1,6 +1,13 @@
 {_, ...}:
 {
 	programs.nixvim = {
+		userCommands = {
+			W   = { command = "w"; };
+			WQ  = { command = "wq"; };
+			WQA = { command = "wqa"; };
+			QA = { command = "qa"; };
+			Q = { command = "q"; };
+		};
 		keymaps = [
 			{
 				key = "|";
