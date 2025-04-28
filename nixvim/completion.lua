@@ -136,7 +136,28 @@ vim.keymap.set("i", "<Up>", function()
 	return "<Up>"
 end, {expr = true, silent = true})
 
---- Everytime the text changes, we check if supermaven has a suggestion
+
+
+MUtils.BS = function()
+	local npairs = require('nvim-autopairs');
+	if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({"selected"}).selected ~= -1 then
+		return npairs.esc('<c-e>')
+	else
+		npairs.autopairs_bs()
+	end
+end
+--- BS should cancel the completion if opened
+vim.api.nvim_set_keymap("i", "<BS>", 'v:lua.MUtils.BS()', {expr = true, noremap = true });
+
+vim.keymap.set("i", "<Esc>", function ()
+	if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({"selected"}).selected ~= -1 then
+		return "<c-e>"
+	else
+		return "<Esc>"
+	end
+end, {expr = true, noremap = true, silent = true})
+
+--- Everytime the text changes, we check if supermaven has a suggestion,
 --- If it does, we show the complete window (enabling noinsert noselect first)
 vim.api.nvim_create_autocmd({ "TextChangedI" }, {
 	callback = vim.schedule_wrap(function()
@@ -161,22 +182,17 @@ vim.api.nvim_create_autocmd({ "TextChangedI" }, {
 
 		-- we have a suggestion!
 		local text = inlay_instance.completion_text
-		local info
-		if #text > 25 then
-			info = text
-		end
-
-		-- local next = string.sub(vim.api.nvim_get_current_line(), col+1, -1)
-		-- local function esc(t) return t:gsub("(%W)", "%%%1") end
-
-		--- if would be better to delete the characters
-		--- After the cursor before inserting the completion...
-		-- text = string.gsub(text, esc(next) .. "$", "", 1)
 
 		CompPrev:dispose_inlay()
 		local abbr = string.sub(text, 1, 25)
 		local menu = "SuperMaven"
-		local match = { word = text, abbr = abbr, menu = menu, info = info }
+		local match = {
+			word = text,
+			abbr = abbr,
+			menu = menu,
+			-- info = info,
+			user_data = { supermaven = true },
+		}
 
 		vim.opt.completeopt:append('noinsert')
 		vim.opt.completeopt:append('noselect')

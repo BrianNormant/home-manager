@@ -420,6 +420,15 @@ end
 function M._on_completedone()
 	M._info.close_windows()
 
+
+	local supermaven = vim.tbl_get(vim.v.completed_item, "user_data", "supermaven") or false
+	if supermaven then
+		-- supermaven suggestion replace the whole line,
+		-- so we delete the rest of the line after inserting the completion
+		vim.api.nvim_input("<Right><C-o>D")
+		return
+	end
+
 	local lsp_data = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp") or {}
 	local expandme = vim.tbl_get(vim.v.completed_item, "user_data", "expandme") or false
 	local completion_item = lsp_data.completion_item or {}

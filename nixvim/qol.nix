@@ -21,6 +21,7 @@ in {
 				settings = {
 					map_c-w = true;
 					map_cr = false;
+					map_bs = false;
 				};
 				luaConfig.post = ''
 					local Rule = require('nvim-autopairs.rule')

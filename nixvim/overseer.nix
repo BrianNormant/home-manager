@@ -23,7 +23,7 @@ in {
 			}
 			{
 				key = "<F6>";
-				action = "<CMD>OverseerToggle<CR>";
+				action = "<CMD>OverseerToggle!<CR>";
 				options.desc = "Overseer: Open result buffer";
 			}
 		];
