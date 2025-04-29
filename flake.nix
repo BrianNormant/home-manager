@@ -8,7 +8,6 @@
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		blink-cmp.url = "github:Saghen/blink.cmp";
 		hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 		walker.url = "github:abenz1267/walker?ref=v0.12.16";
 		nspire-tools.url = "github:BrianNormant/nspire-tools";
@@ -18,7 +17,7 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, blink-cmp, hyprpanel, nspire-tools, nixd, ... }:
+	outputs = inputs@{ nixpkgs, home-manager, hyprpanel, nspire-tools, nixd, ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
@@ -50,7 +49,6 @@
 			 };
 			})
 		(final: prev: {nspire-tools = nspire-tools.packages."${system}".default;})
-			(final: prev: {blink = blink-cmp.packages."${system}".default;})
 			(final: prev: {inherit (nixd.packages."${system}") nixd nixf nixt;})
 			hyprpanel.overlay
 			];

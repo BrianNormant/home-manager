@@ -35,9 +35,9 @@ in {
 			du = "dust";
 			df = "duf";
 			cd = "z"; # zoxide
-			ls = "lsd";
-			ll = "ls -l";
-			l  = "ls -la";
+			ls = lib.mkForce "lsd";
+			ll = lib.mkForce "ls -l";
+			l  = lib.mkForce "ls -la";
 			man = "batman";
 			gg  = "lazygit";
 			gcl = "git clone";

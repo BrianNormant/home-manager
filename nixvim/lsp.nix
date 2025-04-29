@@ -5,7 +5,7 @@ let
 	inherit (pkgs.lib) fakeHash;
 in {
 	programs.nixvim = {
-		diagnostics = {
+		diagnostic.config = {
 			virtual_text = false;
 		};
 		plugins = {

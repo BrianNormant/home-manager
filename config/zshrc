@@ -4,12 +4,15 @@ fi
 
 if [[ -n $NEOVIDE ]]; then
 	zstyle ':fzf-tab:*' fzf-command fzf
+	unset TMUX # Not sure if something needs tmux to be set?
 fi
 
 function playerctl() {
 	eval `systemctl --user show-environment | grep CURRENT_PLAYER`
 	env playerctl -p "$CURRENT_PLAYER" $*
 }
+
+export NH_HOME_FLAKE="/home/brian/.config/home-manager"
 
 eval "$(zoxide init zsh)"
 
