@@ -65,6 +65,7 @@ in {
 
 		home.packages = with pkgs; [
 			vim-startuptime
+			neovide
 		];
 
 		programs.nixvim = {

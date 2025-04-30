@@ -17,6 +17,7 @@ export PAGER="ov"
 export SYSTEMD_PAGER="ov"
 export SYSTEMD_SECURE="true"
 export MANPAGER='vim +Man!'
+export EDITOR="vim"
 
 eval "$(zoxide init zsh)"
 
