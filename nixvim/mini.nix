@@ -49,13 +49,14 @@
 								else
 									vim.env.PROJECT = nil
 								end
-
 								local bufnr = vim.api.nvim_get_current_buf()
 								MiniStarter.open(bufnr)
+								vim.notify("Session loaded!")
 							end'';
 						};
 					};
 				};
+				surround = {};
 				clue = {
 					triggers = [
 						{ mode = "n"; keys = "<Leader>"; } # leader
@@ -147,5 +148,29 @@
 			MiniCursorwordCurrent = { bold = true; };
 			MiniOperatorsExchangeFrom = { bg = "#d79921"; bold=true; };
 		};
+		keymaps = [
+			# session mappings
+			{
+				key = "<leader>S";
+				action.__raw = ''
+					function()
+						-- write local session
+						MiniSessions.write("Session.vim")
+						vim.notify("Local session written")
+					end
+				'';
+				options.desc = "Session: write local";
+			}
+			{
+				key = "<leader>ss";
+				action.__raw = ''
+					function()
+						-- list and select session
+						MiniSessions.select()
+						end
+				'';
+				options.desc = "Session: list";
+			}
+		];
 	};
 }

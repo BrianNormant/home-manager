@@ -132,6 +132,7 @@ in {
 				splitright = true;
 				ignorecase = true;
 				smartcase = true;
+				allowrevins = true;
 
 				# Spell
 				spelllang = "en_us";

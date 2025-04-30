@@ -423,9 +423,15 @@ function M._on_completedone()
 
 	local supermaven = vim.tbl_get(vim.v.completed_item, "user_data", "supermaven") or false
 	if supermaven then
-		-- supermaven suggestion replace the whole line,
-		-- so we delete the rest of the line after inserting the completion
-		vim.api.nvim_input("<Right><C-o>D")
+		local linelen = #vim.api.nvim_get_current_line()
+		local cur = vim.api.nvim_win_get_cursor(0)[2] + 1
+		if cur > linelen then return end
+		-- absolutely stupid revins based solution...
+		if vim.o.revins then
+			vim.api.nvim_input("<C-u>")
+		else
+			vim.api.nvim_input("<C-_><C-u><C-_>")
+		end
 		return
 	end
 

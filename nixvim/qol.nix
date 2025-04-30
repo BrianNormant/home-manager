@@ -38,11 +38,6 @@ in {
 					}
 				'';
 			};
-			nvim-surround = {
-				enable = true;
-				lazyLoad.settings = { event = "DeferredUIEnter"; };
-				settings = {};
-			};
 			undotree = {
 				enable = true;
 				# lazyLoad.settings = { cmd = "UndotreeToggle"; };
