@@ -56,6 +56,7 @@ in {
 		xsel
 
 		xournalpp # pdf editor
+		calibre # ebook reader
 
 		zafiro-icons
 		libqalculate

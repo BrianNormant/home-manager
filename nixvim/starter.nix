@@ -114,7 +114,7 @@
 						{
 							{"Status",   "Git"},
 							{"Log",      "GitGraph"},
-							{"Commit",   "Telescope git_commits theme=dropdown"},
+							{"Commits",   "Telescope git_commits theme=dropdown"},
 							{"Branches", "Telescope git_branches theme=dropdown"},
 							{"Stashes",  "Telescope git_stash theme=dropdown"},
 						})
