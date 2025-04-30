@@ -18,6 +18,7 @@ in {
 	imports = [
 		./zsh.nix
 		./nixvim.nix
+		./vifm.nix
 	];
 
 	# Home Manager needs a bit of information about you and the paths it should
@@ -97,7 +98,6 @@ in {
 		".config/hypr/hypridle.conf".source = ./hypridle.conf;
 		".config/hyprpanel/config.json".source = ./config/hyprpanel/hyprpanel.json;
 
-		".config/neovide".source = mkMutableSymlink "${config.home.homeDirectory}/.config/nvim";
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 		# "./config/openxr/1/active_runtime.json".source = mkMutableSymlink "~/.local/share/Steam/steamapps/common/SteamVR/steamxr_linux64.json";
 

@@ -258,7 +258,6 @@ in {
 			# syntax (custom syntax for a filetype)
 			".config/nvim/syntax/nu.vim".source         = ./extra-nvim-files/nu-syntax.vim;
 			".config/nvim/syntax/pep.vim".source        = ./extra-nvim-files/pep-syntax.vim;
-
 		};
 	};
 }
