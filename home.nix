@@ -40,6 +40,7 @@ in {
 		manix
 		cool-retro-term
 		usbutils
+		ov delta # Pager
 
 		neovide
 		networkmanagerapplet
@@ -201,10 +202,29 @@ in {
 		};
 		git = {
 			enable = true;
-			delta.enable = true;
 			userEmail = "briannormant@gmail.com";
 			userName = hostname;
 			extraConfig = {
+				core = {
+					pager = "delta --pager='ov -F'";
+				};
+				pager = {
+					show = "delta --pager='ov -F --header 3'";
+					diff = "delta --features ov-diff";
+					log  = "delta --features ov-log";
+
+				};
+				delta = {
+					navigate = "true";
+					side-by-side = "true";
+					file-style = "yellow";
+				};
+				"delta \"ov-diff\"" = {
+					pager = "ov -F --section-delimiter '^(commit|added:|removed:|renamed:|Δ)' --section-header --pattern '•'";
+				};
+				"delta \"ov-log\"" = {
+					pager = "ov -F --section-delimiter '^commit' --section-header-num 3";
+				};
 				push = {
 					followTags = "true";
 					default = "upstream"; # Push to the tracked branch (see with git branch -vv)
@@ -222,6 +242,7 @@ in {
 					branch = "214";
 					tag = "bold 222";
 				};
+
 			};
 		};
 		ssh = {

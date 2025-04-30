@@ -13,6 +13,10 @@ function playerctl() {
 }
 
 export NH_HOME_FLAKE="/home/brian/.config/home-manager"
+export PAGER="ov"
+export SYSTEMD_PAGER="ov"
+export SYSTEMD_SECURE="true"
+export MANPAGER='vim +Man!'
 
 eval "$(zoxide init zsh)"
 

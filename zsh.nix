@@ -38,7 +38,6 @@ in {
 			ls = lib.mkForce "lsd";
 			ll = lib.mkForce "ls -l";
 			l  = lib.mkForce "ls -la";
-			man = "batman";
 			gg  = "lazygit";
 			gcl = "git clone";
 			glo = "git log --all --decorate=short --color --pretty=format:'^%C(dim white)%>(12,trunc)%cr%C(reset)^%C(bold 214)%<(7,trunc)%h%C(reset)' -5 | column -t -s ^";
