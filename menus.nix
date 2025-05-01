@@ -3,6 +3,20 @@
 		walker = {
 			enable = true;
 			runAsService = true;
+			config = {
+				as_window = false;
+				builtins = {
+					applications = {
+						actions = { enabled = true; };
+						show_generic = true;
+						refresh = true;
+						weight = 10;
+					};
+					calc = {
+						min_chars = 3; # 2+2
+					};
+				};
+			};
 		};
 		rofi = {
 			enable = true;

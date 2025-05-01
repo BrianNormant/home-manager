@@ -4,6 +4,11 @@
 			".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if hostname == "BrianNixDesktop" then "DP-1" else "eDP-1");
 			".config/hypr/hypridle.conf".source = ./hypridle.conf;
 			".config/hyprpanel/config.json".source = ./config/hyprpanel/hyprpanel.json;
+			".config/hypr/xdph.conf".text = ''
+				screencopy {
+					allow_token_by_default = true
+				}
+			'';
 
 		};
 		packages = with pkgs; [
@@ -15,7 +20,7 @@
 	};
 	xdg.portal = {
 		extraPortals = with pkgs; [
-			lxqt.xdg-desktop-portal-lxqt
+			xdg-desktop-portal-gnome
 			xdg-desktop-portal-hyprland
 		];
 		xdgOpenUsePortal = true;
@@ -130,5 +135,4 @@
 			monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,8''
 			else "monitor = ,preferred,auto,2" ) ;
 	};
-
 }
