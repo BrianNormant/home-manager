@@ -3,7 +3,8 @@
 		kitty = {
 			enable = true;
 			font = {
-				name = "FiraCode Nerd Font Ret";
+				# name = "FiraCode Nerd Font Ret";
+				name = "Victor Mono";
 				package = pkgs.rictydiminished-with-firacode;
 				size = 14;
 			};
