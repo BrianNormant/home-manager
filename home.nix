@@ -16,6 +16,7 @@ in {
 		./homeconfig.nix
 		./shellutils.nix
 		./unison.nix
+		./sound.nix
 	];
 	home.packages = with pkgs; [
 		nix-output-monitor

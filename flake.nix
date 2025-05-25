@@ -12,6 +12,7 @@
 		walker.url = "github:abenz1267/walker?ref=v0.12.16";
 		nspire-tools.url = "github:BrianNormant/nspire-tools";
 		nixd.url = "github:nix-community/nixd?ref=2.6.2";
+		autoeq.url = "github:BrianNormant/autoeq";
 		nixvim = {
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +25,7 @@
 		inherit system;
 		config.allowUnfree = true;
 		overlays = [
+			inputs.autoeq.overlays.default
 			(final: prev: {
 			 matugen = final.rustPlatform.buildRustPackage rec {
 			 pname = "matugen";

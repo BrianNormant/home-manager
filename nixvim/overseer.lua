@@ -165,7 +165,7 @@ local parse_flake_show = function(_, cb)
 				local tmpl = overseer.wrap_template(tmpl_pkg,
 					override,
 					{
-						args = {pkg},
+						args = { ".#" .. pkg},
 						cwd = cwd
 					}
 				)
