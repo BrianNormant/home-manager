@@ -9,7 +9,14 @@
 					allow_token_by_default = true
 				}
 			'';
-
+			".config/script/replay.sh" = {
+				source = ./script/replay-notify.sh;
+				executable = true;
+			};
+			".config/script/record-replay.sh" = {
+				source = ./script/record-replay.sh;
+				executable = true;
+			};
 		};
 		packages = with pkgs; [
 			hyprpicker
@@ -48,7 +55,7 @@
 				"systemctl --user start steam.service"
 				"systemctl --user start discord.service"
 				"systemctl --user start corectrl.service"
-				"gpu-screen-recorder -a $(wpctl inspect @DEFAULT_AUDIO_SINK@ | grep \"node.name\" | sed -E 's/\\s*\\*?\\s*node.name = \"([A-Za-z0-9_.-]+)\"/\\1/').monitor -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh &> /dev/null"
+				"/home/brian/.config/script/record-replay.sh"
 			];
 			input = {
 				kb_layout = "us,us";

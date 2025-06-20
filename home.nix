@@ -54,8 +54,6 @@ in {
 		".config/script/media.zsh".executable = true;
 
 		".config/script/switch-playerctl.zsh".source = ./script/switch-controlled-player.sh;
-		".config/script/replay.sh".text = builtins.readFile ./script/replay.sh;
-		".config/script/replay.sh".executable = true;
 
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 
