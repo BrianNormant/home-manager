@@ -1,4 +1,4 @@
-{ config, ...}: {
+{ config, pkgs, ...}: {
 	home = {
 		username = "brian";
 		homeDirectory = "/home/brian";
@@ -17,18 +17,22 @@
 	};
 	xdg = {
 		enable = true;
+		autostart.enable = true;
+
+		portal = {
+			enable = true;
+			xdgOpenUsePortal = true;
+			extraPortals = with pkgs; [
+				xdg-desktop-portal-gtk
+				xdg-desktop-portal-hyprland
+			];
+		};
 		mime = {
 			enable = true;
 		};
-		mimeApps = {
-			defaultApplications = {
-				"text/plain" = ["neovide.desktop"];
-				"inode/directory" = ["Thunar.desktop"];
-			};
-		};
+		configFile."mimeapps.list".source = ./config/mimeapps.list;
 	};
 	programs = {
 		home-manager.enable = true;
 	};
-	
 }

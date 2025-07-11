@@ -25,17 +25,10 @@
 			waypaper mpvpaper
 		];
 	};
-	xdg.portal = {
-		extraPortals = with pkgs; [
-			xdg-desktop-portal-gnome
-			xdg-desktop-portal-hyprland
-		];
-		xdgOpenUsePortal = true;
-	};
 	wayland.windowManager.hyprland = {
 		enable = true;
 		systemd.enable = true;
-		systemd.extraCommands = [ ];
+		systemd.variables = [ "--all" ];
 
 		plugins = with pkgs.hyprlandPlugins; [
 			hyprscroller

@@ -6,7 +6,9 @@ exec gpu-screen-recorder \
 	-c mp4 \
 	-q high \
 	-cursor yes \
+	-a "app-inverse:Firefox|device:default_input" \
 	-a "device:default_output|device:default_input" \
+	-a "app-inverse:Firefox" \
 	-a "device:default_output" \
 	-a "device:default_input" \
 	-r 60 \

@@ -42,7 +42,6 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-		".config/lxqt".source = ./lxqt;
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
 		".config/.tridactylrc".source = ./config/tridactylrc;
 
