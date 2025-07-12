@@ -431,7 +431,7 @@
   "bar.clock.format": "%H:%M:%S",
   "theme.bar.buttons.clock.enableBorder": false,
   "bar.clock.showTime": true,
-  "bar.media.rightClick": "systemctl --user start switch-playerctl.service",
+  "bar.media.rightClick": "zsh ~/.config/script/switch-controlled-player.sh",
   "bar.media.show_active_only": true,
   "bar.layouts": {
     "0": {

@@ -17,6 +17,10 @@
 				source = ./script/record-replay.sh;
 				executable = true;
 			};
+			".config/script/switch-controlled-player.sh" = {
+				source = ./script/switch-controlled-player.sh;
+				executable = true;
+			};
 		};
 		packages = with pkgs; [
 			hyprpicker
