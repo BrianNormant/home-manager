@@ -21,6 +21,9 @@
 				source = ./script/switch-controlled-player.sh;
 				executable = true;
 			};
+			".config/hypr/brightness.nu".source = ./script/brightness.nu;
+			".config/hypr/plugged.nu".source = ./script/plugged.nu;
+			".config/hypr/volume.nu".source = ./script/volume.nu;
 		};
 		packages = with pkgs; [
 			hyprpicker
@@ -137,6 +140,6 @@
 			monitor = DP-1,3840x2160@144,auto,1,bitdepth,8
 			monitor = DP-2,preferred,auto-left,1,bitdepth,8
 			monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,8''
-			else "monitor = ,preferred,auto,2" ) ;
+			else "monitor = ,preferred,auto,2" );
 	};
 }

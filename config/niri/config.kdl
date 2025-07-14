@@ -1,0 +1,209 @@
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "/home/brian/.config/script/record-replay.sh"
+
+// TODO: auth agent
+
+environment {
+	DISPLAY ":0";
+}
+
+screenshot-path "~/Screenshots/%Y-%m-%d-%H%M%S_hyprshot.png"
+prefer-no-csd
+
+window-rule {
+	geometry-corner-radius 10
+	clip-to-geometry true
+}
+window-rule {
+	match app-id="ProcessManager"
+	open-floating true
+	default-floating-position x=0 y=0 relative-to="left"
+	default-window-height {proportion 0.7; }
+	default-column-width {proportion 0.7; }
+}
+
+window-rule {
+	match app-id="Explorer"
+	open-floating true
+	default-floating-position x=0 y=0 relative-to="left"
+	default-window-height { proportion 0.75; }
+	default-column-width { proportion 0.60; }
+}
+
+window-rule {
+	match app-id="PopUp"
+	open-floating true
+	default-floating-position x=0 y=0 relative-to="left"
+	default-window-height { proportion 0.8; }
+	default-column-width { proportion 0.4; }
+}
+
+window-rule {
+	match app-id="cool-retro-term"
+	open-floating true
+	default-floating-position x=0 y=0 relative-to="left"
+	default-window-height { proportion 0.4; }
+	default-column-width { proportion 0.8; }
+}
+
+window-rule {
+	match app-id="(com.github.hluk.copyq)"
+	open-floating true
+	default-floating-position x=20 y=20 relative-to="top-right"
+	default-window-height { proportion 0.2; }
+	default-column-width { proportion 0.2; }
+}
+
+layer-rule {
+	match namespace="^swww-daemon$"
+	place-within-backdrop true
+}
+
+overview {
+	workspace-shadow {
+		// off
+	}
+}
+
+input {
+	keyboard {
+		xkb {
+			layout "us,us"
+			variant ",intl"
+			options "grp:shifts_toggle"
+		}
+		numlock
+	}
+	touchpad {
+		tap
+		drag false
+	}
+	focus-follows-mouse
+}
+
+output "DP-2" {
+	mode "1920x1090@60"
+	position x=-1920 y=540
+}
+
+output "DP-1" {
+	mode "3840x2160@143.999"
+	scale 1.0
+	focus-at-startup
+	variable-refresh-rate
+	position x=0 y=0
+}
+
+output "HDMI-A-1" {
+	mode "1920x1090@60"
+	position x=3840 y=540
+}
+
+output "eDP-1" {
+	scale 2.0
+}
+
+binds {
+	Mod+Shift+Q { quit; }
+	Mod+F1 { show-hotkey-overlay; }
+	Mod+Tab {toggle-overview; }
+
+	// Focused window
+	Mod+Q { close-window; }
+	Mod+F {toggle-window-floating; }
+	Mod+M {fullscreen-window; }
+	Mod+C {center-window; }
+	Mod+Slash { toggle-column-tabbed-display; }
+
+	// Move focus in workspace
+	Mod+Left { focus-column-left; }
+	Mod+Right { focus-column-right; }
+	Mod+Up { focus-window-up; }
+	Mod+Down { focus-window-down; }
+	Mod+Shift+F { switch-focus-between-floating-and-tiling; }
+
+	// Move window in workspace
+	Mod+Shift+Left { move-column-left-or-to-monitor-left; }
+	Mod+Shift+Right { move-column-right-or-to-monitor-right; }
+	Mod+Shift+Up { move-window-up; }
+	Mod+Shift+Down { move-window-down; }
+	Mod+BracketRight { consume-or-expel-window-right; }
+	Mod+BracketLeft { consume-or-expel-window-left; }
+	Mod+H { swap-window-left; }
+	Mod+L { swap-window-right; }
+
+	// Move focus between workspaces
+	Mod+Z { focus-workspace-up; }
+	Mod+X { focus-workspace-down; }
+
+	// Move window between workspaces
+	Mod+Shift+Z { move-window-to-workspace-up; }
+	Mod+Shift+X { move-window-to-workspace-down; }
+
+	// Move workspaces
+	Mod+Alt+Z { move-workspace-up; }
+	Mod+Alt+X { move-workspace-down; }
+
+	// Window/Colum Size
+	Mod+R { switch-preset-window-width; }
+	Mod+Shift+R { switch-preset-window-height; }
+
+	Mod+Alt+Left { focus-monitor-left; }
+	Mod+Alt+Right { focus-monitor-right; }
+
+	// Applications
+	Mod+Return { spawn "kitty" "zsh" "/home/brian/.config/tmux.zsh"; }
+	Mod+Alt+Return { spawn "cool-retro-term"; }
+	Mod+T { spawn "cool-retro-term"; }
+	Mod+E { spawn "neovide"; }
+	Mod+Alt+E { spawn "thunar"; }
+	Mod+V { spawn "copyq" "toggle"; }
+	Mod+I { spawn "firefox"; }
+	Mod+Shift+I { spawn "firefox" "-private-window"; }
+	Control+Shift+Escape { spawn "kitty" "--class" "ProcessManager" "btop"; }
+
+	// Runners
+	Mod+Alt+I { spawn "/home/brian/.config/rofi/applets/bin/quicklinks.sh"; }
+	Mod+D { spawn "walker"; }
+	Mod+Grave { spawn "rofi" "-show" "calc"; }
+	Mod+S { spawn "/home/brian/.config/home-manager/script/rofi-systemd.sh"; }
+
+	// Screenshot
+	Print { screenshot-window; }
+	Alt+Print { screenshot-screen; }
+	Mod+Shift+S { screenshot; }
+	Alt+X { spawn "killall" "-USR1" "gpu-screen-recorder"; }
+
+	// Media
+	XF86AudioPlay { spawn "playerctl" "play-pause"; }
+	XF86AudioPause { spawn "playerctl" "play-pause"; }
+	XF86AudioStop { spawn "playerctl" "stop"; }
+	XF86AudioNext { spawn "playerctl" "next"; }
+	XF86AudioPrev { spawn "playerctl" "previous"; }
+	XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%+"; }
+	XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"; }
+	XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_SINK@" "toggle"; }
+	XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_SOURCE@" "toggle"; }
+	XF86MonBrightnessDown { spawn "brightnessctl" "10%-" ; }
+	XF86MonBrightnessUp { spawn "brightnessctl" "+10%" ; }
+}
+
+layout {
+	background-color "transparent"
+	preset-column-widths {
+		proportion 0.25
+		proportion 0.33
+		proportion 0.5
+		proportion 0.66
+		proportion 0.75
+		proportion 1.00
+	}
+	preset-window-heights {
+		proportion 0.25
+		proportion 0.33
+		proportion 0.5
+		proportion 0.66
+		proportion 0.75
+		proportion 1.00
+	}
+}

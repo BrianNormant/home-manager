@@ -24,7 +24,7 @@
 			theme = "gruvbox-dark-soft";
 			plugins = let
 				build-against-rofi-wayland = plugin: plugin.overrideAttrs ( final: self: {
-					version = "wayland";
+					# version = "wayland";
 					buildInputs = with pkgs; [
 						rofi-wayland-unwrapped # here we replace rofi by rofi-wayland
 						libqalculate

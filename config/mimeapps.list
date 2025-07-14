@@ -1,5 +1,9 @@
 [Default Applications]
-inode/directory=thunar.desktop
+; inode/directory=thunar.desktop
+inode/directory=vifmtmux.desktop
 application/pdf=firefox.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
+text/x-c++src=neovide.desktop
+text/x-qml=neovide.desktop
+image/gif=gimp.desktop

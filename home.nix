@@ -12,13 +12,16 @@ in {
 		./brian-services.nix
 		./kitty.nix
 		./tmux.nix
-		./hyprland.nix
+		# ./hyprland.nix
+		./niri.nix
 		./homeconfig.nix
 		./shellutils.nix
 		./unison.nix
 		./sound.nix
+		./status-bar.nix
 	];
 	home.packages = with pkgs; [
+		xrizer
 		nix-output-monitor
 		manix
 		cool-retro-term
@@ -35,6 +38,7 @@ in {
 
 		xournalpp # pdf editor
 		calibre # ebook reader
+		gimp # image editor
 
 		zafiro-icons
 	];
@@ -45,10 +49,6 @@ in {
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
 		".config/.tridactylrc".source = ./config/tridactylrc;
 
-		".config/hypr/brightness.nu".source = ./script/brightness.nu;
-		".config/hypr/plugged.nu".source = ./script/plugged.nu;
-		".config/hypr/volume.nu".source = ./script/volume.nu;
-			
 		".config/script/media.zsh".text = builtins.readFile ./script/fetch-and-format-media.zsh;
 		".config/script/media.zsh".executable = true;
 

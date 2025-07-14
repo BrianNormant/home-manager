@@ -22,9 +22,10 @@
 		portal = {
 			enable = true;
 			xdgOpenUsePortal = true;
+			config.common.default = "*";
 			extraPortals = with pkgs; [
 				xdg-desktop-portal-gtk
-				xdg-desktop-portal-hyprland
+				xdg-desktop-portal-gnome
 			];
 		};
 		mime = {
