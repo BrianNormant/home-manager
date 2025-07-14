@@ -8,7 +8,6 @@
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 		walker.url = "github:abenz1267/walker?ref=v0.12.16";
 		nspire-tools.url = "github:BrianNormant/nspire-tools";
 		nixd.url = "github:nix-community/nixd?ref=2.6.2";
@@ -17,8 +16,12 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		quickshell = {
+			url = "github:quickshell-mirror/quickshell";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, hyprpanel, nspire-tools, nixd, ... }:
+	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, quickshell, ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
@@ -50,9 +53,21 @@
 			 };
 			 };
 			})
-		(final: prev: {nspire-tools = nspire-tools.packages."${system}".default;})
+			(final: prev: {nspire-tools = nspire-tools.packages."${system}".default;})
 			(final: prev: {inherit (nixd.packages."${system}") nixd nixf nixt;})
-			hyprpanel.overlay
+			# (final: prev: {
+			# 	xrizer = prev.xrizer.overrideAttrs {
+			# 		src = final.fetchFromGitHub {
+			# 			owner = "BrianNormant";
+			# 			repo = "xrizer";
+			# 			rev = "e61217c";
+			# 			hash = "sha256-5IqiDYYF5SLlbOpACOlqw7FrmrQYyaZGDhxGC9a73aU=";
+			# 		};
+			# 		cargoHash = "";
+			# 		version = "0.3.0";
+			# 	};
+			# })
+			(final: prev: {inherit (quickshell.packages."${system}") quickshell;})
 			];
 	};
 	modules = with inputs; [

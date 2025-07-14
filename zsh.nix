@@ -45,8 +45,9 @@ in {
 			gloga = "git log --all --graph --decorate=short --color --pretty=format:'^%C(dim white)%>(12,trunc)%cr%C(reset)^%C(cyan)%<(10,trunc)%cs%C(reset)^%C(bold 214)%<(7,trunc)%h%C(reset)^%C(auto)%<(15,trunc)%D%C(reset)^%C(white)%s%C(reset)' | column -t -s ^";
 		};
 		plugins = map toPlugin selected-zsh-plugins;
-		initExtraFirst = builtins.readFile ./config/zshrc.first;
-		initContent = lib.mkOrder 2000 (builtins.readFile ./config/zshrc);
+		initContent =
+			(builtins.readFile ./config/zshrc.first) + "\n" +
+			(builtins.readFile ./config/zshrc);
 	};
 	home = {
 		packages = builtins.map ({pkg, ...}: pkg) selected-zsh-plugins;
