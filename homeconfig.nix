@@ -31,7 +31,18 @@
 		mime = {
 			enable = true;
 		};
+		desktopEntries = {
+			vifmtmux = {
+				name = "vifm";
+				genericName = "file manager";
+				exec = "zsh \"~/.config/script/vifmtmux.sh\" %u";
+				terminal = false;
+				categories = [ "Utility" ];
+				mimeType = [ "inode/directory" ];
+			};
+		};
 		configFile."mimeapps.list".source = ./config/mimeapps.list;
+		configFile."script/vifmtmux.sh".source = ./script/vifmtmux.sh;
 	};
 	programs = {
 		home-manager.enable = true;
