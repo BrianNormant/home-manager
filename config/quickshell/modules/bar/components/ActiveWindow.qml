@@ -49,6 +49,11 @@ Item {
         id: child
 
         property Item current: text1
+        // property Item title: "Placeholder"
+        // property Item appid: "firefox"
+        // property Item isfloating: false
+        // property Item pid: 0
+        // property Item workspaceid: 0
 
         anchors.centerIn: parent
 
@@ -60,7 +65,7 @@ Item {
             id: icon
 
             animate: true
-            text: Icons.getAppCategoryIcon(Hyprland.activeToplevel?.lastIpcObject.class, "desktop_windows")
+            text: ""
             color: root.colour
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -77,7 +82,8 @@ Item {
         TextMetrics {
             id: metrics
 
-            text: Hyprland.activeToplevel?.title ?? qsTr("Desktop")
+            // text: Wayland.TopLevelManager.activeToplevel.title
+            text: "Placeholder"
             font.pointSize: Appearance.font.size.smaller
             font.family: Appearance.font.family.mono
             elide: Qt.ElideRight

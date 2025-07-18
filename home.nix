@@ -51,7 +51,14 @@ in {
 
 		".config/script/media.zsh".text = builtins.readFile ./script/fetch-and-format-media.zsh;
 		".config/script/media.zsh".executable = true;
-
+		".config/script/replay.sh" = {
+			source = ./script/replay-notify.sh;
+			executable = true;
+		};
+		".config/script/record-replay.sh" = {
+			source = ./script/record-replay.sh;
+			executable = true;
+		};
 		".config/script/switch-playerctl.zsh".source = ./script/switch-controlled-player.sh;
 
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";

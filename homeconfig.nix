@@ -22,10 +22,10 @@
 		portal = {
 			enable = true;
 			xdgOpenUsePortal = true;
-			config.common.default = "*";
+			config.common.default = "gnome";
 			extraPortals = with pkgs; [
-				xdg-desktop-portal-gtk
 				xdg-desktop-portal-gnome
+				xdg-desktop-portal-gtk
 			];
 		};
 		mime = {
