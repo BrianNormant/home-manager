@@ -19,7 +19,6 @@ window-rule {
 window-rule {
 	match app-id="ProcessManager"
 	open-floating true
-	default-floating-position x=0 y=0 relative-to="left"
 	default-window-height {proportion 0.7; }
 	default-column-width {proportion 0.7; }
 }
@@ -27,7 +26,6 @@ window-rule {
 window-rule {
 	match app-id="Explorer"
 	open-floating true
-	default-floating-position x=0 y=0 relative-to="left"
 	default-window-height { proportion 0.75; }
 	default-column-width { proportion 0.60; }
 }
@@ -35,7 +33,6 @@ window-rule {
 window-rule {
 	match app-id="PopUp"
 	open-floating true
-	default-floating-position x=0 y=0 relative-to="left"
 	default-window-height { proportion 0.8; }
 	default-column-width { proportion 0.4; }
 }
@@ -43,7 +40,6 @@ window-rule {
 window-rule {
 	match app-id="cool-retro-term"
 	open-floating true
-	default-floating-position x=0 y=0 relative-to="left"
 	default-window-height { proportion 0.4; }
 	default-column-width { proportion 0.8; }
 }
@@ -114,6 +110,7 @@ binds {
 	Mod+Q { close-window; }
 	Mod+F {toggle-window-floating; }
 	Mod+M {fullscreen-window; }
+	Mod+Alt+M { toggle-windowed-fullscreen; }
 	Mod+C {center-window; }
 	Mod+Slash { toggle-column-tabbed-display; }
 
@@ -192,6 +189,7 @@ binds {
 
 layout {
 	background-color "transparent"
+	always-center-single-column
 	preset-column-widths {
 		proportion 0.25
 		proportion 0.33

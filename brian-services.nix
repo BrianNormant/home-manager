@@ -45,7 +45,10 @@
 
 			steam = {
 				Service.Type = "exec";
-				Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
+				Service.Environment = [
+					"PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin"
+					"DISPLAY=:0"
+				];
 				Service.ExecStart = "/run/current-system/sw/bin/steam -silent";
 				Service.Restart="always";
 				Service.RestartSec="5s";
@@ -54,7 +57,10 @@
 
 			discord = {
 				Service.Type = "exec";
-				Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
+				Service.Environment = [
+					"PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin"
+					"DISPLAY=:0"
+				];
 				Service.ExecStart = "${pkgs.discord}/bin/discord";
 				Service.Restart="always";
 				Service.RestartSec="5s";
@@ -64,8 +70,10 @@
 			waypaper = {
 				Service.Type = "oneshot";
 				Service.ExecStart = "${pkgs.waypaper}/bin/waypaper --random";
+				Service.Environment = [
+					"WAYLAND_DISPLAY=wayland-1"
+				];
 				Unit.Description = "Randomize the wallpaper";
-				Service.After="niri.service";
 			};
 			
 			swww = {

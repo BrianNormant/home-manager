@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+	programs.quickshell = {
+		enable = true;
+	};
 	home.packages = with pkgs; [
 		quickshell
 		material-symbols
@@ -11,7 +14,7 @@
 		brightnessctl
 		ddcutil
 		cava
-		# app2unit
+		app2unit
 		aubio
 		fish
 	];
