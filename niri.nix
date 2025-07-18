@@ -16,6 +16,8 @@
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/corectrl.service;
 		"systemd/user/niri.service.wants/swww.service".source =
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/swww.service;
+		"systemd/user/niri.service.wants/quickshell.service".source =
+			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/quickshell.service;
 	};
 	home.packages = with pkgs; [
 		xwayland-satellite

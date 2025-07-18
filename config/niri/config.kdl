@@ -1,5 +1,7 @@
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "/home/brian/.config/script/record-replay.sh"
+spawn-at-startup "/home/brian/.config/script/random-swww.sh"
+spawn-at-startup "/home/brian/.config/script/random-waypaper.sh"
 
 // TODO: auth agent
 

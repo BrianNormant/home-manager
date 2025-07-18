@@ -12,7 +12,6 @@ in {
 		./brian-services.nix
 		./kitty.nix
 		./tmux.nix
-		# ./hyprland.nix
 		./niri.nix
 		./homeconfig.nix
 		./shellutils.nix
@@ -58,6 +57,16 @@ in {
 
 		# idris
 		".pack/user/pack.toml".source = ./config/idris/pack.toml;
+
+		# wallpaper
+		".config/script/random-swww.sh" = {
+			source = ./script/random-swww.sh;
+			executable = true;
+		};
+		".config/script/random-waypaper.sh" = {
+			source = ./script/random-waypaper.sh;
+			executable = true;
+		};
 	};
 
 	home.pointerCursor = {

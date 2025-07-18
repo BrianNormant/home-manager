@@ -9,6 +9,14 @@
 			# 	Service.RestartSec="5s";
 			# };
 
+			quickshell = {
+				Service.Type = "exec";
+				Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
+				Service.ExecStart = "${pkgs.quickshell}/bin/quickshell";
+				Service.Restart="always";
+				Service.RestartSec="5s";
+			};
+
 			nm-applet = {
 				Service.Type = "exec";
 				Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
