@@ -1,7 +1,8 @@
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "/home/brian/.config/script/record-replay.sh"
-spawn-at-startup "/home/brian/.config/script/random-swww.sh"
-spawn-at-startup "/home/brian/.config/script/random-waypaper.sh"
+spawn-at-startup "zsh" "/home/brian/.config/script/record-replay.sh"
+spawn-at-startup "zsh" "/home/brian/.config/script/random-swww.sh"
+spawn-at-startup "zsh" "/home/brian/.config/script/random-waypaper.sh"
+spawn-at-startup "whatsie"
 
 // TODO: auth agent
 
@@ -38,10 +39,24 @@ window-rule {
 }
 
 window-rule {
+	match app-id="org.pulseaudio.pavucontrol"
+	open-floating true
+	default-window-height { proportion 0.6; }
+	default-column-width { proportion 0.6; }
+}
+
+window-rule {
+	match app-id="io.github.kaii_lb.Overskride"
+	open-floating true
+	default-window-height { proportion 0.6; }
+	default-column-width { proportion 0.6; }
+}
+
+window-rule {
 	match app-id="cool-retro-term"
 	open-floating true
-	default-window-height { proportion 0.4; }
-	default-column-width { proportion 0.8; }
+	default-window-height { proportion 0.6; }
+	default-column-width { proportion 0.6; }
 }
 
 window-rule {
@@ -108,9 +123,9 @@ binds {
 
 	// Focused window
 	Mod+Q { close-window; }
-	Mod+F {toggle-window-floating; }
-	Mod+M {fullscreen-window; }
-	Mod+Alt+M { toggle-windowed-fullscreen; }
+	Mod+Space {toggle-window-floating; }
+	Mod+F {fullscreen-window; }
+	Mod+Alt+F { toggle-windowed-fullscreen; }
 	Mod+C {center-window; }
 	Mod+Slash { toggle-column-tabbed-display; }
 
@@ -119,7 +134,7 @@ binds {
 	Mod+Right { focus-column-right; }
 	Mod+Up { focus-window-up; }
 	Mod+Down { focus-window-down; }
-	Mod+Shift+F { switch-focus-between-floating-and-tiling; }
+	Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
 
 	// Move window in workspace
 	Mod+Shift+Left { move-column-left-or-to-monitor-left; }
@@ -151,6 +166,8 @@ binds {
 	Mod+Alt+Right { focus-monitor-right; }
 
 	// Applications
+	Mod+P { spawn "pavucontrol"; }
+	Mod+B { spawn "overskride"; }
 	Mod+Return { spawn "kitty" "zsh" "/home/brian/.config/tmux.zsh"; }
 	Mod+Alt+Return { spawn "cool-retro-term"; }
 	Mod+T { spawn "cool-retro-term"; }
@@ -183,8 +200,8 @@ binds {
 	XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"; }
 	XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_SINK@" "toggle"; }
 	XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_SOURCE@" "toggle"; }
-	XF86MonBrightnessDown { spawn "brightnessctl" "10%-" ; }
-	XF86MonBrightnessUp { spawn "brightnessctl" "+10%" ; }
+	XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-" ; }
+	XF86MonBrightnessUp { spawn "brightnessctl" "set" "10%+" ; }
 }
 
 layout {

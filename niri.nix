@@ -23,6 +23,7 @@
 		xwayland-satellite
 		swaybg swww
 		waypaper
+		overskride
 	];
 
 	# TODO fix randomizer wallpaper with waypaper+swaybg
