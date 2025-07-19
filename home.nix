@@ -35,6 +35,7 @@ in {
 		wl-clipboard
 		xsel
 
+		whatsie
 		xournalpp # pdf editor
 		calibre # ebook reader
 		gimp # image editor

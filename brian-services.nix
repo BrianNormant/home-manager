@@ -15,6 +15,7 @@
 				Service.ExecStart = "${pkgs.quickshell}/bin/quickshell";
 				Service.Restart="always";
 				Service.RestartSec="5s";
+				Unit.After="niri.service";
 			};
 
 			nm-applet = {
@@ -23,7 +24,7 @@
 				Service.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
 				Service.Restart="always";
 				Service.RestartSec="5s";
-				Service.After="niri.service";
+				Unit.After="niri.service";
 			};
 
 			# hyprpaper = {
@@ -52,7 +53,7 @@
 				Service.ExecStart = "/run/current-system/sw/bin/steam -silent";
 				Service.Restart="always";
 				Service.RestartSec="5s";
-				Service.After="niri.service";
+				Unit.After="niri.service";
 			};
 
 			discord = {
@@ -64,7 +65,7 @@
 				Service.ExecStart = "${pkgs.discord}/bin/discord";
 				Service.Restart="always";
 				Service.RestartSec="5s";
-				Service.After="niri.service";
+				Unit.After="niri.service";
 			};
 
 			waypaper = {
@@ -81,7 +82,7 @@
 				Service.ExecStart = "${pkgs.swww}/bin/swww-daemon";
 				Service.Restart="always";
 				Service.RestartSec="5s";
-				Service.After="niri.service";
+				Unit.After="niri.service";
 			};
 
 			corectrl = {
@@ -89,7 +90,7 @@
 				Service.ExecStart = "${pkgs.corectrl}/bin/corectrl";
 				Service.Restart="always";
 				Service.RestartSec="5s";
-				Service.After="niri.service";
+				Unit.After="niri.service";
 			};
 
 			copyq = {
@@ -97,7 +98,7 @@
 				Service.ExecStart = "${pkgs.copyq}/bin/copyq";
 				Service.Restart="always";
 				Service.RestartSec="5s";
-				Service.After="niri.service";
+				Unit.After="niri.service";
 			};
 
 			# video = {
