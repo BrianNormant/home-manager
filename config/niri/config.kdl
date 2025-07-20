@@ -200,8 +200,8 @@ binds {
 	XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"; }
 	XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_SINK@" "toggle"; }
 	XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_SOURCE@" "toggle"; }
-	XF86MonBrightnessDown { spawn "brightnessctl" "10%-" ; }
-	XF86MonBrightnessUp { spawn "brightnessctl" "+10%" ; }
+	XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-" ; }
+	XF86MonBrightnessUp { spawn "brightnessctl" "set" "10%+" ; }
 }
 
 layout {
