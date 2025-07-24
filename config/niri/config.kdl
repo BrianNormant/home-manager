@@ -161,6 +161,10 @@ binds {
 	// Window/Colum Size
 	Mod+R { switch-preset-window-width; }
 	Mod+Shift+R { switch-preset-window-height; }
+	Mod+1 { set-window-width "25%"; }
+	Mod+2 { set-window-width "50%"; }
+	Mod+3 { set-window-width "75%"; }
+	Mod+4 { set-window-width "100%"; }
 
 	Mod+Alt+Left { focus-monitor-left; }
 	Mod+Alt+Right { focus-monitor-right; }
