@@ -18,6 +18,8 @@
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/swww.service;
 		"systemd/user/niri.service.wants/quickshell.service".source =
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/quickshell.service;
+		"systemd/user/niri.service.wants/polkit-agent.service".source =
+			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/polkit-agent.service;
 	};
 	home.packages = with pkgs; [
 		xwayland-satellite

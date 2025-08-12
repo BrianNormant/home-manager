@@ -118,6 +118,12 @@
 				Service.Environment = "PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin";
 				Service.ExecStart = "/run/current-system/sw/bin/zsh /home/brian/.config/script/switch-playerctl.zsh";
 			};
+
+			polkit-agent = {
+				Service.Type = "exec";
+				Service.ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+				Unit.After="niri.service";
+			};
 		};
 
 		timers = {

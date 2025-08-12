@@ -75,6 +75,7 @@ in {
 			source = ./script/random-waypaper.sh;
 			executable = true;
 		};
+		".config/wlxoverlay/wayvr.conf.d/dashboard.yaml".source = ./config/wlxoverlay/wayvr.conf.d/dashboard.yaml;
 	};
 
 	home.pointerCursor = {
