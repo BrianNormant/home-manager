@@ -73,7 +73,7 @@
 	modules = with inputs; [
 		./home.nix
 		walker.homeManagerModules.default
-		nixvim.homeManagerModules.default
+		nixvim.homeModules.default
 	];
 	in {
 		homeConfigurations."brian@BrianNixDesktop" = home-manager.lib.homeManagerConfiguration {

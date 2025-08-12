@@ -1,4 +1,4 @@
-spawn-at-startup "xwayland-satellite"
+spawn-at-startup "xwayland-satellite" ":0"
 spawn-at-startup "zsh" "/home/brian/.config/script/record-replay.sh"
 spawn-at-startup "zsh" "/home/brian/.config/script/random-swww.sh"
 spawn-at-startup "zsh" "/home/brian/.config/script/random-waypaper.sh"
@@ -8,6 +8,11 @@ spawn-at-startup "whatsie"
 
 environment {
 	DISPLAY ":0";
+}
+
+gestures {
+	dnd-edge-view-scroll {
+	}
 }
 
 screenshot-path "~/Screenshots/%Y-%m-%d-%H%M%S_hyprshot.png"
@@ -20,8 +25,13 @@ window-rule {
 window-rule {
 	match app-id="ProcessManager"
 	open-floating true
-	default-window-height {proportion 0.7; }
-	default-column-width {proportion 0.7; }
+	default-window-height { proportion 0.7; }
+	default-column-width { proportion 0.7; }
+}
+
+window-rule {
+	match title="IL2-SimpleRadio"
+	open-floating true
 }
 
 window-rule {
@@ -112,9 +122,9 @@ output "HDMI-A-1" {
 	position x=3840 y=540
 }
 
-output "eDP-1" {
-	scale 2.0
-}
+// output "eDP-1" {
+// 	scale 2.0
+// }
 
 binds {
 	Mod+Shift+Q { quit; }

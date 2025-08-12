@@ -4,13 +4,14 @@ programs.nixvim = {
 			jdt-language-server
 		];
 		extraPlugins = with pkgs.vimPlugins; [
-			{optional = true; plugin = nvim-java-test;}
+			# {optional = true; plugin = nvim-java-test;}
 			{optional = true; plugin = nvim-java-dap;}
 			{optional = true; plugin = nvim-java-refactor;}
 			{optional = true; plugin = nvim-java-core;}
 			{
 				plugin = nvim-java.overrideAttrs (p: n: {
-					patches = [ ./plugin-patch/nvim-java.patch ];
+					# TODO: update patch for new version
+					# patches = [ ./plugin-patch/nvim-java.patch ];
 					nvimSkipModules = [
 						"java.startup.mason-dep"
 						"java.startup.mason-registry-check"

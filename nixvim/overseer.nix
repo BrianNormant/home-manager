@@ -5,6 +5,7 @@ in {
 		plugins = {
 			overseer = {
 				enable = true;
+				package = pkgs.vimPlugins.overseer-nvim;
 				lazyLoad = {
 					enable = true;
 					settings = {

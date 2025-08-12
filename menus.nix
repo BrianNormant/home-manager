@@ -2,6 +2,7 @@
 	programs = {
 		walker = {
 			enable = true;
+			package = pkgs.walker;
 			runAsService = true;
 			config = {
 				as_window = false;

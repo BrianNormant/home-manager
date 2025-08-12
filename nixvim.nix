@@ -95,6 +95,7 @@ in {
 				lastplace.enable = true;
 				web-devicons.enable = true;
 				guess-indent.enable = true;
+				neotest.enable = false;
 			};
 			extraPackages = with pkgs; [
 				ripgrep

@@ -39,6 +39,7 @@ in {
 		xournalpp # pdf editor
 		calibre # ebook reader
 		gimp # image editor
+		openshot-qt # video editor
 
 		zafiro-icons
 	];
