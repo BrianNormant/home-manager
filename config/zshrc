@@ -18,9 +18,16 @@ export SYSTEMD_PAGER="ov"
 export SYSTEMD_SECURE="true"
 export MANPAGER='vim +Man!'
 export EDITOR="vim"
+export VISUAL="vim"
 export TERMINAL="kitty"
 
 eval "$(zoxide init zsh)"
+
+# Edit command in vim with <C-x><C-e>
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd "^X^E" edit-command-line
+bindkey -M viins "^X^E" edit-command-line
 
 #To be hooked with nix shells
 eval "$CMD"
