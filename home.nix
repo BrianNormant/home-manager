@@ -27,6 +27,7 @@ in {
 		usbutils
 
 		networkmanagerapplet
+		poweralertd
 		(callPackage ./pep8.nix {})
 		libnotify
 		libreoffice
