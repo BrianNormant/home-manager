@@ -95,6 +95,10 @@ in {
 				plugin add ${polars}/bin/nu_plugin_polars
 				'';
 		};
+		man = {
+			enable = true;
+			generateCaches = true;
+		};
 		firefox.enable = true;
 	};
 }
