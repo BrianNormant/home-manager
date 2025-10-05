@@ -14,7 +14,7 @@
 	in {
 		plugins = {
 			rainbow-delimiters = {
-				inherit highlight;
+				settings = { inherit highlight; };
 				enable = true;
 			};
 			indent-blankline = {

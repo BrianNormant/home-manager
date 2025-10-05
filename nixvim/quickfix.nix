@@ -34,12 +34,14 @@
 					];
 				};
 			};
-			nvim-bqf.enable = true;
-			nvim-bqf.extraOptions = {
-				preview = {
-					border = "double";
-					show_scroll_bar = false;
-					winblend = 20;
+			nvim-bqf = {
+				enable = true;
+				settings = {
+					preview = {
+						border = "double";
+						show_scroll_bar = false;
+						winblend = 20;
+					};
 				};
 			};
 		};
