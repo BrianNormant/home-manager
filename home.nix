@@ -41,6 +41,7 @@ in {
 		calibre # ebook reader
 		gimp # image editor
 		openshot-qt # video editor
+		rimsort
 
 		zafiro-icons
 	];

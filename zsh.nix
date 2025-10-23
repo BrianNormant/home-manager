@@ -28,7 +28,6 @@ in {
 		enableCompletion = true;
 		autosuggestion.enable = true;
 		shellAliases = {
-			rimsort = "nix run github:vinnymeller/nixpkgs/init-rimsort#rimsort";
 			flake-init = "nix flake init -t github:BrianNormant/nixosconf";
 			icat  =  "kitty +kitten icat --clear";
 			neo = "hyprctl dispatch scroller:setmode c; neovide &>/dev/null &; sleep 1; hyprctl dispatch scroller:setmode s";
