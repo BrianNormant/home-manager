@@ -28,7 +28,6 @@ in {
 
 		networkmanagerapplet
 		poweralertd
-		(callPackage ./pep8.nix {})
 		libnotify
 		libreoffice
 		radeontop
@@ -36,11 +35,12 @@ in {
 		wl-clipboard
 		xsel
 
-		whatsie
+		# whatsie
 		xournalpp # pdf editor
 		calibre # ebook reader
 		gimp # image editor
-		openshot-qt # video editor
+		# openshot-qt # video editor
+		# qt-web-engine is outdated
 		rimsort
 
 		zafiro-icons
