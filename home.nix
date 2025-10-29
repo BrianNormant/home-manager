@@ -25,6 +25,7 @@ in {
 		manix
 		cool-retro-term
 		usbutils
+		hyprpicker
 
 		networkmanagerapplet
 		poweralertd
