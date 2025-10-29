@@ -97,12 +97,13 @@ input {
 			options "grp:shifts_toggle"
 		}
 		numlock
+		track-layout "window"
 	}
 	touchpad {
 		tap
 		drag false
 	}
-	focus-follows-mouse
+	focus-follows-mouse max-scroll-amount="0%"
 }
 
 output "DP-2" {
