@@ -4,6 +4,7 @@ spawn-at-startup "zsh" "/home/brian/.config/script/random-swww.sh"
 spawn-at-startup "zsh" "/home/brian/.config/script/random-waypaper.sh"
 spawn-at-startup "whatsie"
 spawn-at-startup "poweralertd"
+spawn-at-startup "quickshell"
 
 // TODO: auth agent
 
