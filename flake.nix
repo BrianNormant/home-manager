@@ -21,7 +21,7 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, quickshell, caelestia-cli, ... }:
+	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, caelestia-cli, ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
