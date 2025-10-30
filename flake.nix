@@ -20,8 +20,12 @@
 			url = "github:caelestia-dots/cli";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		quickshell = {
+			url = "github:quickshell-mirror/quickshell";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, caelestia-cli, ... }:
+	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, quickshell, caelestia-cli, ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
@@ -68,6 +72,7 @@
 			# 	};
 			# })
 			(final: prev: {inherit (caelestia-cli.packages."${system}") caelestia-cli;})
+			(final: prev: {inherit (quickshell.packages."${system}") quickshell;})
 			];
 	};
 	modules = with inputs; [

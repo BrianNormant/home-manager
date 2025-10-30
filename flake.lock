@@ -471,6 +471,26 @@
         "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
       }
     },
+    "quickshell_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1761643228,
+        "narHash": "sha256-G16tcvlv9tHqrNQB8UTtdqTd6jur9wNuik1Kx6NDH5Y=",
+        "owner": "quickshell-mirror",
+        "repo": "quickshell",
+        "rev": "1b147a2c78983877909f9e531fc8ce17c35a297a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "quickshell-mirror",
+        "repo": "quickshell",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "autoeq": "autoeq",
@@ -479,7 +499,8 @@
         "nixd": "nixd",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
-        "nspire-tools": "nspire-tools"
+        "nspire-tools": "nspire-tools",
+        "quickshell": "quickshell_2"
       }
     },
     "systems": {
