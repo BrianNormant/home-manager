@@ -6,9 +6,11 @@
 	programs = {
 		git = {
 			enable = true;
-			userEmail = "briannormant@gmail.com";
-			userName = hostname;
-			extraConfig = {
+			settings = {
+				user = {
+					email = "briannormant@gmail.com";
+					name = hostname;
+				};
 				core = {
 					pager = "delta --pager='ov -F'";
 				};
