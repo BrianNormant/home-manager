@@ -16,10 +16,6 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		quickshell = {
-			url = "github:quickshell-mirror/quickshell";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
 		caelestia-cli = {
 			url = "github:caelestia-dots/cli";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -71,7 +67,6 @@
 			# 		version = "0.3.0";
 			# 	};
 			# })
-			(final: prev: {inherit (quickshell.packages."${system}") quickshell;})
 			(final: prev: {inherit (caelestia-cli.packages."${system}") caelestia-cli;})
 			];
 	};

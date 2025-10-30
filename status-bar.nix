@@ -60,6 +60,15 @@ let
 in {
 	programs.quickshell = {
 		enable = true;
+		package = pkgs.quickshell.overrideAttrs (prev: (next: {
+			src = pkgs.fetchFromGitea {
+				domain = "git.outfoxxed.me";
+				owner = "quickshell";
+				repo = "quickshell";
+				rev = "1b147a2c";
+				hash = "sha256-G16tcvlv9tHqrNQB8UTtdqTd6jur9wNuik1Kx6NDH5Y=";
+			};
+		}));
 	};
 	home.packages = with pkgs; [
 		quickshell
