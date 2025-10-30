@@ -33,6 +33,7 @@ M._completion = {
 	responses = {},
 }
 
+
 M._info = {
 	bufnr = 0,
 	winids = {},
@@ -102,12 +103,7 @@ function M.setup(opts)
 	})
 
 	if M._opts.info.enable then
-		M._info.bufnr = vim.api.nvim_create_buf(false, true)
-		vim.api.nvim_buf_set_name(M._info.bufnr, "Compl:InfoWindow")
-		vim.fn.setbufvar(M._info.bufnr, "&buftype", "nofile")
-		vim.fn.setbufvar(M._info.bufnr, "&filetype", "markdown")
-		require('markview').actions.attach(M._info.bufnr)
-		require('markview').actions.enable(M._info.bufnr)
+		M._create_info_buffer()
 	end
 
 	if M._opts.snippet.enable then
@@ -118,6 +114,15 @@ function M.setup(opts)
 	end
 end
 
+
+function M._create_info_buffer()
+	M._info.bufnr = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_name(M._info.bufnr, "Compl:InfoWindow")
+	vim.fn.setbufvar(M._info.bufnr, "&buftype", "nofile")
+	vim.fn.setbufvar(M._info.bufnr, "&filetype", "markdown")
+	require('markview').actions.attach(M._info.bufnr)
+	require('markview').actions.enable(M._info.bufnr)
+end
 
 -- This function populate the completion options with the lsps
 -- if the open_after option is set, we open the completion menu with the items after
@@ -351,7 +356,7 @@ function M._start_info(data)
 end
 
 function M._open_info_window(item)
-	require('markview').clear(M._info.bufnr)
+	-- require('markview').clear(M._info.bufnr)
 	local detail = item.detail or ""
 
 	local documentation
@@ -379,6 +384,10 @@ function M._open_info_window(item)
 
 	if next(lines) and next(pumpos) then
 		-- Convert lines into syntax highlighted regions and set it in the buffer
+		if (vim.fn.bufexists(M._info.bufnr) == 0) then
+			M._create_info_buffer()
+		end
+		
 		vim.api.nvim_buf_set_lines(M._info.bufnr, 0, -1, false, lines)
 
 		local pum_left = pumpos.col - 1
