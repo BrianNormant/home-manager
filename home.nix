@@ -80,6 +80,11 @@ in {
 			executable = true;
 		};
 		".config/wlxoverlay/wayvr.conf.d/dashboard.yaml".source = ./config/wlxoverlay/wayvr.conf.d/dashboard.yaml;
+
+		# Thunar "Open terminal here" action
+		".config/xfce4/helpers.rc".text = ''
+			TerminalEmulator=kitty
+		'';
 	};
 
 	home.pointerCursor = {
