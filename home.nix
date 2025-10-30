@@ -87,12 +87,41 @@ in {
 		'';
 	};
 
-	home.pointerCursor = {
-		name = "phinger-cursors-dark";
-		package = pkgs.phinger-cursors;
-		size = 32;
-		gtk.enable = true;
+	gtk = {
+		enable = true;
+		theme = {
+			name = "Gruvbox-Dark";
+			package = pkgs.gruvbox-gtk-theme.override {
+				themeVariants = [
+					"red"
+				];
+				tweakVariants = [
+					"soft"
+				];
+			};
+		};
+		iconTheme = {
+			name = "Gruvbox-Plus-Dark";
+			package = pkgs.gruvbox-plus-icons.override {
+				folder-color = "red";
+			};
+		};
+		cursorTheme = {
+			name = "Gruvbox-cursors";
+			package = pkgs.gruvbox-gtk-theme.override {
+				iconVariants = [
+					"Dark"
+				];
+			};
+		};
 	};
+
+	# home.pointerCursor = {
+	# 	name = "phinger-cursors-dark";
+	# 	package = pkgs.phinger-cursors;
+	# 	size = 32;
+	# 	gtk.enable = true;
+	# };
 
 	programs = {
 		nushell = {
