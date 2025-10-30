@@ -95,14 +95,7 @@ in {
 		enable = true;
 		theme = {
 			name = "Gruvbox-Dark";
-			package = pkgs.gruvbox-gtk-theme.override {
-				themeVariants = [
-					"red"
-				];
-				tweakVariants = [
-					"soft"
-				];
-			};
+			package = pkgs.gruvbox-gtk-theme;
 		};
 		iconTheme = {
 			name = "Gruvbox-Plus-Dark";
