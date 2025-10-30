@@ -5,6 +5,7 @@
 			package = pkgs.walker;
 			systemd.enable = true;
 			settings = {
+				# theme = "gruvbox";
 				as_window = false;
 				builtins = {
 					applications = {
@@ -18,11 +19,11 @@
 					};
 				};
 			};
-			theme = {
-				name = "gruvbox";
-				style = builtins.readFile ./config/walkerstyle.css;
-			};
 		};
+	};
+	home.file = {
+		".config/walker/themes/gruvbox.css".source = ./config/walker/gruvbox.css;
+		".config/walker/themes/gruvbox.toml".source = ./config/walker/gruvbox.toml;
 	};
 	programs = {
 		rofi = {

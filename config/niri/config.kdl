@@ -5,6 +5,7 @@ spawn-at-startup "zsh" "/home/brian/.config/script/random-waypaper.sh"
 spawn-at-startup "whatsie"
 spawn-at-startup "poweralertd"
 spawn-at-startup "quickshell"
+spawn-at-startup "caelestia scheme set --name gruvbox --variant fruitsalad --flavour soft --mode dark"
 
 // TODO: auth agent
 
@@ -170,6 +171,7 @@ binds {
 	// Move workspaces
 	Mod+Alt+Z { move-workspace-up; }
 	Mod+Alt+X { move-workspace-down; }
+	Mod+N { spawn "/home/brian/.config/script/set-workspace-name.sh"; }
 
 	// Window/Colum Size
 	Mod+R { switch-preset-window-width; }

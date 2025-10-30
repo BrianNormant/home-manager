@@ -26,6 +26,37 @@ let
 			cp -r Niri $out/lib/qml
 		'';
 	};
+	qml-caelestia = pkgs.stdenv.mkDerivation rec {
+		pname = "qml-caelestia";
+		version = "210e0b6";
+		src = pkgs.fetchFromGitHub {
+	 		owner = "BrianNormant";
+			repo = "shell";
+			rev = "${version}";
+			hash = "sha256-Y7JEdMOz3DKQTCm0KZLjg0AQATlUpnHtyJCyxNTEYXo=";
+		};
+		dontWrapQtApps = true;
+		nativeBuildInputs = with pkgs; [
+			cmake
+			gnumake
+			pkg-config
+			qt6.qtbase
+			qt6.qtwayland
+			libqalculate
+			pipewire
+			aubio
+			libcava
+			fftw
+		];
+		cmakeFlags =
+			[
+				(pkgs.lib.cmakeFeature "ENABLE_MODULES" "plugin")
+				(pkgs.lib.cmakeFeature "INSTALL_QMLDIR" pkgs.qt6.qtbase.qtQmlPrefix)
+				(pkgs.lib.cmakeFeature "VERSION" "3.20")
+				(pkgs.lib.cmakeFeature "GIT_REVISION" version)
+				(pkgs.lib.cmakeFeature "DISTRIBUTOR" "nix-flake")
+			];
+	};
 in {
 	programs.quickshell = {
 		enable = true;
@@ -38,18 +69,21 @@ in {
 		grim
 		swappy
 		libqalculate
-		nerd-fonts.jetbrains-mono
-		brightnessctl
+		nerd-fonts.jetbrains-mono		brightnessctl
 		ddcutil
 		cava
 		app2unit
 		aubio
 		fish
 		qml-niri
+		qml-caelestia
+		gpu-screen-recorder
+		caelestia-cli
 	];
 	home.file = {
 		".config/quickshell".source = ./config/quickshell;
 	};
-	home.sessionVariables."QML_IMPORT_PATH" = "${qml-niri}/lib/qml/";
+	home.sessionVariables."QML_IMPORT_PATH" = "${qml-niri}/lib/qml/:${qml-caelestia}/lib/qt-6/qml/";
+	programs.zsh.sessionVariables."QML_IMPORT_PATH" = "${qml-niri}/lib/qml/:${qml-caelestia}/lib/qt-6/qml/";
 	fonts.fontconfig = { enable = true; };
 }

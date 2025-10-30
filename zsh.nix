@@ -27,6 +27,9 @@ in {
 		syntaxHighlighting.enable = true;
 		enableCompletion = true;
 		autosuggestion.enable = true;
+		sessionVariables = {
+			QT_QPA_PLATFORM = "wayland";
+		};
 		shellAliases = {
 			flake-init = "nix flake init -t github:BrianNormant/nixosconf";
 			icat  =  "kitty +kitten icat --clear";

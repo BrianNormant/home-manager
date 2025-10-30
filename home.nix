@@ -64,6 +64,10 @@ in {
 			executable = true;
 		};
 		".config/script/switch-playerctl.zsh".source = ./script/switch-controlled-player.sh;
+		".config/script/set-workspace-name.sh" = {
+			source = ./script/set-workspace-name.sh;
+			executable = true;
+		};
 
 		".rmapi".source = mkMutableSymlink "${config.home.homeDirectory}/.config/rmapi/rmapi.conf";
 
