@@ -1,10 +1,10 @@
 { pkgs, ... }: {
-	programs = {
+	services = {
 		walker = {
 			enable = true;
 			package = pkgs.walker;
-			runAsService = true;
-			config = {
+			systemd.enable = true;
+			settings = {
 				as_window = false;
 				builtins = {
 					applications = {
@@ -18,7 +18,13 @@
 					};
 				};
 			};
+			theme = {
+				name = "gruvbox";
+				style = builtins.readFile ./config/walkerstyle.css;
+			};
 		};
+	};
+	programs = {
 		rofi = {
 			enable = true;
 			theme = "gruvbox-dark-soft";

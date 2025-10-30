@@ -2,13 +2,13 @@
 	description = "Home Manager configuration of brian";
 
 	inputs = {
+		self.submodules = true;
 # Specify the source of Home Manager and Nixpkgs.
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		home-manager = {
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		walker.url = "github:abenz1267/walker?ref=v0.12.16";
 		nspire-tools.url = "github:BrianNormant/nspire-tools";
 		nixd.url = "github:nix-community/nixd?ref=2.6.2";
 		autoeq.url = "github:BrianNormant/autoeq";
@@ -20,8 +20,12 @@
 			url = "github:quickshell-mirror/quickshell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		caelestia-cli = {
+			url = "github:caelestia-dots/cli";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, quickshell, ... }:
+	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, quickshell, caelestia-cli, ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
@@ -68,11 +72,11 @@
 			# 	};
 			# })
 			(final: prev: {inherit (quickshell.packages."${system}") quickshell;})
+			(final: prev: {inherit (caelestia-cli.packages."${system}") caelestia-cli;})
 			];
 	};
 	modules = with inputs; [
 		./home.nix
-		walker.homeManagerModules.default
 		nixvim.homeModules.default
 	];
 	in {
