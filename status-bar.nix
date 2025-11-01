@@ -60,15 +60,15 @@ let
 in {
 	programs.quickshell = {
 		enable = true;
-		# package = pkgs.quickshell.overrideAttrs (prev: (next: {
-		# 	src = pkgs.fetchFromGitea {
-		# 		domain = "git.outfoxxed.me";
-		# 		owner = "quickshell";
-		# 		repo = "quickshell";
-		# 		rev = "1b147a2c";
-		# 		hash = "sha256-G16tcvlv9tHqrNQB8UTtdqTd6jur9wNuik1Kx6NDH5Y=";
-		# 	};
-		# }));
+		package = pkgs.quickshell.overrideAttrs (prev: (next: {
+			src = pkgs.fetchFromGitea {
+				domain = "git.outfoxxed.me";
+				owner = "quickshell";
+				repo = "quickshell";
+				rev = "fc704e6b5d";
+				hash = "sha256-er4gYrIoThYLjlsOMTysoRfn67d1Gci+ZpqDrtQxrA0=";
+			};
+		}));
 	};
 	home.packages = with pkgs; [
 		material-symbols
