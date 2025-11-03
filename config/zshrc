@@ -21,6 +21,24 @@ function playerctl() {
 	env playerctl -p "$CURRENT_PLAYER" $*
 }
 
+# detach from tmux instead of killing the session.
+# This could use some work to only detach if the session has 1 pane.
+# As the simple way to kill a pane is "Ctrl-d".
+stty eof '' # let zsh handle ctrl-d
+function smart_ctrl_d() {
+	if [[ -n $IN_NIX_SHELL ]]; then
+		exit
+	elif [[ -n $NVIM ]]; then
+		exit
+	elif [[ -n $TMUX ]]; then
+		tmux detach
+	else
+		exit
+	fi
+}
+zle -N smart_ctrl_d
+bindkey '^D' smart_ctrl_d
+
 if [[ $- == *i* ]]; then
 	if [[ -n $NEOVIDE ]]; then
 		zstyle ':fzf-tab:*' fzf-command fzf
