@@ -92,6 +92,16 @@
 				Unit.After="niri.service";
 			};
 
+			zapzap = {
+				Service.Type = "exec";
+				Service.ExecStart = "${pkgs.zapzap}/bin/zapzap";
+				Service.Restart="always";
+				Service.RestartSec="5s";
+				Unit.After="niri.service";
+			};
+
+
+
 			# video = {
 			# 	Service.Type = "oneshot";
 			# 	Service.ExecStart = "/home/brian/.nix-profile/bin/mpvpaper "

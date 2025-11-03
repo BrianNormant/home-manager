@@ -2,6 +2,7 @@
 	xdg.configFile = {
 		"niri".source = ./config/niri;
 
+		# TODO: automatically create the symlink using nix
 		"systemd/user/niri.service.wants/copyq.service".source =
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/copyq.service;
 		"systemd/user/niri.service.wants/waypaper.service".source =
@@ -18,6 +19,8 @@
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/swww.service;
 		"systemd/user/niri.service.wants/polkit-agent.service".source =
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/polkit-agent.service;
+		"systemd/user/niri.service.wants/zapzap.service".source =
+			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/zapzap.service;
 	};
 	home.packages = with pkgs; [
 		xwayland-satellite
