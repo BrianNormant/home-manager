@@ -58,7 +58,7 @@ in {
 				event = ["BufWrite" "BufRead"];
 				pattern = [ "*.md" ];
 				callback.__raw = ''function()
-					local name = vim.fn.expand("%:r")
+					local name = vim.fn.expand("%:t")
 					local outputfile = "/var/lib/nvimpreview/" .. name .. ".html"
 
 					local inputfile = vim.fn.expand("%:p")
