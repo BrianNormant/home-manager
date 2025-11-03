@@ -36,7 +36,6 @@ in {
 		wl-clipboard
 		xsel
 
-		# whatsie
 		xournalpp # pdf editor
 		calibre # ebook reader
 		gimp # image editor
@@ -125,5 +124,15 @@ in {
 			generateCaches = true;
 		};
 		firefox.enable = true;
+		zapzap = {
+			enable = true;
+			settings = {
+				system = {
+					scale = 150;
+					theme = "dark";
+					wayland = true;
+				};
+			};
+		};
 	};
 }
