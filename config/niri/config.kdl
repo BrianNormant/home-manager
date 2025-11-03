@@ -196,9 +196,9 @@ binds {
 	// Applications
 	Mod+P { spawn "pavucontrol"; }
 	Mod+B { spawn "overskride"; }
-	Mod+Return { spawn "kitty" "zsh" "/home/brian/.config/tmux.zsh"; }
+	Mod+Return { spawn "kitty"; }
 	Mod+Alt+Return { spawn "cool-retro-term"; }
-	Mod+T { spawn "kitten" "quick-access-terminal" "tmux"; } // terminal pop-up
+	Mod+T { spawn "kitten" "quick-access-terminal"; }
 	Mod+E { spawn "neovide"; }
 	Mod+Alt+E { spawn "thunar"; }
 	Mod+V { spawn "copyq" "toggle"; }

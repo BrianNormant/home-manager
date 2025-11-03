@@ -1,17 +1,3 @@
-if [[ -n $TMUX ]]; then
-	zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-fi
-
-if [[ -n $NEOVIDE ]]; then
-	zstyle ':fzf-tab:*' fzf-command fzf
-	unset TMUX # Not sure if something needs tmux to be set?
-fi
-
-function playerctl() {
-	eval `systemctl --user show-environment | grep CURRENT_PLAYER`
-	env playerctl -p "$CURRENT_PLAYER" $*
-}
-
 export NH_HOME_FLAKE="/home/brian/.config/home-manager"
 export PAGER="ov"
 export SYSTEMD_PAGER="ov"
@@ -28,6 +14,45 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd "^X^E" edit-command-line
 bindkey -M viins "^X^E" edit-command-line
+
+
+function playerctl() {
+	eval `systemctl --user show-environment | grep CURRENT_PLAYER`
+	env playerctl -p "$CURRENT_PLAYER" $*
+}
+
+if [[ $- == *i* ]]; then
+	if [[ -n $NEOVIDE ]]; then
+		zstyle ':fzf-tab:*' fzf-command fzf
+		unset TMUX # Not sure if something needs tmux to be set?
+	elif [[ -n $TMUX ]]; then
+		zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+	elif [[ -o login ]]; then
+		# do not start tmux on the login shell
+	else
+		tmuxcmd=""
+		nbsession=$(tmux ls 2> /dev/null | wc -l)
+		if [[ $nbsession -eq 0 ]]; then
+			tmuxcmd='tmux -2 new-session -t Main'
+		elif [[ $nbsession -lt 5 ]]; then
+			# If a session is not attached too, attach to it.
+			tmuxcmd='tmux -2 new-session'
+			tmuxsession=$(tmux ls 2> /dev/null)
+			for session in ${(f)tmuxsession}; do
+				local name=$(echo $session | cut -d ":" -f 1)
+				clients=$(tmux list-clients -t $name 2> /dev/null | wc -l)
+				if [[ $clients -eq 0 ]]; then
+					# If it's not attached, attach to it
+					tmuxcmd="tmux attach -t $name"
+				fi;
+			done
+		else
+			tmuxcmd='tmux -2 attach'
+		fi
+
+		eval "$tmuxcmd"
+	fi
+fi
 
 #To be hooked with nix shells
 eval "$CMD"
