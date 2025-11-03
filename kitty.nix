@@ -17,6 +17,11 @@
 				background = "#32302F";
 				sync_to_monitor = "no";
 			};
+			quickAccessTerminalConfig = {
+				lines = 25;
+				columns = 80;
+				edge = "center-sized";
+			};
 			extraConfig = ''
 				map alt+F1 set_background_opacity +0.1
 				map alt+F2 set_background_opacity -0.1

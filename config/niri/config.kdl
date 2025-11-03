@@ -52,6 +52,13 @@ window-rule {
 }
 
 window-rule {
+	match app-id="thunar"
+	open-floating true
+	default-window-height { proportion 0.8; }
+	default-column-width { proportion 0.4; }
+}
+
+window-rule {
 	match app-id="org.pulseaudio.pavucontrol"
 	open-floating true
 	default-window-height { proportion 0.6; }
@@ -189,7 +196,7 @@ binds {
 	Mod+B { spawn "overskride"; }
 	Mod+Return { spawn "kitty" "zsh" "/home/brian/.config/tmux.zsh"; }
 	Mod+Alt+Return { spawn "cool-retro-term"; }
-	Mod+T { spawn "cool-retro-term"; }
+	Mod+T { spawn "kitten" "quick-access-terminal" "tmux"; } // terminal pop-up
 	Mod+E { spawn "neovide"; }
 	Mod+Alt+E { spawn "thunar"; }
 	Mod+V { spawn "copyq" "toggle"; }
