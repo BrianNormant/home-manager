@@ -69,7 +69,7 @@ local tmpl_os = {
 	},
 	builder = function(params)
 		return {
-			cmd = { "nixos-rebuild", "build" },
+			cmd = { "nixos-rebuild", "build", "--flake" },
 			args = params.args,
 			cwd = params.cwd,
 		}
@@ -91,7 +91,7 @@ local tmpl_os_switch = {
 	},
 	builder = function(params)
 		return {
-			cmd = { "nixos-rebuild", "switch" },
+			cmd = { "nixos-rebuild", "switch", "--flake" },
 			args = params.args,
 			cwd = params.cwd,
 		}
@@ -137,11 +137,11 @@ local parse_flake_show = function(_, cb)
 		if json["nixosConfigurations"] then
 			local configurations = json["nixosConfigurations"]
 			for conf, _ in pairs(configurations) do
-				local override = { name = string.format("Nixos %s", conf)}
+				local override = { name = string.format("Nixos Build %s", conf)}
 				local tmpl = overseer.wrap_template(tmpl_os,
 					override,
 					{
-						args = {conf},
+						args = {".#" .. conf},
 						cwd = cwd
 					}
 				)
@@ -150,7 +150,7 @@ local parse_flake_show = function(_, cb)
 				tmpl = overseer.wrap_template(tmpl_os_switch,
 					override,
 					{
-						args = {conf},
+						args = {".#" .. conf},
 						cwd = cwd
 					}
 				)
