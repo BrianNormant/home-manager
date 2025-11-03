@@ -6,6 +6,7 @@ in {
 			overseer = {
 				enable = true;
 				package = pkgs.vimPlugins.overseer-nvim;
+				# if overseer crash after update, lock the input to tag="v1.6.0" in the meantime until fix
 				lazyLoad = {
 					enable = true;
 					settings = {
