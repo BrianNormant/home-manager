@@ -21,6 +21,8 @@
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/polkit-agent.service;
 		"systemd/user/niri.service.wants/zapzap.service".source =
 			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/zapzap.service;
+		"systemd/user/niri.service.wants/yt-music.service".source =
+			config.lib.file.mkOutOfStoreSymlink /home/brian/.config/systemd/user/yt-music.service;
 	};
 	home.packages = with pkgs; [
 		xwayland-satellite

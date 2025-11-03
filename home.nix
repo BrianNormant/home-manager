@@ -42,6 +42,7 @@ in {
 		shotcut # video editor
 		# qt-web-engine is outdated
 		rimsort
+		youtube-music
 
 		zafiro-icons
 	];
