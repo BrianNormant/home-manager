@@ -43,6 +43,12 @@
 		};
 		configFile."mimeapps.list".source = ./config/mimeapps.list;
 		configFile."script/vifmtmux.sh".source = ./script/vifmtmux.sh;
+		terminal-exec = {
+			enable = true;
+			settings = {
+				default = [ "kitty.desktop" ];
+			};
+		};
 	};
 	programs = {
 		home-manager.enable = true;
