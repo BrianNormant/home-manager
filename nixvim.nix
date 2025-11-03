@@ -139,6 +139,7 @@ in {
 				# Spell
 				spelllang = "en_us";
 				spell = true;
+				spellcapcheck = ""; # ignore capitalization
 
 				# Session options
 				sessionoptions = "buffers,curdir,folds,help,tabpages,winsize";
