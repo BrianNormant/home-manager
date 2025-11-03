@@ -86,7 +86,8 @@ in {
 		qml-niri
 		qml-caelestia
 		gpu-screen-recorder
-		caelestia-cli
+		swaylock # unlock if the quickshell crashes
+		# caelestia-cli
 	];
 	home.file = {
 		".config/quickshell/shell.qml".source = ./config/quickshell/shell.qml;

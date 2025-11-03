@@ -20,7 +20,9 @@
 			quickAccessTerminalConfig = {
 				lines = 25;
 				columns = 80;
-				edge = "center-sized";
+				opacity = 0.9;
+				# edge = "center-sized"; // TODO: center when kitty version is updated
+				edge="bottom";
 			};
 			extraConfig = ''
 				map alt+F1 set_background_opacity +0.1

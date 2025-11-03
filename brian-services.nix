@@ -122,6 +122,6 @@
 			waypaper.Timer.OnCalendar = "*:0/1";
 		};
 
-		tmpfiles.rules = [ ];
+		tmpfiles.settings = {};
 	};
 }

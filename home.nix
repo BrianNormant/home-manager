@@ -40,7 +40,7 @@ in {
 		xournalpp # pdf editor
 		calibre # ebook reader
 		gimp # image editor
-		# openshot-qt # video editor
+		shotcut # video editor
 		# qt-web-engine is outdated
 		rimsort
 
