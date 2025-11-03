@@ -99,6 +99,14 @@
 				Service.RestartSec="5s";
 				Unit.After="niri.service";
 			};
+		
+			yt-music = {
+				Service.Type = "exec";
+				Service.ExecStart = "${pkgs.youtube-music}/bin/youtube-music";
+				Service.Restart="always";
+				Service.RestartSec="5s";
+				Unit.After="niri.service";
+			};
 
 
 
