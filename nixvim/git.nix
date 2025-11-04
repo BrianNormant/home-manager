@@ -216,7 +216,34 @@ in {
 			{
 				key = "<leader>gm";
 				action = "<CMD>DiffviewOpen<cr>";
-				options.desc = "Fugitive Mergetool resolve conflicts";
+				options.desc = "Diffview Mergetool resolve conflicts";
+			}
+			{ # TODO: select a revision to diff current file against
+				key = "<leader>gM";
+				action.__raw = ''
+function()
+	local builtin = require("telescope.builtin")
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+	local themes = require("telescope.themes")
+	local opts = {
+		attach_mappings = function()
+			actions.select_default:replace(function(prompt_bufnr)
+				local rev = action_state.get_selected_entry()
+				actions.close(prompt_bufnr)
+				-- vim.notify(vim.inspect(rev))
+				local cmd = string.format("Gitsigns diffthis %s", rev["value"])
+				-- vim.notify(cmd)
+				vim.cmd(cmd)
+
+			end)
+			return true
+		end
+	}
+	builtin.git_commits( themes.get_dropdown(opts) )
+end
+				'';
+				options.desc = "Fugitive Diff against current file";
 			}
 			{
 				key = "<leader>gg";
