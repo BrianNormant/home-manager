@@ -80,7 +80,7 @@ in {
 				};
 				combinePlugins = {
 					enable = true;
-					standalonePlugins = with vimPlugins; [
+					standalonePlugins = [
 						"nvim-treesitter"
 						"mini.nvim"
 						"friendly-snippets"

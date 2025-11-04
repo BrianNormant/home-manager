@@ -55,6 +55,11 @@ in{
 						require('lz.n').trigger_load("nvim-treesitter")
 					end'';
 				};
+				settings = {
+					max_lines = 3;
+					min_window_height = 20;
+					line_numbers = false;
+				};
 			};
 			ts-autotag = {
 				enable = true;
