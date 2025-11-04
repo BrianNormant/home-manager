@@ -15,6 +15,30 @@ in {
 				lazyLoad.settings = {
 					event = [ "DeferredUIEnter" ];
 				};
+				settings = {
+					signs = {
+						add          = { text = "┃"; show_count = true;};
+						change       = { text = "┃"; show_count = true; };
+						changedelete = { text = "▁"; show_count = true; };
+						delete       = { text = "▔"; show_count = true; };
+						topdelete    = { text = "~"; show_count = true; };
+						untracked    = { text = "┆"; show_count = false; };
+					};
+					count_chars.__raw = ''
+					{
+						"₁",
+						"₂",
+						"₃",
+						"₄",
+						"₅",
+						"₆",
+						"₇",
+						"₈",
+						"₉",
+						["+"] = ">"
+					}
+					'';
+				};
 				luaConfig.content = builtins.readFile ./gitsigns.lua;
 			};
 		};
