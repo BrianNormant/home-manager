@@ -104,6 +104,7 @@ in {
 			};
 		};
 	};
+	dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
 	home.pointerCursor = {
 		name = "phinger-cursors-dark";
