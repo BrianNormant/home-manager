@@ -247,7 +247,8 @@ end
 			}
 			{
 				key = "<leader>gg";
-				action = "<CMD>cexpr system(\"git jump --stdout diff\") | copen<CR>";
+				# action = "<CMD>cexpr system(\"git jump --stdout diff\") | copen<CR>";
+				action = "<CMD>Gitsign setqflist target=all<cr>";
 				options.desc = "Open Quickfix with git changes";
 			}
 		];
