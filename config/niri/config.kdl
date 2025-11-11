@@ -148,6 +148,9 @@ binds {
 	Mod+Shift+Q { quit; }
 	Mod+F1 { show-hotkey-overlay; }
 	Mod+Tab {toggle-overview; }
+	// Quickshell lockscreen will often crash after a while.
+	// This allows to use swaylock to avoid opening another tty with Ctrl-Alt-2
+	Mod+Alt+L allow-when-locked=true { spawn "swaylock"; }
 
 	// Focused window
 	Mod+Q { close-window; }
@@ -226,11 +229,11 @@ binds {
 	Alt+X { spawn "killall" "-USR1" "gpu-screen-recorder"; }
 
 	// Media
-	XF86AudioPlay { spawn "playerctl" "play-pause"; }
-	XF86AudioPause { spawn "playerctl" "play-pause"; }
-	XF86AudioStop { spawn "playerctl" "stop"; }
-	XF86AudioNext { spawn "playerctl" "next"; }
-	XF86AudioPrev { spawn "playerctl" "previous"; }
+	XF86AudioPlay { spawn "playerctl" "-a" "play-pause"; }
+	XF86AudioPause { spawn "playerctl" "-a" "play-pause"; }
+	XF86AudioStop { spawn "playerctl" "-a" "stop"; }
+	XF86AudioNext { spawn "playerctl" "-a" "next"; }
+	XF86AudioPrev { spawn "playerctl" "-a" "previous"; }
 	XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%+"; }
 	XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"; }
 	XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_SINK@" "toggle"; }
