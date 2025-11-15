@@ -26,16 +26,6 @@
 					];
 				};
 			};
-			spectre = {
-				enable = true;
-				lazyLoad.settings = {
-					keys = [{
-						__unkeyed-1 = "<S-F3>";
-						__unkeyed-2 = "<Cmd>Spectre<CR>";
-						mode = [ "n" ];
-					}];
-				};
-			};
 		};
 	};
 }
