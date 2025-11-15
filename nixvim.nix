@@ -17,7 +17,7 @@ in {
 		./nixvim/dropbar.nix
 		./nixvim/lualine.nix
 		./nixvim/tabby.nix
-		./nixvim/ufo.nix
+		./nixvim/fold.nix
 		./nixvim/indent.nix
 		./nixvim/treesitter.nix
 		./nixvim/starter.nix
