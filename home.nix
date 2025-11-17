@@ -89,6 +89,8 @@ in {
 		".config/xfce4/helpers.rc".text = ''
 			TerminalEmulator=kitty
 		'';
+
+		".config/winapps/winapps.conf".source = ./config/winapps/winapps.conf;
 	};
 
 	gtk = {
