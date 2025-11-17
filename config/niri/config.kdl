@@ -94,6 +94,11 @@ window-rule {
 	default-column-width { proportion 0.2; }
 }
 
+window-rule {
+	match app-id=r#".*\[UWP\]"#
+	open-floating true
+}
+
 layer-rule {
 	match namespace="^swww-daemon$"
 	place-within-backdrop true
