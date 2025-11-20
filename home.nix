@@ -43,6 +43,7 @@ in {
 		# qt-web-engine is outdated
 		rimsort
 		youtube-music
+		rmapi
 
 		zafiro-icons
 	];
