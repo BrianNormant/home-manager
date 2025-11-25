@@ -41,6 +41,21 @@ in {
 				};
 				luaConfig.content = builtins.readFile ./gitsigns.lua;
 			};
+			diffview = {
+				enable = true;
+				settings = {
+					enhanced_diff_hl = true;
+					view = {
+						merge_tool = {
+							layout = "diff4_mixed";
+						};
+					};
+					file_panel = {
+						listing_style = "list";
+					};
+				};
+				lazyLoad.settings = { cmd = "DiffviewOpen"; };
+			};
 		};
 		# Workaround as Fugitive* are vimscript events
 		extraPlugins = with vimPlugins; [
@@ -62,10 +77,6 @@ in {
 				};
 				optional = true;
 			}
-			{
-				plugin = diffview-nvim;
-				optional = true;
-			}
 		];
 		extraConfigLuaPost = ''
 			_G.fugitive_help = function()
@@ -76,23 +87,6 @@ in {
 					'vim-fugitive',
 					event = "DeferredUIEnter",
 					after = function() end,
-				},
-				{
-					'diffview.nvim',
-					event = "DeferredUIEnter",
-					after = function()
-						require('diffview').setup {
-							enhanced_diff_hl = true,
-							view = {
-								merge_tool = {
-									layout = "diff4_mixed",
-								},
-							},
-							file_panel = {
-								listing_style = "list",
-							},
-						}
-					end
 				},
 				{
 					'gitgraph.nvim',

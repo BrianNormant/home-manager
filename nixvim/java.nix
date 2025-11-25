@@ -3,6 +3,7 @@ programs.nixvim = {
 		extraPackages = with pkgs; [
 			jdt-language-server
 		];
+		# my setup is too complex to use nixvim integration.
 		extraPlugins = with pkgs.vimPlugins; [
 			# {optional = true; plugin = nvim-java-test;}
 			{optional = true; plugin = nvim-java-dap;}

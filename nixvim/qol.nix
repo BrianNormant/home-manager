@@ -8,10 +8,6 @@ in {
 				plugin = boole-nvim;
 				optional = true;
 			}
-			{
-				plugin = vim-wakatime;
-				optional = false;
-			}
 		];
 		extraConfigLua = builtins.readFile ./boole.lua;
 		plugins = {
@@ -44,6 +40,9 @@ in {
 				settings = {
 					WindowLayout = 3;
 				};
+			};
+			wakatime = {
+				enable = true;
 			};
 		};
 		keymaps = [
