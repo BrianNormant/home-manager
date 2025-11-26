@@ -87,6 +87,9 @@ in {
 					];
 				};
 			};
+			extraPlugins = with pkgs.vimPlugins; [
+				vim-tridactyl
+			];
 			plugins = {
 				lz-n.enable = true;
 				lz-n.autoLoad = true;

@@ -44,6 +44,7 @@ in {
 		rimsort
 		youtube-music
 		rmapi
+		tridactyl-native
 
 		zafiro-icons
 	];
