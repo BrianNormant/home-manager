@@ -32,11 +32,4 @@ require('lz.n').load {
 			]]
 		end,
 	},
-	{
-		"marks.nvim",
-		event = "DeferredUIEnter",
-		after = function()
-			require('marks').setup {}
-		end,
-	}
 }

@@ -1,4 +1,4 @@
-{pkgs, ... }:
+{pkgs, lib, ... }:
 let
 	inherit (pkgs.vimUtils) buildVimPlugin;
 	inherit (pkgs) fetchFromGitHub;
@@ -9,6 +9,23 @@ in {
 			virtual_text = false;
 		};
 		plugins = {
+			actions-preview = {
+				enable = true;
+				settings = {
+					highlight_command.__raw = ''{
+						require("actions-preview.highlight").delta()
+					}'';
+					backend = [ "telescope" ];
+				};
+				lazyLoad.settings = { event = "LspAttach"; };
+			};
+			goto-preview = {
+				enable = true;
+				lazyLoad.settings = { event = "LspAttach"; };
+				settings = {
+					border = "rounded";
+				};
+			};
 			lsp = {
 				enable = true;
 				preConfig = ''
@@ -109,19 +126,7 @@ in {
 		};
 		extraPlugins = with pkgs.vimPlugins; [
 			{
-				plugin = actions-preview-nvim;
-				optional = true;
-			}
-			{
 				plugin = hover-nvim;
-				optional = true;
-			}
-			{
-				plugin = nvim-docs-view;
-				optional = true;
-			}
-			{
-				plugin = goto-preview;
 				optional = true;
 			}
 			{

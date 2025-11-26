@@ -14,8 +14,8 @@ in{
 					src = fetchFromGitHub {
 						owner = "jonatan-branting";
 						repo = "nvim-better-n";
-						rev = "73a16d9";
-						hash = "sha256-4SjjPNPrPF0kPBiJBd2VMNU5UuEJbYe9YGWB15PPNVQ=";
+						rev = "95d8ce2";
+						hash = "sha256-Y/b7iXXQw9hbZ2uAkcJNuKt30pn2Vdsk/IOjBJ3QjAM=";
 					};
 				};
 				optional = true;

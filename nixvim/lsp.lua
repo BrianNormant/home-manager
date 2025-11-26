@@ -1,26 +1,5 @@
 require('lz.n').load {
 	{
-		'goto-preview',
-		event = 'LspAttach',
-		after = function ()
-			require('goto-preview').setup {
-				border = "rounded"
-			}
-		end
-	},
-	{
-		'actions-preview.nvim',
-		event = 'LspAttach',
-		after = function ()
-			require('actions-preview').setup {
-				highlight_command = {
-					require("actions-preview.highlight").delta(),
-				},
-				backend = { "telescope" },
-			}
-		end,
-	},
-	{
 		"hover.nvim",
 		event = "LspAttach",
 		after = function ()
@@ -34,15 +13,6 @@ require('lz.n').load {
 					require('hover.providers.dictionary')
 					-- gh is avaible if needs be for github issues tracking
 				end
-			}
-		end,
-	},
-	{
-		"nvim-docs-view",
-		cmd = "DocsViewToggle",
-		after = function ()
-			require('docs-view').setup {
-				position = "bottom",
 			}
 		end,
 	},

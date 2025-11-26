@@ -1,11 +1,39 @@
 {pkgs, ...}:
 let
 	inherit (pkgs.vimUtils) buildVimPlugin;
+	inherit (pkgs.stdenv) mkDerivation;
 	inherit (pkgs) fetchFromGitHub;
 	inherit (pkgs.lib) fakeHash;
 	inherit (pkgs) vimPlugins;
+	vscode-diff-src = fetchFromGitHub {
+		owner = "esmuellert";
+		repo = "vscode-diff.nvim";
+		rev = "9d285fc";
+		hash = "sha256-4EhXj2UDMsRfHlj+tXJ1nlINL7XTknDuKSQLzboybE4=";
+	};
+	libvscode-diff = mkDerivation rec {
+		pname = "libvscode-diff";
+		version = "9d285fc";
+		nativeBuildInputs = with pkgs; [
+			gnumake
+			cmake
+		];
+		dontUseCmakeConfigure = true;
+		buildPhase = ''
+					make -j$(nproc)
+		'';
+		installPhase = ''
+					ls -la
+					mkdir -p $out/lib
+					install -D -m644 libvscode_diff.so $out/lib/libvscode_diff.so
+		'';
+		src = vscode-diff-src;
+	};
 in {
 	programs.nixvim = {
+		env = {
+			VSCODE_DIFF_NO_AUTO_INSTALL = 1;
+		};
 		extraPackages = with pkgs; [
 			git-extras
 		];
@@ -41,6 +69,21 @@ in {
 				};
 				luaConfig.content = builtins.readFile ./gitsigns.lua;
 			};
+			diffview = {
+				enable = true;
+				settings = {
+					enhanced_diff_hl = true;
+					view = {
+						merge_tool = {
+							layout = "diff4_mixed";
+						};
+					};
+					file_panel = {
+						listing_style = "list";
+					};
+				};
+				lazyLoad.settings = { cmd = "DiffviewOpen"; };
+			};
 		};
 		# Workaround as Fugitive* are vimscript events
 		extraPlugins = with vimPlugins; [
@@ -63,8 +106,36 @@ in {
 				optional = true;
 			}
 			{
-				plugin = diffview-nvim;
-				optional = true;
+				plugin = buildVimPlugin rec {
+					pname = "vscode-diff-nvim";
+					version = "9d285fc";
+					postPatch = ''
+						substituteInPlace lua/vscode-diff/diff.lua \
+							--replace-fail 'local lib_path = plugin_root .. "/" .. lib_name' 'local lib_path = "${libvscode-diff}/lib/libvscode_diff.so"'
+					'';
+					buildInputs = with pkgs.vimPlugins; [
+						nui-nvim
+					];
+					nvimSkipModules = [
+						"vscode-diff"
+						"vscode-diff.installer"
+						"vscode-diff.render.semantic_tokens"
+						"vscode-diff.render.highlights"
+						"vscode-diff.render.view"
+						"vscode-diff.render.core"
+						"vscode-diff.render.explorer"
+						"vscode-diff.render.init"
+						"vscode-diff.render.lifecycle"
+						"vscode-diff.commands"
+						"vscode-diff.config"
+						"vscode-diff.virtual_file"
+						"vscode-diff.git"
+						"vscode-diff.version"
+						"vscode-diff.diff"
+						"vscode-diff.auto_refresh"
+					];
+					src = vscode-diff-src;
+				};
 			}
 		];
 		extraConfigLuaPost = ''
@@ -76,23 +147,6 @@ in {
 					'vim-fugitive',
 					event = "DeferredUIEnter",
 					after = function() end,
-				},
-				{
-					'diffview.nvim',
-					event = "DeferredUIEnter",
-					after = function()
-						require('diffview').setup {
-							enhanced_diff_hl = true,
-							view = {
-								merge_tool = {
-									layout = "diff4_mixed",
-								},
-							},
-							file_panel = {
-								listing_style = "list",
-							},
-						}
-					end
 				},
 				{
 					'gitgraph.nvim',
@@ -139,8 +193,8 @@ in {
 							hooks = {
 								-- TODO: Run a fugitive/diffview command with those actions
 								on_select_commit = function(commit)
-									vim.notify('DiffviewOpen ' .. commit.hash)
-									vim.cmd(':DiffviewOpen ' .. commit.hash)
+									vim.notify('CodeDiff ' .. commit.hash)
+									vim.cmd(':CodeDiff ' .. commit.hash)
 								end,
 								on_select_range_commit = function(from, to)
 									vim.notify('DiffviewOpen ' .. from.hash .. '..' .. to.hash)
