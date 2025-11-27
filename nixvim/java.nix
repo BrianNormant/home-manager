@@ -39,5 +39,6 @@ programs.nixvim = {
 	home.file = {
 		".local/share/lib/openjdk-17".source = pkgs.jdk17 + "/lib/openjdk";
 		".local/share/lib/openjdk-21".source = pkgs.jdk21 + "/lib/openjdk";
+		".local/share/lib/openjdk-25".source = pkgs.jdk25 + "/lib/openjdk";
 	};
 }

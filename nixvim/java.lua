@@ -64,6 +64,7 @@ require('lz.n').load {
 						runtimes = {
 							{name = "JavaSE-17", path = "/home/brian/.local/share/lib/openjdk-17"},
 							{name = "JavaSE-21", path = "/home/brian/.local/share/lib/openjdk-21"},
+							{name = "JavaSE-25", path = "/home/brian/.local/share/lib/openjdk-25"},
 						}
 					},
 
