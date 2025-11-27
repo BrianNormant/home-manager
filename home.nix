@@ -53,7 +53,16 @@ in {
   # plain files is through 'home.file'.
   home.file = {
 		".config/waypaper/config.ini".source = ./config/waypaper/config.ini;
-		".config/.tridactylrc".source = ./config/tridactylrc;
+		".config/tridactyl/tridactylrc".source = ./config/tridactylrc;
+		".mozilla/native-messaging-hosts/tridactyl.json".text = ''
+			{
+				"name": "tridactyl",
+				"description": "Tridactyl native command handler",
+				"path": "${pkgs.tridactyl-native}/bin/native_main",
+				"type": "stdio",
+				"allowed_extensions": [ "tridactyl.vim@cmcaine.co.uk","tridactyl.vim.betas@cmcaine.co.uk", "tridactyl.vim.betas.nonewtab@cmcaine.co.uk" ]
+			}
+		'';
 
 		".config/script/media.zsh".text = builtins.readFile ./script/fetch-and-format-media.zsh;
 		".config/script/media.zsh".executable = true;

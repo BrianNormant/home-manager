@@ -1,4 +1,14 @@
-set searchurls.nixpkgs https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=%s
-set searchurls.nixopts https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=%s
-set searchurls.tube https://www.youtube.com/results?search_query=%s
-set searchurls.home https://home-manager-options.extranix.com/?query=%s&release=master
+"" Common search tools
+set searchurls.nixpkgs https://search.nixos.org/packages?channel=unstable&type=packages&query=%s
+set searchurls.nixopts https://search.nixos.org/options?channel=unstable&type=options&query=%s
+set searchurls.homemanager https://home-manager-options.extranix.com/?query=%s&release=master
+set searchurls.nixvim https://nix-community.github.io/nixvim/?search=%s
+set searchurls.cnrtl https://www.cnrtl.fr/definition/%s
+
+"" theming
+set theme greenmat
+set modeindicator false
+
+"" hint mode by text
+set hintchars 5432167890
+set hintfiltermode vimperator-reflow
