@@ -6,7 +6,8 @@ set searchurls.nixvim https://nix-community.github.io/nixvim/?search=%s
 set searchurls.cnrtl https://www.cnrtl.fr/definition/%s
 
 "" theming
-set theme greenmat
+colourscheme --url https://github.com/jrolfs/gruvbox-material-tridactyl/releases/download/v0.1.1/dark-soft.css gruvbox-material-dark-soft
+" set theme greenmat
 set modeindicator false
 
 "" hint mode by text
