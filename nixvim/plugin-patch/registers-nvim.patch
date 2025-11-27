@@ -1,0 +1,13 @@
+diff --git a/lua/registers.lua b/lua/registers.lua
+index dcb934d..db0b7bb 100644
+--- a/lua/registers.lua
++++ b/lua/registers.lua
+@@ -540,7 +540,7 @@ function registers._create_window()
+     if registers._mode == "paste" and registers._previous_mode == "i" then
+         vim.api.nvim_err_writeln(
+             "registers.nvim doesn't support `registers.show_window('paste')` being invoked from insert mode")
+-    elseif registers._mode == "insert" and registers._previous_mode ~= "i" and registers._previous_mode ~= "c" then
++    elseif registers._mode == "insert" and registers._previous_mode ~= "i" and registers._previous_mode ~= "c" and registers._previous_mode ~= "R" then
+         vim.api.nvim_err_writeln(
+             "registers.nvim doesn't support `registers.show_window('insert')` being invoked from any mode other than insert mode")
+         return

@@ -11,7 +11,11 @@ in {
 		};
 		extraPlugins = with vimPlugins; [
 			{
-				plugin = registers-nvim;
+				plugin = registers-nvim.overrideAttrs {
+					patches = [
+						./plugin-patch/registers-nvim.patch
+					];
+				};
 				optional = true;
 			}
 		];
