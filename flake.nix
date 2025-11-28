@@ -25,7 +25,8 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, quickshell, caelestia-cli, ... }:
+	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, nixd, quickshell, caelestia-cli,
+		 ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
@@ -59,18 +60,6 @@
 			})
 			(final: prev: {nspire-tools = nspire-tools.packages."${system}".default;})
 			(final: prev: {inherit (nixd.packages."${system}") nixd nixf nixt;})
-			# (final: prev: {
-			# 	xrizer = prev.xrizer.overrideAttrs {
-			# 		src = final.fetchFromGitHub {
-			# 			owner = "BrianNormant";
-			# 			repo = "xrizer";
-			# 			rev = "e61217c";
-			# 			hash = "sha256-5IqiDYYF5SLlbOpACOlqw7FrmrQYyaZGDhxGC9a73aU=";
-			# 		};
-			# 		cargoHash = "";
-			# 		version = "0.3.0";
-			# 	};
-			# })
 			(final: prev: {inherit (caelestia-cli.packages."${system}") caelestia-cli;})
 			(final: prev: {inherit (quickshell.packages."${system}") quickshell;})
 			];
