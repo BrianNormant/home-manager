@@ -90,33 +90,14 @@ in{
 					java
 					c
 					regex
-					(buildGrammar {
-						 language = "nu";
-						 version = "2.1.1";
-						 src = fetchFromGitHub {
-							 owner = "nushell";
-							 repo = "tree-sitter-nu";
-							 rev = "d5c71a1";
-							 hash = "sha256-7Ny3wXa5iE6s7szqTkPqaXWL/NL5yA2MbhdQHylxwE0=";
-						};
-					})
-					(buildGrammar {
-						language = "idris";
-						version = "alpha";
-						src = fetchFromGitHub {
-							owner = "kayhide";
-							repo = "tree-sitter-idris";
-							rev = "c56a25c";
-							hash = "sha256-aOAxb0KjhSwlNX/IDvGwEysYvImgUEIDeNDOWRl1qNk=";
-						};
-					})
+					nu
+					idris
 				];
 				settings = {
 					highlight = {
 						enable = true;
-						additional_vim_regex_highlighting = [
-							"idris2"
-							"idr"
+						disable = [
+							"idris2" # use default regex
 						];
 					};
 					indent.enable = true;
