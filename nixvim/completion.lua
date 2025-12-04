@@ -10,37 +10,29 @@ require('lz.n').load {
 			}
 		end
 	},
-	{
-		"compl.nvim",
-		event = "DeferredUIEnter",
-		before = function ()
-			require('lz.n').trigger_load('markview.nvim')
-		end,
-		after = function ()
-			require("compl").setup {
-				completion = {
-					fuzzy = false,
-					timeout = 1,
-				},
-				info = { enable = true, },
-				snippet = {
-					enable = true,
-					-- add friendly snippets
-					paths = {
-						_G.friendly_snippets_path
-					}
-				}
-			}
-		end
-	}
 }
 
 -----------------------[ completeopt and shortmess ]---------------------------
+
+local snippets = require 'mini.snippets'
+local completion = require 'mini.completion'
+snippets.setup {}
+completion.setup {
+	-- <C-x><C-o>
+	-- so each buffer can define a custom user func
+	lsp_completion = { source_func = 'omnifunc' },
+	delay = {
+		completion = 50000,
+		info = 250,
+		signature = 1000,
+	},
+}
 
 vim.opt.completeopt = {
 	"menuone",
 	"popup",
 	"fuzzy",
+	"nosort",
 }
 
 vim.opt.shortmess:append "c"
@@ -95,7 +87,7 @@ end
 --- tabkey to navigated in completion menu
 vim.keymap.set("i", "<Tab>", function()
 	if vim.fn.pumvisible() == 1 then
-		vim.defer_fn(require('compl')._start_info, 5)
+		-- vim.defer_fn(require('compl')._start_info, 5)
 		return "<c-n>"
 	else
 		return clevertab("<Tab>", "<c-n>")
@@ -103,24 +95,12 @@ vim.keymap.set("i", "<Tab>", function()
 end, {expr = true})
 vim.keymap.set("i", "<S-Tab>", function()
 	if vim.fn.pumvisible() == 1 then
-		vim.defer_fn(require('compl')._start_info, 5)
+		-- vim.defer_fn(require('compl')._start_info, 5)
 		return "<c-p>"
 	else
 		return clevertab("<S-Tab>", "<c-p>")
 	end
 end, {expr = true})
-
---- Jump in snippets
-vim.keymap.set({"i", "s"}, "<c-l>", function()
-	if vim.snippet.active { direction = 1 } then
-		vim.snippet.jump(1)
-	end
-end, {desc = "Snippets jump next"})
-vim.keymap.set({"i", "s"}, "<c-k>", function()
-	if vim.snippet.active { direction = -1 } then
-		vim.snippet.jump(-1)
-	end
-end, {desc = "Snippets jump previous"})
 
 --- Up/Down should ignore the completion menu
 vim.keymap.set("i", "<Down>", function()

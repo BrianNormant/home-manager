@@ -18,14 +18,6 @@ in {
 				};
 				optional = true;
 			}
-			{
-				plugin = buildVimPlugin {
-					pname = "compl.nvim";
-					version = "3fe5dd7";
-					src = ./plugin-src/compl.nvim;
-				};
-				optional = true;
-			}
 		];
 		extraConfigLuaPre = ''
 			_G.friendly_snippets_path = "${pkgs.vimPlugins.friendly-snippets}"

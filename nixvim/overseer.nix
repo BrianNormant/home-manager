@@ -3,6 +3,7 @@ let
 in {
 	programs.nixvim = {
 		plugins = {
+			compiler = { enable = true; };
 			overseer = {
 				enable = true;
 				package = pkgs.vimPlugins.overseer-nvim;
