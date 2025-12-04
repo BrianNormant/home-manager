@@ -47,6 +47,7 @@ in {
 		tridactyl-native
 
 		zafiro-icons
+		(callPackage ./pkgs/wl-shimeji.nix {inherit pkgs;})
 	];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
