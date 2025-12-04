@@ -248,6 +248,17 @@ in {
 	function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
 					'';
 				}
+				{
+					pattern = [ "*" ];
+					event = [ "FileType" ];
+					callback.__raw = ''
+						function()
+							if vim.bo.filetype == "idris2" then
+								vim.cmd "TSBufDisable highlight"
+							end
+						end
+					'';
+				}
 			];
 		};
 		home.file = {
