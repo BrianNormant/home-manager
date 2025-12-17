@@ -8,8 +8,8 @@ let
 	vscode-diff-src = fetchFromGitHub {
 		owner = "esmuellert";
 		repo = "vscode-diff.nvim";
-		rev = "9d285fc";
-		hash = "sha256-4EhXj2UDMsRfHlj+tXJ1nlINL7XTknDuKSQLzboybE4=";
+		rev = "1af62a5";
+		hash = "sha256-wKLGfROqngtwduSTF9Nwh2tYg3YmWJv1tSgobvE7b1Q=";
 	};
 	libvscode-diff = mkDerivation rec {
 		pname = "libvscode-diff";
