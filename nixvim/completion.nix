@@ -16,7 +16,6 @@ in {
 						./plugin-patch/supermaven.patch
 					];
 				};
-				optional = true;
 			}
 		];
 		extraConfigLuaPre = ''

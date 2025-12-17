@@ -9,6 +9,11 @@ in {
 			virtual_text = false;
 		};
 		plugins = {
+			lspkind = {
+				enable = true;
+				lazyLoad.settings = { event = [ "LspAttach" ]; };
+				cmp.enable = false;
+			};
 			actions-preview = {
 				enable = true;
 				settings = {
