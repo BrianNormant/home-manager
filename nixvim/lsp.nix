@@ -65,65 +65,6 @@ in {
 					];
 				};
 			};
-			lsp-signature = {
-				enable = true;
-				lazyLoad.settings = { event = [ "DeferredUIEnter" ]; };
-				settings = {
-					bind = true;
-					handler_opts = { border = "solid"; };
-					transparency = 90;
-				};
-			};
-			glance = {
-				enable = true;
-				lazyLoad.settings.event = [ "LspAttach" ];
-				settings.border = { enable = true; };
-				settings.mappings.list.__raw = ''
-				{
-					['j']         = require('glance').actions.next, -- Next item
-					['k']         = require('glance').actions.previous, -- Previous item
-					['<Down>']    = require('glance').actions.next,
-					['<Up>']      = require('glance').actions.previous,
-					['<Tab>']     = require('glance').actions.next_location, -- Next location (skips groups, cycles)
-					['<S-Tab>']   = require('glance').actions.previous_location, -- Previous location (skips groups, cycles)
-					['<C-u>']     = require('glance').actions.preview_scroll_win(5), -- Scroll up the preview window
-					['<C-d>']     = require('glance').actions.preview_scroll_win(-5), -- Scroll down the preview window
-					['v']         = require('glance').actions.jump_vsplit, -- Open location in vertical split
-					['s']         = require('glance').actions.jump_split, -- Open location in horizontal split
-					['t']         = require('glance').actions.jump_tab, -- Open in new tab
-					['<CR>']      = require('glance').actions.jump, -- Jump to location
-					['o']         = require('glance').actions.jump,
-					['l']         = require('glance').actions.open_fold,
-					['h']         = require('glance').actions.close_fold,
-					['<leader>l'] = require('glance').actions.enter_win('preview'), -- Focus preview window
-					['q']         = require('glance').actions.close, -- Closes Glance window
-					['Q']         = require('glance').actions.close,
-					['<Esc>']     = require('glance').actions.close,
-					['<C-q>']     = require('glance').actions.quickfix, -- Send all locations to quickfix list
-					['g?']        = function()
-						${builtins.readFile ./glance-help-fn.lua}
-					end,
-				}
-				'';
-				settings.mappings.preview.__raw = ''
-				{
-					['Q']         = require('glance').actions.close,
-					['<Tab>']     = require('glance').actions.next_location, -- Next location (skips groups, cycles)
-					['<S-Tab>']   = require('glance').actions.previous_location, -- Previous location (skips groups, cycles)
-					['<leader>l'] = require('glance').actions.enter_win('list'), -- Focus list window
-					['g?']        = function()
-						${builtins.readFile ./glance-help-preview-fn.lua}
-					end,
-				},
-				'';
-			};
-			inc-rename = {
-				enable = true;
-				settings = {
-					cmd_name = "IncRename";
-				};
-				lazyLoad.settings = { event = [ "LspAttach" ]; };
-			};
 			fidget = {
 				enable = true;
 				lazyLoad.settings = { event = ["LspAttach"]; };
@@ -135,32 +76,59 @@ in {
 				optional = true;
 			}
 			{
-				plugin = buildVimPlugin rec {
-					pname = "action-hints.nvim";
-					version = "ab10fef";
+				plugin = buildVimPlugin {
+					pname = "outline-nvim";
+					version = "latest";
 					src = fetchFromGitHub {
-						owner = "roobert";
-						repo = "action-hints.nvim";
-						rev = version;
-						hash = "sha256-BTXmb1uGbXKkORnf1hbEa8jEmpPpzjMaerdldo5tkxs=";
+						owner = "hedyhli";
+						repo = "outline.nvim";
+						rev = "6b62f73";
+						hash = "sha256-MxFONokzF2TdsQtOagh/in2xlbZLk6IhjWonExB/rtY=";
 					};
-				};
-				optional = true;
-			}
-			{
-				plugin = buildVimPlugin rec {
-					pname = "symbol-usage.nvim";
-					version = "0f9b3da";
-					src = fetchFromGitHub {
-						owner = "Wansmer";
-						repo = pname;
-						rev = version;
-						hash = "sha256-vNVrh8MV7KZoh2MtP+hAr6Uz20qMMMUcbua/W71lRn0=";
-					};
+					nvimSkipModules = [
+						"outline.providers.norg"
+					];
 				};
 				optional = true;
 			}
 		];
 		extraConfigLua = builtins.readFile ./lsp.lua;
+		keymaps = [
+			{
+				key = "grr";
+				action = "<CMD>Telescope lsp_references theme=cursor<CR>";
+				options.desc = "Telescope lsp_references";
+			}
+			{
+				key = "gri";
+				action = "<CMD>Telescope lsp_implementations theme=cursor<CR>";
+				options.desc = "Telescope lsp_implementations";
+			}
+			{
+				key = "gO";
+				action = "<CMD>Telescope lsp_document_symbols theme=dropdown<CR>";
+				options.desc = "Telescope lsp_document_symbols";
+			}
+			{
+				key = "grg";
+				action = "<CMD>Telescope lsp_workspace_symbols theme=dropdown<CR>";
+				options.desc = "Telescope lsp_workspace_symbols";
+			}
+			{
+				key = "grs";
+				action = "<CMD>Telescope lsp_dynamic_workspace_symbols theme=dropdown<CR>";
+				options.desc = "Telescope lsp_dynamic_workspace_symbols";
+			}
+			{
+				key = "gro";
+				action = "<CMD>Telescope lsp_outgoing_calls theme=dropdown<CR>";
+				options.desc = "Telescope lsp_outgoing_calls";
+			}
+			{
+				key = "grc";
+				action = "<CMD>Telescope lsp_incoming_calls theme=dropdown<CR>";
+				options.desc = "Telescope lsp_incoming_calls";
+			}
+		];
 	};
 }

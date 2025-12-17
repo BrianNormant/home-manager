@@ -3,16 +3,6 @@
 		plugins.lsp.keymaps.extra = [
 			# vim.lsp
 			{
-				key = "<C-]>";
-				action.__raw = "vim.lsp.buf.definition";
-				options.desc = "LSP: Goto definition";
-			}
-			{
-				key = "gD";
-				action.__raw = "vim.lsp.buf.declaration";
-				options.desc = "LSP: Goto declaration";
-			}
-			{
 				key = "<leader>e";
 				action.__raw = "vim.diagnostic.open_float";
 				options.desc = "LSP: Open diagnostic";
@@ -26,39 +16,6 @@
 				key = "<leader>ll";
 				action.__raw = "vim.diagnostic.setloclist";
 				options.desc = "LSP: Send diagnostic to loclist";
-			}
-			# Glance.nvim
-			{
-				key = "gd";
-				action = "<Cmd>Glance definitions<cr>";
-				options.desc = "LSP: Goto definitions";
-			}
-			{
-				key = "gr";
-				action = "<Cmd>Glance references<cr>";
-				options.desc = "LSP: Goto references";
-			}
-			{
-				key = "go";
-				action = "<Cmd>Glance type_definitions<cr>";
-				options.desc = "LSP: Goto type definitions";
-			}
-			{
-				key = "gi";
-				action = "<Cmd>Glance implementations<cr>";
-				options.desc = "LSP: Goto implementations";
-			}
-			
-			# Inc Rename
-			{
-				key = "<A-r>";
-				action.__raw = ''
-				function()
-					return ":IncRename " .. vim.fn.expand("<cword>")
-				end
-				'';
-				options.desc = "LSP: Rename";
-				options.expr = true;
 			}
 			# Action.__raw Preview
 			{
