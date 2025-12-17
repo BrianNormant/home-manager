@@ -33,7 +33,7 @@ in {
 		shellAliases = {
 			flake-init = "nix flake init -t github:BrianNormant/nixosconf";
 			icat  =  "kitty +kitten icat --clear";
-			neo = "hyprctl dispatch scroller:setmode c; neovide &>/dev/null &; sleep 1; hyprctl dispatch scroller:setmode s";
+			neo = "neovide &>/dev/null &; sleep 0.250; niri msg action consume-or-expel-window-left";
 			du = "dust";
 			df = "duf";
 			cd = "z"; # zoxide
