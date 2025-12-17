@@ -1,5 +1,5 @@
 # The package collection to use
-collection = "nightly-241110"
+collection = "nightly-251126"
 
 [install]
 
