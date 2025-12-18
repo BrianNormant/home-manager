@@ -41,6 +41,7 @@ in {
 		./nixvim/markdown.nix
 		./nixvim/help.nix
 		./nixvim/nix.nix
+		./nixvim/rest.nix
 
 		# Others
 		./nixvim/keymaps.nix

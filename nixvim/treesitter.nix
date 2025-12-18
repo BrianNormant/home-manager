@@ -92,6 +92,7 @@ in{
 					regex
 					nu
 					idris
+					http
 				];
 				settings = {
 					highlight = {
