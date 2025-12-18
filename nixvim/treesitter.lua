@@ -31,15 +31,21 @@ require('lz.n').load {
 		end,
 		after = function ()
 			local better_n = require("better-n")
-			better_n.setup { disable_default_mappings = true }
+			better_n.setup {
+				disable_default_mappings = true,
+				disable_cmdline_mappings = true,
+			}
+			
+			better_n.create({ id = "/", next = "n", previous = "<s-n>" })
+			better_n.create({ id = "?", next = "n", previous = "<s-n>" })
+			better_n.create({ id = "/", next = ",", previous = ";" })
+			better_n.create({ id = "?", next = ",", previous = ";" })
 
-			better_n.create({ key = "/", next = "n", previous = "<s-n>" })
-			local asterisk = better_n.create({ key = "*", next = "n", previous = "<s-n>" })
+			local asterisk = better_n.create({ initiate = "*", next = "n", previous = "<s-n>" })
 			vim.keymap.set({ "n", "x" }, "*", asterisk.passthrough, { expr = true, silent = true })
 
-			local hash = better_n.create({ key = "#", next = "n", previous = "<s-n>" })
+			local hash = better_n.create({ initiate = "#", next = "n", previous = "<s-n>" })
 			vim.keymap.set({ "n", "x" }, "#", hash.passthrough, { expr = true, silent = true })
-
 
 
 			local bracketed_override = function(key, name, desc_name)
@@ -106,10 +112,10 @@ require('lz.n').load {
 				normal_override(unpack(v))
 			end
 			-- I prefer to use , and ;
-			vim.keymap.set({ "n", "x" }, "n", better_n.next,     { expr = true, silent = true, nowait = true })
-			vim.keymap.set({ "n", "x" }, "N", better_n.previous, { expr = true, silent = true, nowait = true })
+			-- vim.keymap.set({ "n", "x" }, "n", better_n.next,     { expr = true, silent = true, nowait = true })
+			-- vim.keymap.set({ "n", "x" }, "N", better_n.previous, { expr = true, silent = true, nowait = true })
 			vim.keymap.set({ "n", "x"},  ",", better_n.next,     { expr = true, silent = true, nowait = true })
-			vim.keymap.set({ "n", },     ";", better_n.previous, { expr = true, silent = true, nowait = true })
+			vim.keymap.set({ "n", "x"},     ";", better_n.previous, { expr = true, silent = true, nowait = true })
 		end
 	}
 }
