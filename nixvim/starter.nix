@@ -94,13 +94,31 @@
 					end,
 						{
 							{"Files",   "Telescope frecency workspace=CWD theme=dropdown"},
-							{"Help",    "Telescope help_tags theme=ivy"},
-							{"Keymaps", "TelescopeKeymaps"},
-							{"Colors",  "Telescope colorscheme theme=ivy"},
+							{"Fuzzy",   "Telescope live_grep_args theme=dropdown"},
 							{"Builtins","Telescope builtin theme=ivy"},
+							{"Keymaps", "TelescopeKeymaps"},
+							{"Help",    "Telescope help_tags theme=ivy"},
 						}
 					)
 				end,
+
+				-- Oil
+				function()
+					return vim.tbl_map(function(tbl)
+						return {
+							section = "Oil",
+							name = tbl[1],
+							action = tbl[2],
+						}
+					end,
+						{
+							{"Oil",   "Oil"},
+							{"Oil Float", "Oil --float"},
+						})
+				end,
+
+				-- Sessions
+				require("mini.starter").sections.sessions(5, false),
 
 				-- Git
 				function()
@@ -136,24 +154,6 @@
 							{"Stash",    "Git stash"},
 						})
 				end,
-
-				-- Oil
-				function()
-					return vim.tbl_map(function(tbl)
-						return {
-							section = "Oil",
-							name = tbl[1],
-							action = tbl[2],
-						}
-					end,
-						{
-							{"Oil",   "Oil"},
-							{"Oil Float", "Oil --float"},
-						})
-				end,
-
-				-- Sessions
-				require("mini.starter").sections.sessions(5, false),
 
 				-- Other
 				require("mini.starter").sections.builtin_actions(),

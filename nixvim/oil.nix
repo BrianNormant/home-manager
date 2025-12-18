@@ -12,12 +12,12 @@
 		};
 		keymaps = [
 			{
-				key = "<leader>oo";
+				key = "<leader>oO";
 				action = "<cmd>Oil --float<cr>";
 				options.desc = "Oil in Float";
 			}
 			{
-				key = "<leader>oO";
+				key = "<leader>oo";
 				action = "<cmd>Oil<cr>";
 				options.desc = "Oil in current window";
 			}
