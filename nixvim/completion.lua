@@ -1,8 +1,18 @@
 -----------------------[ completeopt and shortmess ]---------------------------
 
 local snippets = require 'mini.snippets'
+local gen_loader = require('mini.snippets').gen_loader
+snippets.setup {
+	snippets = {
+		gen_loader.from_lang(),
+	},
+}
+
+-- would be nice to have a custom completefunc that ask `mini.snippets` for the snippets
+-- so <ctrl-x><ctrl-o> would show lsp results
+-- while <ctrl-x><ctrl-u> would show snippets ONLY
+
 local completion = require 'mini.completion'
-snippets.setup {}
 completion.setup {
 	-- <C-x><C-o>
 	-- so each buffer can define a custom user func
@@ -16,6 +26,7 @@ completion.setup {
 		force_twostep = "",
 		force_fallback = "",
 	},
+	fallback_action = "",
 }
 
 require("supermaven-nvim").setup {
