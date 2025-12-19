@@ -3,7 +3,7 @@ require('lz.n').load {
 	event = "DeferredUIEnter",
 	after = function()
 		require('tabby').setup {
-			preset = "active_wins_at_tail",
+			preset = "tab_only",
 			option = {
 				lualine_theme = _G.get_lualine_name(),
 				nerdfont = true,
