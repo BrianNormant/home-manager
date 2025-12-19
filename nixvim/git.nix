@@ -326,7 +326,7 @@ end
 			{
 				key = "<leader>gg";
 				# action = "<CMD>cexpr system(\"git jump --stdout diff\") | copen<CR>";
-				action = "<CMD>Gitsign setqflist target=all<cr>";
+				action = "<CMD>lua require('gitsigns').setqflist(\"all\", {})<CR>";
 				options.desc = "Open Quickfix with git changes";
 			}
 		];
