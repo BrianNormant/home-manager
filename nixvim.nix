@@ -239,6 +239,12 @@ in {
 					vim.env.NEOVIDE = 1
 				end
 
+				-- for mini session
+				vim.opt.sessionoptions:remove("terminal")
+				vim.opt.sessionoptions:remove("buffers")
+				vim.opt.sessionoptions:append("help")
+				vim.opt.sessionoptions:append("tabpages")
+
 			'';
 			autoCmd = [
 				{
