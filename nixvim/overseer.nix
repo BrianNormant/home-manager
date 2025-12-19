@@ -3,7 +3,6 @@ let
 in {
 	programs.nixvim = {
 		plugins = {
-			compiler = { enable = true; };
 			overseer = {
 				enable = true;
 				package = pkgs.vimPlugins.overseer-nvim;
@@ -11,7 +10,11 @@ in {
 				lazyLoad = {
 					enable = true;
 					settings = {
-						cmd = [ "OverseerRun" "OverseerToggle" ];
+						cmd = [
+							"OverseerRun"
+							"OverseerRunLastOrAsk"
+							"OverseerToggle"
+						];
 					};
 				};
 				settings = {};
@@ -21,6 +24,11 @@ in {
 		keymaps = [
 			{
 				key = "<F5>";
+				action = "<CMD>OverseerRunLastOrAsk<CR>";
+				options.desc = "Overseer: Run Last or show menu";
+			}
+			{
+				key = "<S-F5>";
 				action = "<CMD>OverseerRun<CR>";
 				options.desc = "Overseer: Run";
 			}

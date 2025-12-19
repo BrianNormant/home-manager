@@ -1,4 +1,21 @@
 local overseer = require('overseer')
+local task_list = require('overseer.task_list')
+local commands = require('overseer.commands')
+
+vim.api.nvim_create_user_command("OverseerRunLastOrAsk", function ()
+	local tasks = overseer.list_tasks({
+		status = {
+			overseer.STATUS.SUCCESS,
+			overseer.STATUS.FAILURE,
+		},
+		sort = task_list.sort_finished_recently
+	})
+	if vim.tbl_isempty(tasks) then
+		commands.run_template()
+	else
+		overseer.run_action(tasks[1], "restart")
+	end
+end, {})
 
 -- every `packages` is ran with `nix build`
 local tmpl_pkg = {
