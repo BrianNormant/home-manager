@@ -17,6 +17,26 @@ vim.api.nvim_create_user_command("OverseerRunLastOrAsk", function ()
 	end
 end, {})
 
+vim.api.nvim_create_user_command("Make", function(params)
+  -- Insert args at the '$*' in the makeprg
+  local cmd, num_subs = vim.o.makeprg:gsub("%$%*", params.args)
+  if num_subs == 0 then
+    cmd = cmd .. " " .. params.args
+  end
+  local task = require("overseer").new_task({
+    cmd = vim.fn.expandcmd(cmd),
+    components = {
+      { "on_output_quickfix", open = not params.bang, open_height = 8 },
+      "default",
+    },
+  })
+  task:start()
+end, {
+  desc = "Run your makeprg as an Overseer task",
+  nargs = "*",
+  bang = true,
+})
+
 -- every `packages` is ran with `nix build`
 local tmpl_pkg = {
 	name = "nix",
@@ -215,4 +235,105 @@ local provider = {
 	generator = parse_flake_show,
 }
 
+-- TODO: Write a generator from speficic makefiles
+-- ie: if the makefile has a target called "all, help or list"
+-- we assume that each line is a target available
+-- and we generate a task for each target
+
+local make_template = {
+	name = "make",
+	priority = 10,
+	params = {
+		args = {
+			type = "list",
+			delimiter = " ",
+			name = "make target",
+			desc = "The target to run",
+			optional = false,
+		},
+		cwd = { optional = false, },
+	},
+	builder = function(params)
+		return {
+			cmd = { "make" },
+			args = params.args,
+			cwd = params.cwd,
+		}
+	end,
+}
+
+local get_make = function(opts)
+	local cwd = vim.uv.cwd()
+	return vim.fs.find("Makefile", {upward = false, type = "file", path = cwd})[1]
+end
+
+local make_generator = function(_, cb)
+	-- try make list and make help
+	
+	local cwd = vim.uv.cwd()
+
+	vim.system({"make", "list"}, {text = true, cwd = cwd}, function(obj)
+		if obj.code ~= 0 then return end
+		local raw = obj.stdout
+		local tasks = {}
+		for line in raw:gmatch("[^\r\n]+") do
+			-- target is first word
+			local target = line:match("%S+")
+			local override = { name = "make " .. target }
+			local tmpl = overseer.wrap_template(
+				make_template,
+				override,
+				{
+					cwd = cwd,
+					args = { target },
+				}
+			)
+			table.insert(tasks, tmpl)
+		end
+		vim.schedule(function() cb(tasks) end)
+	end)
+
+	vim.system({"make", "help"}, {text = true, cwd = cwd}, function(obj)
+		if obj.code ~= 0 then return end
+		local raw = obj.stdout
+		local tasks = {}
+		for line in raw:gmatch("[^\r\n]+") do
+			-- target is first word
+			local target = line:match("%S+")
+			local override = { name = "make " .. target }
+			local tmpl = overseer.wrap_template(
+				make_template,
+				override,
+				{
+					cwd = cwd,
+					args = { target },
+				}
+			)
+			table.insert(tasks, tmpl)
+		end
+		vim.schedule(function() cb(tasks) end)
+	end)
+end
+
+local makefile_provider = {
+	name = "makefile-list",
+	cache_key = function(opts)
+		return get_make(opts)
+	end,
+	condition = {
+		callback = function(opts)
+			if vim.fn.executable("make") == 0 then
+				return false, 'Command "make" not found'
+			end
+			if not get_make(opts) then
+				return false, "No Makefile found"
+			end
+			return true
+		end,
+	},
+	generator = make_generator,
+}
+
+
 overseer.register_template(provider)
+overseer.register_template(makefile_provider)
