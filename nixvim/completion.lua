@@ -32,6 +32,7 @@ vim.opt.completeopt = {
 	"popup",
 	"fuzzy",
 	"nosort",
+	"noinsert", -- works very well with no insert, allows to search with fuzzy easily
 }
 
 vim.opt.shortmess:append "c"
