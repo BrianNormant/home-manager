@@ -6,6 +6,7 @@
 			settings = {
 				defaults = {
 					winblend = 50;
+					dynamic_preview_title = true;
 				};
 			};
 			extensions = {
