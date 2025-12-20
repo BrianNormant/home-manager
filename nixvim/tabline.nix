@@ -1,12 +1,85 @@
 {config, pkgs, ...}: {
 	programs.nixvim = {
 		extraPlugins = [
+			# {
+			# 	plugin = pkgs.vimPlugins.tabby-nvim;
+			# 	optional = true;
+			# }
 			{
-				plugin = pkgs.vimPlugins.tabby-nvim;
-				optional = true;
+				plugin = pkgs.vimUtils.buildVimPlugin {
+					pname = "bars-nvim";
+					version = "latest-2025-12";
+					src = pkgs.fetchFromGitHub {
+					  owner = "OXY2DEV";
+					  repo = "bars.nvim";
+					  rev = "3a61a25";
+					  hash = "sha256-pkuPzIppRzx5pn0roKExNK4NQUBwqom/g1hLA6KeuSM=";
+					};
+				};
+				optional = false;
 			}
 		];
-		extraConfigLua = builtins.readFile ./tabby.lua;
+		extraConfigLua = ''
+if true then
+	require('bars').setup {
+		tabline = false,
+		winbar = false,
+		statuscolumn = false,
+		statusline = false,
+	}
+	local tabline = require('bars.tabline')
+	local winbar = require('bars.winbar')
+	local statuscolumn = require('bars.statuscolumn')
+	local statusline = require('bars.statusline')
+
+	${builtins.readFile ./bars/statusline-setup.lua}
+	${builtins.readFile ./bars/tabline-setup.lua}
+
+	statuscolumn.setup {
+		ignore_filetypes = {
+			"TelescopePrompt",
+			"oil",
+		},
+	}
+	winbar.setup {
+		ignore_filetypes = {
+			"TelescopePrompt",
+			"toggleterm",
+			"oil",
+		},
+		ignore_buftypes = {
+			"nowrite",
+			"nofile",
+			"quickfix",
+			"help",
+			"prompt",
+			"",
+			"acwrite",
+			"terminal",
+		};
+	}
+	require('bars').setup {
+		tabline = true,
+		statuscolumn = true,
+		statusline = true,
+		winbar = false,
+	}
+end
+-- require('lz.n').load {
+-- 	'tabby.nvim',
+-- 	event = "DeferredUIEnter",
+-- 	after = function()
+-- 		require('tabby').setup {
+-- 			preset = "tab_only",
+-- 			option = {
+-- 				lualine_theme = _G.get_lualine_name(),
+-- 				nerdfont = true,
+-- 			},
+-- 		}
+-- 	end
+-- }
+
+		'';
 		keymaps = [
 			{
 				key = "<A-1>";

@@ -15,8 +15,7 @@ in {
 		# UI
 		./nixvim/colorscheme.nix
 		./nixvim/dropbar.nix
-		./nixvim/lualine.nix
-		./nixvim/tabby.nix
+		./nixvim/tabline.nix
 		./nixvim/fold.nix
 		./nixvim/indent.nix
 		./nixvim/treesitter.nix
