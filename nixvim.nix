@@ -95,7 +95,6 @@ in {
 				vim-suda.enable = true;
 				repeat.enable = true;
 				lastplace.enable = true;
-				web-devicons.enable = true;
 				guess-indent.enable = true;
 				neotest.enable = false;
 			};

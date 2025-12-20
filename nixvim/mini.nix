@@ -22,6 +22,7 @@
 				'';
 				post = builtins.readFile ./mini.lua;
 			};
+			mockDevIcons = true;
 			modules = {
 				extra = {};
 				sessions = {
@@ -147,6 +148,7 @@
 				notify = {
 					lsp_progress.enable = false;
 				};
+				icons = {};
 			};
 		};
 		highlightOverride = {
