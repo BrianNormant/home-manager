@@ -90,8 +90,8 @@
 					clues.__raw = ''{
 						-- require('mini.clue').gen_clues.builtin_completion(),
 						require('mini.clue').gen_clues.windows({
-							submode_move = true,
-							submode_navigate = true,
+							submode_move = false,
+							submode_navigate = false,
 							submode_resize = true,
 						}),
 						require('mini.clue').gen_clues.z(),
