@@ -8,9 +8,20 @@ snippets.setup {
 	},
 }
 
+require('lz.n').load {
+	"mini.snippets",
+	event = "LspAttach",
+	---@diagnostic disable-next-line: undefined-global
+	after = MiniSnippets.start_lsp_server
+}
+
 -- would be nice to have a custom completefunc that ask `mini.snippets` for the snippets
 -- so <ctrl-x><ctrl-o> would show lsp results
 -- while <ctrl-x><ctrl-u> would show snippets ONLY
+-- local completefunc = function(findstart, base)
+-- 	-- fist check if mini.snippets is running
+-- 	vim.lsp.buf.
+-- end
 
 local completion = require 'mini.completion'
 completion.setup {
