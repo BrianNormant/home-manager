@@ -210,7 +210,7 @@ binds {
 
 	// Applications
 	Mod+P { spawn "pavucontrol"; }
-	Mod+B { spawn "overskride"; }
+	Mod+B { spawn "kitty" "--class" "PopUp" "bluetuith"; }
 	Mod+Return { spawn "kitty"; }
 	Mod+Alt+Return { spawn "cool-retro-term"; }
 	Mod+T { spawn "kitten" "quick-access-terminal"; }

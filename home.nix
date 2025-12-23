@@ -134,5 +134,6 @@ in {
 				};
 			};
 		};
+		bluetuith = { enable = true; };
 	};
 }
