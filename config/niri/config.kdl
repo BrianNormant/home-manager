@@ -13,6 +13,15 @@ environment {
 	DISPLAY ":0";
 }
 
+cursor {
+	hide-when-typing
+	hide-after-inactive-ms 2500
+}
+
+recent-windows {
+	open-delay-ms 10
+}
+
 gestures {
 	dnd-edge-view-scroll {
 	}
