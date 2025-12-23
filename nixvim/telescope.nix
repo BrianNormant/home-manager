@@ -1,6 +1,10 @@
 {pkgs, ... }:
 {
 	programs.nixvim = {
+		extraPackages = with pkgs; [
+			fd
+			ripgrep
+		];
 		plugins.telescope = {
 			enable = true;
 			settings = {
@@ -14,10 +18,12 @@
 					enable = true;
 					settings = {
 						db_safe_mode = false;
-						default_workspace = "CWD";
-						path_display = [ "shorten" ];
+						# default_workspace = "CWD";
+						# path_display = [ "tail" ];
 						show_scores = true;
+						enable_prompt_mappings = true;
 						show_unindexed = true;
+						show_filter_column = false;
 					};
 				};
 				fzf-native = {
@@ -31,12 +37,42 @@
 				};
 				live-grep-args = {
 					enable = true;
+					settings = {
+						auto_quoting = true;
+						mappings = {
+							i = {
+								"<C-j>".__raw = "require(\"telescope-live-grep-args.actions\").quote_prompt()";
+								"<C-k>".__raw = "require(\"telescope-live-grep-args.actions\").quote_prompt({ postfix = \" -t\" })";
+								"<c-space>".__raw = "require(\"telescope-live-grep-args.actions\").to_fuzzy_refine";
+							};
+						};
+					};
 				};
 				ui-select = {
 					enable = true;
 					settings.__raw =''
 						require('telescope.themes').get_ivy {}
 					'';
+				};
+				undo = {
+					enable = true;
+					settings = {
+						mappings = {
+							i = {
+								"<c-cr>" = "require('telescope-undo.actions').restore";
+								"<cr>" = "require('telescope-undo.actions').yank_additions";
+								"<s-cr>" = "require('telescope-undo.actions').yank_deletions";
+							};
+							n = {
+								Y = "require('telescope-undo.actions').yank_deletions";
+								u = "require('telescope-undo.actions').restore";
+								y = "require('telescope-undo.actions').yank_additions";
+							};
+						};
+						vim_diff_opts = {
+							ctxlen = 2;
+						};
+					};
 				};
 			};
 			lazyLoad.settings = {
@@ -97,6 +133,11 @@ end
 				key = "<leader>ff";
 				action = "<Cmd>Telescope frecency workspace=CWD theme=dropdown<CR>";
 				options.desc = "Telescope: Find Files Frecency";
+			}
+			{
+				key = "<leader>fu";
+				action = "<Cmd>Telescope undo<CR>";
+				options.desc = "Telescope: Undo";
 			}
 			{
 				key = "<leader>F";

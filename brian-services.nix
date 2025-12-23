@@ -139,7 +139,5 @@
 			# cycle-paper.Timer.OnCalendar = "*-*-* *:*:00";
 			waypaper.Timer.OnCalendar = "*:0/1";
 		};
-
-		tmpfiles.settings = {};
 	};
 }

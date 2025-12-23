@@ -40,15 +40,6 @@ completion.setup {
 	fallback_action = "",
 }
 
-require("supermaven-nvim").setup {
-	log_level = "off", -- Shut off the warnings
-	keymaps = {
-		accept_suggestion = "<C-Space>",
-		clear_suggestion = "<C-e>",
-		accept_word = "<C-j>"
-	}
-}
-
 vim.opt.completeopt = {
 	"menuone",
 	"popup",
@@ -59,10 +50,6 @@ vim.opt.completeopt = {
 
 vim.opt.shortmess:append "c"
 vim.o.pumheight = 20
-
-_G.compl_autorefresh = false -- refresh the completion items on every keystroke
-_G.auto_trigger_completion = true -- trigger completion as soon as supermaven has suggestion
-
 
 --- <CR> to select if and only if a item is selected
 --- use autopairs functionnality of:
@@ -136,50 +123,3 @@ vim.keymap.set("i", "<Esc>", function ()
 		return "<Esc>"
 	end
 end, {expr = true, noremap = true, silent = true})
-
---- Everytime the text changes, we check if supermaven has a suggestion,
---- If it does, we show the complete window (enabling noinsert noselect first)
--- vim.api.nvim_create_autocmd({ "TextChangedI" }, {
--- 	callback = vim.schedule_wrap(function()
--- 		if not _G.auto_trigger_completion then return end
--- 		if vim.fn.mode(1) == "ix" then return end -- we are waiting for a completion submode
---
---
--- 		-- if the completion window is open, we stop immediately
--- 		if vim.fn.complete_info()["selected"] ~= -1 then return end
---
--- 		local CompPrev = require('supermaven-nvim.completion_preview')
--- 		local inlay_instance = CompPrev:get_inlay_instance()
--- 		if inlay_instance == nil then
--- 			return
--- 		end
--- 		if not inlay_instance.is_active then
--- 			CompPrev:dispose_inlay()
--- 			return
--- 		end
---
--- 		local col = vim.fn.col('.')
---
--- 		-- we have a suggestion!
--- 		local text = inlay_instance.completion_text
---
--- 		CompPrev:dispose_inlay()
--- 		local abbr = string.sub(text, 1, 25)
--- 		local menu = "SuperMaven"
--- 		local match = {
--- 			word = text,
--- 			abbr = abbr,
--- 			menu = menu,
--- 			-- info = info,
--- 			user_data = { supermaven = true },
--- 		}
---
--- 		vim.opt.completeopt:append('noinsert')
--- 		vim.opt.completeopt:append('noselect')
---
--- 		vim.fn.complete(col, {match})
---
--- 		vim.opt.completeopt:remove('noinsert')
--- 		vim.opt.completeopt:remove('noselect')
--- 	end)
--- })

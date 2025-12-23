@@ -5,30 +5,6 @@ let
 	inherit (pkgs) fetchFromGitHub;
 	inherit (pkgs.lib) fakeHash;
 	inherit (pkgs) vimPlugins;
-	vscode-diff-src = fetchFromGitHub {
-		owner = "esmuellert";
-		repo = "vscode-diff.nvim";
-		rev = "1af62a5";
-		hash = "sha256-wKLGfROqngtwduSTF9Nwh2tYg3YmWJv1tSgobvE7b1Q=";
-	};
-	libvscode-diff = mkDerivation rec {
-		pname = "libvscode-diff";
-		version = "9d285fc";
-		nativeBuildInputs = with pkgs; [
-			gnumake
-			cmake
-		];
-		dontUseCmakeConfigure = true;
-		buildPhase = ''
-					make -j$(nproc)
-		'';
-		installPhase = ''
-					ls -la
-					mkdir -p $out/lib
-					install -D -m644 libvscode_diff.so $out/lib/libvscode_diff.so
-		'';
-		src = vscode-diff-src;
-	};
 in {
 	programs.nixvim = {
 		env = {
@@ -69,161 +45,95 @@ in {
 				};
 				luaConfig.content = builtins.readFile ./gitsigns.lua;
 			};
-			diffview = {
+			fugitive = { enable = true; };
+			gitgraph = {
 				enable = true;
-				settings = {
-					enhanced_diff_hl = true;
-					view = {
-						merge_tool = {
-							layout = "diff4_mixed";
+				lazyLoad.settings = {
+					cmd = "GitGraph";
+					keys = [
+						{
+							__unkeyed-1 = "<leader>fg";
+							__unkeyed-2.__raw = "function() require('gitgraph').draw({}, {all = true, max_count = 100}) end";
+							desc = "Open Gitgraph in current window";
+						}
+					];
+					settings = {
+						symbols = {
+							merge_commit = "";
+							commit = "";
+							merge_commit_end = "";
+							commit_end = "";
+
+							# -- Advanced symbols
+							GVER = "│";
+							GHOR = "";
+							GCLD = "";
+							GCRU = "";
+							GCRD = "╭";
+							GCLU = "";
+							GLRU = "";
+							GLRD = "";
+							GLUD = "";
+							GRUD = "";
+							GFORKU = "";
+							GFORKD = "";
+							GRUDCD = "";
+							GRUDCU = "";
+							GLUDCD = "";
+							GLUDCU = "";
+							GLRDCL = "";
+							GLRDCR = "";
+							GLRUCL = "";
+							GLRUCR = "";
+						};
+						hooks = {
+							on_select_commit.__raw = ''function(commit)
+								vim.notify('CodeDiff ' .. commit.hash)
+								vim.cmd(':CodeDiff ' .. commit.hash)
+							end'';
+							on_select_range_commit.__raw = ''function(from, to)
+								vim.notify('CodeDiff ' .. from.hash .. '..' .. to.hash)
+								vim.cmd(':CodeDiff ' .. from.hash .. '..' .. to.hash)
+							end'';
 						};
 					};
-					file_panel = {
-						listing_style = "list";
-					};
+					luaConfig.post = ''
+vim.api.nvim_create_user_command('GitGraph', function()
+	require('gitgraph').draw({}, {all = true, max_count = 100})
+end, {})
+vim.cmd(string.format("hi GitGraphHash gui=bold guifg=%s", "#FFAF00"))
+vim.cmd(string.format("hi GitGraphAuthor guifg=%s", "#0DCDCD"))
+vim.cmd(string.format("hi GitGraphTimestamp guifg=#565555"))
+vim.cmd(string.format("hi GitGraphBranchName guifg=%s", "#E43E1E"))
+vim.cmd(string.format("hi GitGraphBranchTag gui=bold guifg=%s", "#4A2574"))
+vim.cmd(string.format("hi GitGraphBranchMsg guifg=%s", "#565555"))
+vim.cmd("hi! link RainbowRed    GitGraphBranch1")
+vim.cmd("hi! link RainbowCyan   GitGraphBranch2")
+vim.cmd("hi! link RainbowBlue   GitGraphBranch3")
+vim.cmd("hi! link RainbowOrange GitGraphBranch4")
+vim.cmd("hi! link RainbowViolet GitGraphBranch4")
+'';
 				};
-				lazyLoad.settings = { cmd = "DiffviewOpen"; };
+			};
+			vscode-diff = {
+				enable = true;
+				lazyLoad.settings = {
+					cmd = "CodeDiff";
+					keys = [
+						{
+							__unkeyed-1 = "<leader>gm";
+							__unkeyed-2 = "<CMD>CodeDiff<cr>";
+							desc = "CodeDiff workspace against HEAD";
+						}
+					];
+				};
 			};
 		};
 		# Workaround as Fugitive* are vimscript events
-		extraPlugins = with vimPlugins; [
-			{
-				plugin = vim-fugitive;
-				optional = true;
-			}
-			{
-				plugin = buildVimPlugin rec {
-					pname = "gitgraph.nvim";
-					version = "01e466b";
-					src = fetchFromGitHub {
-						owner = "isakbm";
-						repo = "gitgraph.nvim";
-						rev = version;
-						hash = "sha256-d55IRrOhK5tSLo2boSuMhDbkerqij5AHgNDkwtGadyI=";
-					};
-					patches = [ ./plugin-patch/gitgraph.patch ];
-				};
-				optional = true;
-			}
-			{
-				plugin = buildVimPlugin rec {
-					pname = "vscode-diff-nvim";
-					version = "9d285fc";
-					postPatch = ''
-						substituteInPlace lua/vscode-diff/diff.lua \
-							--replace-fail 'local lib_path = plugin_root .. "/" .. lib_name' 'local lib_path = "${libvscode-diff}/lib/libvscode_diff.so"'
-					'';
-					buildInputs = with pkgs.vimPlugins; [
-						nui-nvim
-					];
-					nvimSkipModules = [
-						"vscode-diff"
-						"vscode-diff.installer"
-						"vscode-diff.render.semantic_tokens"
-						"vscode-diff.render.highlights"
-						"vscode-diff.render.view"
-						"vscode-diff.render.core"
-						"vscode-diff.render.explorer"
-						"vscode-diff.render.init"
-						"vscode-diff.render.lifecycle"
-						"vscode-diff.commands"
-						"vscode-diff.config"
-						"vscode-diff.virtual_file"
-						"vscode-diff.git"
-						"vscode-diff.version"
-						"vscode-diff.diff"
-						"vscode-diff.auto_refresh"
-					];
-					src = vscode-diff-src;
-				};
-			}
-		];
 		extraConfigLuaPost = ''
-			_G.fugitive_help = function()
-				${builtins.readFile ./fugitive-help-fn.lua}
-			end
-			require('lz.n').load {
-				{
-					'vim-fugitive',
-					event = "DeferredUIEnter",
-					after = function() end,
-				},
-				{
-					'gitgraph.nvim',
-					keys = {
-						{
-							"<leader>fg",
-							function()
-								require('gitgraph').draw({}, {all = true, max_count = 100})
-							end,
-							desc = "Open Gitgraph in current window"
-						},
-					},
-					cmd = "GitGraph",
-					after = function()
-						require('gitgraph').setup {
-							symbols = {
-								merge_commit = '',
-								commit = '',
-								merge_commit_end = '',
-								commit_end = '',
-
-								-- Advanced symbols
-								GVER = '│',
-								GHOR = '',
-								GCLD = '',
-								GCRU = '',
-								GCRD = '╭',
-								GCLU = '',
-								GLRU = '',
-								GLRD = '',
-								GLUD = '',
-								GRUD = '',
-								GFORKU = '',
-								GFORKD = '',
-								GRUDCD = '',
-								GRUDCU = '',
-								GLUDCD = '',
-								GLUDCU = '',
-								GLRDCL = '',
-								GLRDCR = '',
-								GLRUCL = '',
-								GLRUCR = '',
-							},
-							hooks = {
-								-- TODO: Run a fugitive/diffview command with those actions
-								on_select_commit = function(commit)
-									vim.notify('CodeDiff ' .. commit.hash)
-									vim.cmd(':CodeDiff ' .. commit.hash)
-								end,
-								on_select_range_commit = function(from, to)
-									vim.notify('DiffviewOpen ' .. from.hash .. '..' .. to.hash)
-									vim.cmd(':DiffviewOpen ' .. from.hash .. '..' .. to.hash)
-								end,
-							},
-						}
-
-						-- create user command
-						vim.api.nvim_create_user_command('GitGraph', function()
-							require('gitgraph').draw({}, {all = true, max_count = 100})
-						end, {})
-
-						vim.cmd(string.format("hi GitGraphHash gui=bold guifg=%s", "#FFAF00"))
-
-						vim.cmd(string.format("hi GitGraphAuthor guifg=%s", "#0DCDCD"))
-						vim.cmd(string.format("hi GitGraphTimestamp guifg=#565555"))
-						vim.cmd(string.format("hi GitGraphBranchName guifg=%s", "#E43E1E"))
-						vim.cmd(string.format("hi GitGraphBranchTag gui=bold guifg=%s", "#4A2574"))
-						vim.cmd(string.format("hi GitGraphBranchMsg guifg=%s", "#565555"))
-						vim.cmd("hi! link RainbowRed    GitGraphBranch1")
-						vim.cmd("hi! link RainbowCyan   GitGraphBranch2")
-						vim.cmd("hi! link RainbowBlue   GitGraphBranch3")
-						vim.cmd("hi! link RainbowOrange GitGraphBranch4")
-						vim.cmd("hi! link RainbowViolet GitGraphBranch4")
-						-- TODO: Make fugitive autocmd run in graphview buffers
-					end
-				}
-			}
+_G.fugitive_help = function()
+	${builtins.readFile ./fugitive-help-fn.lua}
+end
 		'';
 		keymaps = [
 			{
@@ -290,11 +200,6 @@ in {
 				key = "<leader>gR";
 				action = "<CMD>Git rebase --abort<CR>";
 				options.desc = "Fugitive Rebase Abort";
-			}
-			{
-				key = "<leader>gm";
-				action = "<CMD>DiffviewOpen<cr>";
-				options.desc = "Diffview Mergetool resolve conflicts";
 			}
 			{ # TODO: select a revision to diff current file against
 				key = "<leader>gM";

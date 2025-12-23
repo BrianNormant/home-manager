@@ -13,3 +13,12 @@ set modeindicator false
 "" hint mode by text
 set hintchars 5432167890
 set hintfiltermode vimperator-reflow
+
+"" replace the default "focus url" with tridactyl's cli
+bind <C-l> fillcmdline_notrail
+bind <C-t> fillcmdline tabopen
+bind i focusinput
+bind ]] tabnext
+bind [[ tabprevious
+bind ]f followpage next
+bind [f followpage prev

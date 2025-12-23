@@ -4,7 +4,7 @@ in {
 	imports = [
 		./zsh.nix
 		./nixvim.nix
-		./vifm.nix
+		./explorer.nix
 		./vr.nix
 		./git.nix
 		./ssh.nix
@@ -19,36 +19,14 @@ in {
 		./sound.nix
 		./status-bar.nix
 	];
-	home.packages = with pkgs; [
-		xrizer
-		nix-output-monitor
-		manix
-		cool-retro-term
-		usbutils
-		hyprpicker
-
-		networkmanagerapplet
-		poweralertd
-		libnotify
-		libreoffice
-		radeontop
-		nspire-tools
-		wl-clipboard
-		xsel
-
-		xournalpp # pdf editor
-		calibre # ebook reader
-		gimp # image editor
-		shotcut # video editor
-		# qt-web-engine is outdated
-		rimsort
-		youtube-music
-		rmapi
-		tridactyl-native
-
-		zafiro-icons
-		(callPackage ./pkgs/wl-shimeji.nix {inherit pkgs;})
-	];
+	home.packages =
+		(import ./installed-pkgs/cli-utils.nix     pkgs) ++
+		(import ./installed-pkgs/nix-utils.nix     pkgs) ++
+		(import ./installed-pkgs/desktop-utils.nix pkgs) ++
+		(import ./installed-pkgs/office.nix        pkgs) ++
+		(import ./installed-pkgs/desktop-apps.nix  pkgs) ++
+		(import ./installed-pkgs/dev-utils.nix     pkgs) ++
+		(import ./installed-pkgs/games.nix         pkgs);
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

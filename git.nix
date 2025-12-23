@@ -2,8 +2,15 @@
 	home.packages = with pkgs; [
 		delta
 		gh
+		glab
 	];
 	programs = {
+		gh = {
+			enable = true;
+			gitCredentialHelper = {
+				enable = true;
+			};
+		};
 		git = {
 			enable = true;
 			settings = {
@@ -37,12 +44,6 @@
 				};
 				log.excludeDecoration = "refs/stash";
 				merge.tool = "nvim -c \"Git mergetool\"";
-				"credential \"https://github.com\"" = {
-					helper = "${pkgs.gh} auth git-credential";
-				};
-				"credential \"https://gist.github.com\"" = {
-					helper = "${pkgs.gh} auth git-credential";
-				};
 				"color \"decorate\"" = {
 					HEAD = "blink bold italic 196";
 					branch = "214";

@@ -1,0 +1,13 @@
+diff --git a/lua/bars/components/tabline.lua b/lua/bars/components/tabline.lua
+index 6c54505..4c9d343 100644
+--- a/lua/bars/components/tabline.lua
++++ b/lua/bars/components/tabline.lua
+@@ -429,7 +429,7 @@ end
+ --- Custom section
+ ---@param config tabline.components.custom
+ ---@return string
+-tlC.custom = function (_, _, config)
++tlC.custom = function (config)
+ 	return config.value --[[ @as string ]];
+ end
+ 

@@ -18,16 +18,7 @@
 					];
 				}) ]
 			else if config.nixvim.colorscheme == "melange" then
-				[ (pkgs.vimUtils.buildVimPlugin rec {
-					pname = "melange-nvim";
-					version = "2db5407";
-					src = pkgs.fetchFromGitHub {
-					  owner = "savq";
-					  repo = pname;
-					  rev = version;
-					  hash = "sha256-a88JaW688N9Jb6zQzLk2AEB0rcNicZLRUnbPpiNOTFE=";
-					};
-				}) ]
+				[ pkgs.vimPlugins.melange-nvim ]
 			else abort "${config.nixvim.colorscheme} is not a valid colorscheme";
 		
 		extraConfigLua =

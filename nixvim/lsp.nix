@@ -69,30 +69,37 @@ in {
 				enable = true;
 				lazyLoad.settings = { event = ["LspAttach"]; };
 			};
-		};
-		extraPlugins = with pkgs.vimPlugins; [
-			{
-				plugin = hover-nvim;
-				optional = true;
-			}
-			{
-				plugin = buildVimPlugin {
-					pname = "outline-nvim";
-					version = "latest";
-					src = fetchFromGitHub {
-						owner = "hedyhli";
-						repo = "outline.nvim";
-						rev = "6b62f73";
-						hash = "sha256-MxFONokzF2TdsQtOagh/in2xlbZLk6IhjWonExB/rtY=";
-					};
-					nvimSkipModules = [
-						"outline.providers.norg"
+			hover = {
+				enable = true;
+				lazyLoad.settings = {
+					event = "LspAttach";
+				};
+				settings = {
+					init.__raw = ''function()
+						require('hover.providers.lsp')
+						require('hover.providers.dap')
+						require('hover.providers.diagnostic')
+						require('hover.providers.man')
+						require('hover.providers.dictionary')
+					end'';
+				};
+			};
+			outline = {
+				enable = true;
+				lazyLoad.settings = {
+					cmd = "Outline";
+					keys = [
+						{ __unkeyed-1 = "L"; __unkeyed-2 = "<Cmd>Outline<cr>"; }
 					];
 				};
-				optional = true;
-			}
-		];
-		extraConfigLua = builtins.readFile ./lsp.lua;
+				settings = {
+					outline_window = {
+						position = "left";
+						focus_on_open = false;
+					};
+				};
+			};
+		};
 		keymaps = [
 			{
 				key = "grr";

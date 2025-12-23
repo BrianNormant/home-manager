@@ -35,9 +35,10 @@
 				};
 			};
 			nvim-bqf = {
-				enable = true;
+				enable = false;
 				settings = {
 					preview = {
+						auto_preview = false;
 						border = "double";
 						show_scroll_bar = false;
 						winblend = 20;

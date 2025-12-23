@@ -22,6 +22,9 @@
 		'';
 	};
 in {
+	# systemd.user.tmpfiles.rules = [
+	# 	"d /home/brian/.local/state/nvim/nvimpreview 0755 ${config.home.username} users 1d"
+	# ];
 	programs.nixvim = {
 		plugins.markview = {
 			enable = true;
@@ -59,7 +62,7 @@ in {
 				pattern = [ "*.md" ];
 				callback.__raw = ''function()
 					local name = vim.fn.expand("%:t")
-					local outputfile = "/var/lib/nvimpreview/" .. name .. ".html"
+					local outputfile = "~/.local/state/nvim/nvimpreview/" .. name .. ".html"
 
 					local inputfile = vim.fn.expand("%:p")
 					vim.system({

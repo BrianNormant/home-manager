@@ -1,16 +1,32 @@
 {pkgs, ... }:
-let
-	inherit (pkgs) vimPlugins;
-in {
+{
 	programs.nixvim = {
-		extraPlugins = with vimPlugins; [
-			{
-				plugin = boole-nvim;
-				optional = true;
-			}
-		];
-		extraConfigLua = builtins.readFile ./boole.lua;
 		plugins = {
+			boole = {
+				enable = true;
+				lazyLoad.settings = {
+					keys = [
+						{ __unkeyed-1 = "<C-a>"; }
+						{ __unkeyed-1 = "<C-x>"; }
+					];
+					cmd = "Boole";
+				};
+				settings = {
+					mappings = {
+						increment = "<C-a>";
+						decrement = "<C-x>";
+					};
+				};
+			};
+			attempt = {
+				enable = true;
+				lazyLoad.settings = { cmd = "Attempt"; };
+				luaConfig.post = ''
+					vim.api.nvim_create_user_command("Attempt", function()
+						require("attempt").new_select()
+					end, { desc = "Attempt" })
+					'';
+			};
 			nvim-autopairs = {
 				enable = true;
 				lazyLoad.settings = { event = "DeferredUIEnter"; };
@@ -32,13 +48,38 @@ in {
 						Rule("then", "end", "lua"),
 						Rule("(", ")", {"lua", "nix"}),
 					}
-				'';
+					'';
 			};
 			undotree = {
 				enable = true;
-				# lazyLoad.settings = { cmd = "UndotreeToggle"; };
 				settings = {
 					WindowLayout = 3;
+				};
+			};
+			treesj = {
+				enable = true;
+				lazyLoad.settings = {
+					cmd = [ "TSJToggle" "TSJSplit" "TSJJoin" ];
+					keys = [
+						{
+							__unkeyed-1 = "<c-j>";
+							__unkeyed-2 = "<cmd>TSJToggle<cr>";
+							desc = "Toggle TSJ";
+						}
+						{
+							__unkeyed-1 = "<leader>j";
+							__unkeyed-2 = "<cmd>TSJSplit<cr>";
+							desc = "Split TSJ";
+						}
+						{
+							__unkeyed-1 = "<leader>J";
+							__unkeyed-2 = "<cmd>TSJJoin<cr>";
+							desc = "Join TSJ";
+						}
+					];
+				};
+				settings = {
+					use_default_keymaps = false;
 				};
 			};
 			wakatime = {

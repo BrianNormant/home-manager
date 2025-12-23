@@ -1,7 +1,9 @@
 {...}: {
-	programs.vifm = {
-		enable = true;
-		extraConfig = builtins.readFile ./config/vifm/vifmrc;
+	programs = {
+		vifm = {
+			enable = true;
+			extraConfig = builtins.readFile ./config/vifm/vifmrc;
+		};
 	};
 	home.file = {
 		".config/vifm/colors".source = ./config/vifm/colors;

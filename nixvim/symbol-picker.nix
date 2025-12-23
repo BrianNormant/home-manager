@@ -4,41 +4,21 @@ let
 	inherit (pkgs) fetchFromGitHub;
 in {
 	programs.nixvim = {
-		extraPlugins = [
-			{
-				plugin = buildVimPlugin rec {
-					pname = "icon-picker.nvim";
-					version = "3ee9a0e";
-					src = fetchFromGitHub {
-						owner = "ziontee113";
-						repo = "icon-picker.nvim";
-						rev = version;
-						sha256 = "VZKsVeSmPR3AA8267Mtd5sSTZl2CAqnbgqceCptgp4w=";
-					};
+		plugins = {
+			icon-picker = {
+				enable = true;
+				lazyLoad.settings = {
+					keys = let
+						selected = "alt_font emoji html_colors nerd_font_v3 symbols";
+					in [
+						{ __unkeyed-1 = "<C-q>"; __unkeyed-2 = "<CMD>IconPickerNormal ${selected}<CR>"; mode = "n"; }
+						{ __unkeyed-1 = "<C-q>"; __unkeyed-2 = "<CMD>IconPickerInsert ${selected}<CR>"; mode = "i"; }
+					];
 				};
-				optional = true;
-			}
-		];
-		extraConfigLua = let
-		    selected = "alt_font emoji html_colors nerd_font_v3 symbols";
-		in ''
-			require('lz.n').load { {
-				"icon-picker.nvim",
-				keys = {
-					{
-						"<C-q>",
-						"<CMD>IconPickerNormal ${selected}<CR>",
-					},
-					{
-						"<C-q>",
-						"<CMD>IconPickerInsert ${selected}<CR>",
-						mode = "i",
-					}
-			  	},
-				after = function()
-					require("icon-picker").setup { disable_legacy_commands = true }
-				end
-			} }
-		'';
+				settings = {
+					disable_legacy_commands = true;
+				};
+			};
+		};
 	};
 }

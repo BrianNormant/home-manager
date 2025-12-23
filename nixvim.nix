@@ -1,6 +1,10 @@
 {config, pkgs, lib, ... }:
 let
 	inherit (pkgs) vimPlugins;
+	customNixVimModules = with pkgs.lib;
+		builtins.readDir ./nixvim/plugins |>
+		filterAttrs (n: v: v == "regular") |>
+		mapAttrsToList (n: v: ./nixvim/plugins/${n});
 in {
 
 	options.nixvim = {
@@ -69,11 +73,14 @@ in {
 
 		programs.nixvim = {
 			enable = true;
+			# without global packages, nixvim will not find packages from overlays
+			nixpkgs.useGlobalPackages = true;
+			imports = customNixVimModules;
 			performance = {
 				byteCompileLua = {
 					enable = true;
 					configs = true;
-					initLua = true;
+					initLua = false;
 					nvimRuntime = true;
 					plugins = true;
 				};
