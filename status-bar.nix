@@ -1,74 +1,8 @@
 {pkgs, ...}:
 let
-	qml-niri = pkgs.stdenv.mkDerivation rec {
-		pname = "qml-niri";
-		version = "7694e28";
-		src = pkgs.fetchFromGitHub {
-			owner = "imiric";
-			repo = "qml-niri";
-			rev = "${version}";
-			hash = "sha256-O9cMtAMcGGVA0qkOvim6D+7CA0w1DvyVYUlJpNKp/A0=";
-		};
-		dontWrapQtApps = true;
-		nativeBuildInputs = with pkgs; [
-			cmake
-			gnumake
-			qt6.qtbase
-			qt6.qtwayland
-		];
-		outputs = [ "out" ];
-		buildPhase = ''
-			cmake .
-			make
-		'';
-		installPhase = ''
-			mkdir -p $out/lib/qml
-			cp -r Niri $out/lib/qml
-		'';
-	};
-	qml-caelestia = pkgs.stdenv.mkDerivation rec {
-		pname = "qml-caelestia";
-		version = "210e0b6";
-		src = pkgs.fetchFromGitHub {
-	 		owner = "BrianNormant";
-			repo = "shell";
-			rev = "${version}";
-			hash = "sha256-Y7JEdMOz3DKQTCm0KZLjg0AQATlUpnHtyJCyxNTEYXo=";
-		};
-		dontWrapQtApps = true;
-		nativeBuildInputs = with pkgs; [
-			cmake
-			gnumake
-			pkg-config
-			qt6.qtbase
-			qt6.qtwayland
-			libqalculate
-			pipewire
-			aubio
-			libcava
-			fftw
-		];
-		cmakeFlags =
-			[
-				(pkgs.lib.cmakeFeature "ENABLE_MODULES" "plugin")
-				(pkgs.lib.cmakeFeature "INSTALL_QMLDIR" pkgs.qt6.qtbase.qtQmlPrefix)
-				(pkgs.lib.cmakeFeature "VERSION" "3.20")
-				(pkgs.lib.cmakeFeature "GIT_REVISION" version)
-				(pkgs.lib.cmakeFeature "DISTRIBUTOR" "nix-flake")
-			];
-	};
 in {
 	programs.quickshell = {
 		enable = true;
-		package = pkgs.quickshell.overrideAttrs (prev: (next: {
-			src = pkgs.fetchFromGitea {
-				domain = "git.outfoxxed.me";
-				owner = "quickshell";
-				repo = "quickshell";
-				rev = "fc704e6b5d";
-				hash = "sha256-er4gYrIoThYLjlsOMTysoRfn67d1Gci+ZpqDrtQxrA0=";
-			};
-		}));
 	};
 	home.packages = with pkgs; [
 		material-symbols
@@ -113,7 +47,9 @@ auth [default=die] ${pkgs.pam}/lib/security/pam_faillock.so authfail
 auth required ${pkgs.pam}/lib/security/pam_faillock.so authsucc
 		'';
 	};
-	home.sessionVariables."QML_IMPORT_PATH" = "${qml-niri}/lib/qml/:${qml-caelestia}/lib/qt-6/qml/";
-	programs.zsh.sessionVariables."QML_IMPORT_PATH" = "${qml-niri}/lib/qml/:${qml-caelestia}/lib/qt-6/qml/";
+	home.sessionVariables."QML_IMPORT_PATH" = with pkgs;
+		"${qml-niri}/lib/qt-6/qml/:${qml-caelestia}/lib/qt-6/qml/";
+	programs.zsh.sessionVariables."QML_IMPORT_PATH" = with pkgs;
+		"${qml-niri}/lib/qt-6/qml/:${qml-caelestia}/lib/qt-6/qml/";
 	fonts.fontconfig = { enable = true; };
 }

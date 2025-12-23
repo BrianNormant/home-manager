@@ -53,7 +53,7 @@
 					"PATH=/run/current-system/sw/bin:/home/brian/.nix-profile/bin"
 					"DISPLAY=:0"
 				];
-				Service.ExecStart = "${pkgs.discord}/bin/discord --enable-features=UseOzonePlatform --ozone-platform-hint=auto";
+				Service.ExecStart = "${pkgs.discord}/bin/discord --enable-features=UseOzonePlatform --ozone-platform-hint=auto --start-minimized";
 				Service.Restart="always";
 				Service.RestartSec="5s";
 				Unit.After="niri.service";

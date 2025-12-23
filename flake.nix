@@ -20,12 +20,21 @@
 			url = "github:caelestia-dots/cli";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		my-quickshell = {
+			url = ./config/quickshell;
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 		quickshell = {
 			url = "github:quickshell-mirror/quickshell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		qml-niri = {
+			url = "github:imiric/qml-niri/main";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.quickshell.follows = "quickshell";
+		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, nspire-tools, quickshell, caelestia-cli,
+	outputs = inputs@{ nixpkgs, home-manager, nspire-tools,
 		 ... }:
 		let
 	system = "x86_64-linux";
@@ -51,9 +60,11 @@
 			})
 			inputs.nixpkgs-xr.overlays.default
 			inputs.autoeq.overlays.default
-			(final: prev: {nspire-tools = nspire-tools.packages."${system}".default;})
-			(final: prev: {inherit (caelestia-cli.packages."${system}") caelestia-cli;})
-			(final: prev: {inherit (quickshell.packages."${system}") quickshell;})
+			(f: p: {inherit (inputs.quickshell.packages."${system}") quickshell;})
+			(f: p: {qml-niri = inputs.qml-niri.packages."${system}".default;})
+			(f: p: {inherit (inputs.my-quickshell.packages."${system}") qml-caelestia;})
+			(f: p: {nspire-tools = nspire-tools.packages."${system}".default;})
+			(f: p: {inherit (inputs.caelestia-cli.packages."${system}") caelestia-cli;})
 			];
 	};
 	modules = with inputs; [
