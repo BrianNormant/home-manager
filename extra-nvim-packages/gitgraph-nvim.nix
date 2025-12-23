@@ -8,7 +8,6 @@ in  vimUtils.buildVimPlugin {
 			owner = "isakbm";
 			repo = "gitgraph.nvim";
 			rev = "c16daa7";
-			hash = "sha256-d55IRrOhK5tSLo2boSuMhDbkerqij5AHgNDkwtGadyI=";
+			hash = "sha256-QQcqLUJIligXW9bGQR1sDmg9efNFuTWQGCk7E9ni8Tc=";
 		};
-		patches = [ ../nixvim/plugin-patch/gitgraph.patch ];
 	}

@@ -3,4 +3,5 @@ pgks: with pgks; [
 	youtube-music
 	zapzap
 	vlc
+	discord
 ]
