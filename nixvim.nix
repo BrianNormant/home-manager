@@ -80,7 +80,7 @@ in {
 				byteCompileLua = {
 					enable = true;
 					configs = true;
-					initLua = false;
+					initLua = true;
 					nvimRuntime = true;
 					plugins = true;
 				};
