@@ -13,6 +13,7 @@ pgks: with pgks; [
 	unison
 	jq
 	killall
+	pulsemixer
 
 	# coreutils drop-in replacements
 	btop
