@@ -1,6 +1,7 @@
 local overseer = require('overseer')
 local task_list = require('overseer.task_list')
 local commands = require('overseer.commands')
+local templates = require('overseer.template')
 
 --------------------------------[ runLastOrAsk ]--------------------------------
 
@@ -48,234 +49,158 @@ end, {
 		bang = true,
 	})
 
--- every `packages` is ran with `nix build`
-local tmpl_pkg = {
-	name = "nix",
-	priority = 10,
-	params = {
-		args = {
-			type = "list",
-			delimiter = " ",
-			name = "flake",
-			desc = "The flake to build",
-			default = ".#default",
-			optional = false,
-		},
-		cwd = { optional = false, },
-	},
-	builder = function(params)
-		return {
-			cmd = { "nix", "build" },
-			args = params.args,
-			cwd = params.cwd,
-		}
-	end,
-}
+-------------------------------[ Nix flake Cmd ]--------------------------------
 
--- every `homeConfigurations` is ran with `home-manager build`
-local tmpl_home = {
-	name = "home-manager",
-	priority = 30,
-	params = {
-		cwd = { optional = false, },
-	},
-	builder = function(params)
-		return {
+local mk_task_pkg_build = function(args, name)
+	return {
+		name = "nix build " .. name,
+		builder = function(_)
+			return {
+				cmd = { "nix", "build" },
+				args = args,
+				desc = "Build Package",
+			}
+		end,
+	}
+end
+
+local mk_task_home_build = function(args, name)
+	return {
+		name = "home-manager build " .. name,
+		builder = function(_)
+			return {
 			cmd = { "home-manager", "build" },
-			cwd = params.cwd,
-		}
-	end,
-}
+			args = args,
+			desc = "Build Home Manager Configuration",
+			}
+		end,
+	}
+end
 
-local tmpl_home_switch = {
-	name = "home-manager",
-	priority = 20,
-	params = {
-		cwd = { optional = false, },
-	},
-	builder = function(params)
-		return {
-			cmd = { "home-manager", "switch" },
-			cwd = params.cwd,
-		}
-	end,
-}
+local mk_task_home_switch = function(args, name)
+	return {
+		name = "home-manager switch " .. name,
+		builder = function(_)
+			return {
+				cmd = { "home-manager", "switch" },
+				args = args,
+				desc = "Switch Home Manager Configuration",
+			}
+		end,
+	}
+end
 
--- every `nixosConfigurations` is ran with `nixos-rebuild build`
-local tmpl_os = {
-	name = "Nixos",
-	priority = 30,
-	params = {
-		args = {
-			type = "list",
-			name = "conf",
-			desc = "The configuration to build",
-			optional = false,
-			delimiter = " ",
-		},
-		cwd = { optional = false, },
-	},
-	builder = function(params)
-		return {
-			cmd = { "nixos-rebuild", "build", "--flake" },
-			args = params.args,
-			cwd = params.cwd,
-		}
-	end,
-}
+local mk_task_os_build = function(args, name)
+	return {
+		name = "nixos-rebuild build " .. name,
+		builder = function(_)
+			return {
+				cmd = { "nixos-rebuild", "build", },
+				args = args,
+				desc = "Build NixOS Configuration",
+			}
+		end,
+	}
+end
 
-local tmpl_os_switch = {
-	name = "Nixos",
-	priority = 20,
-	params = {
-		args = {
-			type = "list",
-			name = "conf",
-			desc = "The configuration to build",
-			optional = false,
-			delimiter = " ",
-		},
-		cwd = { optional = false, },
-	},
-	builder = function(params)
-		return {
-			cmd = { "nixos-rebuild", "switch", "--flake" },
-			args = params.args,
-			cwd = params.cwd,
-		}
-	end,
-}
+local mk_task_os_switch = function(args, name)
+	return {
+		name = "nixos-rebuild switch " .. name,
+		builder = function(_)
+			return {
+				cmd = { "nixos-rebuild", "switch", },
+				args = args,
+				desc = "Switch NixOS Configuration",
+			}
+		end,
+	}
+end
 
 -- we register if there is a flake.nix file
 local get_flake = function(opts)
-	local cwd = vim.uv.cwd()
-	return vim.fs.find("flake.nix", {upward = false, type = "file", path = cwd})[1]
+	return vim.fs.find("flake.nix", {upward = false, type = "file", path = opts.dir})[1]
 end
 
--- We take the json output from `nix flake show --json`
 local parse_flake_show = function(_, cb)
 	local cwd = vim.uv.cwd()
+	-- we have to manually list the homeConfigurations as they don't show individually
+	-- in the nix flake show output
+	-- https://discourse.nixos.org/t/how-to-list-home-manager-configs-in-flake/58808/2
+	vim.system({
+		"nix",
+		"eval",
+		"./#homeConfigurations",
+		"--apply",
+		"hconf: builtins.attrNames hconf",
+		"--json",
+	}, {text = true, cwd = cwd}, function(obj)
+			if obj.code ~= 0 then return end
+			local json_raw = obj.stdout
+			local json = vim.json.decode(json_raw)
+			local tasks = {}
+
+			for _, conf in pairs(json) do
+				local task_build = mk_task_home_build({ "--flake", ".#" .. conf }, conf)
+				table.insert(tasks, task_build)
+				local switch_task = mk_task_home_switch({ "--flake", ".#" .. conf }, conf)
+				table.insert(tasks, switch_task)
+			end
+
+			vim.schedule(function() cb(tasks) end)
+	end)
 	vim.system({"nix", "flake", "show", "--json"}, {text = true, cwd = cwd}, function(obj)
 		assert(obj.code == 0, obj.stderr)
 		local json_raw = obj.stdout
 		local json = vim.json.decode(json_raw)
 		local tasks = {}
 
-		if json["homeConfigurations"] then
-			local override = { name = "home-manager" }
-			local tmpl = overseer.wrap_template(
-				tmpl_home,
-				override,
-				{
-					cwd = cwd
-				}
-			)
-			table.insert(tasks, tmpl)
-			override = { name = "home-manager Switch" }
-			tmpl = overseer.wrap_template(
-				tmpl_home_switch,
-				override,
-				{
-					cwd = cwd
-				}
-			)
-			table.insert(tasks, tmpl)
-		end
-
 		if json["nixosConfigurations"] then
 			local configurations = json["nixosConfigurations"]
 			for conf, _ in pairs(configurations) do
-				local override = { name = string.format("Nixos Build %s", conf)}
-				local tmpl = overseer.wrap_template(tmpl_os,
-					override,
-					{
-						args = {".#" .. conf},
-						cwd = cwd
-					}
-				)
-				table.insert(tasks, tmpl)
-				override = { name = string.format("Nixos Switch %s", conf)}
-				tmpl = overseer.wrap_template(tmpl_os_switch,
-					override,
-					{
-						args = {".#" .. conf},
-						cwd = cwd
-					}
-				)
-				table.insert(tasks, tmpl)
+				local task_build = mk_task_os_build({ "--flake", ".#" .. conf }, conf)
+				table.insert(tasks, task_build)
+				local switch_task = mk_task_os_switch({ "--flake", ".#" .. conf }, conf)
+				table.insert(tasks, switch_task)
 			end
 		end
 
 		if json["packages"] then
 			local packages = json["packages"]["x86_64-linux"]
 			for pkg, _ in pairs(packages) do
-				local override = { name = string.format("Nix %s", pkg)}
-				local tmpl = overseer.wrap_template(tmpl_pkg,
-					override,
-					{
-						args = { ".#" .. pkg},
-						cwd = cwd
-					}
-				)
-				table.insert(tasks, tmpl)
+				local task_build = mk_task_pkg_build({ "--flake", ".#" .. pkg }, pkg)
+				table.insert(tasks, task_build)
 			end
 		end
-		vim.schedule(function()
-			cb(tasks)
-		end)
+		vim.schedule(function() cb(tasks) end)
 	end)
 end
 
 -- the template generator
-local provider = {
-	name = "nix",
-	cache_key = function(opts)
-		return get_flake(opts)
-	end,
-	condition = {
-		callback = function(opts)
-			if vim.fn.executable("nix") == 0 then
-				return false, 'Command "nix" not found'
-			end
-			if not get_flake(opts) then
-				return false, "No flake.nix file found"
-			end
-			return true
-		end,
-	},
+local nix_provider = {
+	name = "nix-provider",
+	cache_key = get_flake,
 	generator = parse_flake_show,
 }
 
--- TODO: Write a generator from speficic makefiles
--- ie: if the makefile has a target called "all, help or list"
--- we assume that each line is a target available
--- and we generate a task for each target
+templates.register(nix_provider)
 
-local make_template = {
-	name = "make",
-	priority = 10,
-	params = {
-		args = {
-			type = "list",
-			delimiter = " ",
-			name = "make target",
-			desc = "The target to run",
-			optional = false,
-		},
-		cwd = { optional = false, },
-	},
-	builder = function(params)
-		return {
-			cmd = { "make" },
-			args = params.args,
-			cwd = params.cwd,
-		}
-	end,
-}
+--------------------------------[ Makefile Cmd ]--------------------------------
+
+local mk_task_make = function(args, name)
+	return {
+		name = "make task " .. name,
+		builder = function(_)
+			return {
+				cmd = { "make" },
+				args = args,
+				desc = "Run make task",
+			}
+		end
+	}
+end
 
 local get_make = function(opts)
-	local cwd = vim.uv.cwd()
-	return vim.fs.find("Makefile", {upward = false, type = "file", path = cwd})[1]
+	return vim.fs.find("Makefile", {upward = false, type = "file", path = opts.idr})[1]
 end
 
 local make_generator = function(_, cb)
@@ -290,16 +215,8 @@ local make_generator = function(_, cb)
 		for line in raw:gmatch("[^\r\n]+") do
 			-- target is first word
 			local target = line:match("%S+")
-			local override = { name = "make " .. target }
-			local tmpl = overseer.wrap_template(
-				make_template,
-				override,
-				{
-					cwd = cwd,
-					args = { target },
-				}
-			)
-			table.insert(tasks, tmpl)
+			local task_make = mk_task_make({ target }, name)
+			table.insert(tasks, task_make)
 		end
 		vim.schedule(function() cb(tasks) end)
 	end)
@@ -311,40 +228,17 @@ local make_generator = function(_, cb)
 		for line in raw:gmatch("[^\r\n]+") do
 			-- target is first word
 			local target = line:match("%S+")
-			local override = { name = "make " .. target }
-			local tmpl = overseer.wrap_template(
-				make_template,
-				override,
-				{
-					cwd = cwd,
-					args = { target },
-				}
-			)
-			table.insert(tasks, tmpl)
+			local task_make = mk_task_make({ target }, name)
+			table.insert(tasks, task_make)
 		end
 		vim.schedule(function() cb(tasks) end)
 	end)
 end
 
 local makefile_provider = {
-	name = "makefile-list",
-	cache_key = function(opts)
-		return get_make(opts)
-	end,
-	condition = {
-		callback = function(opts)
-			if vim.fn.executable("make") == 0 then
-				return false, 'Command "make" not found'
-			end
-			if not get_make(opts) then
-				return false, "No Makefile found"
-			end
-			return true
-		end,
-	},
+	name = "make-provider",
+	cache_key = get_make,
 	generator = make_generator,
 }
 
-
-overseer.register_template(provider)
-overseer.register_template(makefile_provider)
+templates.register(makefile_provider)

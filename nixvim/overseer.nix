@@ -5,7 +5,6 @@ in {
 		plugins = {
 			overseer = {
 				enable = true;
-				package = pkgs.vimPlugins.overseer-nvim;
 				# if overseer crash after update, lock the input to tag="v1.6.0" in the meantime until fix
 				lazyLoad = {
 					enable = true;
@@ -14,10 +13,13 @@ in {
 							"OverseerRun"
 							"OverseerRunLastOrAsk"
 							"OverseerToggle"
+							"OverseerShell"
 						];
 					};
 				};
-				settings = {};
+				settings = {
+					log_level.__raw = "vim.log.levels.DEBUG";
+				};
 				luaConfig.post = builtins.readFile ./overseer.lua;
 			};
 		};
