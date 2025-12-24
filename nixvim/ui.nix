@@ -9,6 +9,11 @@ in {
 		plugins = {
 			floating-input = {
 				enable = true;
+				package = pkgs.vimPlugins.floating-input-nvim.overrideAttrs {
+					patches = [
+						./plugin-patch/floating-input.patch
+					];
+				};
 				lazyLoad.settings = {
 					event = "DeferredUIEnter";
 				};
