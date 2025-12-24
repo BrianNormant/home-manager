@@ -250,6 +250,7 @@ in {
 				vim.opt.sessionoptions:append("help")
 				vim.opt.sessionoptions:append("tabpages")
 
+				${builtins.readFile ./extra-nvim-files/mkheader.lua}
 			'';
 			autoCmd = [
 				{
