@@ -20,11 +20,19 @@
 			};
 			attempt = {
 				enable = true;
-				lazyLoad.settings = { cmd = "Attempt"; };
+				lazyLoad.settings = {
+					cmd = [
+						"Attempt"
+						"AttemptRun"
+					];
+				};
 				luaConfig.post = ''
 					vim.api.nvim_create_user_command("Attempt", function()
 						require("attempt").new_select()
 					end, { desc = "Attempt" })
+					vim.api.nvim_create_user_command("AttemptRun", function()
+						require("attempt").run()
+					end, { desc = "AttemptRun" })
 					'';
 			};
 			nvim-autopairs = {
