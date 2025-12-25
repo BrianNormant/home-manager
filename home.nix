@@ -28,7 +28,11 @@ in {
 		(import ./installed-pkgs/dev-utils.nix     pkgs) ++
 		(if hostname == "BrianNixDesktop"
 			then (import ./installed-pkgs/games.nix pkgs)
-		else []);
+		else []) ++
+		(if hostname == "BrianNixLaptop"
+			then (import ./installed-pkgs/piano.nix pkgs)
+		else [])
+		;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
