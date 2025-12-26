@@ -4,4 +4,5 @@ pgks: with pgks; [
 	zapzap
 	vlc
 	discord
+	reMarkable
 ]
