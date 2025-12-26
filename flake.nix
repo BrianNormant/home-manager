@@ -46,7 +46,7 @@
 				builtins.readDir ./extra-packages
 				|> mapAttrs' (v: _: nameValuePair
 						(removeSuffix ".nix" v)
-						(import ./extra-packages/${v} {pkgs = prev;} )
+						(prev.callPackage ./extra-packages/${v} {})
 					)
 			)
 			(final: prev: {
