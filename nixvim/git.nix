@@ -231,7 +231,7 @@ function()
 			return true
 		end
 	}
-	builtin.git_commits( themes.get_dropdown(opts) )
+	builtin.git_bcommits( themes.get_dropdown(opts) )
 end
 				'';
 				options.desc = "Fugitive Diff against current file";
