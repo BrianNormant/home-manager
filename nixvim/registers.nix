@@ -13,7 +13,7 @@ in {
 							__unkeyed-1 = "m/";
 							__unkeyed-2 = "<Cmd>Telescope marks theme=cursor<CR>";
 							mode = [ "n" "x" ];
-							options.desc = "Telescope Search marks";
+							desc = "Telescope Search marks";
 						}
 					];
 				};
