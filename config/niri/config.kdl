@@ -222,7 +222,7 @@ binds {
 	Mod+B { spawn "kitty" "--class" "PopUp" "bluetuith"; }
 	Mod+Return { spawn "kitty"; }
 	Mod+Alt+Return { spawn "cool-retro-term"; }
-	Mod+T { spawn "kitten" "quick-access-terminal"; }
+	Mod+T { spawn "kitten" "quick-access-terminal"; "tmux" "new" "-A" "-t" "PopUp"; }
 	Mod+Alt+T { spawn "kitty" "--class" "PopUp" "tmux" "new" "-A" "-s" "PopUp"; }
 	Mod+E { spawn "neovide"; }
 	Mod+Alt+E { spawn "thunar"; }

@@ -31,7 +31,11 @@ function smart_ctrl_d() {
 	elif [[ -n $NVIM ]]; then
 		exit
 	elif [[ -n $TMUX ]]; then
-		tmux detach
+		if [[ $( tmux display-message -p '#S' ) == 'PopUp' ]]; then
+			exit
+		else
+			tmux detach
+		fi
 	else
 		exit
 	fi
