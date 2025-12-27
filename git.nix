@@ -49,7 +49,13 @@
 					branch = "214";
 					tag = "bold 222";
 				};
-
+			};
+			hooks = {
+				# TODO: pre commit to force commit message to match:
+				# ^([a-zA-Z1-9]+,?)+(\(fix\))?:
+				# group1,group2: commit message
+				# feature1(fix): commit message
+				pre-push = ./script/git-pre-push-hook.sh;
 			};
 		};
 	};
