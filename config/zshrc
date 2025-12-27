@@ -53,27 +53,36 @@ if [[ $- == *i* ]]; then
 	elif [[ -o login ]]; then
 		# do not start tmux on the login shell
 	else
-		tmuxcmd=""
-		nbsession=$(tmux ls 2> /dev/null | wc -l)
-		if [[ $nbsession -eq 0 ]]; then
-			tmuxcmd='tmux -2 new-session -t Main'
-		elif [[ $nbsession -lt 5 ]]; then
-			# If a session is not attached too, attach to it.
-			tmuxcmd='tmux -2 new-session'
-			tmuxsession=$(tmux ls 2> /dev/null)
-			for session in ${(f)tmuxsession}; do
-				local name=$(echo $session | cut -d ":" -f 1)
-				clients=$(tmux list-clients -t $name 2> /dev/null | wc -l)
-				if [[ $clients -eq 0 ]]; then
-					# If it's not attached, attach to it
-					tmuxcmd="tmux attach -t $name"
-				fi;
-			done
-		else
-			tmuxcmd='tmux -2 attach'
-		fi
+		max_empty_sessions=5
+		tmux_sessions=()
+		for i in {1..$max_empty_sessions}; do
+			tmux_sessions+=('Main-'$i)
+		done
 
-		eval "$tmuxcmd"
+		local found_session=0
+		for session in $tmux_sessions; do
+			if (tmux has-session -t $session ); then
+				clients=$(tmux list-clients -t $session 2> /dev/null | wc -l)
+				if [[ $clients -eq 0 ]]; then
+					# we have a empty session, attach then exit
+					found_session=1
+					tmux attach -t $session
+					break
+				else
+					# Session is aldready attached to, try the next one
+					continue
+				fi
+			else
+				# Session does not exist, create and attach
+				tmux attach -t $session || tmux new -s $session
+				found_session=1
+				break
+			fi
+		done
+		if [[ $found_session -eq 0 ]]; then
+			# No empty session found, attach to any
+			tmux attach -t Main-1 || tmux new -s Main-1
+		fi
 	fi
 fi
 
