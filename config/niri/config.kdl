@@ -223,25 +223,31 @@ binds {
 	Mod+Alt+Right { focus-monitor-right; }
 
 	// Applications
-	Mod+P { spawn "kitty" "--class" "PopUp" "pulsemixer"; }
-	Mod+B { spawn "kitty" "--class" "PopUp" "bluetuith"; }
 	Mod+Return { spawn "kitty"; }
 	Mod+Alt+Return { spawn "cool-retro-term"; }
-	Mod+T { spawn "kitten" "quick-access-terminal" "tmux" "new" "-A" "-t" "PopUp"; }
+	Mod+T { spawn "~/.local/bin/panel.sh"; }
 	Mod+Alt+T { spawn "kitty" "--class" "PopUp" "tmux" "new" "-A" "-s" "PopUp"; }
 	Mod+E { spawn "neovide"; }
-	Mod+W { spawn "kitty" "quick-access-terminal" "tmux" "new" "-A" "-t" "TODO Stack" }
 	Mod+Alt+E { spawn "thunar"; }
 	Mod+V { spawn "copyq" "toggle"; }
 	Mod+I { spawn "firefox"; }
 	Mod+Shift+I { spawn "firefox" "-private-window"; }
-	Control+Shift+Escape { spawn "kitty" "--class" "ProcessManager" "btop"; }
+
+	// TUI utilities
+	Mod+S { spawn "~/.local/bin/panel.sh" "systemd-manager-tui"; }
+	Mod+W { spawn "~/.local/bin/panel.sh" "vim Documents/TODO-stack.md"; }
+	Mod+P { spawn "~/.local/bin/panel.sh" "pulsemixer"; }
+	Mod+B { spawn "~/.local/bin/panel.sh" "bluetuith"; }
+	Control+Shift+Escape { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
+	// Calculator: https://nixos.org/manual/nixpkgs/stable/#sec-language-go
+	Mod+Grave { spawn "~/.local/bin/panel.sh" "dc"; }
+	// TODO write a wrapper to control cmus with fzf
+	Mod+M { spawn "~/.local/bin/panel.sh" "cmus"; }
+	// TODO use the new kitty file browser for stuff
 
 	// Runners
 	Mod+Alt+I { spawn "/home/brian/.config/rofi/applets/bin/quicklinks.sh"; }
 	Mod+D { spawn "walker"; }
-	Mod+Grave { spawn "rofi" "-show" "calc"; }
-	Mod+S { spawn "/home/brian/.config/home-manager/script/rofi-systemd.sh"; }
 
 	// Screenshot
 	Print { screenshot-window; }
