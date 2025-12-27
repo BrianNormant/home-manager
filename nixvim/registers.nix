@@ -6,7 +6,17 @@ in {
 		plugins = {
 			marks = {
 				enable = true;
-				lazyLoad.settings = { event = "DeferredUIEnter"; };
+				lazyLoad.settings = {
+					event = "DeferredUIEnter";
+					keys = [
+						{
+							__unkeyed-1 = "m/";
+							__unkeyed-2 = "<Cmd>Telescope marks theme=cursor<CR>";
+							mode = [ "n" "x" ];
+							options.desc = "Telescope Search marks";
+						}
+					];
+				};
 			};
 			registers = {
 				enable = true;
@@ -47,11 +57,5 @@ in {
 					'';
 			};
 		};
-		keymaps = [
-			{
-				key = "m.";
-				action = "<Cmd>Telescope marks theme=cursor<CR>";
-			}
-		];
 	};
 }
