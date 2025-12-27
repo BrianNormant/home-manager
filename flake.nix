@@ -42,19 +42,23 @@
 		inherit system;
 		config.allowUnfree = true;
 		overlays = [
-			(final: prev: with prev.lib;
+			(next: prev:
+					let callPackage = prev.lib.callPackageWith prev;
+					 in with prev.lib;
 				builtins.readDir ./extra-packages
 				|> mapAttrs' (v: _: nameValuePair
 						(removeSuffix ".nix" v)
-						(prev.callPackage ./extra-packages/${v} {})
+						(callPackage ./extra-packages/${v} {})
 					)
 			)
-			(final: prev: {
+			(next: prev:
+					let callPackage = prev.lib.callPackageWith prev;
+					 in with prev.lib; {
 				vimPlugins = prev.vimPlugins.extend (f': p': with prev.lib;
 					builtins.readDir ./extra-nvim-packages
 					|> mapAttrs' (v: _: nameValuePair
 							(removeSuffix ".nix" v)
-							(prev.callPackage ./extra-nvim-packages/${v} {})
+							(callPackage ./extra-nvim-packages/${v} {})
 						)
 				);
 			})
