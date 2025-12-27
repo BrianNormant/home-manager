@@ -9,9 +9,9 @@
 					];
 				};
 				settings = {
-					tabline = true;
 					statusline = true;
 					statuscolumn = true;
+					tabline = false;
 					winbar = false;
 				};
 				luaConfig.pre = ''
@@ -21,7 +21,6 @@ local statuscolumn = require('bars.statuscolumn')
 local statusline = require('bars.statusline')
 
 ${builtins.readFile ./bars/statusline-setup.lua}
-${builtins.readFile ./bars/tabline-setup.lua}
 
 statuscolumn.setup {
 	ignore_filetypes = {
