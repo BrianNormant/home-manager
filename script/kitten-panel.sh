@@ -20,10 +20,11 @@ else
 fi
 
 kitten panel \
-	--layer=top \
+	--layer=overlay \
 	--edge=center-sized \
 	--focus-policy=on-demand \
 	--hide-on-focus-loss=yes \
+	--grab-keyboard=yes \
 	--single-instance=yes \
 	--toggle-visibility=yes \
 	--move-to-active-monitor=yes \

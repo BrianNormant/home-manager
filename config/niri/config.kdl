@@ -164,109 +164,108 @@ output "HDMI-A-1" {
 // }
 
 binds {
-	Mod+Shift+Q { quit; }
-	Mod+F1 { show-hotkey-overlay; }
-	Mod+Tab {toggle-overview; }
+	Mod+Shift+Q allow-inhibiting=false { quit; }
+	Mod+Tab allow-inhibiting=false {toggle-overview; }
 	// Quickshell lockscreen will often crash after a while.
 	// This allows to use swaylock to avoid opening another tty with Ctrl-Alt-2
-	Mod+Alt+L allow-when-locked=true { spawn "swaylock"; }
+	Mod+Alt+L allow-inhibiting=false allow-when-locked=true { spawn "swaylock"; }
 
 	// Focused window
-	Mod+Q { close-window; }
-	Mod+Space {toggle-window-floating; }
-	Mod+F {fullscreen-window; }
-	Mod+Alt+F { toggle-windowed-fullscreen; }
-	Mod+C {center-window; }
-	Mod+Slash { toggle-column-tabbed-display; }
+	Mod+Q allow-inhibiting=true { close-window; }
+	Mod+Space allow-inhibiting=true {toggle-window-floating; }
+	Mod+F allow-inhibiting=true {fullscreen-window; }
+	Mod+Alt+F allow-inhibiting=true { toggle-windowed-fullscreen; }
+	Mod+C allow-inhibiting=true {center-window; }
+	Mod+Slash allow-inhibiting=false { toggle-column-tabbed-display; }
 
 	// Move focus in workspace
-	Mod+Left { focus-column-left; }
-	Mod+Right { focus-column-right; }
-	Mod+WheelScrollUp { focus-column-left; }
-	Mod+WheelScrollDown { focus-column-right; }
-	Mod+Up { focus-window-up; }
-	Mod+Down { focus-window-down; }
-	Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
+	Mod+Left allow-inhibiting=false { focus-column-left; }
+	Mod+Right allow-inhibiting=false { focus-column-right; }
+	Mod+WheelScrollUp allow-inhibiting=false { focus-column-left; }
+	Mod+WheelScrollDown allow-inhibiting=false { focus-column-right; }
+	Mod+Up allow-inhibiting=false { focus-window-up; }
+	Mod+Down allow-inhibiting=false { focus-window-down; }
+	Mod+Shift+Space allow-inhibiting=true { switch-focus-between-floating-and-tiling; }
 
 	// Move window in workspace
-	Mod+Shift+Left { move-column-left-or-to-monitor-left; }
-	Mod+Shift+Right { move-column-right-or-to-monitor-right; }
-	Mod+Shift+Up { move-window-up; }
-	Mod+Shift+Down { move-window-down; }
-	Mod+BracketRight { consume-or-expel-window-right; }
-	Mod+BracketLeft { consume-or-expel-window-left; }
-	Mod+H { swap-window-left; }
-	Mod+L { swap-window-right; }
+	Mod+Shift+Left allow-inhibiting=false { move-column-left-or-to-monitor-left; }
+	Mod+Shift+Right allow-inhibiting=false { move-column-right-or-to-monitor-right; }
+	Mod+Shift+Up allow-inhibiting=false { move-window-up; }
+	Mod+Shift+Down allow-inhibiting=false { move-window-down; }
+	Mod+BracketRight allow-inhibiting=false { consume-or-expel-window-right; }
+	Mod+BracketLeft allow-inhibiting=false { consume-or-expel-window-left; }
+	Mod+H allow-inhibiting=false { swap-window-left; }
+	Mod+L allow-inhibiting=false { swap-window-right; }
 
 	// Move focus between workspaces
-	Mod+Z { focus-workspace-up; }
-	Mod+X { focus-workspace-down; }
+	Mod+Z allow-inhibiting=false { focus-workspace-up; }
+	Mod+X allow-inhibiting=false { focus-workspace-down; }
 
 	// Move window between workspaces
-	Mod+Shift+Z { move-window-to-workspace-up; }
-	Mod+Shift+X { move-window-to-workspace-down; }
+	Mod+Shift+Z allow-inhibiting=false { move-window-to-workspace-up; }
+	Mod+Shift+X allow-inhibiting=false { move-window-to-workspace-down; }
 
 	// Move workspaces
-	Mod+Alt+Z { move-workspace-up; }
-	Mod+Alt+X { move-workspace-down; }
-	Mod+N { spawn "/home/brian/.config/script/set-workspace-name.sh"; }
+	Mod+Alt+Z allow-inhibiting=false { move-workspace-up; }
+	Mod+Alt+X allow-inhibiting=false { move-workspace-down; }
+	Mod+N allow-inhibiting=false { spawn "/home/brian/.config/script/set-workspace-name.sh"; }
 
 	// Window/Colum Size
-	Mod+R { switch-preset-window-width; }
-	Mod+Shift+R { switch-preset-window-height; }
-	Mod+1 { set-window-width "25%"; }
-	Mod+2 { set-window-width "50%"; }
-	Mod+3 { set-window-width "75%"; }
-	Mod+4 { set-window-width "100%"; }
+	Mod+R allow-inhibiting=false { switch-preset-window-width; }
+	Mod+Shift+R allow-inhibiting=false { switch-preset-window-height; }
+	Mod+1 allow-inhibiting=false { set-window-width "25%"; }
+	Mod+2 allow-inhibiting=false { set-window-width "50%"; }
+	Mod+3 allow-inhibiting=false { set-window-width "75%"; }
+	Mod+4 allow-inhibiting=false { set-window-width "100%"; }
 
-	Mod+Alt+Left { focus-monitor-left; }
-	Mod+Alt+Right { focus-monitor-right; }
+	Mod+Alt+Left allow-inhibiting=true { focus-monitor-left; }
+	Mod+Alt+Right allow-inhibiting=true { focus-monitor-right; }
 
 	// Applications
-	Mod+Return { spawn "kitty"; }
-	Mod+Alt+Return { spawn "cool-retro-term"; }
-	Mod+T { spawn "~/.local/bin/panel.sh"; }
-	Mod+Alt+T { spawn "kitty" "--class" "PopUp" "tmux" "new" "-A" "-s" "PopUp"; }
-	Mod+E { spawn "neovide"; }
-	Mod+Alt+E { spawn "thunar"; }
-	Mod+V { spawn "copyq" "toggle"; }
-	Mod+I { spawn "firefox"; }
-	Mod+Shift+I { spawn "firefox" "-private-window"; }
+	Mod+Return allow-inhibiting=false { spawn "kitty"; }
+	Mod+Alt+Return allow-inhibiting=false { spawn "cool-retro-term"; }
+	Mod+T allow-inhibiting=false { spawn "~/.local/bin/panel.sh"; }
+	Mod+Alt+T allow-inhibiting=false { spawn "kitty" "--class" "PopUp" "tmux" "new" "-A" "-s" "PopUp"; }
+	Mod+E allow-inhibiting=false { spawn "neovide"; }
+	Mod+Alt+E allow-inhibiting=false { spawn "thunar"; }
+	Mod+V allow-inhibiting=false { spawn "copyq" "toggle"; }
+	Mod+I allow-inhibiting=false { spawn "firefox"; }
+	Mod+Shift+I allow-inhibiting=false { spawn "firefox" "-private-window"; }
 
 	// TUI utilities
-	Mod+S { spawn "~/.local/bin/panel.sh" "systemd-manager-tui"; }
-	Mod+W { spawn "~/.local/bin/panel.sh" "vim Documents/TODO-stack.md"; }
-	Mod+P { spawn "~/.local/bin/panel.sh" "pulsemixer"; }
-	Mod+B { spawn "~/.local/bin/panel.sh" "bluetuith"; }
-	Control+Shift+Escape { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
+	Mod+S allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "systemd-manager-tui"; }
+	Mod+W allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "vim Documents/TODO-stack.md"; }
+	Mod+P allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "pulsemixer"; }
+	Mod+B allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "bluetuith"; }
+	Control+Shift+Escape allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
 	// Calculator: https://nixos.org/manual/nixpkgs/stable/#sec-language-go
-	Mod+Grave { spawn "~/.local/bin/panel.sh" "dc"; }
+	Mod+Grave allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "dc"; }
 	// TODO write a wrapper to control cmus with fzf
-	Mod+M { spawn "~/.local/bin/panel.sh" "cmus"; }
+	Mod+M allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "cmus"; }
 	// TODO use the new kitty file browser for stuff
 
 	// Runners
-	Mod+Alt+I { spawn "/home/brian/.config/rofi/applets/bin/quicklinks.sh"; }
-	Mod+D { spawn "walker"; }
+	Mod+Alt+I allow-inhibiting=true { spawn "/home/brian/.config/rofi/applets/bin/quicklinks.sh"; }
+	Mod+D allow-inhibiting=true { spawn "walker"; }
 
 	// Screenshot
 	Print { screenshot-window; }
 	Alt+Print { screenshot-screen; }
-	Mod+Shift+S { screenshot; }
+	Mod+Shift+S allow-inhibiting=false { screenshot; }
 	Alt+X { spawn "killall" "-USR1" "gpu-screen-recorder"; }
 
 	// Media
-	XF86AudioPlay { spawn "playerctl" "-a" "play-pause"; }
-	XF86AudioPause { spawn "playerctl" "-a" "play-pause"; }
-	XF86AudioStop { spawn "playerctl" "-a" "stop"; }
-	XF86AudioNext { spawn "playerctl" "-a" "next"; }
-	XF86AudioPrev { spawn "playerctl" "-a" "previous"; }
-	XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%+"; }
-	XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"; }
-	XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_SINK@" "toggle"; }
-	XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_SOURCE@" "toggle"; }
-	XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-" ; }
-	XF86MonBrightnessUp { spawn "brightnessctl" "set" "10%+" ; }
+	XF86AudioPlay allow-inhibiting=false { spawn "playerctl" "-a" "play-pause"; }
+	XF86AudioPause allow-inhibiting=false { spawn "playerctl" "-a" "play-pause"; }
+	XF86AudioStop allow-inhibiting=false { spawn "playerctl" "-a" "stop"; }
+	XF86AudioNext allow-inhibiting=false { spawn "playerctl" "-a" "next"; }
+	XF86AudioPrev allow-inhibiting=false { spawn "playerctl" "-a" "previous"; }
+	XF86AudioRaiseVolume allow-inhibiting=false { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%+"; }
+	XF86AudioLowerVolume allow-inhibiting=false { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"; }
+	XF86AudioMute allow-inhibiting=false { spawn "wpctl" "set-mute" "@DEFAULT_SINK@" "toggle"; }
+	XF86AudioMicMute allow-inhibiting=false { spawn "wpctl" "set-mute" "@DEFAULT_SOURCE@" "toggle"; }
+	XF86MonBrightnessDown allow-inhibiting=false { spawn "brightnessctl" "set" "10%-" ; }
+	XF86MonBrightnessUp allow-inhibiting=false { spawn "brightnessctl" "set" "10%+" ; }
 }
 
 layout {
