@@ -15,6 +15,7 @@ pgks: with pgks; [
 	killall
 	pulsemixer
 	systemd-manager-tui
+	rpn
 
 	# coreutils drop-in replacements
 	btop

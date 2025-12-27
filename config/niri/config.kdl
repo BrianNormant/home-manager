@@ -239,7 +239,8 @@ binds {
 	Mod+B allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "bluetuith"; }
 	Control+Shift+Escape allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
 	// Calculator: https://nixos.org/manual/nixpkgs/stable/#sec-language-go
-	Mod+Grave allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "dc"; }
+	// https://github.com/marcopaganini/rpn
+	Mod+Grave allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "rpn"; }
 	// TODO write a wrapper to control cmus with fzf
 	Mod+M allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "cmus"; }
 	// TODO use the new kitty file browser for stuff
