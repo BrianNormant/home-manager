@@ -27,21 +27,15 @@
 		keymaps = [
 			{
 				key = "x";
-				action = "<Plug>(leap-forward)";
+				action = "<Plug>(leap)";
 				mode = [ "n" "x" "o" ];
-				options.desc = "Leap forward";
+				options.desc = "Leap in window";
 			}
 			{
 				key = "X";
-				action = "<Plug>(leap-backward)";
+				action = "<Plug>(leap-anywhere)";
 				mode = [ "n" "x" "o" ];
-				options.desc = "Leap backward";
-			}
-			{
-				key = "r";
-				action = "<Plug>(leap-from-window)";
-				mode = [ "n" "x" ]; # operator mode is replaced by telepath
-				options.desc = "Leap Anywhere";
+				options.desc = "Leap anywhere";
 			}
 		];
 	};
