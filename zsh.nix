@@ -6,6 +6,11 @@ let
 		inherit (pkg) src;
 		file = file-name;
 	};
+	fzf-theme-script = pkgs.fetchurl {
+		url = "https://raw.githubusercontent.com/tinted-theming/tinted-fzf/refs/heads/main/bash/base16-gruvbox-dark-soft.config";
+		hash = "sha256-edy1gDNDYlvStEH098vSnXekcL96qux8XDTT/sGforw=";
+	};
+
 	selected-zsh-plugins = with pkgs; [
 		{pkg = zsh-completions       ; file-name = "zsh-completions.plugin.zsh";}
 		{pkg = zsh-forgit            ; file-name = "forgit.plugin.zsh";}
@@ -47,9 +52,11 @@ in {
 			gloga = "git log --all --graph --decorate=short --color --pretty=format:'^%C(dim white)%>(12,trunc)%cr%C(reset)^%C(cyan)%<(10,trunc)%cs%C(reset)^%C(bold 214)%<(7,trunc)%h%C(reset)^%C(auto)%<(15,trunc)%D%C(reset)^%C(white)%s%C(reset)' | column -t -s ^";
 		};
 		plugins = map toPlugin selected-zsh-plugins;
-		initContent =
-			(builtins.readFile ./config/zshrc.first) + "\n" +
-			(builtins.readFile ./config/zshrc);
+		initContent = ''
+${builtins.readFile ./config/zshrc.first}
+source ${fzf-theme-script}
+${builtins.readFile ./config/zshrc}
+		'';
 	};
 	home = {
 		packages = builtins.map ({pkg, ...}: pkg) selected-zsh-plugins;
