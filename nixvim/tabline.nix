@@ -47,6 +47,10 @@ winbar.setup {
 }
 '';
 			};
+			tabby = {
+				enable = true;
+				luaConfig.post = builtins.readFile ./bars/tabby-setup.lua;
+			};
 		};
 		keymaps = [
 			{
