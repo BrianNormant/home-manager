@@ -209,8 +209,8 @@ end
 				action = "<CMD>Git rebase --abort<CR>";
 				options.desc = "Fugitive Rebase Abort";
 			}
-			{ # TODO: select a revision to diff current file against
-				key = "<leader>gM";
+			{
+				key = "<leader>fd"; # for find diff
 				action.__raw = ''
 function()
 	local builtin = require("telescope.builtin")
@@ -223,7 +223,7 @@ function()
 				local rev = action_state.get_selected_entry()
 				actions.close(prompt_bufnr)
 				-- vim.notify(vim.inspect(rev))
-				local cmd = string.format("Gitsigns diffthis %s", rev["value"])
+				local cmd = string.format("CodeDiff file %s", rev["value"])
 				-- vim.notify(cmd)
 				vim.cmd(cmd)
 
