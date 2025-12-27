@@ -3,6 +3,9 @@
 		plugins = {
 			leap = {
 				enable = true;
+				luaConfig.post = ''
+require('leap.user').set_repeat_keys('<enter>', '<backspace>')
+				'';
 			};
 			flit = {
 				enable = true;
