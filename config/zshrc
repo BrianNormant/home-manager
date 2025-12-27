@@ -6,6 +6,7 @@ export MANPAGER='vim +Man!'
 export EDITOR="vim"
 export VISUAL="vim"
 export TERMINAL="kitty"
+export PATH="$PATH:$HOME/.local/bin"
 
 eval "$(zoxide init zsh)"
 

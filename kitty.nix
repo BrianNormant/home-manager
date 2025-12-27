@@ -1,4 +1,10 @@
 { pkgs, ... }: {
+	home.file = {
+		".local/bin/panel.sh" = {
+			source = ./script/kitten-panel.sh;
+			executable = true;
+		};
+	};
 	programs = {
 		kitty = {
 			enable = true;
@@ -22,6 +28,11 @@
 				columns = 80;
 				opacity = 0.8;
 				edge = "center-sized";
+				focus-policy = "on-demand";
+				hide-on-focus-lost = "yes";
+				single-instance = "yes";
+				toggle-visibility = "yes";
+				move-to-active-monitor = "yes";
 			};
 			extraConfig = ''
 				map alt+F1 set_background_opacity +0.1

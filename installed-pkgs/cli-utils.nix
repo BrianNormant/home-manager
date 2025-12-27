@@ -14,6 +14,7 @@ pgks: with pgks; [
 	jq
 	killall
 	pulsemixer
+	systemd-manager-tui
 
 	# coreutils drop-in replacements
 	btop

@@ -1,4 +1,4 @@
-#!env zsh
+#!/run/current-system/sw/bin/zsh
 
 local CMD=$1
 local lines
@@ -10,14 +10,14 @@ if [[ -z $2 ]]; then
 	lines=25
 else
 	lines=$2
-end
+fi
 
 # Default to 80 char wide
 if [[ -z $3 ]]; then
 	columns=80
 else
 	columns=$3
-end
+fi
 
 kitten panel \
 	--layer=top \
@@ -27,6 +27,7 @@ kitten panel \
 	--single-instance=yes \
 	--toggle-visibility=yes \
 	--move-to-active-monitor=yes \
+	--instance-group="$CMD" \
 	--lines=$lines \
 	--columns=$columns \
-	"$CMD"
+	"${=CMD}"
