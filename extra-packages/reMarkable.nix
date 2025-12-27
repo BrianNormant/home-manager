@@ -50,6 +50,7 @@ runHook preInstall
 mkdir -p $out/bin
 cat <<'EOF' > $out/bin/reMarkable
 #!${runtimeShell}
+export DISPLAY=""
 export PATH=${wine}/bin:$PATH
 export WINEARCH=win64
 export WINEPREFIX="''${REMARKABLE_HOME:-"''${XDG_DATA_HOME:-"''${HOME}/.local/share"}/remarkable"}/wine"
