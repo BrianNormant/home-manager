@@ -30,5 +30,8 @@
 		swaybg swww
 		waypaper
 		hyprpicker
+
+		# fzf based control scripts
+		(writeScriptBin "fzf-cmus.sh" (callPackage ../script/fzf-cmus.nix {}) )
 	];
 }

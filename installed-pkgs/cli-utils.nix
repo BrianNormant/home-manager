@@ -16,6 +16,7 @@ pgks: with pgks; [
 	pulsemixer
 	systemd-manager-tui
 	rpn
+	figlet
 
 	# music
 	cmus

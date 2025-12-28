@@ -212,7 +212,6 @@ binds {
 	// Move workspaces
 	Mod+Alt+Z allow-inhibiting=false { move-workspace-up; }
 	Mod+Alt+X allow-inhibiting=false { move-workspace-down; }
-	Mod+N allow-inhibiting=false { spawn "/home/brian/.config/script/set-workspace-name.sh"; }
 
 	// Window/Colum Size
 	Mod+R allow-inhibiting=false { switch-preset-window-width; }
@@ -242,11 +241,14 @@ binds {
 	Mod+P allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "pulsemixer"; }
 	Mod+B allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "bluetuith"; }
 	Control+Shift+Escape allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
-	// Calculator: https://nixos.org/manual/nixpkgs/stable/#sec-language-go
-	// https://github.com/marcopaganini/rpn
 	Mod+Grave allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "rpn"; }
 	// TODO write a wrapper to control cmus with fzf
 	Mod+M allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "cmus"; }
+	Mod+Alt+M allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-cmus.sh"; }
+	// TODO man pages search and viewer
+	Mod+K allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-man.sh"; }
+	// TODO controller for niri
+	Mod+N allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-niri.sh"; }
 	// TODO use the new kitty file browser for stuff
 
 	// Runners
