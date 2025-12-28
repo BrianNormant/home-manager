@@ -24,6 +24,27 @@ programs.nixvim = {
 				};
 				luaConfig.post = builtins.readFile ./java.lua;
 			};
+			none-ls.sources = {
+				diagnostics = {
+					pmd = {
+						enable = true;
+						settings.extra_args = [
+							"--rulesets"
+							"category/java/bestpractices.xml,category/jsp/bestpractices.xml"
+						];
+					};
+					checkstyle = {
+						enable = true;
+						settings.extra_args = [
+							"-c"
+							"/home/brian/.java/checkstyle/checkstyle.xml"
+						];
+					};
+				};
+				formattings = {
+					google_java_format = { enable = true; };
+				};
+			};
 		};
 		keymaps = [
 			{

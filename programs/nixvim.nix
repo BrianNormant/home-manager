@@ -45,6 +45,7 @@ in {
 		../nixvim/help.nix
 		../nixvim/nix.nix
 		../nixvim/rest.nix
+		../nixvim/zsh.nix
 
 		# Others
 		../nixvim/keymaps.nix
