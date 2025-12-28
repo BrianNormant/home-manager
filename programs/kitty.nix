@@ -1,9 +1,10 @@
 { pkgs, ... }: {
 	home.file = {
 		".local/bin/panel.sh" = {
-			source = ./script/kitten-panel.sh;
+			source = ../script/kitten-panel.sh;
 			executable = true;
 		};
+		".config/xfce4/helpers.rc".text = "TerminalEmulator=kitty";
 	};
 	programs = {
 		kitty = {
@@ -38,6 +39,7 @@
 				map alt+F1 set_background_opacity +0.1
 				map alt+F2 set_background_opacity -0.1
 			'';
+			themeFile = "GruvboxMaterialDarkMedium";
 		};
 	};
 }

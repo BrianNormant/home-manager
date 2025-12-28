@@ -17,6 +17,12 @@ pgks: with pgks; [
 	systemd-manager-tui
 	rpn
 
+	# music
+	cmus
+	beets
+	ffmpeg
+	chromaprint
+
 	# coreutils drop-in replacements
 	btop
 	zoxide
@@ -24,4 +30,5 @@ pgks: with pgks; [
 	bat
 	duf
 	delta
+	ov
 ]

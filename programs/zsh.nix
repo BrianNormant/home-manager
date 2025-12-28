@@ -1,6 +1,11 @@
-{pkgs, lib, ...}:
+{
+	pkgs,
+	lib,
+	fetchUrl,
+	fakeHash,
+	...
+}:
 let
-	inherit (pkgs.lib) fakeHash;
 	toPlugin = {pkg, file-name ? "init.zsh"} : {
 		inherit (pkg) name;
 		inherit (pkg) src;
@@ -20,13 +25,9 @@ let
 		{pkg = zsh-powerlevel10k     ; file-name = "powerlevel10k.zsh-theme";}
 		{pkg = zsh-you-should-use    ; file-name = "zsh-you-should-use.plugin.zsh";}
 	];
-in {
-	programs.direnv = {
-		enable = true;
-		enableZshIntegration = true;
-		enableBashIntegration = false;
-		silent = true;
-	};
+
+in
+{
 	programs.zsh = {
 		enable = true;
 		syntaxHighlighting.enable = true;
@@ -53,13 +54,13 @@ in {
 		};
 		plugins = map toPlugin selected-zsh-plugins;
 		initContent = ''
-${builtins.readFile ./config/zshrc.first}
+${builtins.readFile ../config/zshrc.first}
 source ${fzf-theme-script}
-${builtins.readFile ./config/zshrc}
+${builtins.readFile ../config/zshrc}
 		'';
 	};
 	home = {
 		packages = builtins.map ({pkg, ...}: pkg) selected-zsh-plugins;
-		file.".p10k.zsh".source = ./config/.p10k.zsh;
+		file.".p10k.zsh".source = ../config/.p10k.zsh;
 	};
 }

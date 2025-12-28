@@ -23,7 +23,7 @@
 			];
 			terminal = "tmux-256color";
 			mouse = true;
-			extraConfig = builtins.readFile ./config/tmux.conf;
+			extraConfig = builtins.readFile ../config/tmux.conf;
 		};
 	};
 }

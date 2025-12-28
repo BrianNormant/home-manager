@@ -47,6 +47,19 @@
 					log = "false";
 				};
 			};
+			"CMUS" = {
+				roots = [
+					"/home/brian/.config/cmus"
+					"ssh://BrianNixDesktopI//home/brian/.config/cmus"
+				];
+				stateDirectory = "${config.xdg.dataHome}/unison/CMUS";
+				commandOptions = {
+					ignore = [
+						"Name Gruvbox-Night.theme" # file managed by nix
+						"Name rc" # file managed by nix
+					];
+				};
+			};
 		};
 	};
 }

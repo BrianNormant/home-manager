@@ -71,10 +71,13 @@
 			(f: p: {inherit (inputs.caelestia-cli.packages."${system}") caelestia-cli;})
 			];
 	};
+	programs-modules = pkgs.lib.filesystem.listFilesRecursive ./programs;
+	services-modules = pkgs.lib.filesystem.listFilesRecursive ./services;
 	modules = with inputs; [
 		./home.nix
+		./homeconfig.nix
 		nixvim.homeModules.default
-	];
+	] ++ programs-modules ++ services-modules;
 	in {
 		homeConfigurations."brian@BrianNixDesktop" = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs;

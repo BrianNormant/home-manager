@@ -1,10 +1,14 @@
+spawn-at-startup "quickshell"
 spawn-at-startup "zsh" "/home/brian/.config/script/record-replay.sh"
 spawn-at-startup "zsh" "/home/brian/.config/script/random-swww.sh"
 spawn-at-startup "zsh" "/home/brian/.config/script/random-waypaper.sh"
-spawn-at-startup "whatsie"
-spawn-at-startup "poweralertd"
-spawn-at-startup "quickshell"
 spawn-at-startup "caelestia scheme set --name gruvbox --variant fruitsalad --flavour soft --mode dark"
+spawn-at-startup "zapzap"
+spawn-at-startup "youtube-music"
+spawn-at-startup "corectrl"
+spawn-at-startup "discord" "--enable-features=UseOzonePlatform --ozone-platform-hint=auto --start-minimized"
+spawn-at-startup "steam" "-silent"
+spawn-at-startup "nm-applet"
 
 // TODO: auth agent
 
@@ -55,7 +59,7 @@ window-rule {
 	match app-id="Explorer"
 	open-floating true
 	default-window-height { proportion 0.75; }
-	default-column-width { proportion 0.60; }
+default-column-width { proportion 0.60; }
 }
 
 window-rule {
@@ -83,7 +87,7 @@ window-rule {
 	match app-id="org.pulseaudio.pavucontrol"
 	open-floating true
 	default-window-height { proportion 0.6; }
-	default-column-width { proportion 0.6; }
+default-column-width { proportion 0.6; }
 }
 
 window-rule {

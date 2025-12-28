@@ -55,7 +55,7 @@
 				# ^([a-zA-Z1-9]+,?)+(\(fix\))?:
 				# group1,group2: commit message
 				# feature1(fix): commit message
-				pre-push = ./script/git-pre-push-hook.sh;
+				pre-push = ../script/git-pre-push-hook.sh;
 			};
 		};
 	};

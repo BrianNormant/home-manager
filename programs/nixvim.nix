@@ -2,9 +2,9 @@
 let
 	inherit (pkgs) vimPlugins;
 	customNixVimModules = with pkgs.lib;
-		builtins.readDir ./nixvim/plugins |>
+		builtins.readDir ../nixvim/plugins |>
 		filterAttrs (n: v: v == "regular") |>
-		mapAttrsToList (n: v: ./nixvim/plugins/${n});
+		mapAttrsToList (n: v: ../nixvim/plugins/${n});
 in {
 
 	options.nixvim = {
@@ -17,46 +17,46 @@ in {
 	};
 	imports = [
 		# UI
-		./nixvim/colorscheme.nix
-		./nixvim/dropbar.nix
-		./nixvim/tabline.nix
-		./nixvim/fold.nix
-		./nixvim/indent.nix
-		./nixvim/treesitter.nix
-		./nixvim/starter.nix
-		./nixvim/ui.nix
+		../nixvim/colorscheme.nix
+		../nixvim/dropbar.nix
+		../nixvim/tabline.nix
+		../nixvim/fold.nix
+		../nixvim/indent.nix
+		../nixvim/treesitter.nix
+		../nixvim/starter.nix
+		../nixvim/ui.nix
 
 		# Quality of life
-		./nixvim/qol.nix
-		./nixvim/mini.nix
-		./nixvim/leap.nix
-		./nixvim/registers.nix
-		./nixvim/quickfix.nix
-		./nixvim/oil.nix
-		./nixvim/search-replace.nix
-		./nixvim/symbol-picker.nix
-		./nixvim/telescope.nix
-		./nixvim/terminal.nix
+		../nixvim/qol.nix
+		../nixvim/mini.nix
+		../nixvim/leap.nix
+		../nixvim/registers.nix
+		../nixvim/quickfix.nix
+		../nixvim/oil.nix
+		../nixvim/search-replace.nix
+		../nixvim/symbol-picker.nix
+		../nixvim/telescope.nix
+		../nixvim/terminal.nix
 		
 		# Languages
-		./nixvim/java.nix
-		./nixvim/idris2.nix
-		./nixvim/markdown.nix
-		./nixvim/help.nix
-		./nixvim/nix.nix
-		./nixvim/rest.nix
+		../nixvim/java.nix
+		../nixvim/idris2.nix
+		../nixvim/markdown.nix
+		../nixvim/help.nix
+		../nixvim/nix.nix
+		../nixvim/rest.nix
 
 		# Others
-		./nixvim/keymaps.nix
-		./nixvim/git.nix
-		./nixvim/lsp.nix
-		./nixvim/lsp-keymaps.nix
-		./nixvim/linter.nix
-		./nixvim/completion.nix
-		./nixvim/dap.nix
-		./nixvim/ai.nix
-		./nixvim/others.nix
-		./nixvim/overseer.nix
+		../nixvim/keymaps.nix
+		../nixvim/git.nix
+		../nixvim/lsp.nix
+		../nixvim/lsp-keymaps.nix
+		../nixvim/linter.nix
+		../nixvim/completion.nix
+		../nixvim/dap.nix
+		../nixvim/ai.nix
+		../nixvim/others.nix
+		../nixvim/overseer.nix
 	];
 
 	config = {
@@ -250,7 +250,7 @@ in {
 				vim.opt.sessionoptions:append("help")
 				vim.opt.sessionoptions:append("tabpages")
 
-				${builtins.readFile ./extra-nvim-files/mkheader.lua}
+				${builtins.readFile ../extra-nvim-files/mkheader.lua}
 			'';
 			autoCmd = [
 				{
@@ -275,19 +275,19 @@ in {
 		};
 		home.file = {
 			# ftdetect (add a new filetype)
-			".config/nvim/ftdetect/http.vim".source     = ./extra-nvim-files/http-ftdetect.vim;
-			".config/nvim/ftdetect/idr.vim".source      = ./extra-nvim-files/idr-ftdetect.vim;
-			".config/nvim/ftdetect/nu.vim".source       = ./extra-nvim-files/nu-ftdetect.vim;
-			".config/nvim/ftdetect/pep.vim".source      = ./extra-nvim-files/pep-ftdetect.vim;
+			".config/nvim/ftdetect/http.vim".source     = ../extra-nvim-files/http-ftdetect.vim;
+			".config/nvim/ftdetect/idr.vim".source      = ../extra-nvim-files/idr-ftdetect.vim;
+			".config/nvim/ftdetect/nu.vim".source       = ../extra-nvim-files/nu-ftdetect.vim;
+			".config/nvim/ftdetect/pep.vim".source      = ../extra-nvim-files/pep-ftdetect.vim;
 
 			# ftplugin (special command for a filetype)
-			".config/nvim/ftplugin/git.vim".source      = ./extra-nvim-files/git-ftplugin.vim;
-			".config/nvim/ftplugin/fugitive.vim".source = ./extra-nvim-files/fugitive-ftplugin.vim;
-			".config/nvim/ftplugin/qf.vim".source       = ./extra-nvim-files/qf-ftplugin.vim;
+			".config/nvim/ftplugin/git.vim".source      = ../extra-nvim-files/git-ftplugin.vim;
+			".config/nvim/ftplugin/fugitive.vim".source = ../extra-nvim-files/fugitive-ftplugin.vim;
+			".config/nvim/ftplugin/qf.vim".source       = ../extra-nvim-files/qf-ftplugin.vim;
 
 			# syntax (custom syntax for a filetype)
-			".config/nvim/syntax/nu.vim".source         = ./extra-nvim-files/nu-syntax.vim;
-			".config/nvim/syntax/pep.vim".source        = ./extra-nvim-files/pep-syntax.vim;
+			".config/nvim/syntax/nu.vim".source         = ../extra-nvim-files/nu-syntax.vim;
+			".config/nvim/syntax/pep.vim".source        = ../extra-nvim-files/pep-syntax.vim;
 		};
 	};
 }
