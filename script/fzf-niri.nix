@@ -1,6 +1,5 @@
 {pkgs}: ''
 #!${pkgs.zsh}/bin/zsh
-
 # -------------------------------[ Get Niri Data ]--------------------------------
 
 local function list_windows() {
@@ -61,7 +60,7 @@ local function handle() {
 	fi
 	
 	if [[ "$cmd" == "set-workspace-name" ]]; then
-		local 
+		local
 		local workspace_name=$(select_workspace)
 		niri msg action set-workspace-name "$workspace_name"
 		return
@@ -217,4 +216,4 @@ local function handle() {
 # Options:
 #   -h, --help  Print help
 #
-# ''
+''
