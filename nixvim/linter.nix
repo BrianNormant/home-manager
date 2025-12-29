@@ -6,15 +6,9 @@
 				event = [ "DefferedUIEnter" ];
 			};
 			sources = {
-
 				# C/C++
 				diagnostics.cppcheck.enable = true;
 				diagnostics.credo.enable = true;
-
-				# PHP
-				diagnostics.phpcs.enable = true;
-				diagnostics.phpmd.enable = true;
-				diagnostics.phpstan.enable = true;
 			};
 		};
 	};
