@@ -105,6 +105,25 @@
 					event = "DeferredUIEnter";
 				};
 			};
+			various-textobjs = {
+				enable = true;
+				settings = {
+					keymaps = {
+						useDefaults = true;
+						disabledDefaults = [
+							"R"
+							"iq" "aq"
+						];
+					};
+				};
+				luaConfig.post = ''
+					vim.keymap.set({"o", "x"}, "iw", "<cmd>lua require('various-textobjs').subword('inner')<CR>")
+				'';
+				lazyLoad.settings = {
+					event = "DeferredUIEnter";
+				};
+
+			};
 			wakatime = {
 				enable = true;
 			};
