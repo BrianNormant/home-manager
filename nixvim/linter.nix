@@ -3,7 +3,7 @@
 		plugins.none-ls = {
 			enable = true;
 			lazyLoad.settings = {
-				event = [ "DefferedUIEnter" ];
+				event = [ "DeferredUIEnter" ];
 			};
 			sources = {
 				# C/C++
