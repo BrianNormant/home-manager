@@ -5,6 +5,11 @@
 				enable = true;
 				luaConfig.post = ''
 require('leap.user').set_repeat_keys('<enter>', '<backspace>')
+vim.keymap.set({'x', 'o'}, 'R', function()
+	require('leap.treesitter').select {
+		opts = require('leap.user').with_traversal_keys('R', 'r');
+	}
+end)
 				'';
 			};
 			flit = {
@@ -19,7 +24,9 @@ require('leap.user').set_repeat_keys('<enter>', '<backspace>')
 					event = "DeferredUIEnter";
 				};
 				luaConfig.post = ''
-					require('telepath').use_default_mappings()
+vim.keymap.set({'x', 'o'}, 'r', function()
+	require('telepath').remote {restore = true, recursive = false}
+end)
 					'';
 			};
 		};
