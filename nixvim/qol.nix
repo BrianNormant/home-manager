@@ -90,6 +90,21 @@
 					use_default_keymaps = false;
 				};
 			};
+			spider = {
+				enable = true;
+				settings = {
+					subwordMovement = true;
+					skipInsignificantPunctuation = true;
+				};
+				luaConfig.post = ''
+					vim.keymap.set({"n", "o", "x"}, "w", "<cmd>lua require('spider').motion('w')<CR>")
+					vim.keymap.set({"n", "o", "x"}, "e", "<cmd>lua require('spider').motion('e')<CR>")
+					vim.keymap.set({"n", "o", "x"}, "b", "<cmd>lua require('spider').motion('b')<CR>")
+				'';
+				lazyLoad.settings = {
+					event = "DeferredUIEnter";
+				};
+			};
 			wakatime = {
 				enable = true;
 			};
