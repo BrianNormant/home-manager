@@ -33,5 +33,7 @@
 
 		# fzf based control scripts
 		(writeScriptBin "fzf-cmus.sh" (callPackage ../script/fzf-cmus.nix {}) )
+		(writeScriptBin "fzf-man.sh"  (callPackage ../script/fzf-man.nix  {}) )
+		(writeScriptBin "fzf-niri.sh" (callPackage ../script/fzf-niri.nix {}) )
 	];
 }

@@ -24,6 +24,27 @@ programs.nixvim = {
 				};
 				luaConfig.post = builtins.readFile ./java.lua;
 			};
+			none-ls.sources = {
+				diagnostics = {
+					pmd = {
+						enable = true;
+						settings.extra_args = [
+							"--rulesets"
+							"category/java/bestpractices.xml,category/jsp/bestpractices.xml"
+						];
+					};
+					checkstyle = {
+						enable = true;
+						settings.extra_args = [
+							"-c"
+							"/home/brian/.java/checkstyle/checkstyle.xml"
+						];
+					};
+				};
+				formattings = {
+					google_java_format = { enable = true; };
+				};
+			};
 		};
 		keymaps = [
 			{
@@ -42,5 +63,6 @@ programs.nixvim = {
 		".local/share/lib/openjdk-17".source = pkgs.jdk17 + "/lib/openjdk";
 		".local/share/lib/openjdk-21".source = pkgs.jdk21 + "/lib/openjdk";
 		".local/share/lib/openjdk-25".source = pkgs.jdk25 + "/lib/openjdk";
+		".java/checkstyle/checkstyle.xml".source = ../config/checkstyle.xml;
 	};
 }

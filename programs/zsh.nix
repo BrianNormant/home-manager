@@ -3,6 +3,7 @@
 	lib,
 	fetchUrl,
 	fakeHash,
+	config,
 	...
 }:
 let
@@ -30,6 +31,7 @@ in
 {
 	programs.zsh = {
 		enable = true;
+		dotDir = "${config.xdg.configHome}/zsh";
 		syntaxHighlighting.enable = true;
 		enableCompletion = true;
 		autosuggestion.enable = true;
