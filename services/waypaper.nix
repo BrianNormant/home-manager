@@ -9,7 +9,7 @@
 				Service = {
 					Type = "simple";
 					ExecStart = "${pkgs.waypaper}/bin/waypaper --random";
-					Restart = "always";
+					Restart = "never";
 				};
 				Install.WantedBy = ["graphical-session.target"];
 			};
@@ -21,7 +21,7 @@
 					After = ["graphical-session-pre.target"];
 				};
 				Timer = {
-					OnCalendar = "*:0/1";
+					OnCalendar = "*-*-* *:*:00";
 				};
 			};
 		};
