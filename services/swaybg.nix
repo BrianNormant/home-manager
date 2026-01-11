@@ -14,20 +14,10 @@
 			Service = {
 				Type = "simple";
 				ExecStart = "${pkgs.zsh}/bin/zsh ${config.home.homeDirectory}/.config/script/random-swaybg.sh";
-				Restart = "never";
+				Restart = "always";
+				RuntimeMaxSec = "1min";
 			};
 			Install.WantedBy = ["graphical-session.target"];
-		};
-	};
-	systemd.user.timers = {
-		swaybg-random = {
-			Unit = {
-				Description = "swaybg-random";
-				After = ["swaybg.service"];
-			};
-			Timer = {
-				OnCalendar = "*-*-* *:*:00";
-			};
 		};
 	};
 }
