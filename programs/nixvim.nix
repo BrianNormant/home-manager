@@ -256,13 +256,6 @@ in {
 			autoCmd = [
 				{
 					pattern = [ "*" ];
-					event = [ "TextYankPost" ];
-					callback.__raw = ''
-	function() vim.highlight.on_yank { higroup = "Visual", timeout = 200 } end
-					'';
-				}
-				{
-					pattern = [ "*" ];
 					event = [ "FileType" ];
 					callback.__raw = ''
 						function()

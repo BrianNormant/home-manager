@@ -40,6 +40,7 @@ in {
 					highlights = {
 						undo = { hl_color = { bg = "#693232"; }; };
 						redo = { hl_color = { bg = "#2F4640"; }; };
+						yank = { hl_color = { bg = "#7A683A"; }; };
 						paste = { hl_color = { bg = "#325B5B"; }; };
 					};
 				};
@@ -59,6 +60,11 @@ end)
 vim.keymap.set("n", "P", function()
 	require("undo-glow").paste_above()
 end)
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		require("undo-glow").yank()
+	end,
+})
 				'';
 			};
 		};
