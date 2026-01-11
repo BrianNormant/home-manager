@@ -93,18 +93,6 @@ statusline.setup {
 			{
 				kind = "custom",
 				value = function()
-					-- show the where in the file in % wee are
-					local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-					local total = vim.fn.line("$")
-					local percent = math.floor(row / total * 100)
-					return string.format("%3d %% : %d/%d", percent, row, total)
-				end,
-				hl = "StatusGray",
-			},
-			{ kind = "empty", hl = "StatusLine", },
-			{
-				kind = "custom",
-				value = function()
 					local ft = vim.bo.filetype
 ---@diagnostic disable-next-line: undefined-global
 					local icon,_,_ = MiniIcons.get('filetype', ft)
@@ -132,6 +120,18 @@ statusline.setup {
 			{
 				kind = "custom",
 				value = function()
+					-- show the where in the file in % wee are
+					local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+					local total = vim.fn.line("$")
+					local percent = math.floor(row / total * 100)
+					return string.format("%3d %% : %d/%d", percent, row, total)
+				end,
+				hl = "StatusGray",
+			},
+			{ kind = "empty", hl = "StatusLine", },
+			{
+				kind = "custom",
+				value = function()
 					if vim.v.hlsearch == 0 then
 						return ' '
 					end
@@ -143,7 +143,22 @@ statusline.setup {
 					end
 				end,
 			},
-			{ kind = "empty", hl = "StatusLine", },
+			{
+				kind = "diagnostics",
+				auto_hide = true,
+				default_mode = 5,
+				empty_icon = "󰂓 ",
+				empty_hl = "@comment",
+				error_icon = "󰅙 ",
+				error_hl = "DiagnosticError",
+				warn_icon = "󰀦 ",
+				warn_hl = "DiagnosticWarn",
+				hint_icon = "󰁨 ",
+				hint_hl = "DiagnosticHint",
+				info_icon = "󰁤 ",
+				info_hl = "DiagnosticInfo",
+				padding_right = " ",
+			},
 			{
 				kind = "custom",
 
