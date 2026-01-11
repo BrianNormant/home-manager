@@ -1,14 +1,6 @@
-#!env zsh
+WALLPAPER_DIR=/home/brian/Wallpapers
+WALLPAPER_CMD="swww img"
 
-CHANGE_TIMER=180s
-NIRI_STOPPED=0
+SELECTED=$(lsd -1 --classic $WALLPAPER_DIR | shuf -n 1)
 
-cd /home/brian/Wallpapers
-
-while [[ $NIRI_STOPPED -eq 0 ]]; do
-	SELECTED=$(lsd -1 --classic | shuf -n 1)
-	swww img "$SELECTED"
-	sleep $CHANGE_TIMER
-	systemctl --user --quiet is-active niri.service
-	NIRI_STOPPED=$?
-done
+${=WALLPAPER_CMD} "$WALLPAPER_DIR/$SELECTED"

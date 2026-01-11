@@ -1,7 +1,5 @@
 spawn-at-startup "quickshell"
 spawn-at-startup "zsh" "/home/brian/.config/script/record-replay.sh"
-spawn-at-startup "zsh" "/home/brian/.config/script/random-swww.sh"
-spawn-at-startup "zsh" "/home/brian/.config/script/random-waypaper.sh"
 spawn-at-startup "caelestia scheme set --name gruvbox --variant fruitsalad --flavour soft --mode dark"
 spawn-at-startup "zapzap"
 spawn-at-startup "youtube-music"
