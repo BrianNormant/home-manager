@@ -37,6 +37,7 @@ in {
 		../nixvim/symbol-picker.nix
 		../nixvim/telescope.nix
 		../nixvim/terminal.nix
+		../nixvim/repl.nix
 		
 		# Languages
 		../nixvim/java.nix
