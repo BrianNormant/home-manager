@@ -112,6 +112,7 @@
 						useDefaults = true;
 						disabledDefaults = [
 							"R"
+							"r"
 							"iq" "aq"
 						];
 					};

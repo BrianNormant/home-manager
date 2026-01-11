@@ -24,6 +24,43 @@ in {
 					end
 					'';
 			};
+			undo-glow = {
+				enable = true;
+				lazyLoad.settings = {
+					event = "DeferredUIEnter";
+				};
+				settings = {
+					animation = {
+						enabled = true;
+						duration = 300;
+						animation_type = "slide";
+						fps = 120;
+						window_scoped = true;
+					};
+					highlights = {
+						undo = { hl_color = { bg = "#693232"; }; };
+						redo = { hl_color = { bg = "#2F4640"; }; };
+						paste = { hl_color = { bg = "#325B5B"; }; };
+					};
+				};
+				luaConfig.post = ''
+vim.keymap.set("n", "u", function()
+	require("undo-glow").undo()
+end)
+vim.keymap.set("n", "U", function()
+	require("undo-glow").redo()
+end)
+vim.keymap.set("n", "<C-r>", function()
+	require("undo-glow").redo()
+end)
+vim.keymap.set("n", "p", function()
+	require("undo-glow").paste_below()
+end)
+vim.keymap.set("n", "P", function()
+	require("undo-glow").paste_above()
+end)
+				'';
+			};
 		};
 	};
 }
