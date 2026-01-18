@@ -1,3 +1,4 @@
 Session.vim
 tmp*
-/result
+result
+tags

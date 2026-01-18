@@ -2,7 +2,7 @@
 	programs.nixvim = {
 		plugins = {
 			quicker = {
-				enable = true;
+				enable = false;
 				settings = {
 					keys = [
 						{
@@ -35,7 +35,7 @@
 				};
 			};
 			nvim-bqf = {
-				enable = false;
+				enable = true;
 				settings = {
 					preview = {
 						auto_preview = false;
