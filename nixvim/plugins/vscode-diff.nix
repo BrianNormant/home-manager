@@ -1,8 +1,8 @@
 {pkgs, lib, ...}:
 lib.nixvim.plugins.mkNeovimPlugin {
-	name = "vscode-diff";
-	package = "vscode-diff-nvim";
+	name = "codediff";
+	package = "codediff-nvim";
 	maintainers = [];
 	description = "Visual Studio Code-like diff";
-	moduleName = "vscode-diff";
+	moduleName = "codediff";
 }

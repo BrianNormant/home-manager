@@ -12,4 +12,12 @@ in  vimUtils.buildVimPlugin {
 		buildInputs = with pkgs.vimPlugins; [
 			nvim-treesitter
 		];
+		nvimSkipModules = [
+			"iswap"
+			"iswap.ui"
+			"iswap.defaults"
+			"iswap.choose"
+			"iswap.internal"
+			"iswap.util"
+		];
 	}

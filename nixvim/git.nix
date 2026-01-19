@@ -115,7 +115,7 @@ vim.cmd("hi! link RainbowViolet GitGraphBranch4")
 '';
 				};
 			};
-			vscode-diff = {
+			codediff = {
 				enable = true;
 				lazyLoad.settings = {
 					cmd = "CodeDiff";
