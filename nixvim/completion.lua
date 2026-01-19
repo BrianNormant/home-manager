@@ -31,7 +31,7 @@ completion.setup {
 	-- so each buffer can define a custom user func
 	lsp_completion = { source_func = 'omnifunc' },
 	delay = {
-		completion = 2500,
+		completion = 99999,
 		info = 5000,
 		signature = 1000,
 	},
