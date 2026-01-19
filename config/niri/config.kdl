@@ -235,7 +235,7 @@ binds {
 
 	// TUI utilities
 	Mod+S allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "systemd-manager-tui"; }
-	Mod+W allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "vim Documents/TODO-stack.md"; }
+	Mod+W allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "vim -p Documents/TODO-stack.md Documents/Neovim-TIL.md Documents/Tips.md"; }
 	Mod+P allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "pulsemixer"; }
 	Mod+B allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "bluetuith"; }
 	Control+Shift+Escape allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
