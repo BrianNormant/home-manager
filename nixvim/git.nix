@@ -117,14 +117,6 @@ vim.cmd("hi! link RainbowViolet GitGraphBranch4")
 			};
 			vscode-diff = {
 				enable = true;
-				package = pkgs.vimPlugins.vscode-diff-nvim.overrideAttrs {
-					src = pkgs.fetchFromGitHub {
-					  owner = "esmuellert";
-					  repo = "vscode-diff.nvim";
-					  rev = "next";
-					  hash = "sha256-s0EDRKX7TmhKjznlc/fjSpce3HIWtl2Hh6xoR4qMdSE=";
-					};
-				};
 				lazyLoad.settings = {
 					cmd = "CodeDiff";
 					keys = [
