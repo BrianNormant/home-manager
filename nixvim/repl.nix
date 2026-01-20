@@ -17,15 +17,16 @@
 						repl_open_cmd = "bot split";
 					};
 					keymaps = {
-						toggle_repl = "<leader>rr";
-						restart_repl = "<leader>rR";
-						send_motion = "<leader>rs";
-						visual_send = "<leader>rs";
-						send_file = "<leader>rf";
-						send_line = "<leader>rl";
-						send_paragraph = "<leader>rp";
-						send_until_cursor = "<leader>ru";
-						send_code_block = "<leader>rb";
+						# TODO : find other kemap, <leader>r is used by leap
+						# toggle_repl = "<leader>rr";
+						# restart_repl = "<leader>rR";
+						# send_motion = "<leader>rs";
+						# visual_send = "<leader>rs";
+						# send_file = "<leader>rf";
+						# send_line = "<leader>rl";
+						# send_paragraph = "<leader>rp";
+						# send_until_cursor = "<leader>ru";
+						# send_code_block = "<leader>rb";
 					};
 				};
 			};

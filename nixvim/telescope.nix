@@ -125,6 +125,42 @@ _G.telescope_keymaps = function (m)
 
 	picker(require("telescope.themes").get_ivy {})
 end
+
+local function get_targets (picker)
+	local scroller = require('telescope.pickers.scroller')
+	local wininfo = vim.fn.getwininfo(picker.results_win)[1]
+	local bottom = wininfo.botline - 2  -- skip the current row
+	local top = math.max(
+		scroller.top(picker.sorting_strategy,
+			picker.max_results,
+			picker.manager:num_results()),
+		wininfo.topline - 1
+	)
+	local targets = {}
+	for lnum = bottom, top, -1 do
+		table.insert(targets, { wininfo = wininfo, pos = { lnum + 1, 1 } })
+	end
+	return targets
+end
+
+local function pick_with_leap (buf)
+	local picker = require('telescope.actions.state').get_current_picker(buf)
+	require('leap').leap {
+		targets = get_targets(picker),
+		action = function (target)
+			picker:set_selection(target.pos[1] - 1)
+			require('telescope.actions').select_default(buf)
+		end,
+	}
+end
+
+require('telescope').setup {
+	defaults = {
+		mappings = {
+			i = { ['<a-p>'] = pick_with_leap },
+		}
+	}
+}
 			'';
 		};
 		keymaps = [
