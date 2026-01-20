@@ -38,6 +38,9 @@ in
 		sessionVariables = {
 			QT_QPA_PLATFORM = "wayland";
 		};
+		setOptions = [
+			"NO_CASEGLOB"
+		];
 		shellAliases = {
 			flake-init = "nix flake init -t github:BrianNormant/nixosconf";
 			icat  =  "kitty +kitten icat --clear";
