@@ -17,6 +17,7 @@ pgks: with pgks; [
 	systemd-manager-tui
 	rpn
 	figlet
+	evil-helix
 
 	# music
 	cmus

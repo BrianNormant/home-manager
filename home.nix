@@ -31,6 +31,9 @@ in {
 
 		# Winapps
 		".config/winapps/winapps.conf".source = ./config/winapps/winapps.conf;
+
+		# Helix
+		".config/helix/config.toml".source = ./config/helix/config.toml;
 	};
 
 	# ----------------------------------[ Theming ]-----------------------------------
