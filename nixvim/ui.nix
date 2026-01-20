@@ -25,7 +25,7 @@ in {
 					'';
 			};
 			undo-glow = {
-				enable = true;
+				enable = false;
 				lazyLoad.settings = {
 					event = "DeferredUIEnter";
 				};

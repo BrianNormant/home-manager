@@ -20,8 +20,14 @@ vim.api.nvim_create_autocmd('User', {
 	pattern = 'RemoteOperationDone',
 	group = vim.api.nvim_create_augroup('LeapRemote', {}),
 	callback = function (event)
-		if vim.v.operator == 'y' and event.data.register == '"' then
-			vim.cmd('normal! p')
+		if vim.v.operator == 'y' then
+			if event.data.register == '"' then
+				vim.cmd 'normal! ""p'
+			elseif event.data.register == '+' then
+				vim.cmd 'normal! "+p'
+			elseif event.data.register == '*' then
+				vim.cmd 'normal! "*p'
+			end
 		end
 	end,
 })
