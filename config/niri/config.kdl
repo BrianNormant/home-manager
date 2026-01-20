@@ -183,6 +183,8 @@ binds {
 	// Move focus in workspace
 	Mod+Left allow-inhibiting=false { focus-column-left; }
 	Mod+Right allow-inhibiting=false { focus-column-right; }
+	Mod+H allow-inhibiting=false { focus-column-left; }
+	Mod+L allow-inhibiting=false { focus-column-right; }
 	Mod+WheelScrollUp allow-inhibiting=false { focus-column-left; }
 	Mod+WheelScrollDown allow-inhibiting=false { focus-column-right; }
 	Mod+Up allow-inhibiting=false { focus-window-up; }
@@ -196,8 +198,6 @@ binds {
 	Mod+Shift+Down allow-inhibiting=false { move-window-down; }
 	Mod+BracketRight allow-inhibiting=false { consume-or-expel-window-right; }
 	Mod+BracketLeft allow-inhibiting=false { consume-or-expel-window-left; }
-	Mod+H allow-inhibiting=false { swap-window-left; }
-	Mod+L allow-inhibiting=false { swap-window-right; }
 
 	// Move focus between workspaces
 	Mod+Z allow-inhibiting=false { focus-workspace-up; }
