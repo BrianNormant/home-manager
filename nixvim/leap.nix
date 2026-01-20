@@ -60,13 +60,17 @@ for key, key_specific_args in pairs {
 		require('leap').leap(as_ft(key_specific_args))
 	end)
 end
+
+vim.cmd "highlight! link LeapBackdrop Comment"
 '';
+#
+
 			};
 		};
 		highlightOverride = {
-			LeapBackdrop = { fg = "#888888"; };
-			LeapLabel    = { fg = "#FF0000"; bold = true;};
+			LeapLabel    = { fg = "#ED1B1B"; bold = true;};
 		};
+
 		keymaps = [
 			{
 				key = "<leader>r";
