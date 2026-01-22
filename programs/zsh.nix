@@ -18,12 +18,13 @@ let
 	};
 
 	selected-zsh-plugins = with pkgs; [
-		{pkg = zsh-completions       ; file-name = "zsh-completions.plugin.zsh";}
-		{pkg = zsh-forgit            ; file-name = "forgit.plugin.zsh";}
+		{pkg = zsh-completions       ; file-name = "zsh-completions.plugin.zsh"   ;}
+		{pkg = zsh-forgit            ; file-name = "forgit.plugin.zsh"            ;}
+		{pkg = zsh-vi-mode           ; file-name = "zsh-vi-mode.plugin.zsh"       ;}
 		{pkg = zsh-fzf-history-search; file-name = "zsh-history-search.plugin.zsh";}
-		{pkg = zsh-fzf-tab           ; file-name = "fzf-tab.plugin.zsh";}
-		{pkg = zsh-nix-shell         ; file-name = "nix-shell.plugin.zsh";}
-		{pkg = zsh-powerlevel10k     ; file-name = "powerlevel10k.zsh-theme";}
+		{pkg = zsh-fzf-tab           ; file-name = "fzf-tab.plugin.zsh"           ;}
+		{pkg = zsh-nix-shell         ; file-name = "nix-shell.plugin.zsh"         ;}
+		{pkg = zsh-powerlevel10k     ; file-name = "powerlevel10k.zsh-theme"      ;}
 		{pkg = zsh-you-should-use    ; file-name = "zsh-you-should-use.plugin.zsh";}
 	];
 
