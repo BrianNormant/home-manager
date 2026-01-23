@@ -18,7 +18,6 @@ in {
 	imports = [
 		# UI
 		../nixvim/colorscheme.nix
-		../nixvim/dropbar.nix
 		../nixvim/tabline.nix
 		../nixvim/fold.nix
 		../nixvim/indent.nix
@@ -33,7 +32,6 @@ in {
 		../nixvim/registers.nix
 		../nixvim/quickfix.nix
 		../nixvim/oil.nix
-		../nixvim/search-replace.nix
 		../nixvim/symbol-picker.nix
 		../nixvim/telescope.nix
 		../nixvim/terminal.nix

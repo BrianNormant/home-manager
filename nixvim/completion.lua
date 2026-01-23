@@ -123,20 +123,6 @@ vim.keymap.set(
 --- {|} -> {
 --- \t|
 --- }
-_G.MUtils= {}
-MUtils.CR = function()
-	local npairs = require('nvim-autopairs');
-	if vim.fn.pumvisible() ~= 0 then
-		if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
-			return npairs.esc('<c-y>')
-		else
-			return npairs.esc('<c-e>') .. npairs.autopairs_cr()
-		end
-	else
-		return npairs.autopairs_cr()
-	end
-end
-vim.api.nvim_set_keymap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
 
 --- tabkey to navigated in completion menu
 vim.keymap.set("i", "<Tab>", function()
@@ -169,24 +155,3 @@ vim.keymap.set("i", "<Up>", function()
 	end
 	return "<Up>"
 end, {expr = true, silent = true})
-
-
-
-MUtils.BS = function()
-	local npairs = require('nvim-autopairs');
-	if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({"selected"}).selected ~= -1 then
-		return npairs.esc('<c-e>')
-	else
-		return npairs.autopairs_bs()
-	end
-end
---- BS should cancel the completion if opened
-vim.api.nvim_set_keymap("i", "<BS>", 'v:lua.MUtils.BS()', {expr = true, noremap = true });
-
-vim.keymap.set("i", "<Esc>", function ()
-	if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({"selected"}).selected ~= -1 then
-		return "<c-e>"
-	else
-		return "<Esc>"
-	end
-end, {expr = true, noremap = true, silent = true})

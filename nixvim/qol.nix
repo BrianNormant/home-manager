@@ -35,29 +35,6 @@
 					end, { desc = "AttemptRun" })
 					'';
 			};
-			nvim-autopairs = {
-				enable = true;
-				lazyLoad.settings = { event = "DeferredUIEnter"; };
-				settings = {
-					map_c-w = true;
-					map_cr = false;
-					map_bs = false;
-				};
-				luaConfig.post = ''
-					local Rule = require('nvim-autopairs.rule')
-					local npairs = require('nvim-autopairs')
-					--- Autoclose let in
-					npairs.add_rules {
-						Rule("let", "in ", "nix"):end_wise(function(opts)
-							return string.match(opts.line, '^%s*let') ~= nil
-						end),
-						Rule(" =", ";", "nix"),
-						Rule("function%s?[%a_]*%([^%)]*%)$", "end", {"lua"}):use_regex(true),
-						Rule("then", "end", "lua"),
-						Rule("(", ")", {"lua", "nix"}),
-					}
-					'';
-			};
 			undotree = {
 				enable = true;
 				settings = {

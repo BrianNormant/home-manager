@@ -65,10 +65,6 @@ in {
 					];
 				};
 			};
-			fidget = {
-				enable = true;
-				lazyLoad.settings = { event = ["LspAttach"]; };
-			};
 			hover = {
 				enable = true;
 				lazyLoad.settings = {

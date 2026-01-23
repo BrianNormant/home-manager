@@ -63,69 +63,19 @@
 						vim.opt.sessionoptions:append("tabpages")
 					'';
 				};
-				surround = {};
-				clue = {
-					triggers = [
-						{ mode = "n"; keys = "<Leader>"; } # leader
-						
-						# { mode = "i"; keys = "<C-x>"; } # Omnicomp
-						
-						{ mode = "n"; keys = "<C-w>"; } # window
-
-						{ mode = "n"; keys = "g"; } # `g` mappings
-						{ mode = "x"; keys = "g"; }
-						
-						{ mode = "n"; keys = "g"; } # `m` mappings
-						{ mode = "x"; keys = "g"; }
-
-						{ mode = "n"; keys = "z";} # `z` mappigns
-						{ mode = "x"; keys = "z";}
-
-						{ mode = "n"; keys = "]";} # `]` mappigns
-						{ mode = "x"; keys = "]";} # hunks
-						{ mode = "n"; keys = "[";} # `[` mappigns
-						{ mode = "x"; keys = "[";} # hunks
-
-					];
-					clues.__raw = ''{
-						-- require('mini.clue').gen_clues.builtin_completion(),
-						require('mini.clue').gen_clues.windows({
-							submode_move = false,
-							submode_navigate = false,
-							submode_resize = true,
-						}),
-						require('mini.clue').gen_clues.z(),
-						require('mini.clue').gen_clues.g(),
-						{ mode = 'n', keys = '<Leader>f', desc = '+Telescope/Find' },
-						{ mode = 'n', keys = '<Leader>g', desc = '+Git' },
-						{ mode = 'n', keys = '<Leader>h', desc = '+Hunks' },
-						{ mode = 'n', keys = '<Leader>o', desc = '+Oil' },
-						{ mode = 'n', keys = '<Leader>l', desc = '+LSP' },
-						{ mode = 'n', keys = '<Leader>t', desc = '+Tabs' },
-						
-						{ mode = 'n', keys = 'gp', desc = '+GotoPreview' },
-						
-						-- Window/Buffer submodes
-						{ mode = 'n', keys = ']b', postkeys = ']' },
-						{ mode = 'n', keys = ']w', postkeys = ']' },
-
-						{ mode = 'n', keys = '[b', postkeys = '[' },
-						{ mode = 'n', keys = '[w', postkeys = '[' },
-					}'';
+				surround = {
+					mappings = {
+						add = "ys";
+						delete = "ds";
+						find = "";
+						find_left = "";
+						highlight = "";
+						replace = "cs";
+					};
+					search_method = "cover_or_next";
 				};
 				ai = {
 					custom_textobjects = {
-						# Full buffer
-						g.__raw = ''
-							function()
-								local from = { line = 1, col = 1 }
-								local to = {
-									line = vim.fn.line('$'),
-									col = math.max(vim.fn.getline('$'):len(), 1)
-								}
-								return { from = from, to = to }
-							end
-						'';
 						I.__raw = ''require('mini.extra').gen_ai_spec.indent()'';
 						L.__raw = ''require('mini.extra').gen_ai_spec.line()'';
 						N.__raw = ''require('mini.extra').gen_ai_spec.number()'';
@@ -138,7 +88,7 @@
 					evaluate.prefix = "g=";
 					exchange.prefix = "gx";
 					multiply.prefix = "gm";
-					replace.prefix  = "sp";
+					replace.prefix  = "";
 					sort.prefix     = "gs";
 				};
 				bracketed = {

@@ -225,6 +225,11 @@ require('telescope').setup {
 				action = "<CMD>Telescope lsp_outgoing_calls theme=ivy<CR>";
 				options.desc = "Telescope: LSP Outgoing Calls";
 			}
+			{
+				key = "<leader><leader>";
+				action = "<CMD>Telescope builtin<cr>";
+				options.desc = "Telescope: Builtins";
+			}
 		];
 		userCommands = {
 			TelescopeKeymaps = {
