@@ -5,5 +5,5 @@ pgks: with pgks; [
 	zafiro-icons
 	tridactyl-native
 	copyq
-	xfce.thunar
+	thunar
 ]
