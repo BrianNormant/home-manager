@@ -20,6 +20,7 @@ pgks: with pgks; [
 	evil-helix
 	neovide
 	nvim-cat
+	nvim
 
 	# music
 	cmus

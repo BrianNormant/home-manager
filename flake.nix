@@ -73,7 +73,7 @@
 			(f: p: {inherit (inputs.my-quickshell.packages."${system}") qml-caelestia;})
 			(f: p: {nspire-tools = nspire-tools.packages."${system}".default;})
 			(f: p: {inherit (inputs.caelestia-cli.packages."${system}") caelestia-cli;})
-			(f: p: {inherit (inputs.nvim-cat.packages."${system}") nvim-cat;})
+			(f: p: {inherit (inputs.nvim-cat.packages."${system}") nvim-cat nvim;})
 			];
 	};
 	programs-modules = pkgs.lib.filesystem.listFilesRecursive ./programs;

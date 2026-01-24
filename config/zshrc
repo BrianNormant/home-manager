@@ -8,8 +8,6 @@ export VISUAL="vim"
 export TERMINAL="kitty"
 export PATH="$PATH:$HOME/.local/bin"
 
-alias nvim=nvim-cat
-
 eval "$(zoxide init zsh)"
 
 # Edit command in vim with <C-x><C-e>
