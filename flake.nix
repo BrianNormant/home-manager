@@ -33,6 +33,10 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 			inputs.quickshell.follows = "quickshell";
 		};
+		nvim-cat = {
+			url = "github:BrianNormant/nvim-cat";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 	outputs = inputs@{ nixpkgs, home-manager, nspire-tools,
 		 ... }:
@@ -69,6 +73,7 @@
 			(f: p: {inherit (inputs.my-quickshell.packages."${system}") qml-caelestia;})
 			(f: p: {nspire-tools = nspire-tools.packages."${system}".default;})
 			(f: p: {inherit (inputs.caelestia-cli.packages."${system}") caelestia-cli;})
+			(f: p: {inherit (inputs.nvim-cat.packages."${system}") nvim-cat;})
 			];
 	};
 	programs-modules = pkgs.lib.filesystem.listFilesRecursive ./programs;

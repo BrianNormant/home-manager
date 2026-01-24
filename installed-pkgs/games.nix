@@ -3,6 +3,6 @@ pgks: with pgks; [
 
 	xrizer
 	wayvr-dashboard
-	wlx-overlay-s
+	wayvr
 	prismlauncher
 ]

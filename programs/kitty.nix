@@ -38,6 +38,8 @@
 			extraConfig = ''
 				map alt+F1 set_background_opacity +0.1
 				map alt+F2 set_background_opacity -0.1
+				map ctrl+, send_key alt+,
+				map ctrl+. send_key alt+.
 			'';
 			themeFile = "GruvboxMaterialDarkMedium";
 		};
