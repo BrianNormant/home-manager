@@ -18,6 +18,7 @@ pgks: with pgks; [
 	rpn
 	figlet
 	evil-helix
+	neovide
 	nvim-cat
 
 	# music
