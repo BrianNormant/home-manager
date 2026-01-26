@@ -19,8 +19,7 @@ pgks: with pgks; [
 	figlet
 	evil-helix
 	neovide
-	nvim-cat
-	nvim
+	nvim vim vi
 
 	# music
 	cmus
