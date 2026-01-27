@@ -49,6 +49,7 @@
 					branch = "214";
 					tag = "bold 222";
 				};
+				merge.conflictstyle = "diff3";
 			};
 			hooks = {
 				# TODO: pre commit to force commit message to match:
