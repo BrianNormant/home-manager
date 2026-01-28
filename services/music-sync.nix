@@ -20,6 +20,7 @@ exec yt-dlp --max-filesize 10M \
 	--extract-audio \
 	--audio-format opus \
 	--output "$dir/%(title)s.%(ext)s" \
+	--sleep-interval 30 \
 	$url
 		'';
 	mkMusicPlaylistSync = {name, uuid}:
