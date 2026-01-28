@@ -24,6 +24,7 @@
 			# caelestia-cli
 		];
 		file = {
+			".local/state/caelestia/scheme.json".source = ../config/quickshell-scheme.json;
 			".config/quickshell/shell.qml".source = ../config/quickshell/shell.qml;
 			".config/quickshell/components".source = ../config/quickshell/components;
 			".config/quickshell/config".source = ../config/quickshell/config;
