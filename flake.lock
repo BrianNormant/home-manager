@@ -638,11 +638,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769563219,
-        "narHash": "sha256-wDSUxrxbasFimIPkbW9xQug3dUjJvJFrSjQM5q1YwL8=",
+        "lastModified": 1770334582,
+        "narHash": "sha256-vC/u090lnxg/jzs4QdxiFMblbgDfynTQ9DUFDwv3an4=",
         "owner": "BrianNormant",
         "repo": "nvim-cat",
-        "rev": "13bbf0baadb2411c6a6e6ad2bf15a1e5621fc10f",
+        "rev": "a11b474e1ade14bf5ca0e20a98fb892df9a0cfce",
         "type": "github"
       },
       "original": {
