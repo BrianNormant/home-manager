@@ -31,15 +31,15 @@ local function list_playlists() {
 
 # -----------------------------[ Select/Filter Data ]-----------------------------
 local select_multi_music() {
-	list_musics | fzf --delimiter='/' --with-nth=6 --multi
+	list_musics | fzf --delimiter='/' --with-nth=6 --multi -i
 }
 
 local select_single_music() {
-	list_musics | fzf --delimiter='/' --with-nth=6 --no-multi
+	list_musics | fzf --delimiter='/' --with-nth=6 --no-multi -i
 }
 
 local select_playlist() {
-	list_playlists | fzf --no-multi
+	list_playlists | fzf --no-multi -i
 }
 
 local function handle() {
