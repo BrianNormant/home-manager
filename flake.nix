@@ -15,7 +15,7 @@
 			url = "github:BrianNormant/nvim-cat";
 		};
 		niri-caelestia = {
-			url = "github:jutraim/niri-caelestia-shell";
+			url = "github:BrianNormant/niri-caelestia-shell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
@@ -51,6 +51,7 @@
 			inputs.nvim-cat.overlays.default
 			(f: p: {nspire-tools    = inputs.nspire-tools.packages."${system}".default;})
 			(f: p: {caelestia-shell = inputs.niri-caelestia.packages."${system}".default;})
+			(f: p: {caelestia-qs = inputs.niri-caelestia.packages."${system}".quickshell-p;})
 			];
 	};
 	programs-modules = pkgs.lib.filesystem.listFilesRecursive ./programs;

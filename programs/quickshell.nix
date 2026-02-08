@@ -2,22 +2,26 @@
 {
 	home = {
 		packages = with pkgs; [
-			material-symbols
-			ibm-plex
-			lm_sensors
-			grim
-			swappy
-			libqalculate
-			nerd-fonts.jetbrains-mono
-			brightnessctl
-			ddcutil
-			cava
+			caelestia-shell
+			caelestia-qs
+
 			app2unit
 			aubio
+			brightnessctl
+			cava
+			ddcutil
 			fish
-			gpu-screen-recorder
+			nerd-fonts.caskaydia-cove
+			grim
+			libcava
+			pipewire
+			libqalculate
+			lm_sensors
+			material-symbols
+			networkmanager
+			swappy
+
 			swaylock # unlock if the quickshell crashes
-			caelestia-shell
 		];
 	};
 	fonts.fontconfig = { enable = true; };
