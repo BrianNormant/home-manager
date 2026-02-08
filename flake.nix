@@ -12,38 +12,20 @@
 		};
 		nspire-tools.url = "github:BrianNormant/nspire-tools";
 		autoeq.url = "github:BrianNormant/autoeq";
-		nixvim = {
-			url = "github:nix-community/nixvim";
-			# inputs.nixpkgs.follows = "nixpkgs";
-		};
-		caelestia-cli = {
-			url = "github:caelestia-dots/cli";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		my-quickshell = {
-			url = ./config/quickshell;
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		quickshell = {
-			url = "github:quickshell-mirror/quickshell";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		qml-niri = {
-			url = "github:imiric/qml-niri/main";
-			inputs.nixpkgs.follows = "nixpkgs";
-			inputs.quickshell.follows = "quickshell";
-		};
 		nvim-cat = {
 			url = "github:BrianNormant/nvim-cat";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		niri-caelestia = {
+			url = "github:jutraim/niri-caelestia-shell";
+			# inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
-	outputs = inputs@{ nixpkgs, home-manager, nspire-tools,
-		 ... }:
+	outputs = inputs@{ nixpkgs, home-manager, ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
-		inherit system;
+		stdenv.hostPlatform.system = system;
 		config.allowUnfree = true;
 		overlays = [
 			(next: prev:
@@ -69,11 +51,8 @@
 			inputs.nixpkgs-xr.overlays.default
 			inputs.autoeq.overlays.default
 			inputs.nvim-cat.overlays.default
-			(f: p: {inherit (inputs.quickshell.packages."${system}") quickshell;})
-			(f: p: {qml-niri = inputs.qml-niri.packages."${system}".default;})
-			(f: p: {inherit (inputs.my-quickshell.packages."${system}") qml-caelestia;})
-			(f: p: {nspire-tools = nspire-tools.packages."${system}".default;})
-			(f: p: {inherit (inputs.caelestia-cli.packages."${system}") caelestia-cli;})
+			(f: p: {nspire-tools    = inputs.nspire-tools.packages."${system}".default;})
+			(f: p: {caelestia-shell = inputs.niri-caelestia.packages."${system}".default;})
 			];
 	};
 	programs-modules = pkgs.lib.filesystem.listFilesRecursive ./programs;
