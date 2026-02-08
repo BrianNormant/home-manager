@@ -2,7 +2,6 @@
 	description = "Home Manager configuration of brian";
 
 	inputs = {
-		self.submodules = true;
 # Specify the source of Home Manager and Nixpkgs.
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
@@ -14,18 +13,17 @@
 		autoeq.url = "github:BrianNormant/autoeq";
 		nvim-cat = {
 			url = "github:BrianNormant/nvim-cat";
-			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		niri-caelestia = {
 			url = "github:jutraim/niri-caelestia-shell";
-			# inputs.nixpkgs.follows = "nixpkgs";
+			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
 	outputs = inputs@{ nixpkgs, home-manager, ... }:
 		let
 	system = "x86_64-linux";
 	pkgs = import nixpkgs {
-		stdenv.hostPlatform.system = system;
+		inherit system;
 		config.allowUnfree = true;
 		overlays = [
 			(next: prev:
@@ -60,7 +58,6 @@
 	modules = with inputs; [
 		./home.nix
 		./homeconfig.nix
-		nixvim.homeModules.default
 	] ++ programs-modules ++ services-modules;
 	in {
 		homeConfigurations."brian@BrianNixDesktop" = home-manager.lib.homeManagerConfiguration {

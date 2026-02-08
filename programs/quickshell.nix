@@ -1,8 +1,5 @@
 {pkgs, ...}:
 {
-	programs.quickshell = {
-		enable = true;
-	};
 	home = {
 		packages = with pkgs; [
 			material-symbols
@@ -11,7 +8,8 @@
 			grim
 			swappy
 			libqalculate
-			nerd-fonts.jetbrains-mono		brightnessctl
+			nerd-fonts.jetbrains-mono
+			brightnessctl
 			ddcutil
 			cava
 			app2unit
