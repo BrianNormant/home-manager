@@ -1,6 +1,6 @@
 spawn-at-startup "quickshell"
 spawn-at-startup "zsh" "/home/brian/.config/script/record-replay.sh"
-spawn-at-startup "caelestia scheme set --name gruvbox --variant fruitsalad --flavour soft --mode dark"
+spawn-at-startup "caelestia-shell"
 spawn-at-startup "zapzap"
 spawn-at-startup "youtube-music"
 spawn-at-startup "corectrl"
@@ -12,6 +12,13 @@ spawn-at-startup "nm-applet"
 
 environment {
 	DISPLAY ":0";
+}
+
+switch-events {
+	lid-close {
+		spawn "caelestia-shell" "ipc" "call" "lock" "lock";
+		spawn "caelestia-qs" "-p" "/home/brian/Apps/niri-caelestia-shell" "ipc" "call" "lock" "lock";
+	}
 }
 
 cursor {

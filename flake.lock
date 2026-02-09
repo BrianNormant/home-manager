@@ -219,11 +219,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1770530822,
-        "narHash": "sha256-rlRvE4KcQ6PVv5GLU/rnC2aRe4KA0nF5BkuLyeB3ADo=",
+        "lastModified": 1770601921,
+        "narHash": "sha256-zz99JZjkm6UzAjxRJAABowoTPZPTVuQbCzi+wwXACXU=",
         "owner": "BrianNormant",
         "repo": "niri-caelestia-shell",
-        "rev": "e9042b0afae0f2559e83f62e60b6895182d5c429",
+        "rev": "a2dd62f534f86ec4d2bc765e25d92905ebb79f4a",
         "type": "github"
       },
       "original": {

@@ -23,6 +23,9 @@
 
 			swaylock # unlock if the quickshell crashes
 		];
+		file = {
+			".local/state/caelestia/scheme.json".source = ../config/quickshell-scheme.json;
+		};
 	};
 	fonts.fontconfig = { enable = true; };
 }
