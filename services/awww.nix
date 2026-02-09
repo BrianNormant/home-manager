@@ -19,8 +19,7 @@
 			};
 			Service = {
 				Type = "simple";
-				ExecStart = "${pkgs.awww}/bin/awww img ${config.home.homeDirectory}/Wallpapers/.Videos/Miata.gif";
-				Restart = "never";
+				ExecStart = "${pkgs.awww}/bin/awww img ${config.home.homeDirectory}/Wallpapers/.Videos/Night_Drive.gif";
 			};
 			Install.WantedBy = ["graphical-session.target"];
 		};

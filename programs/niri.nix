@@ -14,7 +14,7 @@
 
 	home.packages = with pkgs; [
 		xwayland-satellite
-		swaybg swww
+		swww awww
 		hyprpicker
 
 		# fzf based control scripts
