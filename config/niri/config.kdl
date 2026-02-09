@@ -126,6 +126,11 @@ layer-rule {
 	place-within-backdrop true
 }
 
+layer-rule {
+	match namespace="^awww-daemon$"
+	place-within-backdrop false
+}
+
 overview {
 	workspace-shadow {
 		// off

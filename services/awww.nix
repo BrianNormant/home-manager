@@ -1,25 +1,25 @@
 {pkgs, config, ...}: {
 	systemd.user.services = {
-		swww = {
+		awww = {
 			Unit = {
-				Description = "swww";
+				Description = "awww";
 				After = ["graphical-session.target"];
 			};
 			Service = {
 				Type = "simple";
-				ExecStart = "${pkgs.swww}/bin/swww-daemon";
+				ExecStart = "${pkgs.awww}/bin/awww-daemon";
 				Restart = "always";
 			};
 			Install.WantedBy = ["graphical-session.target"];
 		};
-		swww-gif = {
+		awww-gif = {
 			Unit = {
-				Description = "swww-gif";
-				After = ["swww.service"];
+				Description = "awww-gif";
+				After = ["awww.service"];
 			};
 			Service = {
 				Type = "simple";
-				ExecStart = "${pkgs.swww}/bin/swww img ${config.home.homeDirectory}/Wallpapers/.Videos/Miata.gif";
+				ExecStart = "${pkgs.awww}/bin/awww img ${config.home.homeDirectory}/Wallpapers/.Videos/Miata.gif";
 				Restart = "never";
 			};
 			Install.WantedBy = ["graphical-session.target"];
