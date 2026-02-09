@@ -251,10 +251,9 @@ binds {
 	Mod+B allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "bluetuith"; }
 	Control+Shift+Escape allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
 	Mod+Grave allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "rpn"; }
-	// TODO write a wrapper to control cmus with fzf
+	Mod+Alt+W allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-wallpaper.sh"; }
 	Mod+M allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "cmus"; }
 	Mod+Alt+M allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-cmus.sh"; }
-	// TODO man pages search and viewer
 	Mod+K allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-man.sh"; }
 	// TODO controller for niri
 	Mod+N allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-niri.sh"; }
