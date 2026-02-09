@@ -504,11 +504,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1770531007,
-        "narHash": "sha256-cGpFA2jeJ3fULADZhkkJsIuuggfzowjV2Bwd2FsirS8=",
+        "lastModified": 1770603090,
+        "narHash": "sha256-roP9ps7WSEC4r6UlELVZdx9Ld621fcF3BAbtXJBnQ64=",
         "owner": "BrianNormant",
         "repo": "nvim-cat",
-        "rev": "fb555fac9ea51e154167bb3388422556bbe59ff8",
+        "rev": "284d67772c8b0dab5e9a4ea9e0225c4aa508f438",
         "type": "github"
       },
       "original": {
