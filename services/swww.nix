@@ -21,7 +21,6 @@
 				Type = "simple";
 				ExecStart = "${pkgs.swww}/bin/swww img ${config.home.homeDirectory}/Wallpapers/.Videos/Miata.gif";
 			};
-			Install.WantedBy = ["graphical-session.target"];
 		};
 	};
 }
