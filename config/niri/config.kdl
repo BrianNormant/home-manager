@@ -16,8 +16,7 @@ environment {
 
 switch-events {
 	lid-close {
-		spawn "caelestia-shell" "ipc" "call" "lock" "lock";
-		spawn "caelestia-qs" "-p" "/home/brian/Apps/niri-caelestia-shell" "ipc" "call" "lock" "lock";
+		spawn "zsh" "-c" "caelestia-shell ipc call lock lock || caelestia-qs -p /home/brian/Apps/niri-caelestia-shell ipc call lock lock";
 	}
 }
 
