@@ -257,11 +257,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1770601921,
-        "narHash": "sha256-zz99JZjkm6UzAjxRJAABowoTPZPTVuQbCzi+wwXACXU=",
+        "lastModified": 1770946164,
+        "narHash": "sha256-w62M5yMwzyFIvJqffZ71d9OyHKeftMNYltN/p8mgNqs=",
         "owner": "BrianNormant",
         "repo": "niri-caelestia-shell",
-        "rev": "a2dd62f534f86ec4d2bc765e25d92905ebb79f4a",
+        "rev": "498e6bef9d760c9a248027be5f0c8b3dfad13f2a",
         "type": "github"
       },
       "original": {
@@ -542,11 +542,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1770613955,
-        "narHash": "sha256-saNwJunxg96QPKgulFB8D9AS5oQUDyBANc0VyZq/q/o=",
+        "lastModified": 1770947396,
+        "narHash": "sha256-PbJ1lfNuojHwWG+3Wj0vV58DwWUaqYUcXQh/2SDnKb0=",
         "owner": "BrianNormant",
         "repo": "nvim-cat",
-        "rev": "1f9d7483be53c57bbcc47f5c2535ac09d91a832a",
+        "rev": "ad978db9581ef995a816cfd2b3d9d940cfc08dd4",
         "type": "github"
       },
       "original": {
