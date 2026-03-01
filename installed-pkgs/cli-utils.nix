@@ -35,4 +35,8 @@ pgks: with pgks; [
 	duf
 	delta
 	ov
+
+	# for logitech wheel
+	usb-modeswitch
+	oversteer
 ]
