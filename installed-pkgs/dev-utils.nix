@@ -1,5 +1,5 @@
 pgks: with pgks; [
 	nspire-tools
 	winetricks
-	wine64
+	wineWow64Packages.waylandFull
 ]
