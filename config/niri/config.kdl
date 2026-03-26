@@ -275,6 +275,8 @@ binds {
 	XF86AudioStop allow-inhibiting=false { spawn "playerctl" "-a" "stop"; }
 	XF86AudioNext allow-inhibiting=false { spawn "playerctl" "-a" "next"; }
 	XF86AudioPrev allow-inhibiting=false { spawn "playerctl" "-a" "previous"; }
+	XF86AudioForward allow-inhibiting=false { spawn "playerctl" "-a" "position" "5+" ; }
+	XF86AudioRewind allow-inhibiting=false { spawn "playerctl" "-a" "position" "5-" ; }
 	XF86AudioRaiseVolume allow-inhibiting=false { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%+"; }
 	XF86AudioLowerVolume allow-inhibiting=false { spawn "wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"; }
 	XF86AudioMute allow-inhibiting=false { spawn "wpctl" "set-mute" "@DEFAULT_SINK@" "toggle"; }
