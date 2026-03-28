@@ -22,6 +22,10 @@
 			url = "git+https://codeberg.org/LGFae/awww";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		walker = {
+			url = "git+https://github.com/abenz1267/walker";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 	outputs = inputs@{ nixpkgs, home-manager, ... }:
 		let
@@ -63,6 +67,7 @@
 	programs-modules = pkgs.lib.filesystem.listFilesRecursive ./programs;
 	services-modules = pkgs.lib.filesystem.listFilesRecursive ./services;
 	modules = with inputs; [
+		(_: {imports = [ inputs.walker.homeManagerModules.default ];})
 		./home.nix
 		./homeconfig.nix
 	] ++ programs-modules ++ services-modules;
