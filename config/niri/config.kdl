@@ -240,15 +240,16 @@ binds {
 	Mod+Alt+T allow-inhibiting=false { spawn "kitty" "--class" "PopUp" "tmux" "new" "-A" "-s" "PopUp"; }
 	Mod+E allow-inhibiting=false { spawn "neovide"; }
 	Mod+Alt+E allow-inhibiting=false { spawn "thunar"; }
-	Mod+V allow-inhibiting=false { spawn "copyq" "toggle"; }
+	Mod+V allow-inhibiting=false { spawn "walker" "-m" "clipboard"; }
 	Mod+I allow-inhibiting=false { spawn "firefox"; }
 	Mod+Shift+I allow-inhibiting=false { spawn "firefox" "-private-window"; }
+	Mod+B allow-inhibiting=false { spawn "walker" "-m" "bluetooth"; }
 
 	// TUI utilities
 	Mod+S allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "systemd-manager-tui"; }
 	Mod+W allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "vim -p Documents/TODO-stack.md Documents/Neovim-TIL.md Documents/Tips.md"; }
 	Mod+P allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "pulsemixer"; }
-	Mod+B allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "bluetuith"; }
+	Mod+Alt+B allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "bluetuith"; }
 	Control+Shift+Escape allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "btop" "30" "130"; }
 	Mod+Grave allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "rpn"; }
 	Mod+Alt+W allow-inhibiting=false { spawn "~/.local/bin/panel.sh" "fzf-wallpaper.sh"; }

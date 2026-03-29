@@ -39,4 +39,6 @@ pgks: with pgks; [
 	# for logitech wheel
 	usb-modeswitch
 	oversteer
+
+	sqlite
 ]

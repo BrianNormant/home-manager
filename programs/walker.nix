@@ -3,22 +3,17 @@
 		walker = {
 			enable = true;
 			runAsService = true;
-			# systemd.enable = true;
-			# settings = {
-			# 	# theme = "gruvbox";
-			# 	as_window = false;
-			# 	builtins = {
-			# 		applications = {
-			# 			actions = { enabled = true; };
-			# 			show_generic = true;
-			# 			refresh = true;
-			# 			weight = 10;
-			# 		};
-			# 		calc = {
-			# 			min_chars = 3; # 2+2
-			# 		};
-			# 	};
-			# };
+			config = {
+				providers = {
+					default = [
+						"desktopapplications"
+						"providerlist"
+						"calc"
+						"runner"
+						"websearch" "bookmarks"
+					];
+				};
+			};
 		};
 	};
 	home.file = {
