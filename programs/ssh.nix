@@ -32,6 +32,10 @@
 				hostname = "10.11.99.1";
 				port = 22;
 				user = "root";
+				extraOptions = {
+					"StrictHostKeyChecking" = "no";
+					"UserKnownHostsFile" = "/dev/null";
+				};
 			};
 		};
 	};
