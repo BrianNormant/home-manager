@@ -7,7 +7,7 @@
 			};
 			Service = {
 				Type = "simple";
-				ExecStart = "${pkgs.swww}/bin/swww-daemon";
+				ExecStart = "${pkgs.awww}/bin/awww-daemon --namespace bg";
 				Restart = "always";
 			};
 			Install.WantedBy = ["graphical-session.target"];
@@ -19,7 +19,7 @@
 			};
 			Service = {
 				Type = "simple";
-				ExecStart = "${pkgs.swww}/bin/swww img ${config.home.homeDirectory}/Wallpapers/.Videos/Miata.gif";
+				ExecStart = "${pkgs.awww}/bin/awww img --namespace bg ${config.home.homeDirectory}/Wallpapers/.Videos/Miata.gif";
 			};
 		};
 	};
