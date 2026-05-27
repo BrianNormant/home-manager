@@ -2,40 +2,38 @@
 	programs.ssh = {
 		enable = true;
 		enableDefaultConfig = false;
-		matchBlocks = {
+		settings = {
 			"BrianNixDesktop" = {
-				hostname = "192.168.2.71";
-				port = 4269;
-				user = "brian";
+				HostName = "192.168.2.71";
+				Port = 4269;
+				User = "brian";
 			};
 			"BrianNixDesktopI" = {
-				hostname = "ggkbrian.com";
-				port = 4269;
-				user = "brian";
+				HostName = "ggkbrian.com";
+				Port = 4269;
+				User = "brian";
 			};
 			"BrianNixServer" = {
-				hostname = "192.168.2.72";
-				port = 22;
-				user = "server";
+				HostName = "192.168.2.72";
+				Port = 22;
+				User = "server";
 			};
 			"RootNixServer" = {
-				hostname = "192.168.2.72";
-				port = 22;
-				user = "root";
+				HostName = "192.168.2.72";
+				Port = 22;
+				User = "root";
 			};
 			"BrianNixLaptop" = {
-				hostname = "192.168.2.73";
-				port = 4269;
-				user = "brian";
+				HostName = "192.168.2.73";
+				Port = 4269;
+				User = "brian";
 			};
 			"Remarkable" = {
-				hostname = "10.11.99.1";
-				port = 22;
-				user = "root";
-				extraOptions = {
-					"StrictHostKeyChecking" = "no";
-					"UserKnownHostsFile" = "/dev/null";
-				};
+				HostName = "10.11.99.1";
+				Port = 22;
+				User = "root";
+				StrictHostKeyChecking = "no";
+				UserKnownHostsFile = "/dev/null";
 			};
 		};
 	};
