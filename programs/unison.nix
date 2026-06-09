@@ -23,6 +23,12 @@
 				];
 				stateDirectory = "${config.xdg.dataHome}/unison/Wallpapers";
 			};
+			"Livres" = {
+				roots = [
+					"/home/brian/Livres"
+					"ssh://BrianNixDesktopI//home/brian/Livres"
+				];
+			};
 			"Prog" = {
 				roots = [
 					"/home/brian/Prog"

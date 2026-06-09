@@ -49,5 +49,7 @@ in
 			{name = "miku"      ; uuid = "PL_vUk3T5tDsszjAAphvdCz7z6SCu6A5E6";};
 		music-sync-nightcore = mkMusicPlaylistSync
 			{name = "nightcore" ; uuid = "PL5qXa9xbuolOlZAMvPQBL6i5CnxR8ctvm";};
+		music-sync-maman = mkMusicPlaylistSync
+			{name = "maman"     ; uuid = "PLv0_aZ6WM5Af7o8k8mHWIrsRutXdq2nRD";};
 	};
 }
