@@ -4,7 +4,7 @@
 	stdenvNoCC,
 	makeDesktopItem,
 	copyDesktopItems,
-	wineWowPackages,
+	wine64Packages,
 	runtimeShell,
 	...
 }:
@@ -15,7 +15,7 @@ let
 		hash = "sha256-eMIuTq7Qc02qSbdubP5WHHsePP+ooBWwNrcprqdgCF8=";
 	};
 	# We need at least wine 10.17
-	wine = wineWowPackages.unstable;
+	wine = wine64Packages.waylandFull;
 in stdenvNoCC.mkDerivation rec {
 		pname = "reMarkable";
 		# to check for new version, curl (no redirect) https://downloads.remarkable.com/latest/windows
