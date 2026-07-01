@@ -16,7 +16,7 @@ zle -N edit-command-line
 bindkey -M vicmd "^X" edit-command-line
 bindkey -M viins "^X" edit-command-line
 zvm_after_init() {
-	bindkey "^X" history-incremental-pattern-search-backward
+	bindkey "^R" fzf_history_search
 }
 
 function playerctl() {
