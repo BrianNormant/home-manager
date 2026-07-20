@@ -28,6 +28,7 @@
 					"/home/brian/Livres"
 					"ssh://BrianNixDesktopI//home/brian/Livres"
 				];
+				stateDirectory = "${config.xdg.dataHome}/unison/Livres";
 			};
 			"Prog" = {
 				roots = [
