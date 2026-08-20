@@ -311,4 +311,13 @@ layout {
 		proportion 0.75
 		proportion 1.00
 	}
+	focus-ring {
+		off
+	}
+	border {
+		on
+		width 4
+		active-color "#d79921"
+		inactive-color "#32302F"
+	}
 }
