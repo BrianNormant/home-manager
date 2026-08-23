@@ -20,6 +20,7 @@ pgks: with pgks; [
 	evil-helix
 	neovide
 	nvim vim vi
+	img2pdf
 
 	# music
 	cmus
