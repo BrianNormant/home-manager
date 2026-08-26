@@ -21,6 +21,7 @@ pgks: with pgks; [
 	neovide
 	nvim vim vi
 	img2pdf
+	imagemagick
 
 	# music
 	cmus
