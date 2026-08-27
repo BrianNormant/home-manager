@@ -1,4 +1,4 @@
-spawn-at-startup "quickshell"
+spawn-at-startup "vibepanel"
 spawn-at-startup "zsh" "/home/brian/.config/script/record-replay.sh"
 spawn-at-startup "caelestia-shell"
 spawn-at-startup "zapzap"
@@ -14,11 +14,7 @@ environment {
 	DISPLAY ":0";
 }
 
-switch-events {
-	lid-close {
-		spawn "zsh" "-c" "caelestia-shell ipc call lock lock || caelestia-qs -p /home/brian/Apps/niri-caelestia-shell ipc call lock lock";
-	}
-}
+switch-events {}
 
 cursor {
 	hide-when-typing
@@ -179,7 +175,6 @@ output "HDMI-A-1" {
 binds {
 	Mod+Shift+Q allow-inhibiting=false { quit; }
 	Mod+Tab allow-inhibiting=false {toggle-overview; }
-	// Quickshell lockscreen will often crash after a while.
 	// This allows to use swaylock to avoid opening another tty with Ctrl-Alt-2
 	Mod+Alt+L allow-inhibiting=false allow-when-locked=true { spawn "swaylock"; }
 

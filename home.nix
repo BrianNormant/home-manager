@@ -34,6 +34,9 @@ in {
 
 		# Helix
 		".config/helix/config.toml".source = ./config/helix/config.toml;
+
+		# Vibepanel
+		".config/vibepanel/config.toml".source = ./config/vibepanel/config.toml;
 	};
 
 	# ----------------------------------[ Theming ]-----------------------------------

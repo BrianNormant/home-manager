@@ -14,16 +14,16 @@
 		nvim-cat = {
 			url = "github:BrianNormant/nvim-cat";
 		};
-		niri-caelestia = {
-			url = "github:BrianNormant/niri-caelestia-shell";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
 		awww = {
 			url = "git+https://codeberg.org/LGFae/awww";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		walker = {
 			url = "git+https://github.com/abenz1267/walker";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		vibepanel = {
+			url = "github:prankstr/vibepanel";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
@@ -54,14 +54,13 @@
 						)
 				);
 			})
+			inputs.vibepanel.overlays.default
 			inputs.nixpkgs-xr.overlays.default
 			inputs.autoeq.overlays.default
 			inputs.nvim-cat.overlays.default
 			inputs.awww.overlays.default # This is stupid but it makes it able to have 2 of the same
 			# wallpaper engine on the niri backdrop (overview) and as regular background
 			(f: p: {nspire-tools    = inputs.nspire-tools.packages."${system}".default;})
-			(f: p: {caelestia-shell = inputs.niri-caelestia.packages."${system}".default;})
-			(f: p: {caelestia-qs = inputs.niri-caelestia.packages."${system}".quickshell-p;})
 			];
 	};
 	programs-modules = pkgs.lib.filesystem.listFilesRecursive ./programs;

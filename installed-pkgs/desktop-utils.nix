@@ -6,4 +6,5 @@ pgks: with pgks; [
 	tridactyl-native
 	copyq
 	thunar
+	vibepanel
 ]

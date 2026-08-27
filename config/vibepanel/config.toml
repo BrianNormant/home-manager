@@ -1,0 +1,150 @@
+# =============================================================================
+# vibepanel Configuration
+# =============================================================================
+#
+# Minimal starter config. For all available options, see:
+# https://github.com/prankstr/vibepanel/blob/main/docs/configuration.md
+#
+# Commands:
+#   vibepanel --check-config         Validate configuration
+#   vibepanel --print-example-config Print this example config
+#
+# =============================================================================
+
+[bar]
+position = "left"         # "top", "bottom", "left", or "right"
+size = 32
+border_radius = 30
+background_opacity = 0.0 # 0.0 = transparent (islands), 1.0 = solid
+# outline = true         # Override theme.outline for the bar (omit = inherit)
+
+[widgets]
+left = ["workspaces", "window_title"]
+center = ["media"]
+right = [
+  "tray",
+  "updates",
+  "cpu",
+  "quick_settings",
+  "battery",
+  "clock",
+  "notifications",
+]
+border_radius = 40
+background_opacity = 1.0
+# popover_background_opacity = 0.9  # Override popover opacity (default: max of bar and widget opacity)
+# outline = true                    # Override theme.outline for widgets (omit = inherit)
+
+# Per-widget options use [widgets.<name>] sections.
+# Example:
+#   [widgets.clock]
+#   format = "%H:%M"
+#   show_weather = true # Embed weather content in the clock/calendar popover
+#   calendar_events = false # Disable automatic DankCalendar event discovery
+#   # When "clock" and "weather" are in the same explicit group, they merge
+#   # into one calendar/weather button unless show_weather = false is set.
+#   outline_color = "accent"  # Per-widget outline color: "subtle" | "accent" | "foreground" | "#rrggbb"
+#
+#   [widgets.battery]
+#   disabled = true
+#   alerts = true
+#   low_threshold = 20
+#   critical_threshold = 5
+#
+#   [widgets.quick_settings]
+#   # shutdown_command = "loginctl poweroff"
+#   # reboot_command = "loginctl reboot"
+#   # suspend_command = "loginctl suspend"
+#   # lock_command = "loginctl lock-session"
+#   # logout_command = "niri msg action quit"  # unset/empty = compositor IPC logout
+#   # remember_expanded_state = true  # Keep cards expanded across panel close/open
+#
+#   [widgets.media]
+#   visualizer = true  # Enable/disable cava audio visualizer (default: true)
+#
+#   [widgets.cpu]
+#   stable_width = false # Disable width stabilization; default stabilizes common 2-digit metric values
+#   # Also supported by [widgets.memory] and [widgets.gpu]
+#
+#   [widgets.gpu]
+#   devices = "auto"  # "auto" (default), "all", or zero-based indices such as [0, 1]
+#   # "all" checks every GPU while the GPU widget or system popover is active. Runtime-suspended
+#   # GPUs skip vendor polling, but active secondary GPUs are queried and may use more power than "auto".
+#
+#   [widgets.notifications]
+#   toast_position = "top-right"  # "top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"
+#
+#   [widgets.mango_layout]
+#   # Mango-only per-output layout chooser. Add "mango_layout" to a widget section above.
+#   show_icon = true
+#   show_label = true
+#   # Selecting from another output focuses that output before changing its active tag layout.
+#   layouts = ["tile", "scroller", "grid", "monocle", "dwindle"]
+#
+# Custom widgets use the "custom-" prefix for user-defined buttons:
+#   right = ["custom-os", "tray", "clock"]
+#
+#   [widgets.custom-os]
+#   image = "/usr/share/pixmaps/distro-logo.svg"  # file path (PNG, SVG, etc.)
+#   tooltip = "My Distro"
+#
+#   [widgets.custom-weather]
+#   exec = "curl -s 'wttr.in/?format=1'"
+#   template = " {output}"
+#   interval = 600
+#   on_click = "xdg-open https://wttr.in"
+#   tooltip = "Weather"
+#   max_chars = 30
+#
+# See documentation for all widget options.
+
+[theme]
+mode = "auto" # "auto", "dark", "light", "gtk"
+#               "auto" = wallpaper-adaptive theming
+#               (detects from hyprpaper, awww/swww, wpaperd, waypaper)
+#scheme = "dark" # Material You polarity: "dark", "light", or "gtk" (auto mode only)
+#                  "gtk" follows your GTK/system dark or light preference;
+#                  if no preference is set, it's derived from wallpaper luminance
+#wallpaper = "/path/to/image.png"  # Explicit wallpaper for auto mode (default: auto-detect)
+#accent = "#adabe0" # "gtk", "none", or hex color (overrides wallpaper accent in auto mode)
+#animations = true  # Enable/disable all CSS transitions and animations
+#ripple = true      # Enable/disable Material Design ripple effect on click
+#blur = false       # Enable compositor blur via ext-background-effect-v1 (requires niri with blur)
+#outline = false             # Decorative outline on bar, widgets, and surfaces (CSS border)
+#outline_width = 1           # Outline width in pixels (0..=4; 0 disables visibly)
+#outline_color = "accent"    # "subtle" | "accent" | "foreground" | "#rrggbb"
+#outline_opacity = 1.0        # 0.0 = transparent, 1.0 = opaque
+
+[theme.typography]
+# font_family = "monospace" # Empty string inherits the system font
+# font_scale = 0.6          # Text size as a multiplier of widget height
+
+[theme.icons]
+theme = "material" # "material" or "gtk"
+weight = 400       # Material icon stroke weight (100-700)
+
+[osd]
+enabled = true
+position = "bottom" # "bottom", "top", "left", "right"
+show_value = false  # Show current value after the bar
+
+[audio]
+# Allow output and microphone volume over 100% (over-amplification), capped at PulseAudio's recommended UI max.
+allow_overdrive = false
+
+[weather]
+# Shared weather data settings for the weather widget and weather-enabled surfaces.
+auto_locate = true # Use GeoClue/IP fallback when no location or coordinates are configured.
+# location = "Berlin"
+# latitude = 52.5200
+# longitude = 13.4050
+# units = "metric"       # "metric" or "imperial"
+# refresh_interval = 900  # Seconds; minimum 600
+
+[advanced]
+compositor = "niri"  # "auto", "hyprland", "niri", "mango", "sway", "miracle", "scroll"
+
+# Custom CSS: place style.css in same directory as this file. Relative @import
+# paths resolve from the importing stylesheet, and imported files hot-reload.
+# GTK does not expand ~ in import paths.
+# See documentation for available CSS variables and classes.
