@@ -15,14 +15,14 @@ let
 		hash = "sha256-eMIuTq7Qc02qSbdubP5WHHsePP+ooBWwNrcprqdgCF8=";
 	};
 	# We need at least wine 10.17
-	wine = wine64Packages.waylandFull;
+	wine = wine64Packages.stagingFull;
 in stdenvNoCC.mkDerivation rec {
 		pname = "reMarkable";
 		# to check for new version, curl (no redirect) https://downloads.remarkable.com/latest/windows
-		version = "3.24.1.1174";
+		version = "3.28.1.1666";
 		src = fetchurl {
 			url = "https://downloads.remarkable.com/desktop/production/win/reMarkable-${version}-win64.exe";
-			hash = "sha256-7F+6+Er/j4rcnyjVp5eAKGE9vGWD+dfXmjAPm4HhOpk=";
+			hash = "sha256-awSiPOH0Yi7SsAiJknmb5xBxonUHccg/jffiEv93ej0=";
 		};
 
 		desktopItems = [
@@ -55,7 +55,7 @@ export PATH=${wine}/bin:$PATH
 export WINEARCH=win64
 export WINEPREFIX="''${REMARKABLE_HOME:-"''${XDG_DATA_HOME:-"''${HOME}/.local/share"}/remarkable"}/wine"
 export RM_WINE_EXE="''${WINEPREFIX}/drive_c/Program Files/reMarkable/reMarkable.exe"
-export WINEDLLOVERRIDES="mscoree="
+# export WINEDLLOVERRIDES="mscoree="
 if [ ! -d "$WINEPREFIX" ] || [ ! -f "$RM_WINE_EXE" ]; then
 	# The has a bad install or has not been executed yet
 	mkdir -p "$WINEPREFIX"
