@@ -22,6 +22,9 @@
 					followTags = "true";
 					default = "upstream"; # Push to the tracked branch (see with git branch -vv)
 				};
+				pull = {
+					rebase = "true";
+				};
 				merge.tool = "nvim -c \"Git mergetool\"";
 				merge.conflictstyle = "diff3";
 				commit.verbose = true;
