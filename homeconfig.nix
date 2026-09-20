@@ -22,14 +22,27 @@
 		portal = {
 			enable = true;
 			xdgOpenUsePortal = true;
-			config.common.default = "gnome";
+			config.common.default = "gtk";
 			extraPortals = with pkgs; [
-				xdg-desktop-portal-gnome
 				xdg-desktop-portal-gtk
+				xdg-desktop-portal-gnome
 			];
 		};
-		mime = {
+		mime = { enable = true; };
+		mimeApps = {
 			enable = true;
+			defaultApplications = {
+				"inode/directory" = [ "thunar.desktop" ];
+				"x-scheme-handler/http" = [ "firefox.desktop" ];
+				"x-scheme-handler/https" = [ "firefox.desktop" ];
+				"application/pdf" = [ "firefox.desktop" ];
+				"text/html" = [ "firefox.desktop" ];
+				"text/plain" = [ "neovide.desktop" ];
+				"text/x-c++src" = [ "neovide.desktop" ];
+				"text/x-qml" = [ "neovide.desktop" ];
+				"text/x-lua" = [ "neovide.desktop" ];
+				"image/gif" = [ "gimp.desktop" ];
+			};
 		};
 		desktopEntries = {
 			vifmtmux = {
@@ -41,7 +54,6 @@
 				mimeType = [ "inode/directory" ];
 			};
 		};
-		configFile."mimeapps.list".source = ./config/mimeapps.list;
 		configFile."script/vifmtmux.sh".source = ./script/vifmtmux.sh;
 		terminal-exec = {
 			enable = true;
