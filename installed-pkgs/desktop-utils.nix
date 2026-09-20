@@ -1,6 +1,6 @@
 pgks: with pgks; [
 	overskride
-	networkmanagerapplet
+	# networkmanagerapplet
 	pavucontrol
 	zafiro-icons
 	tridactyl-native
