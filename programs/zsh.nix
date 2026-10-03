@@ -58,6 +58,8 @@ in
 			glog = "git log --all --graph --decorate=short --color --pretty=format:'%C(bold 214)%<(7,trunc)%h%C(reset)^%C(dim white)%>(12,trunc)%cr%C(reset)^%C(auto)%>(15,trunc)%D%C(reset)^%C(white)%<(80,trunc)%s%C(reset)' | column -t -s ^";
 			gloga = "git log --all --graph --decorate=short --color --pretty=format:'^%C(dim white)%>(12,trunc)%cr%C(reset)^%C(cyan)%<(10,trunc)%cs%C(reset)^%C(bold 214)%<(7,trunc)%h%C(reset)^%C(auto)%<(15,trunc)%D%C(reset)^%C(white)%s%C(reset)' | column -t -s ^";
 			chat = "nvim +CodeCompanionChat +'exe \"normal! \\<c-w>T\"' ";
+			de = "devenv shell";
+			d = "devenv";
 		};
 		plugins = map toPlugin selected-zsh-plugins;
 		initContent = ''
@@ -67,7 +69,7 @@ ${builtins.readFile ../config/zshrc}
 		'';
 	};
 	home = {
-		packages = builtins.map ({pkg, ...}: pkg) selected-zsh-plugins;
+		packages = map ({pkg, ...}: pkg) selected-zsh-plugins;
 		file.".p10k.zsh".source = ../config/.p10k.zsh;
 	};
 }
