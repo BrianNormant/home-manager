@@ -12,6 +12,26 @@
 		"niri".source = ../config/niri;
 	};
 
+	programs = {
+		swaylock = {
+			enable = true;
+			settings = {
+				image = "/home/brian/Wallpapers/106.jpg";
+				indicator-idle-visible = true;
+			};
+		};
+	};
+
+	services = {
+		swayidle = {
+			enable = true;
+			events = {
+				before-sleep = "${pkgs.swaylock}/bin/swaylock";
+				lock = "${pkgs.swaylock}/bin/swaylock";
+			};
+		};
+	};
+
 	home.packages = with pkgs; [
 		xwayland-satellite
 		swww awww
