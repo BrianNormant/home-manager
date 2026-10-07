@@ -479,11 +479,25 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1791754770,
         "narHash": "sha256-I0IWdGfid0gg0vaqt5RafIaeCwfFc2F8ojj0JNxPo9k=",
+||||||| parent of 555c799 (update zsh config)
+        "lastModified": 1790976598,
+        "narHash": "sha256-+z34emevsEs9CHwqPazxfhCLJH9N+R8eVuiaiMl5t2w=",
+=======
+        "lastModified": 1791413591,
+        "narHash": "sha256-IYWET7HeEnRlofsjNSIPkuthLMPtrmyXqWIErjzn1Yg=",
+>>>>>>> 555c799 (update zsh config)
         "owner": "BrianNormant",
         "repo": "nvim-cat",
+<<<<<<< HEAD
         "rev": "9975164dad61d89a045b724d1c826171730efcff",
+||||||| parent of 555c799 (update zsh config)
+        "rev": "1e51acdd879b508203edf434877da07ea3ddb7bd",
+=======
+        "rev": "e6558da1ff886a176740a28cf5910006c4c8b8e8",
+>>>>>>> 555c799 (update zsh config)
         "type": "github"
       },
       "original": {
