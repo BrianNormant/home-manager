@@ -28,6 +28,7 @@
 				merge.tool = "nvim -c \"Git mergetool\"";
 				merge.conflictstyle = "diff3";
 				commit.verbose = true;
+				rerere.enabled = true;
 			};
 			hooks = {
 				# TODO: pre commit to force commit message to match:
