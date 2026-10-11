@@ -15,10 +15,6 @@
 	programs = {
 		swaylock = {
 			enable = true;
-			settings = {
-				image = "/home/brian/Wallpapers/106.jpg";
-				indicator-idle-visible = true;
-			};
 		};
 	};
 
@@ -26,16 +22,18 @@
 		swayidle = {
 			enable = true;
 			events = {
-				before-sleep = "${pkgs.swaylock}/bin/swaylock";
-				lock = "${pkgs.swaylock}/bin/swaylock";
+				before-sleep = "${pkgs.swaylock-fancy}/bin/swaylock-fancy";
+				lock = "${pkgs.swaylock-fancy}/bin/swaylock-fancy";
 			};
 		};
 	};
 
 	home.packages = with pkgs; [
 		xwayland-satellite
-		swww awww
+		awww
+		swaylock-fancy
 		hyprpicker
+		grim
 
 		# fzf based control scripts
 		(writeScriptBin "fzf-cmus.sh" (callPackage ../script/fzf-cmus.nix {}) )
