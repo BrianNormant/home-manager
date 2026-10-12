@@ -479,11 +479,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1791754770,
-        "narHash": "sha256-I0IWdGfid0gg0vaqt5RafIaeCwfFc2F8ojj0JNxPo9k=",
+        "lastModified": 1791777876,
+        "narHash": "sha256-Du6fdBZSlOA6uDYkeNL82e08XD/d8awWR08Ot2k2JCs=",
         "owner": "BrianNormant",
         "repo": "nvim-cat",
-        "rev": "9975164dad61d89a045b724d1c826171730efcff",
+        "rev": "26147da172e89f4863d28f7401d514f41fac5183",
         "type": "github"
       },
       "original": {
