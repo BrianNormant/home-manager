@@ -6,6 +6,7 @@ spawn-at-startup "youtube-music"
 spawn-at-startup "corectrl"
 spawn-at-startup "discord" "--enable-features=UseOzonePlatform" "--ozone-platform-hint=auto" "--start-minimized"
 spawn-at-startup "steam" "-silent"
+spawn-at-startup "digup" // TODO spawn this silently
 
 // TODO: auth agent
 
@@ -104,6 +105,13 @@ window-rule {
 }
 
 window-rule {
+	match app-id="digup-shell"
+	open-floating true
+	default-window-height { proportion 0.75; }
+	default-column-width { proportion 0.75; }
+}
+
+window-rule {
 	match app-id="(com.github.hluk.copyq)"
 	open-floating true
 	default-floating-position x=20 y=20 relative-to="top-right"
@@ -194,7 +202,7 @@ binds {
 	Mod+WheelScrollDown allow-inhibiting=false { focus-column-right; }
 	Mod+Up allow-inhibiting=false { focus-window-up; }
 	Mod+Down allow-inhibiting=false { focus-window-down; }
-	Mod+Shift+Space allow-inhibiting=true { switch-focus-between-floating-and-tiling; }
+	// Mod+Shift+Space allow-inhibiting=true { switch-focus-between-floating-and-tiling; }
 
 	// Move window in workspace
 	Mod+Shift+Left allow-inhibiting=false { move-column-left-or-to-monitor-left; }
@@ -228,6 +236,7 @@ binds {
 	Mod+Alt+Right allow-inhibiting=true { focus-monitor-right; }
 
 	// Applications
+	Mod+Shift+Space allow-inhibiting=false { spawn "digup"; }
 	Mod+Return allow-inhibiting=false { spawn "kitty"; }
 	Mod+Alt+Return allow-inhibiting=false { spawn "cool-retro-term"; }
 	Mod+T allow-inhibiting=false { spawn "~/.local/bin/panel.sh"; }
