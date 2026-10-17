@@ -1,9 +1,9 @@
 {pkgs, ...}:pkgs.rmapi.overrideAttrs (old: rec {
-	version = "v0.0.35";
+	version = "aa60dac";
 	src = pkgs.fetchFromGitHub {
 		owner = "ddvk";
 		repo = "rmapi";
 		rev = "${version}";
-		hash = "sha256-mRJH0fQ8e4igR7IwcJdvUhrZDXvpTt/Dac7Pc9p7ITw=";
+		hash = "sha256-AP6ba2lUZAAowtmX52zC97HI8U9nvbd8HyUqMqdxA2o=";
 	};
 })
