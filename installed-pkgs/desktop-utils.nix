@@ -7,4 +7,5 @@ pgks: with pgks; [
 	copyq
 	thunar
 	vibepanel
+	digup
 ]
