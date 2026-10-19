@@ -1,4 +1,3 @@
-spawn-at-startup "vibepanel"
 spawn-at-startup "zsh" "/home/brian/.config/script/record-replay.sh"
 spawn-at-startup "caelestia-shell"
 spawn-at-startup "zapzap"
